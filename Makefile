@@ -1,5 +1,5 @@
 CXX = g++
-CXXFLAGS = -Iinclude
+CXXFLAGS = -Iinclude -g -O0
 
 LIBS = -lsfml-graphics -lsfml-window -lsfml-system
 
