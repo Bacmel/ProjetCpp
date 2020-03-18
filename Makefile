@@ -1,18 +1,25 @@
 CXX = g++
-CXXFLAGS = -Iinclude -g -O0
+CXXFLAGS = -Iinclude -Wall -Wextra -g -O0
 
-LIBS = -lsfml-graphics -lsfml-window -lsfml-system
+LDFLAGS = # Paramètres : -L
+LDLIBS = -lsfml-graphics -lsfml-window -lsfml-system
 
-SRC = $(wildcard src/*.cpp)
-OBJ = $(SRC:.cpp=.o)
-BIN = jeu
+HDR = $(wildcard **/*.hpp) # Liste des fichiers d'entêtes
+SRC = $(wildcard **/*.cpp) # Liste des fichiers sources
+OBJ = $(SRC:.cpp=.o) # Liste des fichiers objets
+BIN = jeu # Nom de l'exécutable
 
 build: $(OBJ)
-	g++ -o $(BIN) $^ $(LIBS)
+	$(CXX) $(LDFLAGS) -o $(BIN) $^ $(LDLIBS)
+
+%.o: $(HDR)
 
 .PHONY: clear
 clear:
-	rm -rf src/*.o
+	rm -rf $(OBJ)
 
+.PHONY: vclear
 vclear: clear
 	rm -rf $(BIN)
+
+rebuild: vclear build
