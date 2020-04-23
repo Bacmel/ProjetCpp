@@ -8,8 +8,12 @@ namespace hex
     class Masque : public CarteHexagone<bool>
     {
     public:
-        Masque(size_t m_rayon);
+        explicit Masque(size_t rayon);
 
+        Masque(const Masque& autre) = default;
+        Masque(Masque&& autre) = default;
+        Masque& operator=(const Masque& autre) = default;
+        Masque& operator=(Masque&& autre) = default;
         virtual ~Masque();
 
         virtual Masque operator||(const Masque& autre) const;
