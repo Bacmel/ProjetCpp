@@ -1,11 +1,9 @@
 #ifndef HEROS_HPP
 #define HEROS_HPP
 
-#include <memory>
 #include <vector>
 #include "per/IPersonnage.hpp"
 #include "obj/IObjet.hpp"
-#include "hex/Coordonnees.hpp"
 
 namespace per
 {
@@ -13,79 +11,57 @@ namespace per
     class Heros : public IPersonnage
     {
     protected:
-	/** Santé du Heros et points de vie actuel */
-        size_t pvMax;
-	size_t pv;
-	/** Liste des objets detenue par le Heros */
-	vector<obj::Ptr> sac;
-	/** Position du Heros dans le donjon */
-	hex::Coordonnees coor;
+	    /** Santé du Heros et points de vie actuel */
+        size_t m_pvMax;
+	    size_t m_pv;
+	    /** Liste des objets detenue par le Heros */
+	    vector<IObjet_S> m_sac;
     public:
-	explicit Heros(size_t pvMax, hex::Coordonnees coor) : pvMax(pvMax), pv(pvMax), coor(coor)
-	{
-	    this->sac = vector<obj::Ptr>(0);
-	}
-
-	/** Fonctions de l'Interface */
-	bool estVivant() const
-	{
-	    return (bool) this->pv;
-	}
-
-        void subitAttaque(IPersonnage& source, size_t degat)
-	{
-	    if(degat>this->pv)
-	    {
-	        this->pv = 0;
+	    explicit Heros(size_t pvMax) : m_pvMax(pvMax), m_pv(pvMax)
+        {
+	        this->m_sac = vector<IObjet_S>(0);
 	    }
-	    else
+
+	    inline bool estVivant() const
 	    {
-		this->pv-=degat;
+	        return (bool) this->m_pv;
 	    }
-	}
 
-	size_t getSante() const
-	{
-	    return this->pv;
-	}
+        void subitAttaque(IPersonnage& source, size_t degat); 
 
-	size_t getSanteMax() const
-	{
-	    return this->pvMax;
-	}
-
-	/**
-	 * @brief Recupère un objet.
-	 *
-	 * @param objet l'objet.
-	 */
-	void addObjet(obj::Ptr objet)
-	{
-	    this->sac.push_back(objet);
-	}
-
-	/**
-	 * @brief Perd un objet de son inventaire.
-	 *
-	 * @param objet l'objet perdu.
-	 */
-	void rmObjet(obj::Ptr objet)
-	{
-	    auto it = std::find(this->sac.begin(), this->sac.end(), objet);
-            if(it != this->sac.end())
+    	inline size_t getSante() const
 	    {
-	        this->sac.erase(it);
+	        return this->m_pv;
 	    }
-    	}
 
-	/**
-	 * @brief Autorise l'objet à interagir avec le Heros.
-	 *
-	 * Certains item nécessite d'avoir accès aux attributs du Heros.
-	 *
-	 * @param heros le Heros
-	 */
-	friend void obj::IObjet::interaction(Heros heros);
+    	inline size_t getSanteMax() const
+	    {
+	        return this->m_pvMax;
+	    }
+
+	    /**
+	    * @brief Recupère un objet.
+	    *
+	    * @param objet l'objet.
+	    */
+	    inline void addObjet(IObjet_S objet)
+	    {
+	        this->m_sac.push_back(objet);
+	    }
+
+	    /**
+	    * @brief Perd un objet de son inventaire.
+	    *
+	    * @param objet l'objet perdu.
+	    */
+	    void rmObjet(IObjet_S objet);
+
+        /**
+        * @brief Autorise la modification de la santé max
+        *
+        * @param sante la santé à rajouter (ou à soustraire)
+        */
+        void addSanteMax(int sante);
     };
 }; // namespace per
 
