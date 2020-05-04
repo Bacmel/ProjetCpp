@@ -12,9 +12,6 @@ namespace obj
     class IObjet
     {
     public:
-        typedef std::shared_ptr<IObjet> Ptr;
-        typedef std::shared_ptr<const IObjet> ConstPtr;
-
         virtual ~IObjet() {}
 
         /**
@@ -28,6 +25,9 @@ namespace obj
          */
         virtual void utiliser(donjon::IDonjon& donjon, const hex::Coordonnees& cible) = 0;
     };
+
+    using IObjet_S = std::shared_ptr<IObjet>;
+    using IObjet_SC = std::shared_ptr<const IObjet>;
 
 }; // namespace obj
 
