@@ -15,11 +15,12 @@ namespace per
         size_t m_pvMax;
 	    size_t m_pv;
 	    /** Liste des objets detenue par le Heros */
-	    vector<IObjet_S> m_sac;
+	    std::vector<obj::IObjet_S> m_sac;
+
     public:
 	    explicit Heros(size_t pvMax) : m_pvMax(pvMax), m_pv(pvMax)
         {
-	        this->m_sac = vector<IObjet_S>(0);
+	        this->m_sac = std::vector<obj::IObjet_S>(0);
 	    }
 
 	    inline bool estVivant() const
@@ -27,7 +28,7 @@ namespace per
 	        return (bool) this->m_pv;
 	    }
 
-        void subitAttaque(IPersonnage& source, size_t degat); 
+        void subitAttaque(size_t degat); 
 
     	inline size_t getSante() const
 	    {
@@ -44,7 +45,7 @@ namespace per
 	    *
 	    * @param objet l'objet.
 	    */
-	    inline void addObjet(IObjet_S objet)
+	    inline void addObjet(obj::IObjet_S objet)
 	    {
 	        this->m_sac.push_back(objet);
 	    }
@@ -54,7 +55,7 @@ namespace per
 	    *
 	    * @param objet l'objet perdu.
 	    */
-	    void rmObjet(IObjet_S objet);
+	    void rmObjet(obj::IObjet_S objet);
 
         /**
         * @brief Autorise la modification de la santé max
