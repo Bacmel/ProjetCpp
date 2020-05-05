@@ -14,9 +14,9 @@ namespace hex
     public:
         virtual ~ICarte() = default;
 
-        virtual T& operator()(Coordonnees& c) = 0;
+        virtual T& operator()(const Coordonnees& c) = 0;
 
-        virtual const T& operator()(Coordonnees& c) const = 0;
+        virtual const T& operator()(const Coordonnees& c) const = 0;
 
         virtual void remplir(const T& valeur) = 0;
         virtual void remplir(const ICarte& source, const Coordonnees& centre) = 0;
