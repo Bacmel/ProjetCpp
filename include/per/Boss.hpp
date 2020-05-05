@@ -1,4 +1,4 @@
-#ifndef BOSS_PP
+#ifndef BOSS_HPP
 #define BOSS_HPP
 
 #include <memory>
