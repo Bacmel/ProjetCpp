@@ -44,7 +44,7 @@ namespace hex
 
         size_t getRayon() const { return m_rayon; }
 
-        virtual T& operator()(Coordonnees& c) override
+        virtual T& operator()(const Coordonnees& c) override
         {
             if (abs(c.getLigne()) > (int)m_rayon || abs(c.getColonne()) > (int)m_rayon)
             {
@@ -56,7 +56,7 @@ namespace hex
             return m_plateau[m_rayon - c.getColonne()][m_rayon - c.getLigne()];
         }
 
-        virtual const T& operator()(Coordonnees& c) const override
+        virtual const T& operator()(const Coordonnees& c) const override
         {
             if (abs(c.getLigne()) > (int)m_rayon || abs(c.getColonne()) > (int)m_rayon)
             {
