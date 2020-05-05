@@ -10,9 +10,6 @@ namespace per
     class IPersonnage
     {
     public:
-        typedef std::shared_ptr<IPersonnage> IPersonnage_S;
-        typedef std::shared_ptr<const IPersonnage> IPersonnage_SC;
-
         virtual ~IPersonnage() {}
 
         /**
@@ -49,6 +46,9 @@ namespace per
          */
         virtual size_t getSanteMax() const = 0;
    };
+
+   using IPersonnage_S = std::shared_ptr<IPersonnage>;
+   using IPersonnage_SC = std::shared_ptr<const IPersonnage>;
 
 }; // namespace per
 

@@ -11,10 +11,15 @@ namespace donjon
     class IDonjon
     {
     public:
-        typedef std::shared_ptr<IDonjon> Ptr;
-        typedef std::shared_ptr<const IDonjon> ConstPtr;
-
         virtual ~IDonjon() {}
+
+        /**
+         * @brief Invoque le personnage à la position spécifiée.
+         *
+         * @param personnage Le personnage à invoquer.
+         * @param position La position où se trouvera le joueur
+         */
+        virtual void invoquer(per::IPersonnage_S personnage, const hex::Coordonnees& position) = 0;
 
         /**
          * @brief Fait jouer à tour de rôles chaque personnage jusqu'à ce que l'un gagne.
@@ -48,16 +53,19 @@ namespace donjon
          *
          * @throw invalid_argument Quand un objet est déjà présent sur la case.
          */
-        virtual void deposer(obj::IObjet::Ptr objet, const hex::Coordonnees& position) = 0;
+        virtual void deposer(obj::IObjet_S objet, const hex::Coordonnees& position) = 0;
 
         /**
          * @brief
          *
          * @param position
-         * @return obj::IObjet::Ptr
+         * @return obj::IObjet_S
          */
-        virtual obj::IObjet::Ptr ramasser(const hex::Coordonnees& position) = 0;
+        virtual obj::IObjet_S ramasser(const hex::Coordonnees& position) = 0;
     };
+
+    using IDonjon_S = std::shared_ptr<IDonjon>;
+    using IDonjon_SC = std::shared_ptr<const IDonjon>;
 } // namespace donjon
 
 #endif // __IDONJON_H__
