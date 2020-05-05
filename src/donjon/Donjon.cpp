@@ -9,9 +9,12 @@ namespace donjon
         try
         {
             ICase_S iCase = (*m_carte)(position);
+            // TODO tester la case refus si eau
+
         }
         catch (const std::out_of_range& ex)
         {
+            throw std::invalid_argument("Coordonnees invalides");
         }
     }
     Donjon::~Donjon() {}
