@@ -13,9 +13,9 @@ SRCT = $(wildcard test/*/*.cpp)
 OBJT = $(SRCT:.cpp=.o) # Liste des fichiers objets
 TEST = test
 
-all: build test
+all: build Test
 
-test: $(OBJT)
+Test: $(OBJT)
 	$(CXX) $(LDFLAGS) -o $@ $^ 
 
 build: $(OBJ)

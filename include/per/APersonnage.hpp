@@ -17,10 +17,14 @@ namespace per
         size_t m_pvMax;
         size_t m_pv;
         
+        /** Coordonnée du Personnage */
+        hex::Coordonnees m_position;
+
         /** Identifiant Personnage */
         size_t const m_id;
+
     public:
-        APersonnage(size_t pvMax) : m_pvMax(pvMax), m_pv(pvMax), m_id(id_suivante)
+        APersonnage(size_t pvMax, hex::Coordonnees position) : m_pvMax(pvMax), m_pv(pvMax), m_position(position), m_id(id_suivante)
         {
             id_suivante++;
         }
@@ -70,11 +74,21 @@ namespace per
        /**
         * @brief Obtient l'identifiant.
         *
-        * @return size_t l'identifiant
+        * @return size_t l'identifiant.
         */
        virtual size_t getId() const
        {
            return m_id;
+       }
+
+       /**
+        * @brief Obtient la position.
+        *
+        * @return Coordonnees la position.
+        */
+       virtual hex::Coordonnees getPosition() const
+       {
+           return m_position;
        }
 
        /**
@@ -87,6 +101,24 @@ namespace per
           m_pv = pv>=m_pvMax ? m_pvMax : pv;
        }
 
+       /**
+        * @brief Redefinit la santé max.
+        *
+        * @param pvMax la nouvelle santé max.
+        */
+       virtual void setSanteMax(size_t pvMax)
+       {
+           m_pvMax = pvMax;
+       }
+
+       /**
+        * @brief Redefinit la position.
+        *
+        * @param position la nouvelle position.
+        */
+       virtual void setPosition(hex::Coordonnees position)
+       {
+           m_position
    };
 
    using APersonnage_S = std::shared_ptr<APersonnage>;

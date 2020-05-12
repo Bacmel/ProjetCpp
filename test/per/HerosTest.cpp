@@ -1,5 +1,6 @@
-#include "catch2/catch.hpp"
-#include "per/Heros.hpp"
+#define CONFIG_CATCH_MAIN
+#include "catch.hpp"
+//#include "per/Heros.hpp"
 
 TEST_CASE("Test a","Test")
 {
