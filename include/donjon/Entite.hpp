@@ -3,7 +3,7 @@
 
 #include <ostream>
 #include "hex/Coordonnees.hpp"
-#include "per/IPersonnage.hpp"
+#include "per/APersonnage.hpp"
 
 namespace donjon
 {
@@ -13,18 +13,18 @@ namespace donjon
 
         const size_t m_id;
         hex::Coordonnees m_position;
-        per::IPersonnage_S m_personnage;
+        per::APersonnage_S m_personnage;
 
     public:
-        explicit Entite(per::IPersonnage_S personnage);
+        explicit Entite(per::APersonnage_S personnage);
 
         size_t getId() const { return m_id; }
 
         const hex::Coordonnees& getPosition() const { return m_position; }
         void setPosition(const hex::Coordonnees& position) { m_position = position; }
 
-        per::IPersonnage_SC getPersonnage() const { return m_personnage; }
-        per::IPersonnage_S getPersonnage() { return m_personnage; }
+        per::APersonnage_SC getPersonnage() const { return m_personnage; }
+        per::APersonnage_S getPersonnage() { return m_personnage; }
 
         bool operator<(const Entite& autre) const;
         bool operator>(const Entite& autre) const;

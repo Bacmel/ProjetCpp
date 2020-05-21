@@ -3,7 +3,7 @@
 
 namespace donjon
 {
-    Entite::Entite(per::IPersonnage_S personnage) : m_id(idSuivante++), m_position(), m_personnage(personnage)
+    Entite::Entite(per::APersonnage_S personnage) : m_id(idSuivante++), m_position(), m_personnage(personnage)
     {
         if (personnage == nullptr) {
             throw std::invalid_argument("Pointeur nul vers un personnage");

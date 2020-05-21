@@ -3,7 +3,7 @@
 
 #include <memory>
 #include "obj/IObjet.hpp"
-#include "per/IPersonnage.hpp"
+#include "per/APersonnage.hpp"
 
 namespace donjon
 {
