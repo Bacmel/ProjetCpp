@@ -2,7 +2,7 @@
 #define HEROS_HPP
 
 #include <vector>
-#include "per/IPersonnage.hpp"
+#include "per/APersonnage.hpp"
 #include "obj/IObjet.hpp"
 
 namespace per
