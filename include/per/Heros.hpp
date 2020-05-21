@@ -1,5 +1,5 @@
-#ifndef HERO_HPP
-#define HERO_HPP
+#ifndef HEROS_HPP
+#define HEROS_HPP
 
 #include <vector>
 #include "obj/IObjet.hpp"
@@ -8,7 +8,7 @@
 namespace per
 {
 
-    class Hero : public APersonnage
+    class Heros : public APersonnage
     {
     protected:
         /** Liste des objets detenue par le Hero */
@@ -20,7 +20,7 @@ namespace per
 		 *
 		 * @param pvMax
 		 */
-        explicit Hero(size_t pvMax);
+        explicit Heros(size_t pvMax);
 
         /**
          * @brief Recupère un objet.
@@ -45,4 +45,4 @@ namespace per
     };
 }; // namespace per
 
-#endif // HERO_HPP
+#endif // HEROS_HPP
