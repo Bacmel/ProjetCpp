@@ -34,7 +34,7 @@ namespace donjon
          *
          * @throw invalid_argument Quand le déplacement est impossible.
          */
-        virtual void deplace(const per::IPersonnage& personnage, const hex::Coordonnees& position) = 0;
+        virtual void deplace(const per::APersonnage& personnage, const hex::Coordonnees& position) = 0;
 
         /**
          * @brief Endommage tous les personnages présents dans la zone.
