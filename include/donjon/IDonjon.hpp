@@ -4,7 +4,7 @@
 #include <memory>
 #include "donjon/ICase.hpp"
 #include "hex/ICarte.hpp"
-#include "per/IPersonnage.hpp"
+#include "per/APersonnage.hpp"
 
 namespace donjon
 {
@@ -19,7 +19,7 @@ namespace donjon
          * @param personnage Le personnage à invoquer.
          * @param position La position où se trouvera le joueur
          */
-        virtual void invoquer(per::IPersonnage_S personnage, const hex::Coordonnees& position) = 0;
+        virtual void invoquer(per::APersonnage_S personnage, const hex::Coordonnees& position) = 0;
 
         /**
          * @brief Fait jouer à tour de rôles chaque personnage jusqu'à ce que l'un gagne.
@@ -34,7 +34,7 @@ namespace donjon
          *
          * @throw invalid_argument Quand le déplacement est impossible.
          */
-        virtual void deplace(const per::IPersonnage& personnage, const hex::Coordonnees& position) = 0;
+        virtual void deplace(const per::APersonnage& personnage, const hex::Coordonnees& position) = 0;
 
         /**
          * @brief Endommage tous les personnages présents dans la zone.

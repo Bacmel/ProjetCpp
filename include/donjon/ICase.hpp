@@ -3,16 +3,13 @@
 
 #include <memory>
 #include "obj/IObjet.hpp"
-#include "per/IPersonnage.hpp"
+#include "per/APersonnage.hpp"
 
 namespace donjon
 {
     class ICase
     {
     public:
-        typedef std::shared_ptr<ICase> Ptr;
-        typedef std::shared_ptr<const ICase> ConstPtr;
-
         virtual ~ICase() {}
 
         /**
@@ -23,16 +20,16 @@ namespace donjon
          * @throw DepotError Quand le dépot est refusé (un objet est déjà
          *                   présent ou la case ne le permet pas).
          */
-        virtual void deposer(obj::IObjet::Ptr objet) = 0;
+        virtual void deposer(obj::IObjet_S objet) = 0;
 
         /**
          * @brief Donne l'objet et le retire.
          *
-         * @return obj::IObjet::Ptr L'objet présent sur la case.
+         * @return obj::IObjet_S L'objet présent sur la case.
          *
          * @throw SansObjetError Quand la case n'a pas d'objet.
          */
-        virtual obj::IObjet::Ptr ramasser() = 0;
+        virtual obj::IObjet_S ramasser() = 0;
 
         /**
          * @brief Obtient l'objet déposé.
@@ -43,6 +40,9 @@ namespace donjon
          */
         virtual const obj::IObjet& getObjet() const = 0;
     };
+
+    using ICase_S = std::shared_ptr<ICase>;
+    using ICase_SC = std::shared_ptr<const ICase>;
 } // namespace donjon
 
 #endif // __CASE_H__
