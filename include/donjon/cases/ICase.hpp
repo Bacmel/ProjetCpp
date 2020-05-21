@@ -5,7 +5,7 @@
 #include "obj/IObjet.hpp"
 #include "per/APersonnage.hpp"
 
-namespace donjon
+namespace donjon::cases
 {
     class ICase
     {
@@ -39,6 +39,21 @@ namespace donjon
          * @throw SansObjetError Quand la case n'a pas d'objet.
          */
         virtual const obj::IObjet& getObjet() const = 0;
+
+        /**
+         * @brief Notifie qu'un personnage est arrivé.
+         *
+         * @param personnage Le personnage arrivé.
+         */
+        virtual void enEntree(per::APersonnage& personnage) = 0;
+
+        /**
+         * @brief Indique si un personnage peut marcher sur la case.
+         *
+         * @return true Un personnage peut être déplace sur la case.
+         * @return false Un personnage ne peut pas être déplacé sur la case.
+         */
+        virtual bool estPraticable() const = 0;
     };
 
     using ICase_S = std::shared_ptr<ICase>;
