@@ -4,7 +4,7 @@
 #include <memory>
 #include "donjon/IDonjon.hpp"
 #include "hex/Coordonnees.hpp"
-#include "per/IPersonnage.hpp"
+#include "per/APersonnage.hpp"
 
 namespace obj
 {

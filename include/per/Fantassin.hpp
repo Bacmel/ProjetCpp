@@ -1,40 +1,28 @@
 #ifndef FANTASSIN_HPP
 #define FANTASSIN_HPP
 
-#include "pex/IPersonnage.hpp"
 #include "hex/ICarte.hpp"
+#include "pex/APersonnage.hpp"
+
 namespace per
 {
-    class Fantassin : public IPersonnage
+    class Fantassin : public APersonnage
     {
-    protected :
-        /** Santé du Fantassin et points de vie actuel */
-        size_t m_pvMax;
-        size_t m_pv;
+    protected:
         /** Arme du Fantassin : arme de CàC */
         size_t m_degat;
         ICarte_SC<bool> m_porte;
-    public :
-        explicit Fantassin();
 
-	    inline bool estVivant() const
-	    {
-	        return (bool) this->m_pv;
-	    }
+    public:
+        Fantassin();
 
-        void subitAttaque(size_t degat); 
+        Fantassin(const Fantassin& autre) = default;
+        Fantassin(Fantassin&& autre) = default;
+        Fantassin& operator=(const Fantassin& autre) = default;
+        Fantassin& operator=(Fantassin&& autre) = default;
+        ~Fantassin() {}
 
-    	inline size_t getSante() const
-	    {
-	        return this->m_pv;
-	    }
-
-    	inline size_t getSanteMax() const
-	    {
-	        return this->m_pvMax;
-	    }
     };
 }; // namespace per
 
 #endif // FANTASSIN_HPP
-
