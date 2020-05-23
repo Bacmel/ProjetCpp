@@ -60,3 +60,5 @@ rapport/*
 .vscode/
 compile_commands.json
 .clangd/
+clang-format
+
