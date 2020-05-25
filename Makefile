@@ -9,13 +9,9 @@ SRC = $(wildcard src/*.cpp) $(wildcard src/*/*.cpp) # Liste des fichiers sources
 OBJ = $(SRC:.cpp=.o) # Liste des fichiers objets
 BIN = jeu # Nom de l'exécutable
 
-SRCT = $(wildcard test/*/*.cpp) 
-OBJT = $(SRCT:.cpp=.o) # Liste des fichiers objets
-TEST = test
-
 all: build Test
 
-Test: $(OBJT)
+Test: test/hex/CoordonneesTest.o src/hex/Coordonnees.o
 	$(CXX) $(LDFLAGS) -o $@ $^ 
 
 build: $(OBJ)
