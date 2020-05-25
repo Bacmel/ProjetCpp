@@ -48,12 +48,26 @@ namespace donjon::cases
         virtual void enEntree(per::APersonnage& personnage) = 0;
 
         /**
+         * @brief Notifie qu'un personnage a activé la case.
+         *
+         * @param personnage Le personnage qui active la case.
+         */
+        virtual void enActivation(per::APersonnage& personnage) = 0;
+
+        /**
          * @brief Indique si un personnage peut marcher sur la case.
          *
          * @return true Un personnage peut être déplace sur la case.
          * @return false Un personnage ne peut pas être déplacé sur la case.
          */
         virtual bool estPraticable() const = 0;
+
+        /**
+         * @brief Indique si un personnage peut voir au travers de la case.
+         *
+         * @return true Si la vue n'est pas bloquée sinon false.
+         */
+        virtual bool estTransparent() const = 0;
     };
 
     using ICase_S = std::shared_ptr<ICase>;
