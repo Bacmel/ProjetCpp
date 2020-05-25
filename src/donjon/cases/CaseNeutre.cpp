@@ -38,4 +38,11 @@ namespace donjon::cases
     }
 
     bool CaseNeutre::estPraticable() const { return true; }
+
+    void CaseNeutre::enActivation(per::APersonnage& personnage)
+    {
+        // Ne rien faire.
+    }
+
+    bool CaseNeutre::estTransparent() const { return true; }
 } // namespace donjon::cases
