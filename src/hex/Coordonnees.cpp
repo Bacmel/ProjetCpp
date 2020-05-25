@@ -101,6 +101,13 @@ namespace hex
 
     bool Coordonnees::operator!=(const Coordonnees& autre) const { return !(*this == autre); }
 
+    bool Coordonnees::operator>(const Coordonnees& autre) const
+    {
+        return (m_colonne==autre.m_colonne)?(m_ligne>autre.m_ligne):(m_colonne>autre.m_colonne);
+    }
+    bool Coordonnees::operator>=(const Coordonnees& autre) const {return (*this == autre || *this > autre); }
+    bool Coordonnees::operator<(const Coordonnees& autre) const {return (autre > *this); }
+    bool Coordonnees::operator<=(const Coordonnees& autre) const {return (*this == autre || *this < autre); }
     std::ostream& operator<<(std::ostream& os, const Coordonnees& c)
     {
         os << "Coordonnees(" << c.getLigne() << ", " << c.getColonne() << ")";
