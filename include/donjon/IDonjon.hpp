@@ -2,24 +2,50 @@
 #define __IDONJON_H__
 
 #include <memory>
-#include "donjon/ICase.hpp"
+#include "donjon/cases/ICase.hpp"
 #include "hex/ICarte.hpp"
-#include "per/IPersonnage.hpp"
+#include "per/APersonnage.hpp"
 
 namespace donjon
 {
     class IDonjon
     {
     public:
-        typedef std::shared_ptr<IDonjon> Ptr;
-        typedef std::shared_ptr<const IDonjon> ConstPtr;
-
         virtual ~IDonjon() {}
 
         /**
-         * @brief Fait jouer à tour de rôles chaque personnage jusqu'à ce que l'un gagne.
+         * @brief Invoque le personnage à la position spécifiée.
+         *
+         * @param personnage Le personnage à invoquer.
+         * @param position La position où se trouvera le joueur
          */
-        virtual void jouer() = 0;
+        virtual void invoquer(per::APersonnage_S personnage, const hex::Coordonnees& position) = 0;
+
+        /**
+         * @brief Obtient le personnage actif (aka. personnage qui peut réaliser
+         * une action).
+         *
+         * @return APersonnage_S Le personnage actif.
+         */
+        virtual per::APersonnage_S getPersonnageActif() = 0;
+        /**
+         * @brief Obtient le personnage actif (aka. personnage qui peut réaliser
+         * une action).
+         *
+         * @return APersonnage_SC Le personnage actif.
+         */
+        virtual per::APersonnage_SC getPersonnageActif() const = 0;
+
+        /**
+         * @brief Déplace le personnage actif aux cordonnées indiquées et met
+         * fin à son tour.
+         *
+         * @param position La nouvelle position du personnage.
+         *
+         * @throw invalid_argument Quand le déplacement est impossible.
+         * @see donjon::Donjon::finirTour()
+         */
+        virtual void deplace(const hex::Coordonnees& position) = 0;
 
         /**
          * @brief Déplace un personnage aux cordonnées indiqué.
@@ -29,7 +55,7 @@ namespace donjon
          *
          * @throw invalid_argument Quand le déplacement est impossible.
          */
-        virtual void deplace(const per::IPersonnage& personnage, const hex::Coordonnees& position) = 0;
+        virtual void deplace(per::APersonnage& personnage, const hex::Coordonnees& position) = 0;
 
         /**
          * @brief Endommage tous les personnages présents dans la zone.
@@ -48,16 +74,29 @@ namespace donjon
          *
          * @throw invalid_argument Quand un objet est déjà présent sur la case.
          */
-        virtual void deposer(obj::IObjet::Ptr objet, const hex::Coordonnees& position) = 0;
+        virtual void deposer(obj::IObjet_S objet, const hex::Coordonnees& position) = 0;
 
         /**
          * @brief
          *
          * @param position
-         * @return obj::IObjet::Ptr
+         * @return obj::IObjet_S
          */
-        virtual obj::IObjet::Ptr ramasser(const hex::Coordonnees& position) = 0;
+        virtual obj::IObjet_S ramasser(const hex::Coordonnees& position) = 0;
+
+        /**
+         * @brief Met fin au tour du joueur actif.
+         *
+         * Un nouveau joueur actif est sélectionné.
+         *
+         * @throw std::runtime_exception S'il n'y a plus de personnage en vie.
+         * @see donjon::IDonjon::getPersonnageActif
+         */
+        virtual void finirTour() = 0;
     };
+
+    using IDonjon_S = std::shared_ptr<IDonjon>;
+    using IDonjon_SC = std::shared_ptr<const IDonjon>;
 } // namespace donjon
 
 #endif // __IDONJON_H__

@@ -3,54 +3,34 @@
 
 #include <memory>
 #include <vector>
-#include "per/IPersonnage.hpp"
-#include "obj/IObjet.hpp"
 #include "hex/Coordonnees.hpp"
+#include "obj/IObjet.hpp"
+#include "per/APersonnage.hpp"
 
 namespace per
 {
 
-    class Monstre : public IPersonnage
+    class Monstre : public APersonnage
     {
     protected:
-	/** Santé du Montre et points de vie actuel */
-        size_t pvMax;
-	size_t pv;
-	/** Arme du monstre */
-	obj::ConstPtr arme;
-	/** Position du Montre dans le donjon */
-	hex::Coordonnee coor;
+        /** Arme du monstre */
+        obj::IObjet_S m_arme;
+
     public:
-	explicit Monstre(size_t pvMax, hex::Coordonnees coor, obj::ConstPtr arme) : pvMax(pvMax), pv(pvMax), coor(coor), arme(arme) {}
+        Monstre(size_t pvMax, hex::Coordonnees coor, obj::IObjet_S arme);
 
-	/** Fonctions de l'Interface */
-	bool estVivant() const
-	{
-	    return (bool) this->pv;
-	}
+        Monstre(const Monstre& autre) = default;
+        Monstre(Monstre&& autre) = default;
+        Monstre& operator=(const Monstre& autre) = default;
+        Monstre& operator=(Monstre&& autre) = default;
+        ~Monstre() {}
 
-        void subitAttaque(IPersonnage& source, size_t degat)
-	{
-	    if(degat>this->pv)
-	    {
-	        this->pv = 0;
-	    }
-	    else
-	    {
-		this->pv-=degat;
-	    }
-	}
-
-	size_t getSante() const
-	{
-	    return this->pv;
-	}
-
-	size_t getSanteMax() const
-	{
-	    return this->pvMax;
-	}
-
+        /**
+         * @brief Obtient l'arme
+         *
+         * @return obj::IObjet_SC Un pointeur constant vers l'arme.
+         */
+        inline obj::IObjet_SC getArme() const { return m_arme; }
     };
 }; // namespace per
 
