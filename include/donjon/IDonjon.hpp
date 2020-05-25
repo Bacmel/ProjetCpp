@@ -2,6 +2,7 @@
 #define __IDONJON_H__
 
 #include <memory>
+#include <map>
 #include "donjon/cases/ICase.hpp"
 #include "hex/ICarte.hpp"
 #include "per/APersonnage.hpp"
@@ -22,32 +23,6 @@ namespace donjon
         virtual void invoquer(per::APersonnage_S personnage, const hex::Coordonnees& position) = 0;
 
         /**
-         * @brief Obtient le personnage actif (aka. personnage qui peut réaliser
-         * une action).
-         *
-         * @return APersonnage_S Le personnage actif.
-         */
-        virtual per::APersonnage_S getPersonnageActif() = 0;
-        /**
-         * @brief Obtient le personnage actif (aka. personnage qui peut réaliser
-         * une action).
-         *
-         * @return APersonnage_SC Le personnage actif.
-         */
-        virtual per::APersonnage_SC getPersonnageActif() const = 0;
-
-        /**
-         * @brief Déplace le personnage actif aux cordonnées indiquées et met
-         * fin à son tour.
-         *
-         * @param position La nouvelle position du personnage.
-         *
-         * @throw invalid_argument Quand le déplacement est impossible.
-         * @see donjon::Donjon::finirTour()
-         */
-        virtual void deplace(const hex::Coordonnees& position) = 0;
-
-        /**
          * @brief Déplace un personnage aux cordonnées indiqué.
          *
          * @param personnage Le personnage à déplacer.
@@ -58,13 +33,25 @@ namespace donjon
         virtual void deplace(per::APersonnage& personnage, const hex::Coordonnees& position) = 0;
 
         /**
+         * @brief Pousse les personnages dans la zone d'effet.
+         *
+         * Un personnage poussé s'arrête sur une case non praticable. Il
+         * s'arrête s'il collisionne un autre personnage. Il s'arrête s'il
+         * heurte un mur ou sort de la carte. Dans ce cas, il prend 1 pt de
+         * dégat.
+         *
+         * @param aoe Area Of Effects - Cases sur lesquels on pousse les
+         * personnages présents dans la direction indiquée.
+         * @param distance La distance à laquelle un personnage est poussé.
+         */
+        virtual void pousse(const std::map<hex::Coordonnees, hex::Direction>& aoe, size_t distance) = 0;
+
+        /**
          * @brief Endommage tous les personnages présents dans la zone.
          *
-         * @param centre Le centre de la zone de dégat.
-         * @param zone La zone de dégat sous la forme d'un masque.
-         * @param degats La quantité de dégats émise.
+         * @param aoe Area Of Effects - Cases sur lesquels on applique des dégats.
          */
-        virtual void degat(const hex::Coordonnees& centre, const hex::ICarte<bool>& zone, size_t degats) = 0;
+        virtual void degat(const std::map<hex::Coordonnees, size_t>& aoe) = 0;
 
         /**
          * @brief Dépose un objet sur une case.
@@ -83,16 +70,6 @@ namespace donjon
          * @return obj::IObjet_S
          */
         virtual obj::IObjet_S ramasser(const hex::Coordonnees& position) = 0;
-
-        /**
-         * @brief Met fin au tour du joueur actif.
-         *
-         * Un nouveau joueur actif est sélectionné.
-         *
-         * @throw std::runtime_exception S'il n'y a plus de personnage en vie.
-         * @see donjon::IDonjon::getPersonnageActif
-         */
-        virtual void finirTour() = 0;
     };
 
     using IDonjon_S = std::shared_ptr<IDonjon>;

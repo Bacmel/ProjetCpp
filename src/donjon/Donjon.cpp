@@ -6,6 +6,7 @@ using namespace hex;
 using namespace per;
 using namespace obj;
 using namespace donjon::cases;
+using namespace std;
 
 namespace donjon
 {
@@ -18,13 +19,6 @@ namespace donjon
         if (personnage == nullptr) { return; }
         deplace(*personnage, position);
         m_personnages.push_back(personnage);
-    }
-
-    void Donjon::deplace(const hex::Coordonnees& position)
-    {
-        APersonnage_S personnage = *m_personnageActif;
-        deplace(*personnage, position);
-        finirTour();
     }
 
     void Donjon::deplace(per::APersonnage& personnage, const hex::Coordonnees& position)
@@ -53,17 +47,36 @@ namespace donjon
         iCase->enEntree(personnage);
     }
 
-    void Donjon::degat(const hex::Coordonnees& centre, const hex::ICarte<bool>& zone, size_t degats)
+    void Donjon::pousse(const std::map<hex::Coordonnees, hex::Direction>& aoe, size_t distance)
     {
-        IIterator_S<Coordonnees> iterateur = zone.iterateur();
-        for (Coordonnees pos; iterateur->aSuite(); pos = centre + iterateur->suite())
+        for (const pair<Coordonnees, Direction>& pair : aoe)
         {
-            // Itération sur les positions dans le donjon
-            for (APersonnage_S personnage : m_personnages)
+            Coordonnees position = pair.first;
+            Direction direction = pair.second;
+            APersonnage_S personnage(nullptr);
+            try
             {
-                // Vérifie si un personnage se trouve sur une case de l'AOE
-                Coordonnees personnagePos = personnage->getPosition();
-                if (pos == personnagePos) { personnage->subitAttaque(degats); }
+                personnage = trouver(position);
+            }
+            catch (const runtime_error& exception)
+            {
+                // Pas de personnage sur cette case.
+                continue;
+            }
+            pousse(personnage, direction, distance);
+        }
+    }
+
+    void Donjon::degat(const std::map<hex::Coordonnees, size_t>& aoe)
+    {
+        for (const std::pair<Coordonnees, size_t>& pair : aoe)
+        {
+            Coordonnees position = pair.first;
+            size_t dommages = pair.second;
+            for (const APersonnage_S& personnage : m_personnages)
+            {
+                Coordonnees perPos = personnage->getPosition();
+                if (position == perPos) { personnage->subitAttaque(dommages); }
             }
         }
     }
@@ -103,24 +116,73 @@ namespace donjon
         return objet;
     }
 
-    void Donjon::finirTour()
+    APersonnage_S Donjon::trouver(const Coordonnees& position)
     {
-        // Recherche le personnage vivant suivant.
-        size_t i;
-        for (i = 0; i < m_personnages.size(); i++)
+        for (APersonnage_S personnage : m_personnages)
         {
-            // Sélectionne le prochain personnage actif en prennant le suivant
-            // dans la liste des personnages. Si on est à la fin de la liste, on
-            // reprend depuis le début.
-            if (m_personnageActif == m_personnages.end()) { m_personnageActif = m_personnages.begin(); }
-            else
-            {
-                m_personnageActif++;
-            }
-            // Si le personnage est vivant, on le garde et on arrête la recherche.
-            if ((*m_personnageActif)->estVivant()) { break; }
+            // Verifie que le pointeur ne soit pas null (dans ce cas, on regarde
+            // le suivant) et test la position.
+            if (personnage == nullptr) { continue; }
+            Coordonnees coordonnees = personnage->getPosition();
+            if (coordonnees == position) { return personnage; }
         }
-        // S'il n'y a plus de personnage en vie, on lève une exception.
-        if (i == m_personnages.size()) { throw std::runtime_error("Donjon::finirTour : Plus de personnage en vie"); }
+        // On a pas trouvé de personnage -> On lève une exception.
+        throw std::runtime_error("Donjon::trouver : Pas de personnage à cette position");
+    }
+
+    bool Donjon::estOccupee(const Coordonnees& position)
+    {
+        try
+        {
+            trouver(position);
+        }
+        catch (const std::runtime_error& e)
+        {
+            return false;
+        }
+        return true;
+    }
+
+    void Donjon::pousse(const APersonnage_S& personnage, hex::Direction direction, size_t distance)
+    {
+        Coordonnees perPos = personnage->getPosition();
+        bool estArrete = false;
+        for (size_t deplacement = 1; deplacement <= distance && !estArrete; deplacement++)
+        {
+            Coordonnees cible = perPos.translate(direction, deplacement);
+            ICase_S iCase(nullptr);
+            try
+            {
+                iCase = (*m_carte)(cible);
+            }
+            catch (const out_of_range& exception)
+            {
+                // On est sortie de la carte. On ne quitte pas la case
+                // précédante.
+                personnage->subitAttaque(1);
+                break;
+            }
+            if (!iCase->estTransparent())
+            {
+                // Le personnage se heurte à un obstacle. On ne quitte pas
+                // la case précédante.
+                personnage->subitAttaque(1);
+                break;
+            }
+            else if (!iCase->estPraticable())
+            {
+                // Le personnage "tombe" sur cette case.
+                estArrete = true;
+            }
+            else if (estOccupee(cible))
+            {
+                // Un personnage se trouve déjà sur cette case. On ne quitte
+                // pas la case précédante.
+                break;
+            }
+            // On déplace le personnage vers la nouvelle case.
+            personnage->setPosition(cible);
+            iCase->enEntree(*personnage);
+        }
     }
 } // namespace donjon
