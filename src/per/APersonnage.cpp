@@ -13,6 +13,8 @@ namespace per
         idSuivante++;
     }
 
+    APersonnage::~APersonnage() {}
+
     bool APersonnage::estVivant() const { return m_pv > 0; }
 
     void APersonnage::subitAttaque(size_t degat)

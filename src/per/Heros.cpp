@@ -18,7 +18,7 @@ namespace per
 
     void Heros::addSanteMax(int sante)
     {
-        if (sante < 0 and m_pvMax <= abs(sante)) // Degats
+        if (sante < 0 and m_pvMax <= (size_t) abs(sante)) // Degats
         {
             m_pvMax = 0;
             m_pv = 0;
@@ -26,7 +26,7 @@ namespace per
         else
         {
             m_pvMax += sante;
-            if (sante < 0 and m_pv <= abs(sante)) // Degats
+            if (sante < 0 and m_pv <= (size_t) abs(sante)) // Degats
             { m_pv = 0; }
             else
             {
