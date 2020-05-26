@@ -1,12 +1,12 @@
-#include "donjon/cases/CaseNeutre.hpp"
+#include "donjon/cases/Sol.hpp"
 #include "donjon/DepotError.hpp"
 #include "donjon/SansObjetError.hpp"
 
 namespace donjon::cases
 {
-    CaseNeutre::CaseNeutre() : m_objet() {}
+    Sol::Sol() : m_objet() {}
 
-    void CaseNeutre::deposer(obj::IObjet_S objet)
+    void Sol::deposer(obj::IObjet_S objet)
     {
         if (objet != nullptr) { m_objet = objet; }
         else
@@ -15,7 +15,7 @@ namespace donjon::cases
         }
     }
 
-    obj::IObjet_S CaseNeutre::ramasser()
+    obj::IObjet_S Sol::ramasser()
     {
         getObjet();
         obj::IObjet_S objet = m_objet;
@@ -23,7 +23,7 @@ namespace donjon::cases
         return objet;
     }
 
-    const obj::IObjet& CaseNeutre::getObjet() const
+    const obj::IObjet& Sol::getObjet() const
     {
         if (m_objet != nullptr) { return *m_objet; }
         else
@@ -32,17 +32,17 @@ namespace donjon::cases
         }
     }
 
-    void CaseNeutre::enEntree(per::APersonnage& personnage)
+    void Sol::enEntree(per::APersonnage& personnage)
     {
         // Ne rien faire.
     }
 
-    bool CaseNeutre::estPraticable() const { return true; }
+    bool Sol::estPraticable() const { return true; }
 
-    void CaseNeutre::enActivation(per::APersonnage& personnage)
+    void Sol::enActivation(per::APersonnage& personnage)
     {
         // Ne rien faire.
     }
 
-    bool CaseNeutre::estTransparent() const { return true; }
+    bool Sol::estTransparent() const { return true; }
 } // namespace donjon::cases
