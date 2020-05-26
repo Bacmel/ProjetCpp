@@ -15,11 +15,11 @@ namespace per
         std::vector<obj::IObjet_S> m_sac;
 
     public:
-		/**
-		 * @brief Construit un nouveau Hero
-		 *
-		 * @param pvMax
-		 */
+        /**
+         * @brief Construit un nouveau Hero
+         *
+         * @param pvMax
+         */
         explicit Heros(size_t pvMax);
 
         /**
