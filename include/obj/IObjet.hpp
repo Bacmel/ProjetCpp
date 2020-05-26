@@ -2,9 +2,12 @@
 #define IOBJET_HPP
 
 #include <memory>
-#include "donjon/IDonjon.hpp"
 #include "hex/Coordonnees.hpp"
-#include "per/APersonnage.hpp"
+
+namespace donjon
+{
+    class IDonjon;
+}
 
 namespace obj
 {

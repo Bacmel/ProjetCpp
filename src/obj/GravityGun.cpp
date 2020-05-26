@@ -1,4 +1,5 @@
 #include "obj/GravityGun.hpp"
+#include "donjon/IDonjon.hpp"
 #include "hex/IterateurCarteHexagone.hpp"
 #include <map>
 
@@ -38,7 +39,7 @@ namespace obj
         std::map<hex::Coordonnees, hex::Direction> modele;
         hex::Coordonnees relative = cible-origine;
         if(m_porte(relative)) // Check si la cible est valide
-        { 
+        {
             hex::IIterator_S<hex::Coordonnees> itr = m_aire.iterateur();
             for (hex::Coordonnees coordonnees; itr->aSuite(); coordonnees = itr->suite())
             {
@@ -66,7 +67,7 @@ namespace obj
                 {
                     modele.insert( std::pair<hex::Coordonnees, hex::Direction>(coordonnees+relative,hex::Direction::NordOuest));
                 }
-                else {} // Autre (?) 
+                else {} // Autre (?)
             }
             donjon.pousse(modele, m_distance);
         }
