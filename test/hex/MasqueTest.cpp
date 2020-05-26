@@ -29,9 +29,7 @@ TEST_CASE( "Creation et egalite de masque", "[masque]" )
 
     SECTION( "operator!" )
     {
-            Masque m3(2);
-            m3.remplir(true);
-            m3 = !m1;
-        REQUIRE_FALSE(m3(Coordonnees()));
+        m1 = !m1;
+        REQUIRE_FALSE(!m1(Coordonnees()));
     }
 }
