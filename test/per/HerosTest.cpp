@@ -21,10 +21,9 @@ TEST_CASE("Creation et manipulation de Heros", "[Heros]")
 
     SECTION("APersonnage::setSante")
     {
-        // Santé négative impossible.
-        REQUIRE_THROWS(heros.setSante(-1));
         // Santé supérieur au maximum impossible.
-        REQUIRE_THROWS(heros.setSante(9999));
+        heros.setSante(heros.getSanteMax() + 1);
+        REQUIRE(heros.getSante() == heros.getSanteMax());
     }
 
     SECTION("APersonnage::setSanteMax")
@@ -32,9 +31,6 @@ TEST_CASE("Creation et manipulation de Heros", "[Heros]")
         heros.setSanteMax(2);
         REQUIRE(heros.getSanteMax() == 2);
         REQUIRE(heros.getSante() <= heros.getSanteMax());
-
-        // Valeur impossible.
-        REQUIRE_THROWS(heros.setSanteMax(-1));
     }
 
     SECTION("APersonnage::getId")
@@ -49,5 +45,5 @@ TEST_CASE("Creation et manipulation de Heros", "[Heros]")
         REQUIRE(heros.getSante() == heros.getSanteMax() - 1);
     }
 
-    //TODO ajouter des tests pour les objets
+    // TODO ajouter des tests pour les objets
 }
