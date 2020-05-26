@@ -9,32 +9,32 @@ namespace hex
     {
         if (direction == Direction::Nord)
         {
-            Coordonnees nord(0, 1, -1);
+            Coordonnees nord(0, -1, 1);
             return nord;
         }
         if (direction == Direction::NordEst)
         {
-            Coordonnees nordEst(1, 0, -1);
+            Coordonnees nordEst(1, -1, 0);
             return nordEst;
         }
         if (direction == Direction::SudEst)
         {
-            Coordonnees sudEst(1, -1, 0);
+            Coordonnees sudEst(1, 0, -1);
             return sudEst;
         }
         if (direction == Direction::Sud)
         {
-            Coordonnees sud(0, -1, 1);
+            Coordonnees sud(0, 1, -1);
             return sud;
         }
         if (direction == Direction::SudOuest)
         {
-            Coordonnees sudOuest(-1, 0, 1);
+            Coordonnees sudOuest(-1, 1, 0);
             return sudOuest;
         }
         if (direction == Direction::NordOuest)
         {
-            Coordonnees nordOuest(-1, 1, 0);
+            Coordonnees nordOuest(-1, 0, 1);
             return nordOuest;
         }
         std::stringstream ss;
@@ -101,6 +101,13 @@ namespace hex
 
     bool Coordonnees::operator!=(const Coordonnees& autre) const { return !(*this == autre); }
 
+    bool Coordonnees::operator>(const Coordonnees& autre) const
+    {
+        return (m_colonne==autre.m_colonne)?(m_ligne>autre.m_ligne):(m_colonne>autre.m_colonne);
+    }
+    bool Coordonnees::operator>=(const Coordonnees& autre) const {return (*this == autre || *this > autre); }
+    bool Coordonnees::operator<(const Coordonnees& autre) const {return (autre > *this); }
+    bool Coordonnees::operator<=(const Coordonnees& autre) const {return (*this == autre || *this < autre); }
     std::ostream& operator<<(std::ostream& os, const Coordonnees& c)
     {
         os << "Coordonnees(" << c.getLigne() << ", " << c.getColonne() << ")";

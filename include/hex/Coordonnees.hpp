@@ -53,7 +53,10 @@ namespace hex
 
         bool operator==(const Coordonnees& autre) const;
         bool operator!=(const Coordonnees& autre) const;
-
+        bool operator>(const Coordonnees& autre) const;
+        bool operator>=(const Coordonnees& autre) const;
+        bool operator<(const Coordonnees& autre) const;
+        bool operator<=(const Coordonnees& autre) const;
         friend std::ostream& operator<<(std::ostream& os, const Coordonnees& c);
     };
 

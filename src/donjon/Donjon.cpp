@@ -12,8 +12,6 @@ namespace donjon
 {
     Donjon::Donjon(const hex::ICarte_S<ICase_S>& carte) : m_personnages(), m_carte(carte) {}
 
-    Donjon::~Donjon() {}
-
     void Donjon::invoquer(per::APersonnage_S personnage, const hex::Coordonnees& position)
     {
         if (personnage == nullptr) { return; }

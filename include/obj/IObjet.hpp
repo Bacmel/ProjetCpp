@@ -2,9 +2,12 @@
 #define IOBJET_HPP
 
 #include <memory>
-#include "donjon/IDonjon.hpp"
 #include "hex/Coordonnees.hpp"
-#include "per/APersonnage.hpp"
+
+namespace donjon
+{
+    class IDonjon;
+}
 
 namespace obj
 {
@@ -23,7 +26,9 @@ namespace obj
          * @throw invalid_argument Quand la cible n'est pas valide.
          * @throw logic_error Quand l'objet ne peut être utilisé.
          */
-        virtual void utiliser(donjon::IDonjon& donjon, const hex::Coordonnees& cible) = 0;
+        virtual void utiliser(donjon::IDonjon& donjon,
+                              const hex::Coordonnees& origine,
+                              const hex::Coordonnees& cible) = 0;
     };
 
     using IObjet_S = std::shared_ptr<IObjet>;
