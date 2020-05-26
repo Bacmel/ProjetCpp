@@ -93,7 +93,7 @@ namespace per
          *
          * @param position la nouvelle position.
          */
-        virtual void setPosition(hex::Coordonnees position) { m_position; }
+        virtual void setPosition(hex::Coordonnees position) { m_position = position; }
     };
 
     using APersonnage_S = std::shared_ptr<APersonnage>;
