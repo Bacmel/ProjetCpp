@@ -2,7 +2,8 @@
 #define __IDONJON_H__
 
 #include <memory>
-#include "donjon/ICase.hpp"
+#include <map>
+#include "donjon/cases/ICase.hpp"
 #include "hex/ICarte.hpp"
 #include "per/APersonnage.hpp"
 
@@ -22,11 +23,6 @@ namespace donjon
         virtual void invoquer(per::APersonnage_S personnage, const hex::Coordonnees& position) = 0;
 
         /**
-         * @brief Fait jouer à tour de rôles chaque personnage jusqu'à ce que l'un gagne.
-         */
-        virtual void jouer() = 0;
-
-        /**
          * @brief Déplace un personnage aux cordonnées indiqué.
          *
          * @param personnage Le personnage à déplacer.
@@ -34,16 +30,28 @@ namespace donjon
          *
          * @throw invalid_argument Quand le déplacement est impossible.
          */
-        virtual void deplace(const per::APersonnage& personnage, const hex::Coordonnees& position) = 0;
+        virtual void deplace(per::APersonnage& personnage, const hex::Coordonnees& position) = 0;
+
+        /**
+         * @brief Pousse les personnages dans la zone d'effet.
+         *
+         * Un personnage poussé s'arrête sur une case non praticable. Il
+         * s'arrête s'il collisionne un autre personnage. Il s'arrête s'il
+         * heurte un mur ou sort de la carte. Dans ce cas, il prend 1 pt de
+         * dégat.
+         *
+         * @param aoe Area Of Effects - Cases sur lesquels on pousse les
+         * personnages présents dans la direction indiquée.
+         * @param distance La distance à laquelle un personnage est poussé.
+         */
+        virtual void pousse(const std::map<hex::Coordonnees, hex::Direction>& aoe, size_t distance) = 0;
 
         /**
          * @brief Endommage tous les personnages présents dans la zone.
          *
-         * @param centre Le centre de la zone de dégat.
-         * @param zone La zone de dégat sous la forme d'un masque.
-         * @param degats La quantité de dégats émise.
+         * @param aoe Area Of Effects - Cases sur lesquels on applique des dégats.
          */
-        virtual void degat(const hex::Coordonnees& centre, const hex::ICarte<bool>& zone, size_t degats) = 0;
+        virtual void degat(const std::map<hex::Coordonnees, size_t>& aoe) = 0;
 
         /**
          * @brief Dépose un objet sur une case.

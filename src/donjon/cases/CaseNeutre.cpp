@@ -1,8 +1,8 @@
-#include "donjon/CaseNeutre.hpp"
+#include "donjon/cases/CaseNeutre.hpp"
 #include "donjon/DepotError.hpp"
 #include "donjon/SansObjetError.hpp"
 
-namespace donjon
+namespace donjon::cases
 {
     CaseNeutre::CaseNeutre() : m_objet() {}
 
@@ -31,4 +31,18 @@ namespace donjon
             throw SansObjetError("Il n'y a rien à ramasser");
         }
     }
-} // namespace donjon
+
+    void CaseNeutre::enEntree(per::APersonnage& personnage)
+    {
+        // Ne rien faire.
+    }
+
+    bool CaseNeutre::estPraticable() const { return true; }
+
+    void CaseNeutre::enActivation(per::APersonnage& personnage)
+    {
+        // Ne rien faire.
+    }
+
+    bool CaseNeutre::estTransparent() const { return true; }
+} // namespace donjon::cases
