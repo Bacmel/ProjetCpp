@@ -8,15 +8,12 @@ HDR = $(wildcard include/*.hpp) $(wildcard include/*/*.hpp) # Liste des fichiers
 SRC = $(wildcard src/*.cpp) $(wildcard src/*/*.cpp) # Liste des fichiers sources
 OBJ = $(SRC:.cpp=.o) # Liste des fichiers objets
 BIN = jeu # Nom de l'exécutable
-
-SRCT = $(wildcard test/*/*.cpp) 
-OBJT = $(SRCT:.cpp=.o) # Liste des fichiers objets
-TEST = test
-
+SRCT = $(wildcard test/*/*.cpp) $(wildcard src/*/*.o)
+OBJT = $(SRCT:.cpp=.o) 
 all: build Test
 
-Test: $(OBJT)
-	$(CXX) $(LDFLAGS) -o $@ $^ 
+Test: $(OBJT) 
+	$(CXX) $(CXXFLAGS) $(LDFLAGS) -o $@ $^ 
 
 build: $(OBJ)
 	$(CXX) $(LDFLAGS) -o $(BIN) $^ $(LDLIBS)

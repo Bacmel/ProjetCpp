@@ -2,7 +2,7 @@
 #define FANTASSIN_HPP
 
 #include "hex/ICarte.hpp"
-#include "pex/APersonnage.hpp"
+#include "per/APersonnage.hpp"
 
 namespace per
 {
@@ -11,7 +11,7 @@ namespace per
     protected:
         /** Arme du Fantassin : arme de CàC */
         size_t m_degat;
-        ICarte_SC<bool> m_porte;
+        hex::ICarte_SC<bool> m_porte;
 
     public:
         Fantassin();
