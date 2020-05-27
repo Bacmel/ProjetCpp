@@ -4,7 +4,7 @@
 #include <stdexcept>
 #include <string>
 
-namespace per
+namespace err
 {
     class DeplacementError : public std::runtime_error
     {
@@ -18,6 +18,6 @@ namespace per
 
         virtual ~DeplacementError();
     };
-} // namespace per
+} // namespace err
 
 #endif // __DEPLACEMENTERROR_H__

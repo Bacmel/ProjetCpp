@@ -1,8 +1,8 @@
-#include "per/DeplacementError.hpp"
+#include "err/DeplacementError.hpp"
 
-namespace per
+namespace err
 {
     DeplacementError::DeplacementError(const std::string& message) : std::runtime_error(message) {}
 
     DeplacementError::~DeplacementError() {}
-} // namespace donjon
+} // namespace err

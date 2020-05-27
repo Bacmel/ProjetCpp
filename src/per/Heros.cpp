@@ -1,5 +1,5 @@
 #include "per/Heros.hpp"
-#include "per/DeplacementError.hpp"
+#include "err/DeplacementError.hpp"
 #include <algorithm>
 #include <cmath>
 
@@ -27,7 +27,7 @@ namespace per
             case Deplacement::Marcher:
                 if(m_position.distance(cible)!=1)
                 {
-                    throw DeplacementError("Heros::deplacer : Hors de porter de marche");
+                    throw err::DeplacementError("Heros::deplacer : Hors de porter de marche");
                 }
                 else
                 {
@@ -37,7 +37,7 @@ namespace per
             case Deplacement::Sauter:
                 if(m_position.distance(cible)!=2)
                 {
-                    throw DeplacementError("Heros::deplacer : Hors de porter de saut");
+                    throw err::DeplacementError("Heros::deplacer : Hors de porter de saut");
                 }
                 else
                 {
