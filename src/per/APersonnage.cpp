@@ -25,4 +25,34 @@ namespace per
             m_pv = 0;
         }
     }
+
+    void APersonnage::ajouteSante(int sante)
+    {
+        if (sante < 0 && m_pv <= (size_t)abs(sante)) // Degats
+        { m_pv = 0; }
+        else if (m_pv + sante < m_pvMax)
+        {
+            m_pv += sante;
+        }
+        else
+        {
+            m_pv = m_pvMax;
+        }
+    }
+
+    void APersonnage::ajouteSanteMax(int sante)
+    {
+        if (sante < 0 && m_pvMax <= (size_t)abs(sante)) // Degats
+        {
+            m_pvMax = 0;
+            m_pv = 0;
+        }
+        else
+        {
+            m_pvMax += sante;
+            ajouteSante(sante);
+        }
+    }
+
+    void APersonnage::tuer() { m_pv = 0; }
 } // namespace per

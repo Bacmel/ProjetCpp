@@ -6,6 +6,7 @@
 
 namespace per
 {
+    enum class Deplacement{ Marcher, Sauter, Forcer};
 
     class APersonnage
     {
@@ -75,25 +76,33 @@ namespace per
         virtual hex::Coordonnees getPosition() const { return m_position; }
 
         /**
-         * @brief Redefinit le nombre de point de vie.
+         * @brief Modifie la santé.
          *
-         * @param pv le nouveau nombre de point de vie.
+         * @param sante La santé à ajouter. Elle peut être négative.
          */
-        virtual void setSante(size_t pv) { m_pv = pv >= m_pvMax ? m_pvMax : pv; }
+        void ajouteSante(int sante);
 
         /**
-         * @brief Redefinit la santé max.
+         * @brief Modifie la santé maximale
          *
-         * @param pvMax la nouvelle santé max.
+         * @param sante La santé à ajouter. Elle peut être négative.
          */
-        virtual void setSanteMax(size_t pvMax) { m_pvMax = pvMax; }
+        void ajouteSanteMax(int sante);
 
         /**
          * @brief Redefinit la position.
          *
-         * @param position la nouvelle position.
+         * @param deplacement le type de deplacement.
+         * @param cible la nouvelle position.
+         * @throw DeplacementError Quand le deplacement
+         * demande n'est pas disponible
          */
-        virtual void setPosition(hex::Coordonnees position) { m_position = position; }
+        virtual void deplacer(Deplacement deplacement, hex::Coordonnees cible) = 0;
+
+        /**
+         * @brief Tue le personnage.
+         */
+        virtual void tuer();
     };
 
     using APersonnage_S = std::shared_ptr<APersonnage>;
