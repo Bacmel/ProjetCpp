@@ -44,6 +44,16 @@ namespace utils
          * @return size_t la valeur maximale.
          */
         inline size_t getValMax() const { return m_valMax; }
+
+        /**
+         * @brief Remplie la jauge.
+         */
+        inline void remplir();
+
+        /**
+         * @brief Vide la jauge.
+         */
+        inline void vider();
     };
 } // namespace utils
 

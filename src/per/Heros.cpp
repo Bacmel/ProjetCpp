@@ -19,31 +19,27 @@ namespace per
 
     void Heros::deplacer(Deplacement deplacement, hex::Coordonnees cible)
     {
-        switch(deplacement)
+        switch (deplacement)
         {
-            case Deplacement::Forcer:
+        case Deplacement::Forcer:
+            m_position = cible;
+            break;
+        case Deplacement::Marcher:
+            if (m_position.distance(cible) != 1)
+            { throw err::DeplacementErreur("Heros::deplacer : Hors de porter de marche"); }
+            else
+            {
                 m_position = cible;
-                break;
-            case Deplacement::Marcher:
-                if(m_position.distance(cible)!=1)
-                {
-                    throw err::DeplacementErreur("Heros::deplacer : Hors de porter de marche");
-                }
-                else
-                {
-                    m_position = cible;
-                }
-                break;
-            case Deplacement::Sauter:
-                if(m_position.distance(cible)!=2)
-                {
-                    throw err::DeplacementErreur("Heros::deplacer : Hors de porter de saut");
-                }
-                else
-                {
-                    m_position = cible;
-                }
-                break; 
+            }
+            break;
+        case Deplacement::Sauter:
+            if (m_position.distance(cible) != 2)
+            { throw err::DeplacementErreur("Heros::deplacer : Hors de porter de saut"); }
+            else
+            {
+                m_position = cible;
+            }
+            break;
         }
     }
 }; // namespace per

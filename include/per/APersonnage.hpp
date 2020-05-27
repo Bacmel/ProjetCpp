@@ -3,10 +3,16 @@
 
 #include <memory>
 #include "hex/Coordonnees.hpp"
+#include "utils/Jauge.hpp"
 
 namespace per
 {
-    enum class Deplacement{ Marcher, Sauter, Forcer};
+    enum class Deplacement
+    {
+        Marcher,
+        Sauter,
+        Forcer
+    };
 
     class APersonnage
     {
@@ -15,8 +21,7 @@ namespace per
         static size_t idSuivante;
 
         /** Santé du Personnage et points de vie actuel */
-        size_t m_pvMax;
-        size_t m_pv;
+        utils::Jauge m_pv;
         /** Coordonnée du Personnage */
         hex::Coordonnees m_position;
         /** Identifiant Personnage */
@@ -52,14 +57,14 @@ namespace per
          *
          * @return size_t Le nombre de points de vie.
          */
-        virtual size_t getSante() const { return m_pv; }
+        virtual size_t getSante() const { return m_pv.getVal(); }
 
         /**
          * @brief Obtient le nombre maximal de points de vie.
          *
          * @return size_t Le nombre maximal de points de vie.
          */
-        virtual size_t getSanteMax() const { return m_pvMax; }
+        virtual size_t getSanteMax() const { return m_pv.getValMax(); }
 
         /**
          * @brief Obtient l'identifiant.
@@ -80,14 +85,14 @@ namespace per
          *
          * @param sante La santé à ajouter. Elle peut être négative.
          */
-        void ajouteSante(int sante);
+        void ajouterSante(int sante);
 
         /**
          * @brief Modifie la santé maximale
          *
          * @param sante La santé à ajouter. Elle peut être négative.
          */
-        void ajouteSanteMax(int sante);
+        void ajouterSanteMax(int sante);
 
         /**
          * @brief Redefinit la position.
