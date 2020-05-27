@@ -1,6 +1,6 @@
 #include "donjon/cases/Sol.hpp"
-#include "donjon/DepotError.hpp"
-#include "donjon/SansObjetError.hpp"
+#include "err/DepotErreur.hpp"
+#include "err/SansObjetErreur.hpp"
 
 namespace donjon::cases
 {
@@ -11,7 +11,7 @@ namespace donjon::cases
         if (objet != nullptr) { m_objet = objet; }
         else
         {
-            throw DepotError("Un objet est déjà présent");
+            throw err::DepotErreur("Un objet est déjà présent");
         }
     }
 
@@ -28,7 +28,7 @@ namespace donjon::cases
         if (m_objet != nullptr) { return *m_objet; }
         else
         {
-            throw SansObjetError("Il n'y a rien à ramasser");
+            throw err::SansObjetErreur("Il n'y a rien à ramasser");
         }
     }
 

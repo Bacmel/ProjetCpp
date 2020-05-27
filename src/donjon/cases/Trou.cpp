@@ -1,6 +1,6 @@
 #include "donjon/cases/Trou.hpp"
-#include "donjon/DepotError.hpp"
-#include "donjon/SansObjetError.hpp"
+#include "err/DepotErreur.hpp"
+#include "err/SansObjetErreur.hpp"
 
 namespace donjon::cases
 {
@@ -9,12 +9,12 @@ namespace donjon::cases
     // __attribute__((unused)) Signal au compilateur que l'argument n'est pas utilisé
     void Trou::deposer(__attribute__((unused)) obj::IObjet_S objet)
     {
-        throw DepotError("Trou::deposer : Impossible de poser l'objet");
+        throw err::DepotErreur("Trou::deposer : Impossible de poser l'objet");
     }
 
-    obj::IObjet_S Trou::ramasser() { throw SansObjetError("Trou::ramasser : Il n'y a pas d'objet"); }
+    obj::IObjet_S Trou::ramasser() { throw err::SansObjetErreur("Trou::ramasser : Il n'y a pas d'objet"); }
 
-    const obj::IObjet& Trou::getObjet() const { throw SansObjetError("Trou::getObjet : Il n'y a pas d'objet"); }
+    const obj::IObjet& Trou::getObjet() const { throw err::SansObjetErreur("Trou::getObjet : Il n'y a pas d'objet"); }
 
     void Trou::enEntree(per::APersonnage& personnage)
     {

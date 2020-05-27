@@ -1,6 +1,5 @@
 #include "donjon/Donjon.hpp"
 #include <algorithm>
-#include "donjon/SansObjetError.hpp"
 using namespace hex;
 using namespace per;
 using namespace obj;
