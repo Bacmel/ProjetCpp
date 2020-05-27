@@ -7,9 +7,9 @@ namespace hex
 {
 
     template <typename T>
-    struct IIterator
+    struct IIterateur
     {
-        virtual ~IIterator() {}
+        virtual ~IIterateur() {}
 
         /**
          * @brief Indique la présence d'éléments ensuite
@@ -28,10 +28,10 @@ namespace hex
     };
 
     template<typename T>
-    using IIterator_S = std::shared_ptr<IIterator<T>>;
+    using IIterator_S = std::shared_ptr<IIterateur<T>>;
 
     template<typename T>
-    using IIterator_SC = std::shared_ptr<const IIterator<T>>;
+    using IIterator_SC = std::shared_ptr<const IIterateur<T>>;
 } // namespace hex
 
 #endif // __IITERATOR_H__

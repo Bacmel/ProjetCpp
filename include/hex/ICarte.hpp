@@ -4,7 +4,7 @@
 #include <memory>
 #include <ostream>
 #include "hex/Coordonnees.hpp"
-#include "hex/IIterator.hpp"
+#include "hex/IIterateur.hpp"
 
 namespace hex
 {
