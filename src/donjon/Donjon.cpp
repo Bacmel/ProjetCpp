@@ -24,13 +24,13 @@ namespace donjon
     {
         // Vérifie que le personnage peut se trouver sur la case.
         if (personnage == nullptr) { return; }
-        deplace(*personnage, position);
+        deplace(*personnage, Deplacement::Forcer, position);
         // Insert le personnage et s'assure de l'unicité.
         auto resultat = m_personnages.insert(personnage);
         if (!resultat.second) { throw invalid_argument("Donjon::invoquer : Ce personnage est déjà présent."); }
     }
 
-    void Donjon::deplace(per::APersonnage& personnage, const hex::Coordonnees& position)
+    void Donjon::deplace(per::APersonnage& personnage, per::Deplacement type, const hex::Coordonnees& position)
     {
         // Vérifie qu'une case existe à ces coordonnées.
         ICase_S iCase(nullptr);
@@ -49,7 +49,7 @@ namespace donjon
         if (estOccupee(position))
         { throw std::invalid_argument("Donjon::deplace : Coordonnées invalides (déjà occupées)"); }
         // Met à jour la position du joueur et notifie la case.
-        personnage.setPosition(position);
+        personnage.deplacer(type, position);
         iCase->enEntree(personnage);
     }
 
@@ -187,7 +187,7 @@ namespace donjon
                 break;
             }
             // On déplace le personnage vers la nouvelle case.
-            personnage->setPosition(cible);
+            personnage->deplacer(Deplacement::Forcer, cible);
             iCase->enEntree(*personnage);
         }
     }

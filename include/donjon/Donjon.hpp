@@ -4,10 +4,10 @@
 #include <set>
 #include <vector>
 #include "donjon/IDonjon.hpp"
+#include "donjon/PersonnageComparateur.hpp"
 #include "donjon/cases/ICase.hpp"
 #include "hex/ICarte.hpp"
 #include "per/APersonnage.hpp"
-#include "donjon/PersonnageComparateur.hpp"
 
 namespace donjon
 {
@@ -40,7 +40,9 @@ namespace donjon
 
         virtual void invoquer(per::APersonnage_S personnage, const hex::Coordonnees& position) override;
 
-        virtual void deplace(per::APersonnage& personnage, const hex::Coordonnees& position) override;
+        virtual void deplace(per::APersonnage& personnage,
+                             per::Deplacement type,
+                             const hex::Coordonnees& position) override;
 
         virtual void pousse(const std::map<hex::Coordonnees, hex::Direction>& aoe, size_t distance) override;
 

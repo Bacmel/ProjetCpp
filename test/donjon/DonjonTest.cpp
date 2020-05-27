@@ -45,17 +45,17 @@ TEST_CASE("Creation et manipulation de Donjon", "[Donjon]")
         Coordonnees pos(0, 0);
         donjon.invoquer(heros, pos);
         // Déplacement vers une case interdite.
-        REQUIRE_THROWS(donjon.deplace(*heros, pos.translate(Direction::Nord)));
+        REQUIRE_THROWS(donjon.deplace(*heros, Deplacement::Forcer, pos.translate(Direction::Nord)));
         // Déplacement hors carte.
-        REQUIRE_THROWS(donjon.deplace(*heros, pos.translate(Direction::NordEst, 4)));
+        REQUIRE_THROWS(donjon.deplace(*heros, Deplacement::Forcer, pos.translate(Direction::NordEst, 4)));
         // Déplacement vers une case occupée.
         APersonnage_S herosBis(new Heros(1));
         Coordonnees posBis = pos.translate(Direction::Sud);
         donjon.invoquer(herosBis, posBis);
-        REQUIRE_THROWS(donjon.deplace(*heros, posBis));
+        REQUIRE_THROWS(donjon.deplace(*heros, Deplacement::Forcer, posBis));
         // Déplacement valide
         Coordonnees destination = pos.translate(Direction::NordEst);
-        REQUIRE_NOTHROW(donjon.deplace(*heros, destination));
+        REQUIRE_NOTHROW(donjon.deplace(*heros, Deplacement::Forcer, destination));
         REQUIRE(heros->getPosition() == destination);
     }
 }
