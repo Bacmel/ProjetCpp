@@ -28,8 +28,8 @@ namespace utils
         }
     }
 
-    inline void Jauge::remplir() { m_val = m_valMax; }
+    void Jauge::remplir() { m_val = m_valMax; }
 
-    inline void Jauge::vider() { m_val = 0; }
+    void Jauge::vider() { m_val = 0; }
 
 } // namespace utils
