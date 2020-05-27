@@ -1,12 +1,12 @@
-#ifndef __DEPLACEMENTERROR_H__
-#define __DEPLACEMENTERROR_H__
+#ifndef __JAUGEERREUR_H__
+#define __JAUGEERREUR_H__
 
 #include <stdexcept>
 #include <string>
 
 namespace err
 {
-    class DeplacementError : public std::runtime_error
+    class JaugeErreur : public std::runtime_error
     {
     public:
         /**
@@ -14,10 +14,10 @@ namespace err
          *
          * @param message Le descriptif de l'erreur.
          */
-        DeplacementError(const std::string& message);
+        JaugeErreur(const std::string& message);
 
-        virtual ~DeplacementError();
+        virtual ~JaugeErreur();
     };
 } // namespace err
 
-#endif // __DEPLACEMENTERROR_H__
+#endif // __JAUGEERREUR_H__
