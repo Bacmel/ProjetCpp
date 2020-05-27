@@ -19,7 +19,7 @@ namespace donjon::cases
     void Trou::enEntree(per::APersonnage& personnage)
     {
         // Tue le personnage.
-        personnage.subitAttaque(999);
+        personnage.tuer();
     }
 
     bool Trou::estPraticable() const { return false; }
