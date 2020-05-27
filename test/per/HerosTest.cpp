@@ -45,10 +45,9 @@ TEST_CASE("Creation et manipulation de heros", "[heros]")
         REQUIRE_FALSE(h2.estVivant());
  
         h1.ajouterSante(3);
-        REQUIRE_FALSE(h1.estVivant());
-        REQUIRE(h2.estVivant());
-        h2.ajouterSante(3);
-        REQUIRE_FALSE(h2.estVivant());
+        h2.ajouterSante(999);
+        REQUIRE(h1.estVivant());
+        REQUIRE(h2.getSante() == 3);
     }
 
     SECTION("APersonnage::ajouterSanteMax")

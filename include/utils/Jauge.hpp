@@ -48,12 +48,12 @@ namespace utils
         /**
          * @brief Remplie la jauge.
          */
-        inline void remplir();
+        void remplir();
 
         /**
          * @brief Vide la jauge.
          */
-        inline void vider();
+        void vider();
     };
 } // namespace utils
 
