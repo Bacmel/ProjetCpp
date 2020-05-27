@@ -16,9 +16,10 @@ namespace per
 
     public:
         /**
-         * @brief Construit un nouveau Hero
+         * @brief Construit un nouveau Hero.
          *
-         * @param pvMax
+         * @param pvMax la sante maximale.
+         * @param position la position.
          */
         explicit Heros(size_t pvMax);
 
@@ -36,12 +37,7 @@ namespace per
          */
         void rmObjet(obj::IObjet_S objet);
 
-        /**
-         * @brief Modifie la santé maximale
-         *
-         * @param sante La santé à ajouter. Elle peut être négative.
-         */
-        void addSanteMax(int sante);
+        virtual void deplacer(Deplacement deplacement, hex::Coordonnees cible);
     };
 }; // namespace per
 
