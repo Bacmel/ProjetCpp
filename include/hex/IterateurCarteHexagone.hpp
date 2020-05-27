@@ -1,6 +1,7 @@
 #ifndef __ITERATEURCARTEHEXAGONE_H__
 #define __ITERATEURCARTEHEXAGONE_H__
 
+#include <cmath>
 #include "hex/Coordonnees.hpp"
 #include "hex/IIterateur.hpp"
 
@@ -13,46 +14,46 @@ namespace hex
     class IterateurCarteHexagone : public IIterateur<Coordonnees>
     {
         const CarteHexagone<T>* m_carte;
-        int m_ligne;
         int m_colonne;
-        int m_ligneMax;
+        int m_ligne;
+        int m_colonneMax;
         Coordonnees m_centre;
 
     public:
         IterateurCarteHexagone(const CarteHexagone<T>* carte) :
             m_carte(carte),
-            m_ligne(0),
-            m_colonne(-1),
+            m_colonne(0),
+            m_ligne(-1),
             m_centre(carte->getRayon(), carte->getRayon())
         {
-            m_ligneMax = carte->getRayon() * 2;
+            m_colonneMax = carte->getRayon() * 2;
         }
 
-        bool aSuite() { return m_ligne < m_ligneMax || m_colonne < (int)m_carte->getRayon(); }
+        bool aSuite() { return m_colonne < m_colonneMax || m_ligne < (int)m_carte->getRayon(); }
 
         Coordonnees suite()
         {
-            if (m_ligne <= (int)m_carte->getRayon())
+            if (m_colonne <= (int)m_carte->getRayon())
             {
-                if (m_colonne < (int)m_carte->getRayon() + m_ligne) { m_colonne++; }
+                if (m_ligne < (int)m_carte->getRayon() + m_colonne) { m_ligne++; }
                 else
                 {
-                    m_ligne++;
-                    m_colonne = 0;
+                    m_colonne++;
+                    m_ligne = 0;
                 }
             }
             else
             {
-                if (m_colonne < 3 * (int)m_carte->getRayon() - m_ligne) { m_colonne++; }
+                if (m_ligne < 3 * (int)m_carte->getRayon() - m_colonne) { m_ligne++; }
                 else
                 {
-                    m_ligne++;
-                    m_colonne = 0;
+                    m_colonne++;
+                    m_ligne = 0;
                 }
             }
-
-            Coordonnees c(m_ligne, m_colonne);
-            c = c - m_centre;
+            int r = m_ligne - std::min(m_colonne, (int) m_carte->getRayon());
+            int q = m_colonne - m_carte->getRayon();
+            Coordonnees c(r, q);
             return c;
         }
     };
