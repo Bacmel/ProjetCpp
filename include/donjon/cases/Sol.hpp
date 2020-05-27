@@ -33,6 +33,6 @@ namespace donjon::cases
         virtual ~Sol() = default;
     };
 
-} // namespace donjon
+} // namespace donjon::cases
 
 #endif // __CASENEUTRE_H__
