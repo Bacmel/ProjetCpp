@@ -1,20 +1,16 @@
-#ifndef __CASEINTERDITE_H__
-#define __CASEINTERDITE_H__
+#ifndef __CASENEUTRE_H__
+#define __CASENEUTRE_H__
 
 #include "donjon/cases/ICase.hpp"
 
 namespace donjon::cases
 {
-    class CaseInterdite : public ICase
+    class Sol : public ICase
     {
-    public:
-        CaseInterdite();
+        obj::IObjet_S m_objet;
 
-        CaseInterdite(const CaseInterdite& autre) = default;
-        CaseInterdite(CaseInterdite&& autre) = default;
-        CaseInterdite& operator=(const CaseInterdite& autre) = default;
-        CaseInterdite& operator=(CaseInterdite&& autre) = default;
-        ~CaseInterdite() = default;
+    public:
+        Sol();
 
         virtual void deposer(obj::IObjet_S objet) override;
 
@@ -29,6 +25,14 @@ namespace donjon::cases
         virtual void enActivation(per::APersonnage& personnage) override;
 
         virtual bool estTransparent() const override;
+
+        Sol(const Sol& autre) = default;
+        Sol(Sol&& autre) = default;
+        Sol& operator=(const Sol& autre) = default;
+        Sol& operator=(Sol&& autre) = default;
+        virtual ~Sol() = default;
     };
-} // namespace donjon::cases
-#endif // __CASEINTERDITE_H__
+
+} // namespace donjon
+
+#endif // __CASENEUTRE_H__

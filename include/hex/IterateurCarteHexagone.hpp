@@ -1,7 +1,7 @@
 #ifndef __ITERATEURCARTEHEXAGONE_H__
 #define __ITERATEURCARTEHEXAGONE_H__
 
-#include "hex/IIterator.hpp"
+#include "hex/IIterateur.hpp"
 
 namespace hex
 {
@@ -9,7 +9,7 @@ namespace hex
     class CarteHexagone;
 
     template <typename T>
-    class IterateurCarteHexagone : public IIterator<Coordonnees>
+    class IterateurCarteHexagone : public IIterateur<Coordonnees>
     {
         const CarteHexagone<T>* m_carte;
         int m_ligne;
