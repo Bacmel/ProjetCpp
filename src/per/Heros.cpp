@@ -40,6 +40,9 @@ namespace per
                 m_position = cible;
             }
             break;
+        default:
+            throw err::DeplacementErreur("Heros::deplacer : Deplacement non precise");
+            break;
         }
     }
 }; // namespace per
