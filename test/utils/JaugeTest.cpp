@@ -39,9 +39,9 @@ TEST_CASE( "Creation, operation et manipulation des jauges", "[jauge]" ) {
         REQUIRE(j2.getVal() == 42);
         REQUIRE(j2.getValMax() == 64);
 
-        REQUIRE_THROWS(j1.ajouterValeur(-1));
+        REQUIRE_THROWS(j1.ajouterValeurMax(1));
         REQUIRE(j1.getVal() == 0);
-        REQUIRE(j1.getValMax() == 0);
+        REQUIRE(j1.getValMax() == 1);
     }
     
     SECTION( "remplir et vider" )
@@ -52,7 +52,7 @@ TEST_CASE( "Creation, operation et manipulation des jauges", "[jauge]" ) {
 
         j2.remplir();
         REQUIRE(j2.getVal() == 42);
-        REQUIRE(j2.getValMax() == 64);
+        REQUIRE(j2.getValMax() == 42);
 
         j1.remplir();
         REQUIRE(j1.getVal() == 0);
