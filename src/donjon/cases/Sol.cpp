@@ -32,14 +32,15 @@ namespace donjon::cases
         }
     }
 
-    void Sol::enEntree(per::APersonnage& personnage)
+    // __attribute__((unused)) Signal au compilateur que l'argument n'est pas utilisé
+    void Sol::enEntree(__attribute__((unused)) per::APersonnage& personnage)
     {
         // Ne rien faire.
     }
 
     bool Sol::estPraticable() const { return true; }
 
-    void Sol::enActivation(per::APersonnage& personnage)
+    void Sol::enActivation(__attribute__((unused)) per::APersonnage& personnage)
     {
         // Ne rien faire.
     }

@@ -25,10 +25,12 @@ build: src/main.o $(OBJ)
 
 .PHONY: clear
 clear:
-	rm -f $(OBJ) $(OBJT)
+	rm -f src/main.o test/Test.o $(OBJ) $(OBJT)
 
 .PHONY: vclear
 vclear: clear
 	rm -f $(BIN) $(BINT)
 
 rebuild: vclear build
+
+retest: vclear test

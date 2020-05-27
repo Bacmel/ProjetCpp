@@ -4,17 +4,17 @@
 
 namespace donjon::cases
 {
-    void Trou::deposer(obj::IObjet_S objet)
+    Trou::Trou() {}
+
+    // __attribute__((unused)) Signal au compilateur que l'argument n'est pas utilisé
+    void Trou::deposer(__attribute__((unused)) obj::IObjet_S objet)
     {
         throw DepotError("Trou::deposer : Impossible de poser l'objet");
     }
 
     obj::IObjet_S Trou::ramasser() { throw SansObjetError("Trou::ramasser : Il n'y a pas d'objet"); }
 
-    const obj::IObjet& Trou::getObjet() const
-    {
-        throw SansObjetError("Trou::getObjet : Il n'y a pas d'objet");
-    }
+    const obj::IObjet& Trou::getObjet() const { throw SansObjetError("Trou::getObjet : Il n'y a pas d'objet"); }
 
     void Trou::enEntree(per::APersonnage& personnage)
     {
@@ -24,7 +24,7 @@ namespace donjon::cases
 
     bool Trou::estPraticable() const { return false; }
 
-    void Trou::enActivation(per::APersonnage& personnage)
+    void Trou::enActivation(__attribute__((unused)) per::APersonnage& personnage)
     {
         // Ne rien faire
     }
