@@ -1,11 +1,11 @@
 #include "donjon/Donjon.hpp"
 #include <iostream>
+#include <vector>
 #include "catch.hpp"
 #include "donjon/cases/Sol.hpp"
 #include "donjon/cases/Trou.hpp"
 #include "hex/CarteHexagone.hpp"
 #include "per/Heros.hpp"
-#include <vector>
 
 using namespace donjon;
 using namespace donjon::cases;
@@ -15,11 +15,8 @@ using namespace std;
 
 TEST_CASE("Creation et manipulation de Donjon", "[Donjon]")
 {
-    std::cout << "Début du test" << std::endl;
     ICarte_S<ICase_S> carte(new CarteHexagone<ICase_S>(2));
-    function<ICase_S()> fournisseurSol = []() {
-        return make_shared<Sol>();
-    };
+    function<ICase_S()> fournisseurSol = []() { return make_shared<Sol>(); };
     carte->remplir(fournisseurSol);
     Coordonnees positionTrou = Coordonnees().translate(Direction::Nord);
     (*carte)(positionTrou) = ICase_S(new Trou());
@@ -29,11 +26,36 @@ TEST_CASE("Creation et manipulation de Donjon", "[Donjon]")
     {
         // Invocation sur une case valide.
         APersonnage_S heros(new Heros(3));
-        REQUIRE_NOTHROW(donjon.invoquer(heros, Coordonnees()));
+        Coordonnees pos(-1, 2);
+        REQUIRE_NOTHROW(donjon.invoquer(heros, pos));
+        REQUIRE(heros->getPosition() == pos);
         // Invocation sur une case occupée.
         APersonnage_S herosBis(new Heros(2));
-        REQUIRE_THROWS(donjon.invoquer(herosBis, Coordonnees()));
+        REQUIRE_THROWS(donjon.invoquer(herosBis, pos));
         // Invocation sur une case invalide.
         REQUIRE_THROWS(donjon.invoquer(herosBis, positionTrou));
+        // Invocation d'un personnage déjà présent.
+        REQUIRE_THROWS(donjon.invoquer(heros, Coordonnees().translate(Direction::Sud)));
+    }
+
+    SECTION("Donjon::deplacer")
+    {
+        // Invocation sur une case valide.
+        APersonnage_S heros(new Heros(3));
+        Coordonnees pos(0, 0);
+        donjon.invoquer(heros, pos);
+        // Déplacement vers une case interdite.
+        REQUIRE_THROWS(donjon.deplace(*heros, pos.translate(Direction::Nord)));
+        // Déplacement hors carte.
+        REQUIRE_THROWS(donjon.deplace(*heros, pos.translate(Direction::NordEst, 4)));
+        // Déplacement vers une case occupée.
+        APersonnage_S herosBis(new Heros(1));
+        Coordonnees posBis = pos.translate(Direction::Sud);
+        donjon.invoquer(herosBis, posBis);
+        REQUIRE_THROWS(donjon.deplace(*heros, posBis));
+        // Déplacement valide
+        Coordonnees destination = pos.translate(Direction::NordEst);
+        REQUIRE_NOTHROW(donjon.deplace(*heros, destination));
+        REQUIRE(heros->getPosition() == destination);
     }
 }

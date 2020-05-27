@@ -1,17 +1,19 @@
 #ifndef __DONJON_H__
 #define __DONJON_H__
 
+#include <set>
 #include <vector>
 #include "donjon/IDonjon.hpp"
 #include "donjon/cases/ICase.hpp"
 #include "hex/ICarte.hpp"
 #include "per/APersonnage.hpp"
+#include "donjon/PersonnageComparateur.hpp"
 
 namespace donjon
 {
     class Donjon : public IDonjon
     {
-        std::vector<per::APersonnage_S> m_personnages;
+        std::set<per::APersonnage_S, PersonnageComparateur> m_personnages;
         hex::ICarte_S<cases::ICase_S> m_carte;
 
     public:
@@ -27,7 +29,7 @@ namespace donjon
          *
          * @return std::vector<per::APersonnage_S>& La liste des personnages.
          */
-        inline std::vector<per::APersonnage_S>& getPersonnages() { return m_personnages; }
+        std::vector<per::APersonnage_SC> getPersonnages() const;
 
         /**
          * @brief Obtient la carte du donjon.

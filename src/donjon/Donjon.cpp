@@ -1,7 +1,6 @@
 #include "donjon/Donjon.hpp"
 #include <algorithm>
 #include "donjon/SansObjetError.hpp"
-
 using namespace hex;
 using namespace per;
 using namespace obj;
@@ -10,13 +9,26 @@ using namespace std;
 
 namespace donjon
 {
-    Donjon::Donjon(const hex::ICarte_S<ICase_S>& carte) : m_personnages(), m_carte(carte) {}
+    Donjon::Donjon(const hex::ICarte_S<ICase_S>& carte) : m_personnages(PersonnageComparateur()), m_carte(carte) {}
+
+    std::vector<per::APersonnage_SC> Donjon::getPersonnages() const
+    {
+        vector<APersonnage_SC> list(m_personnages.size());
+        for (const APersonnage_S& personnage : m_personnages)
+        {
+            list.push_back(personnage);
+        }
+        return list;
+    }
 
     void Donjon::invoquer(per::APersonnage_S personnage, const hex::Coordonnees& position)
     {
+        // Vérifie que le personnage peut se trouver sur la case.
         if (personnage == nullptr) { return; }
         deplace(*personnage, position);
-        m_personnages.push_back(personnage);
+        // Insert le personnage et s'assure de l'unicité.
+        auto resultat = m_personnages.insert(personnage);
+        if (!resultat.second) { throw invalid_argument("Donjon::invoquer : Ce personnage est déjà présent."); }
     }
 
     void Donjon::deplace(per::APersonnage& personnage, const hex::Coordonnees& position)
@@ -32,14 +44,11 @@ namespace donjon
             throw std::invalid_argument("Donjon::deplace : Coordonnées invalides (pas de case)");
         }
         // Vérifie que la case est praticable.
-        if (iCase == nullptr) { throw std::runtime_error("Donjon::deplace : Case nulle"); }
-        if (!iCase->estPraticable()) { throw std::runtime_error("Donjon::deplace : Case non praticable"); }
+        if (iCase == nullptr) { throw std::invalid_argument("Donjon::deplace : Case nulle"); }
+        if (!iCase->estPraticable()) { throw std::invalid_argument("Donjon::deplace : Case non praticable"); }
         // Vérifie qu'aucun joueur ne soit à ces coordonnées.
-        for (const APersonnage_S& perPresent : m_personnages)
-        {
-            if (perPresent->getPosition() == position)
-            { throw std::invalid_argument("Donjon::deplace : Coordonnées invalides (déjà occupées)"); }
-        }
+        if (estOccupee(position))
+        { throw std::invalid_argument("Donjon::deplace : Coordonnées invalides (déjà occupées)"); }
         // Met à jour la position du joueur et notifie la case.
         personnage.setPosition(position);
         iCase->enEntree(personnage);
