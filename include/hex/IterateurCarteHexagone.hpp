@@ -1,6 +1,7 @@
 #ifndef __ITERATEURCARTEHEXAGONE_H__
 #define __ITERATEURCARTEHEXAGONE_H__
 
+#include "hex/Coordonnees.hpp"
 #include "hex/IIterateur.hpp"
 
 namespace hex

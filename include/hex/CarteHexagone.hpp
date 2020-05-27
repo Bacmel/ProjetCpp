@@ -2,6 +2,7 @@
 #define CARTE_HEXAGONE_HPP
 
 #include <cmath>
+#include <functional>
 #include <iostream>
 #include <sstream>
 #include <stdexcept>
@@ -156,6 +157,17 @@ namespace hex
                 {
                     std::cerr << e.what() << '\n';
                 }
+            }
+        }
+
+        virtual void remplir(std::function<T()> fournisseur) override
+        {
+            // On itère sur chaque case et on lui alloue sa nouvelle valeur.
+            auto itr = iterateur();
+            while (itr->aSuite())
+            {
+                Coordonnees cCase = itr->suite();
+                (*this)(cCase) = fournisseur();
             }
         }
 
