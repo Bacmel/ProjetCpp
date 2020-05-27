@@ -2,6 +2,7 @@
 #define CARTE_HEXAGONE_HPP
 
 #include <cmath>
+#include <functional>
 #include <iostream>
 #include <sstream>
 #include <stdexcept>
@@ -32,15 +33,15 @@ namespace hex
         {
             // Crée le plateau puis chaque ligne de longueur croissante et décroissante.
             size_t diametre = 2 * m_rayon + 1;
-            m_plateau = new T*[diametre];
+            m_plateau = new T*[diametre]();
             for (size_t i = 1; i <= m_rayon; i++)
             {
                 size_t longueur = diametre - i;
-                m_plateau[m_rayon + i] = new T[longueur];
-                m_plateau[m_rayon - i] = new T[longueur];
+                m_plateau[m_rayon + i] = new T[longueur]();
+                m_plateau[m_rayon - i] = new T[longueur]();
             }
             // Crée la ligne centrale.
-            m_plateau[m_rayon] = new T[diametre];
+            m_plateau[m_rayon] = new T[diametre]();
         }
 
         /*====== Constructeurs & opérateurs de copie & destructeur ======*/
@@ -108,11 +109,12 @@ namespace hex
             if (abs(c.getLigne()) > (int)m_rayon || abs(c.getColonne()) > (int)m_rayon)
             {
                 std::stringstream ss;
-                ss << '(' << c.getColonne() << ", " << c.getLigne() << ") est hors de l'hexagone de m_rayon " << m_rayon
-                   << ".";
+                ss << c << " est hors de l'hexagone de m_rayon " << m_rayon << ".";
                 throw std::out_of_range(ss.str());
             }
-            return m_plateau[m_rayon - c.getColonne()][m_rayon - c.getLigne()];
+            size_t colonne = c.getColonne() + m_rayon;
+            size_t ligne = c.getLigne() + m_rayon + std::min(c.getColonne(), 0);
+            return m_plateau[colonne][ligne];
         }
 
         virtual const T& operator()(const Coordonnees& c) const override
@@ -121,10 +123,12 @@ namespace hex
             if (abs(c.getLigne()) > (int)m_rayon || abs(c.getColonne()) > (int)m_rayon)
             {
                 std::stringstream ss;
-                ss << c << " est hors de l'hexagone de rayon " << m_rayon << ".";
+                ss << c << " est hors de l'hexagone de m_rayon " << m_rayon << ".";
                 throw std::out_of_range(ss.str());
             }
-            return m_plateau[m_rayon - c.getColonne()][m_rayon - c.getLigne()];
+            size_t colonne = c.getColonne() + m_rayon;
+            size_t ligne = c.getLigne() + m_rayon + std::min(c.getColonne(), 0);
+            return m_plateau[colonne][ligne];
         }
 
         virtual void remplir(const T& valeur) override
@@ -156,6 +160,17 @@ namespace hex
                 {
                     std::cerr << e.what() << '\n';
                 }
+            }
+        }
+
+        virtual void remplir(std::function<T()> fournisseur) override
+        {
+            // On itère sur chaque case et on lui alloue sa nouvelle valeur.
+            auto itr = iterateur();
+            while (itr->aSuite())
+            {
+                Coordonnees cCase = itr->suite();
+                (*this)(cCase) = fournisseur();
             }
         }
 
