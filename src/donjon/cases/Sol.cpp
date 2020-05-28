@@ -2,6 +2,7 @@
 #include <iostream>
 #include "err/DepotErreur.hpp"
 #include "err/SansObjetErreur.hpp"
+#include "donjon/cases/ICaseVisiteur.hpp"
 
 namespace donjon::cases
 {
@@ -52,4 +53,6 @@ namespace donjon::cases
     }
 
     bool Sol::estTransparent() const { return true; }
+
+    void Sol::accepter(ICaseVisiteur& visiteur) { visiteur.visite(*this); }
 } // namespace donjon::cases
