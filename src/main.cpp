@@ -1,90 +1,60 @@
 #include <SFML/Graphics.hpp>
+#include <cmath>
 #include <iostream>
+#include "donjon/cases/Sol.hpp"
 #include "hex/CarteHexagone.hpp"
+#include "hex/Coordonnees.hpp"
 #include "hex/ICarte.hpp"
 #include "hex/Masque.hpp"
+#include "vue/cases/CaseDessinateur.hpp"
 
+using namespace donjon::cases;
+using namespace vue::cases;
 using namespace std;
+using namespace hex;
+using namespace sf;
 
 int main()
 {
-    // sf::RenderWindow window(sf::VideoMode(200, 200), "SFML works!");
-    // sf::CircleShape shape(100.f);
-    // shape.setFillColor(sf::Color::Green);
-    // window.setFramerateLimit(30);
+    sf::RenderWindow window(sf::VideoMode(500, 500), "SFML works!");
+    sf::CircleShape shape(100.f);
+    shape.setFillColor(sf::Color::Green);
+    window.setFramerateLimit(30);
 
-    // while (window.isOpen()) {
-    //     sf::Event event;
-    //     while (window.pollEvent(event)) {
-    //         if (event.type == sf::Event::Closed) window.close();
-    //     }
+    ICarte_S<ICase_S> carte(new CarteHexagone<ICase_S>(5));
+    function<ICase_S()> fournisseurSol = []() { return make_shared<Sol>(); };
+    carte->remplir(fournisseurSol);
+    Coordonnees positionTrou = Coordonnees().translate(Direction::Nord);
+    (*carte)(positionTrou) = ICase_S(new Trou());
+    (*carte)(Coordonnees(-1, -1)) = ICase_S(new Trou());
+    CaseDessinateur cd(window);
 
-    //     window.clear();
-    //     window.draw(shape);
-    //     window.display();
-    // }
-    shared_ptr<hex::ICarte<bool>> carte(new hex::CarteHexagone<bool>(3));
-    hex::Coordonnees c(0, 0);
-    (*carte)(c) = true;
-    std::cout << c << " = " << (*carte)(c) << std::endl;
-    c = hex::Coordonnees(-3, 0);
-    (*carte)(c) = true;
-    try
+    while (window.isOpen())
     {
-        c = c.translate(hex::Direction::SudEst);
-        cout << c << endl;
-        (*carte)(c);
+        sf::Event event;
+        while (window.pollEvent(event))
+        {
+            if (event.type == sf::Event::Closed) window.close();
+            // on attrape les évènements de redimensionnement
+            if (event.type == sf::Event::Resized)
+            {
+                // on met à jour la vue, avec la nouvelle taille de la fenêtre
+                sf::FloatRect visibleArea(0.f, 0.f, event.size.width, event.size.height);
+                View vue = sf::View(visibleArea);
+                vue.zoom(2);
+                window.setView(vue);
+            }
+        }
+        window.clear(sf::Color::Black);
+        window.draw(shape);
+        auto itr = carte->iterateur();
+        while (itr->aSuite())
+        {
+            Coordonnees pos = itr->suite();
+            ICase_S iCase = (*carte)(pos);
+            cd.dessine(pos, *iCase);
+        }
+        window.display();
     }
-    catch (const std::out_of_range& e)
-    {
-        std::cerr << e.what() << '\n';
-    }
-    hex::IIterator_S<hex::Coordonnees> itr = carte->iterateur();
-    cout << "Iteration sur les Coordonnees" << endl;
-    size_t compte = 0;
-    while (itr->aSuite())
-    {
-        compte++;
-        hex::Coordonnees cItr = itr->suite();
-        cout << "Point " << compte << " : " << cItr;
-        cout << " Contient : " << (*carte)(cItr);
-        cout << endl;
-    }
-    cout << "Il y a " << compte << " cases." << endl;
-
-    hex::ICarte_S<bool> masque(new hex::CarteHexagone<bool>(1));
-    masque->remplir(true);
-    carte->remplir(*masque, hex::Coordonnees(1, 2));
-
-    itr = carte->iterateur();
-    cout << "Iteration sur les Coordonnees" << endl;
-    compte = 0;
-    while (itr->aSuite())
-    {
-        compte++;
-        hex::Coordonnees cItr = itr->suite();
-        cout << "Point " << compte << " : " << cItr;
-        cout << " Contient : " << (*carte)(cItr);
-        cout << endl;
-    }
-    cout << "Il y a " << compte << " cases." << endl;
-
-    hex::Masque m1(1);
-    m1.remplir(true);
-
-    hex::Masque m2(1);
-    m2.remplir(false);
-    hex::Coordonnees c2(1, 0);
-    m2(c2) = true;
-
-    cout << "ET" << endl;
-    hex::Masque et(m1 && m2);
-    auto itrEt = et.iterateur();
-    while (itrEt->aSuite())
-    {
-        hex::Coordonnees coord = itrEt->suite();
-        cout << coord << '\t' << m1(coord) << " && " << m2(coord) << " = " << et(coord) << endl;
-    }
-
     return 0;
 }
