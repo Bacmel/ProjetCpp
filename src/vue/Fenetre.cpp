@@ -5,11 +5,11 @@ using namespace std;
 using namespace controlleur;
 namespace vue
 {
-    Fenetre::Fenetre(sf::VideoMode& videoMode, std::string titre) :
-        m_fenetre(videoMode, titre),
-        m_gestEven(),
-        m_dessinateur(nullptr)
+    Fenetre::Fenetre(sf::VideoMode& videoMode, std::string titre) : m_fenetre(), m_gestEven(), m_dessinateur(nullptr)
     {
+        ContextSettings cs;
+        cs.antialiasingLevel = 5;
+        m_fenetre.create(videoMode, titre, Style::Default, cs);
     }
 
     void Fenetre::actualiser()

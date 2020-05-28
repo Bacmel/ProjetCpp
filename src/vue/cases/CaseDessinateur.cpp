@@ -25,12 +25,12 @@ namespace vue::cases
     {
         Vector2u dim = m_cible.getSize();
         m_hexagone = CircleShape(m_rayon, 6);
-        float x = m_rayon / 2 * 3 * (float)position.getColonne();
-        float y = m_rayon * sqrtf(3) * ((float)position.getColonne() / 2 + position.getLigne());
+        float x = m_rayon / 2. * 3. * (float)position.getColonne();
+        float y = m_rayon * sqrtf(3) * (position.getColonne() / 2. + position.getLigne());
         m_hexagone.setOrigin(m_rayon, m_rayon);
         m_hexagone.setPosition(dim.x / 2 + x, dim.y / 2 + y);
         m_hexagone.setRotation(90);
-        m_hexagone.setOutlineThickness(2);
+        m_hexagone.setOutlineThickness(1);
         m_hexagone.setOutlineColor(Color::Black);
         iCase.accepter(*this);
         m_cible.draw(m_hexagone);
