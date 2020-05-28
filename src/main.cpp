@@ -7,6 +7,7 @@
 #include "hex/Coordonnees.hpp"
 #include "hex/ICarte.hpp"
 #include "hex/Masque.hpp"
+#include "vue/Fenetre.hpp"
 #include "vue/ObjetDessinateur.hpp"
 #include "vue/cases/CaseDessinateur.hpp"
 
@@ -20,7 +21,9 @@ using namespace obj;
 
 int main()
 {
-    sf::RenderWindow window(sf::VideoMode(500, 500), "Circuit Fight!");
+    VideoMode vm = sf::VideoMode(500, 500);
+    Fenetre fen(vm, "Circuit Fight!");
+    sf::RenderWindow& window = fen.getRenderWindow();
     window.setFramerateLimit(60);
 
     ICarte_S<ICase_S> carte(new CarteHexagone<ICase_S>(5));
@@ -36,24 +39,7 @@ int main()
     CaseDessinateur cd(window);
     ObjetDessinateur od(window);
 
-    while (window.isOpen())
-    {
-        sf::Event event;
-        while (window.pollEvent(event))
-        {
-            if (event.type == sf::Event::Closed) window.close();
-            // on attrape les évènements de redimensionnement
-            if (event.type == sf::Event::Resized)
-            {
-                // on met à jour la vue, avec la nouvelle taille de la fenêtre
-                sf::FloatRect visibleArea(0.f, 0.f, event.size.width, event.size.height);
-                View vue = sf::View(visibleArea);
-                float facteurZoom = 2 * 500. / std::min(event.size.height, event.size.width);
-                vue.zoom(facteurZoom);
-                window.setView(vue);
-            }
-        }
-        window.clear(sf::Color::Black);
+    fen.setDessinateur([&](RenderWindow& rw) {
         auto itr = carte->iterateur();
         while (itr->aSuite())
         {
@@ -69,7 +55,8 @@ int main()
             {
             }
         }
-        window.display();
-    }
+    });
+
+    fen.actualiser();
     return 0;
 }
