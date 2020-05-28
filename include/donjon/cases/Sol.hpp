@@ -26,6 +26,8 @@ namespace donjon::cases
 
         virtual bool estTransparent() const override;
 
+        virtual void accepter(ICaseVisiteur& visiteur) override;
+
         Sol(const Sol& autre) = default;
         Sol(Sol&& autre) = default;
         Sol& operator=(const Sol& autre) = default;
