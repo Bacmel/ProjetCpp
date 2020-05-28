@@ -16,9 +16,7 @@ using namespace sf;
 
 int main()
 {
-    sf::RenderWindow window(sf::VideoMode(500, 500), "SFML works!");
-    sf::CircleShape shape(100.f);
-    shape.setFillColor(sf::Color::Green);
+    sf::RenderWindow window(sf::VideoMode(500, 500), "Circuit Fight!");
     window.setFramerateLimit(30);
 
     ICarte_S<ICase_S> carte(new CarteHexagone<ICase_S>(5));
@@ -46,7 +44,6 @@ int main()
             }
         }
         window.clear(sf::Color::Black);
-        window.draw(shape);
         auto itr = carte->iterateur();
         while (itr->aSuite())
         {
