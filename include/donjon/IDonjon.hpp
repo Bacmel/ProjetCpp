@@ -3,6 +3,7 @@
 
 #include <map>
 #include <memory>
+#include <vector>
 #include "donjon/cases/ICase.hpp"
 #include "hex/ICarte.hpp"
 #include "per/APersonnage.hpp"
@@ -73,6 +74,13 @@ namespace donjon
          * @throw err::SansObjetErreur Quand la case n'a pas d'objet.
          */
         virtual obj::IObjet_S ramasser(const hex::Coordonnees& position) = 0;
+
+        /**
+         * @brief Retourne la liste des cases disponibles.
+         *
+         * @return set<hex::Coordonnees> la liste des cases disponibles.
+         */
+        virtual std::vector<hex::Coordonnees> getCaseVide() const = 0;
     };
 
     using IDonjon_S = std::shared_ptr<IDonjon>;

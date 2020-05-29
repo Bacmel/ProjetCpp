@@ -47,6 +47,13 @@ TEST_CASE("Creation et manipulation de Sol", "[Sol]")
         REQUIRE(heros.getSanteMax() == santeMax);
         REQUIRE(heros.getPosition() == pos);
         REQUIRE(heros.estVivant() == vie);
+
+        IObjet_S objet = std::make_shared<GravityGun>();
+        sol.deposer(objet);
+        sol.enEntree(heros);
+        REQUIRE_THROWS(sol.getObjet());
+        const obj::IObjet& obj = heros.getObjet(0);
+        REQUIRE(&obj == objet.get());
     }
 
     SECTION("Sol::deposer")

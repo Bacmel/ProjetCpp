@@ -30,7 +30,7 @@ namespace donjon::cases
 
         virtual bool estTransparent() const override;
 
-        virtual void accepter(ICaseVisiteur& visiteur) override;
+        virtual void accepter(ICaseVisiteur& visiteur) const override;
     };
 } // namespace donjon::cases
 #endif // __CASEINTERDITE_H__

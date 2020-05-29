@@ -8,16 +8,6 @@ namespace per
 {
     Heros::Heros(size_t pvMax) : APersonnage::APersonnage(pvMax, hex::Coordonnees()), m_sac() {}
 
-    void Heros::addObjet(obj::IObjet_S objet)
-    {
-        if (objet != nullptr) { m_sac.push_back(objet); }
-    }
-
-    void Heros::rmObjet(obj::IObjet_S objet)
-    {
-        m_sac.erase(std::remove(m_sac.begin(), m_sac.end(), objet), m_sac.end());
-    }
-
     void Heros::deplacer(Deplacement deplacement, hex::Coordonnees cible)
     {
         switch (deplacement)
@@ -48,4 +38,22 @@ namespace per
     }
 
     void Heros::accepter(IPersonnageVisiteur& visiteur) const { visiteur.visiter(*this); }
+
+    void Heros::ajouterObjet(obj::IObjet_S objet)
+    {
+        if (objet != nullptr) { m_sac.push_back(objet); }
+    }
+
+    void Heros::retirerObjet(obj::IObjet_S objet)
+    {
+        m_sac.erase(std::remove(m_sac.begin(), m_sac.end(), objet), m_sac.end());
+    }
+
+    size_t Heros::tailleSac() const { return m_sac.size(); }
+
+    const obj::IObjet& Heros::getObjet(size_t indice)
+    {
+        obj::IObjet_S objet = m_sac.at(indice);
+        return *objet;
+    }
 }; // namespace per
