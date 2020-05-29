@@ -71,7 +71,7 @@ namespace donjon::cases
          */
         virtual bool estTransparent() const = 0;
 
-        virtual void accepter(ICaseVisiteur& visiteur) = 0;
+        virtual void accepter(ICaseVisiteur& visiteur) const = 0;
     };
 
     using ICase_S = std::shared_ptr<ICase>;
