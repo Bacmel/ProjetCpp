@@ -25,7 +25,7 @@ namespace utils
          * @param pixel La position en pixel.
          * @return L'équivalent en grille hexagonale.
          */
-        hex::Coordonnees operator()(float cote, const sf::Vector2u& pixel) const;
+        hex::Coordonnees operator()(float cote, const sf::Vector2i& pixel) const;
     };
 } // namespace utils
 #endif // __HEXPIXELCONVERTISSEUR_H__
