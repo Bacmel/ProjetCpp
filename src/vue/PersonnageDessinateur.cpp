@@ -1,4 +1,5 @@
 #include "vue/PersonnageDessinateur.hpp"
+#include "utils/HexPixelConvertisseur.hpp"
 
 using namespace sf;
 
@@ -14,12 +15,13 @@ namespace vue
         m_herosTex = gest.obtenir("resources/textures/per/heros.png");
     }
 
-    void PersonnageDessinateur::dessiner(const per::APersonnage& personnage)
+    void PersonnageDessinateur::dessine(const hex::Coordonnees& hex, const per::APersonnage& personnage)
     {
         Vector2u dim = m_cible.getSize();
         m_sprite = Sprite();
         // Déplace le sprite au coordonnées.
-        Vector2f pixel = hexVersPixel(personnage.getPosition());
+        utils::HexPixelConvertisseur hexVersPixel;
+        Vector2f pixel = hexVersPixel(getRayon(), hex);
         Vector2f posSprite(dim.x / 2. + pixel.x, dim.y / 2. + pixel.y);
         m_sprite.setPosition(posSprite);
         // Adapte le sprite puis le dessine.

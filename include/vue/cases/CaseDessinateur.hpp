@@ -10,7 +10,7 @@
 
 namespace vue::cases
 {
-    class CaseDessinateur : public ADessinateur, public donjon::cases::ICaseVisiteur
+    class CaseDessinateur : public ADessinateur<donjon::cases::ICase>, public donjon::cases::ICaseVisiteur
     {
     private:
         Texture_S m_textureSol;
@@ -33,19 +33,7 @@ namespace vue::cases
          */
         inline Texture_S getTextureSol() const { return m_textureSol; }
 
-        /**
-         * @brief Obtient la cible des dessins.
-         *
-         * @return La cible des dessins.
-         */
-        inline const sf::RenderTarget& getCible() const { return m_cible; }
-
-        /**
-         * @brief Dessine la case sur la cible.
-         *
-         * @param iCase La case à dessiner.
-         */
-        void dessine(const hex::Coordonnees& position, donjon::cases::ICase& iCase);
+        void dessine(const hex::Coordonnees& position, const donjon::cases::ICase& iCase) override;
 
         void visite(const donjon::cases::Sol& sol) override;
 

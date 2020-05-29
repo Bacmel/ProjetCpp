@@ -9,7 +9,7 @@
 
 namespace vue
 {
-    class ObjetDessinateur : public ADessinateur, public obj::IObjetVisiteur
+    class ObjetDessinateur : public ADessinateur<obj::IObjet>, public obj::IObjetVisiteur
     {
     private:
         Texture_S m_textureGravityGun;
@@ -30,7 +30,7 @@ namespace vue
          * @param position Les coordonnées auxquelles se trouve l'objet.
          * @param iObjet L'objet à dessiner.
          */
-        void dessiner(const hex::Coordonnees& position, const obj::IObjet& iObjet);
+        void dessine(const hex::Coordonnees& position, const obj::IObjet& iObjet) override;
 
         virtual void visiter(const obj::GravityGun& gravityGun) override;
     };

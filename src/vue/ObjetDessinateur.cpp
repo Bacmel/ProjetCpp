@@ -1,4 +1,5 @@
 #include "vue/ObjetDessinateur.hpp"
+#include "utils/HexPixelConvertisseur.hpp"
 
 using namespace sf;
 
@@ -14,11 +15,12 @@ namespace vue
         m_textureGravityGun = gest.obtenir("resources/textures/obj/gravity_gun.png");
     }
 
-    void ObjetDessinateur::dessiner(const hex::Coordonnees& position, const obj::IObjet& iObjet)
+    void ObjetDessinateur::dessine(const hex::Coordonnees& position, const obj::IObjet& iObjet)
     {
         m_sprite = Sprite();
         // Met le sprite au centre de sa case.
-        Vector2f pixel = hexVersPixel(position);
+        utils::HexPixelConvertisseur hexVersPixel;
+        Vector2f pixel = hexVersPixel(getRayon(), position);
         Vector2u dim = m_cible.getSize();
         m_sprite.setPosition(dim.x / 2 + pixel.x, dim.y / 2 + pixel.y);
         // Adapte le sprite au type d'objet et le dessine.

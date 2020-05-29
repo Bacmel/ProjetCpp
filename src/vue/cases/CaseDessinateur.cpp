@@ -1,5 +1,6 @@
 #include "vue/cases/CaseDessinateur.hpp"
 #include <SFML/Graphics.hpp>
+#include "utils/HexPixelConvertisseur.hpp"
 #include "vue/TextureGest.hpp"
 
 using namespace sf;
@@ -18,11 +19,12 @@ namespace vue::cases
         m_textureTrou = gest.obtenir("resources/textures/cases/trou.png");
     }
 
-    void CaseDessinateur::dessine(const hex::Coordonnees& position, donjon::cases::ICase& iCase)
+    void CaseDessinateur::dessine(const hex::Coordonnees& position, const donjon::cases::ICase& iCase)
     {
         Vector2u dim = m_cible.getSize();
         float rayon = getRayon();
-        Vector2f pixel = hexVersPixel(position);
+        utils::HexPixelConvertisseur convertisseur;
+        Vector2f pixel = convertisseur(rayon, position);
         m_hexagone = CircleShape(rayon, 6);
         m_hexagone.setOrigin(rayon, rayon);
         m_hexagone.setPosition(dim.x / 2 + pixel.x, dim.y / 2 + pixel.y);

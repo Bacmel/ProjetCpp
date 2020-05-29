@@ -7,11 +7,11 @@
 #include "hex/Coordonnees.hpp"
 #include "hex/ICarte.hpp"
 #include "hex/Masque.hpp"
+#include "per/Heros.hpp"
 #include "vue/Fenetre.hpp"
 #include "vue/ObjetDessinateur.hpp"
-#include "vue/cases/CaseDessinateur.hpp"
-#include "per/Heros.hpp"
 #include "vue/PersonnageDessinateur.hpp"
+#include "vue/cases/CaseDessinateur.hpp"
 
 using namespace donjon::cases;
 using namespace vue::cases;
@@ -57,12 +57,12 @@ int main()
             try
             {
                 const IObjet& iObjet = iCase->getObjet();
-                od.dessiner(pos, iObjet);
+                od.dessine(pos, iObjet);
             }
             catch (const err::SansObjetErreur& ex)
             {
             }
-            pd.dessiner(*heros);
+            pd.dessine(heros->getPosition(), *heros);
         }
     });
 

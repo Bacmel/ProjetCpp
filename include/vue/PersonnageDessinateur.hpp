@@ -8,7 +8,7 @@
 
 namespace vue
 {
-    class PersonnageDessinateur : public vue::ADessinateur, public per::IPersonnageVisiteur
+    class PersonnageDessinateur : public vue::ADessinateur<per::APersonnage>, public per::IPersonnageVisiteur
     {
     private:
         sf::RenderTarget& m_cible;
@@ -25,7 +25,7 @@ namespace vue
          */
         PersonnageDessinateur(sf::RenderTarget& cible);
 
-        void dessiner(const per::APersonnage& personnage);
+        void dessine(const hex::Coordonnees& hex, const per::APersonnage& personnage) override;
 
         virtual void visiter(const per::Heros& heros) override;
 

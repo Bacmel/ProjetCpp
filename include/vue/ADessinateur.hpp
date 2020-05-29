@@ -6,6 +6,7 @@
 
 namespace vue
 {
+    template <typename T>
     class ADessinateur
     {
     private:
@@ -17,8 +18,8 @@ namespace vue
          *
          * @param rayon Le rayon du cercle circonscrit à l'hexagone (en pixels).
          */
-        ADessinateur(float rayon);
-        virtual ~ADessinateur() = 0;
+        ADessinateur(float rayon) : m_rayon(rayon) {}
+        virtual ~ADessinateur() {}
 
         /**
          * @brief Obtient le rayon du cercle circonscrit à l'hexagone.
@@ -39,20 +40,12 @@ namespace vue
         inline void setRayon(size_t rayon) { m_rayon = rayon; }
 
         /**
-         * @brief Converti la position en pixel en une coordonnees hexagonale.
+         * @brief Dessine l'élément.
          *
-         * @param pixel La position en pixel.
-         * @return L'équivalent en grille hexagonale.
+         * @param hex La position dans le repère hexagonale.
+         * @param elem L'élément à dessiner.
          */
-        hex::Coordonnees pixelVersHex(const sf::Vector2u& pixel);
-
-        /**
-         * @brief Converti la coordonnees hexagonale en position en pixel.
-         *
-         * @param pixel La position en grille hexagonale.
-         * @return L'équivalent en matrice de pixels.
-         */
-        sf::Vector2f hexVersPixel(const hex::Coordonnees& hex);
+        virtual void dessine(const hex::Coordonnees& hex, const T& elem) = 0;
     };
 } // namespace vue
 #endif // __ADESSINATEUR_H__
