@@ -2,7 +2,9 @@
 #define PERSONNAGE_HPP
 
 #include <memory>
+#include <vector>
 #include "hex/Coordonnees.hpp"
+#include "obj/IObjet.hpp"
 #include "utils/Jauge.hpp"
 
 namespace per
@@ -117,6 +119,41 @@ namespace per
          * @param visiteur Le visiteur à accepter.
          */
         virtual void accepter(IPersonnageVisiteur& visiteur) const = 0;
+
+        /**
+         * @brief Recupère un objet.
+         *
+         * @param objet l'objet.
+         *
+         * @throw std::logic_error Quand la classe concrète ne le permet pas.
+         */
+        virtual void ajouterObjet(obj::IObjet_S objet);
+
+        /**
+         * @brief Perd un objet de son inventaire.
+         *
+         * @param objet l'objet perdu.
+         *
+         * @throw std::logic_error Quand la classe concrète ne le permet pas.
+         */
+        virtual void retirerObjet(obj::IObjet_S objet);
+
+        /**
+         * @brief Donne la taille du sac (aka. le nombre d'IObjet qu'il contient)
+         *
+         * @return La taille du sac.
+         */
+        virtual size_t tailleSac() const;
+
+        /**
+         * @brief Obtient l'objet à l'indice indiqué.
+         *
+         * @param indice L'indice de l'objet dans le sac.
+         * @return L'objet à cet indice.
+         *
+         * @throw std::out_of_range Quand il n'y a pas d'objet à l'indice donné.
+         */
+        virtual const obj::IObjet& getObjet(size_t indice);
     };
 
     using APersonnage_S = std::shared_ptr<APersonnage>;

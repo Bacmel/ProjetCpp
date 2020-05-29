@@ -24,20 +24,6 @@ namespace per
         explicit Heros(size_t pvMax);
 
         /**
-         * @brief Recupère un objet.
-         *
-         * @param objet l'objet.
-         */
-        void addObjet(obj::IObjet_S objet);
-
-        /**
-         * @brief Perd un objet de son inventaire.
-         *
-         * @param objet l'objet perdu.
-         */
-        void rmObjet(obj::IObjet_S objet);
-
-        /**
          * @brief Modifie la santé maximale
          *
          * @param sante La santé à ajouter. Elle peut être négative.
@@ -47,6 +33,14 @@ namespace per
         virtual void deplacer(Deplacement deplacement, hex::Coordonnees cible) override;
 
         virtual void accepter(IPersonnageVisiteur& visiteur) const override;
+
+        void ajouterObjet(obj::IObjet_S objet) override;
+
+        void retirerObjet(obj::IObjet_S objet) override;
+
+        size_t tailleSac() const override;
+
+        const obj::IObjet& getObjet(size_t indice) override;
     };
 }; // namespace per
 
