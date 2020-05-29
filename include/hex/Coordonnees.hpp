@@ -46,6 +46,9 @@ namespace hex
         int longueur() const;
         int distance(const Coordonnees& autre) const;
 
+        void arrondir(float x, float y, float z);
+        void arrondir(float ligne, float colonne);
+
         Coordonnees operator+(const Coordonnees& autre) const;
         Coordonnees operator-() const;
         Coordonnees operator-(const Coordonnees& autre) const;
