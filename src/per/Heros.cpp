@@ -2,7 +2,7 @@
 #include "err/DeplacementErreur.hpp"
 #include <algorithm>
 #include <cmath>
-#include "IPersonnageVisiteur.hpp"
+#include "per/IPersonnageVisiteur.hpp"
 
 namespace per
 {
