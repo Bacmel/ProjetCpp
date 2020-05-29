@@ -3,6 +3,7 @@
 #include "donjon/cases/ICase.hpp"
 #include "donjon/cases/Sol.hpp"
 #include "donjon/cases/Trou.hpp"
+#include "err/CreationErreur.hpp"
 #include "err/InfoErreur.hpp"
 #include "hex/CarteHexagone.hpp"
 #include "per/Heros.hpp"
@@ -47,39 +48,23 @@ namespace partie
 
     void Partie::initialiserDonjon()
     {
+        vector<Coordonnees> coordonnees = m_donjon->getCaseVide();
+        auto c = coordonnees.begin();
         for (auto itrp = m_personnages.begin(); itrp != m_personnages.end(); itrp++)
         {
-            do
-            {
-                int ligne = (rand() % 10) - 5;
-                int colonne = (rand() % 10) - 5;
-                Coordonnees c(colonne, ligne);
-                try
-                {
-                    m_donjon->invoquer(*itrp, c);
-                    break;
-                }
-                catch (std::invalid_argument)
-                {
-                }
-            } while (true);
+            size_t size = coordonnees.size();
+            if(size == 0) { throw err::CreationErreur("Partie::initialiserDonjon : Plus de case disponible.");}
+            c = coordonnees.begin() + rand()%coordonnees.size();
+            m_donjon->invoquer(*itrp, *c);
+            coordonnees.erase(c);
         }
         for (auto itro = m_objets.begin(); itro != m_objets.end(); itro++)
         {
-            do
-            {
-                int ligne = (rand() % 10) - 5;
-                int colonne = (rand() % 10) - 5;
-                Coordonnees c(colonne, ligne);
-                try
-                {
-                    m_donjon->deposer(*itro, c);
-                    break;
-                }
-                catch (std::invalid_argument)
-                {
-                }
-            } while (true);
+            size_t size = coordonnees.size();
+            if(size == 0) { throw err::CreationErreur("Partie::initialiserDonjon : Plus de case disponible.");}
+            c = coordonnees.begin() + rand()%coordonnees.size();
+            m_donjon->deposer(*itro, *c);
+            coordonnees.erase(c);
         }
     }
 
