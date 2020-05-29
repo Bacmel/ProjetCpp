@@ -71,6 +71,13 @@ namespace donjon
          * @return obj::IObjet_S
          */
         virtual obj::IObjet_S ramasser(const hex::Coordonnees& position) = 0;
+
+        /**
+         * @brief Retourne la liste des cases disponibles.
+         * 
+         * @return set<hex::Coordonnees> la liste des cases disponibles.
+         */
+        virtual std::vector<hex::Coordonnees> getCaseVide() const = 0; 
     };
 
     using IDonjon_S = std::shared_ptr<IDonjon>;
