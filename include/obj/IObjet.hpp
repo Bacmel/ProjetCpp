@@ -11,6 +11,7 @@ namespace donjon
 
 namespace obj
 {
+    class IObjetVisiteur;
 
     class IObjet
     {
@@ -29,6 +30,13 @@ namespace obj
         virtual void utiliser(donjon::IDonjon& donjon,
                               const hex::Coordonnees& origine,
                               const hex::Coordonnees& cible) = 0;
+
+        /**
+         * @brief Accepte le visiteur.
+         *
+         * @param visiteur Le visiteur à accepter.
+         */
+        virtual void accepter(IObjetVisiteur& visiteur) const = 0;
     };
 
     using IObjet_S = std::shared_ptr<IObjet>;

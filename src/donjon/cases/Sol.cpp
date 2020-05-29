@@ -1,8 +1,8 @@
 #include "donjon/cases/Sol.hpp"
 #include <iostream>
+#include "donjon/cases/ICaseVisiteur.hpp"
 #include "err/DepotErreur.hpp"
 #include "err/SansObjetErreur.hpp"
-#include "donjon/cases/ICaseVisiteur.hpp"
 
 namespace donjon::cases
 {
@@ -42,6 +42,19 @@ namespace donjon::cases
     // __attribute__((unused)) Signal au compilateur que l'argument n'est pas utilisé
     void Sol::enEntree(__attribute__((unused)) per::APersonnage& personnage)
     {
+        if (m_objet != nullptr)
+        {
+            try
+            {
+                // Ajoute l'objet au personnage et le retire de la case.
+                personnage.ajouterObjet(m_objet);
+                m_objet = obj::IObjet_S();
+            }
+            catch (const std::logic_error& ex)
+            {
+                // Le personnage ne supporte pas l'ajout d'objet.
+            }
+        }
         // Ne rien faire.
     }
 
