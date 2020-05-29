@@ -3,6 +3,7 @@
 
 #include <map>
 #include <memory>
+#include <vector>
 #include "donjon/cases/ICase.hpp"
 #include "hex/ICarte.hpp"
 #include "per/APersonnage.hpp"
@@ -76,10 +77,10 @@ namespace donjon
 
         /**
          * @brief Retourne la liste des cases disponibles.
-         * 
+         *
          * @return set<hex::Coordonnees> la liste des cases disponibles.
          */
-        virtual std::vector<hex::Coordonnees> getCaseVide() const = 0; 
+        virtual std::vector<hex::Coordonnees> getCaseVide() const = 0;
     };
 
     using IDonjon_S = std::shared_ptr<IDonjon>;
