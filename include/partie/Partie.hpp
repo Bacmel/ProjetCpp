@@ -73,7 +73,7 @@ namespace partie
 
         /**
          * @brief Genere un personnage dans une equipe.
-         * 
+         *
          * @param personnage le personnage.
          * @param indice l'indice de l'equipe.
          * @throw err::CreationErreur Quand la creation n'est pas possible.
@@ -140,16 +140,16 @@ namespace partie
 
         /**
          * @brief Indique l'equipe du personnage.
-         * 
+         *
          * @param personnage le personnage.
          * @return l'indice de son équipe.
          * @throw err::InfoErreur Si l'info n'est pas disponible.
          */
-        size_t indiceEquipe(APersonnage_S personnage);
+        size_t indiceEquipe(per::APersonnage_S personnage);
 
         /**
          * @brief Indique l'indice du personnage dans le vector.
-         * 
+         *
          * @param id l'identifiant du personnage.
          * @return l'indice dans le vector.
          * @throw err::InfoErreur Si l'info n'est pas disponible.
