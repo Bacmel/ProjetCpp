@@ -1,10 +1,12 @@
 #include "donjon/Donjon.hpp"
+#include "err/SansObjetErreur.hpp"
 #include <algorithm>
 using namespace hex;
 using namespace per;
 using namespace obj;
 using namespace donjon::cases;
 using namespace std;
+using namespace err;
 
 namespace donjon
 {
@@ -122,7 +124,30 @@ namespace donjon
         return objet;
     }
 
-    APersonnage_S Donjon::trouver(const Coordonnees& position)
+    vector<Coordonnees> Donjon::getCaseVide() const
+    {
+        vector<Coordonnees> casesVide;
+        Coordonnees c;
+        for (auto itr = m_carte->iterateur(); itr->aSuite(); c = itr->suite())
+        {
+            ICase_S iCase(nullptr);
+            iCase = (*m_carte)(c);
+            if (iCase->estPraticable() && !estOccupee(c))
+            {
+                try
+                {
+                    iCase->getObjet();
+                    casesVide.push_back(c);
+                }
+                catch(const err::SansObjetErreur& e)
+                {
+                }
+            }
+        }
+        return casesVide;
+    }
+
+    APersonnage_S Donjon::trouver(const Coordonnees& position) const
     {
         for (APersonnage_S personnage : m_personnages)
         {
@@ -136,7 +161,7 @@ namespace donjon
         throw std::runtime_error("Donjon::trouver : Pas de personnage à cette position");
     }
 
-    bool Donjon::estOccupee(const Coordonnees& position)
+    bool Donjon::estOccupee(const Coordonnees& position) const
     {
         try
         {
