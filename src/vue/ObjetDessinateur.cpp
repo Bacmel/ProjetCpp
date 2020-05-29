@@ -33,7 +33,7 @@ namespace vue
         // Met l'origine du sprite en son centre.
         m_sprite.setOrigin(dim.x / 2., dim.y / 2.);
         // Rend la longueur du côté du sprite égale à celle d'une case.
-        float cote = getCote();
-        m_sprite.setScale(2 * cote / dim.x, 2 * cote / dim.y);
+        float cote = getRayon();
+        m_sprite.setScale(cote / dim.x, cote / dim.y);
     }
 } // namespace vue

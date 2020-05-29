@@ -7,10 +7,6 @@ namespace vue
 
     ADessinateur::~ADessinateur() {}
 
-    float ADessinateur::getCote() const { return m_rayon * 2. / 3.; }
-
-    void ADessinateur::setCote(float cote) { m_rayon = cote * 3. / 2.; }
-
     hex::Coordonnees ADessinateur::pixelVersHex(const sf::Vector2u& pixel)
     {
         float q = pixel.x / m_rayon * 2. / 3.;

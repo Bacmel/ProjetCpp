@@ -10,6 +10,8 @@
 #include "vue/Fenetre.hpp"
 #include "vue/ObjetDessinateur.hpp"
 #include "vue/cases/CaseDessinateur.hpp"
+#include "per/Heros.hpp"
+#include "vue/PersonnageDessinateur.hpp"
 
 using namespace donjon::cases;
 using namespace vue::cases;
@@ -18,6 +20,7 @@ using namespace std;
 using namespace hex;
 using namespace sf;
 using namespace obj;
+using namespace per;
 
 int main()
 {
@@ -36,8 +39,13 @@ int main()
     IObjet_S gravityGun(new GravityGun());
     (*carte)(Coordonnees())->deposer(gravityGun);
 
+    APersonnage_S heros = make_shared<Heros>(3);
+    heros->deplacer(Deplacement::Marcher, Coordonnees().translate(Direction::NordEst));
+    heros->subitAttaque(1);
+
     CaseDessinateur cd(window);
     ObjetDessinateur od(window);
+    PersonnageDessinateur pd(window);
 
     fen.setDessinateur([&](RenderWindow& rw) {
         auto itr = carte->iterateur();
@@ -54,6 +62,7 @@ int main()
             catch (const err::SansObjetErreur& ex)
             {
             }
+            pd.dessiner(*heros);
         }
     });
 

@@ -30,15 +30,6 @@ namespace vue
         inline float getRayon() const { return m_rayon; }
 
         /**
-         * @brief Obtient la longueur du côté de l'hexagone.
-         *
-         * @return La longueur du côté de l'hexagone.
-         *
-         * @see getRayon()
-         */
-        float getCote() const;
-
-        /**
          * @brief Défini le rayon du cercle circonscrit à l'hexagone.
          *
          * @param rayon Le rayon du cercle circonscrit à l'hexagone (en pixels).
@@ -46,15 +37,6 @@ namespace vue
          * @see setCote()
          */
         inline void setRayon(size_t rayon) { m_rayon = rayon; }
-
-        /**
-         * @brief Défini la longueur du côté de l'hexagone.
-         *
-         * @param cote La longueur du côté de l'hexagone.
-         *
-         * @see setRayon()
-         */
-        void setCote(float cote);
 
         /**
          * @brief Converti la position en pixel en une coordonnees hexagonale.
