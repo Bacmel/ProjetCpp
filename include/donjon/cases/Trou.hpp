@@ -29,6 +29,8 @@ namespace donjon::cases
         virtual void enActivation(per::APersonnage& personnage) override;
 
         virtual bool estTransparent() const override;
+
+        virtual void accepter(ICaseVisiteur& visiteur) override;
     };
 } // namespace donjon::cases
 #endif // __CASEINTERDITE_H__

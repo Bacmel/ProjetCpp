@@ -7,6 +7,8 @@
 
 namespace donjon::cases
 {
+    class ICaseVisiteur;
+
     class ICase
     {
     public:
@@ -68,6 +70,8 @@ namespace donjon::cases
          * @return true Si la vue n'est pas bloquée sinon false.
          */
         virtual bool estTransparent() const = 0;
+
+        virtual void accepter(ICaseVisiteur& visiteur) = 0;
     };
 
     using ICase_S = std::shared_ptr<ICase>;

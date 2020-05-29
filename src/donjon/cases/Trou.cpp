@@ -1,4 +1,5 @@
 #include "donjon/cases/Trou.hpp"
+#include "donjon/cases/ICaseVisiteur.hpp"
 #include "err/DepotErreur.hpp"
 #include "err/SansObjetErreur.hpp"
 
@@ -30,4 +31,6 @@ namespace donjon::cases
     }
 
     bool Trou::estTransparent() const { return true; }
+
+    void Trou::accepter(ICaseVisiteur& visiteur) { visiteur.visite(*this); }
 } // namespace donjon::cases
