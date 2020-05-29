@@ -1,4 +1,5 @@
 #include "per/Heros.hpp"
+#include "err/DeplacementErreur.hpp"
 #include <algorithm>
 #include <cmath>
 #include "IPersonnageVisiteur.hpp"
@@ -17,22 +18,32 @@ namespace per
         m_sac.erase(std::remove(m_sac.begin(), m_sac.end(), objet), m_sac.end());
     }
 
-    void Heros::addSanteMax(int sante)
+    void Heros::deplacer(Deplacement deplacement, hex::Coordonnees cible)
     {
-        if (sante < 0 and m_pvMax <= (size_t)abs(sante)) // Degats
+        switch (deplacement)
         {
-            m_pvMax = 0;
-            m_pv = 0;
-        }
-        else
-        {
-            m_pvMax += sante;
-            if (sante < 0 and m_pv <= (size_t)abs(sante)) // Degats
-            { m_pv = 0; }
+        case Deplacement::Forcer:
+            m_position = cible;
+            break;
+        case Deplacement::Marcher:
+            if (m_position.distance(cible) != 1)
+            { throw err::DeplacementErreur("Heros::deplacer : Hors de porter de marche"); }
             else
             {
-                m_pv += sante;
+                m_position = cible;
             }
+            break;
+        case Deplacement::Sauter:
+            if (m_position.distance(cible) != 2)
+            { throw err::DeplacementErreur("Heros::deplacer : Hors de porter de saut"); }
+            else
+            {
+                m_position = cible;
+            }
+            break;
+        default:
+            throw err::DeplacementErreur("Heros::deplacer : Deplacement non precise");
+            break;
         }
     }
 

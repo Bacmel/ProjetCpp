@@ -5,12 +5,12 @@
 
 namespace donjon::cases
 {
-    class CaseNeutre : public ICase
+    class Sol : public ICase
     {
         obj::IObjet_S m_objet;
 
     public:
-        CaseNeutre();
+        Sol();
 
         virtual void deposer(obj::IObjet_S objet) override;
 
@@ -26,13 +26,13 @@ namespace donjon::cases
 
         virtual bool estTransparent() const override;
 
-        CaseNeutre(const CaseNeutre& autre) = default;
-        CaseNeutre(CaseNeutre&& autre) = default;
-        CaseNeutre& operator=(const CaseNeutre& autre) = default;
-        CaseNeutre& operator=(CaseNeutre&& autre) = default;
-        virtual ~CaseNeutre() = default;
+        Sol(const Sol& autre) = default;
+        Sol(Sol&& autre) = default;
+        Sol& operator=(const Sol& autre) = default;
+        Sol& operator=(Sol&& autre) = default;
+        virtual ~Sol() = default;
     };
 
-} // namespace donjon
+} // namespace donjon::cases
 
 #endif // __CASENEUTRE_H__

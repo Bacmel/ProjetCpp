@@ -17,8 +17,8 @@ namespace donjon::cases
          *
          * @param objet L'objet à déposer.
          *
-         * @throw DepotError Quand le dépot est refusé (un objet est déjà
-         *                   présent ou la case ne le permet pas).
+         * @throw err::DepotErreur Quand le dépot est refusé (un objet est déjà
+         * présent ou la case ne le permet pas).
          */
         virtual void deposer(obj::IObjet_S objet) = 0;
 
@@ -27,7 +27,7 @@ namespace donjon::cases
          *
          * @return obj::IObjet_S L'objet présent sur la case.
          *
-         * @throw SansObjetError Quand la case n'a pas d'objet.
+         * @throw err::SansObjetErreur Quand la case n'a pas d'objet.
          */
         virtual obj::IObjet_S ramasser() = 0;
 
@@ -36,7 +36,7 @@ namespace donjon::cases
          *
          * @return const obj::IObjet& L'objet déposé.
          *
-         * @throw SansObjetError Quand la case n'a pas d'objet.
+         * @throw err::SansObjetErreur Quand la case n'a pas d'objet.
          */
         virtual const obj::IObjet& getObjet() const = 0;
 
@@ -72,6 +72,6 @@ namespace donjon::cases
 
     using ICase_S = std::shared_ptr<ICase>;
     using ICase_SC = std::shared_ptr<const ICase>;
-} // namespace donjon
+} // namespace donjon::cases
 
 #endif // __CASE_H__

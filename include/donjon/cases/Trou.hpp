@@ -5,16 +5,16 @@
 
 namespace donjon::cases
 {
-    class CaseInterdite : public ICase
+    class Trou : public ICase
     {
     public:
-        CaseInterdite();
+        Trou();
 
-        CaseInterdite(const CaseInterdite& autre) = default;
-        CaseInterdite(CaseInterdite&& autre) = default;
-        CaseInterdite& operator=(const CaseInterdite& autre) = default;
-        CaseInterdite& operator=(CaseInterdite&& autre) = default;
-        ~CaseInterdite() = default;
+        Trou(const Trou& autre) = default;
+        Trou(Trou&& autre) = default;
+        Trou& operator=(const Trou& autre) = default;
+        Trou& operator=(Trou&& autre) = default;
+        ~Trou() = default;
 
         virtual void deposer(obj::IObjet_S objet) override;
 

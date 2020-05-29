@@ -27,7 +27,7 @@ TEST_CASE("Creation, operation et manipulation des carteHexagones", "[carteHexag
     SECTION("remplir")
     {
         ch1.remplir(false);
-        ch2.remplir(true);
+        ch2.remplir((std::function<bool()>)[]() { return true; });
         REQUIRE_FALSE(ch1(Coordonnees()));
         REQUIRE(ch2(Coordonnees()));
     }

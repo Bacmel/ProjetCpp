@@ -1,10 +1,11 @@
 #ifndef CARTE_HPP
 #define CARTE_HPP
 
+#include <functional>
 #include <memory>
 #include <ostream>
 #include "hex/Coordonnees.hpp"
-#include "hex/IIterator.hpp"
+#include "hex/IIterateur.hpp"
 
 namespace hex
 {
@@ -50,6 +51,13 @@ namespace hex
          * source.
          */
         virtual void remplir(const ICarte& source, const Coordonnees& centre) = 0;
+
+        /**
+         * @brief Rempli la carte avec le fournisseur indiquée.
+         *
+         * @param valeur Le fournisseur à utiliser pour peupler chaque case.
+         */
+        virtual void remplir(std::function<T()> fournisseur) = 0;
 
         /**
          * @brief Crée un itérateur sur les coordonnées.
