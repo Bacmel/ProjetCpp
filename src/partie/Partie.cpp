@@ -76,41 +76,28 @@ namespace partie
 
     void Partie::gererPersonnage(size_t indice)
     {
-        do
+        Direction directions[] = {Direction::Nord,
+                                  Direction::NordEst,
+                                  Direction::SudEst,
+                                  Direction::Sud,
+                                  Direction::SudOuest,
+                                  Direction::NordOuest};
+        bool aAgit(false);
+        while (!aAgit)
         {
             int choix = rand() % 6;
-            Direction direction;
-            switch (choix)
-            {
-            case 0:
-                direction = Direction::Nord;
-                break;
-            case 1:
-                direction = Direction::NordEst;
-                break;
-            case 2:
-                direction = Direction::SudEst;
-                break;
-            case 3:
-                direction = Direction::Sud;
-                break;
-            case 4:
-                direction = Direction::SudOuest;
-                break;
-            case 5:
-                direction = Direction::NordOuest;
-                break;
-            }
+            Direction direction = directions[choix];
+
             Coordonnees c = m_personnages.at(indice)->getPosition().translate(direction);
             try
             {
                 m_donjon->deplace(*(m_personnages.at(indice)), Deplacement::Marcher, c);
-                break;
+                aAgit = true;
             }
             catch (std::invalid_argument)
             {
             }
-        } while (true);
+        }
     }
 
     void Partie::gererObjet(size_t indice)
