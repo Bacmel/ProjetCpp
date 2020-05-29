@@ -46,7 +46,7 @@ namespace per
 
         virtual void deplacer(Deplacement deplacement, hex::Coordonnees cible) override;
 
-        virtual void accepter(IPersonnageVisiteur& visiteur) override;
+        virtual void accepter(IPersonnageVisiteur& visiteur) const override;
     };
 }; // namespace per
 
