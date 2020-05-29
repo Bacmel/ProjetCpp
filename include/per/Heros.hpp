@@ -42,6 +42,8 @@ namespace per
          * @param sante La santé à ajouter. Elle peut être négative.
          */
         void addSanteMax(int sante);
+
+        virtual void accepter(IPersonnageVisiteur& visiteur) override;
     };
 }; // namespace per
 

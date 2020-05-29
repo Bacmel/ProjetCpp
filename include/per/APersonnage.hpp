@@ -6,6 +6,7 @@
 
 namespace per
 {
+    class IPersonnageVisiteur;
 
     class APersonnage
     {
@@ -94,6 +95,13 @@ namespace per
          * @param position la nouvelle position.
          */
         virtual void setPosition(hex::Coordonnees position) { m_position = position; }
+
+        /**
+         * @brief Accepte un visiteur.
+         *
+         * @param visiteur Le visiteur à accepter.
+         */
+        virtual void accepter(IPersonnageVisiteur& visiteur) = 0;
     };
 
     using APersonnage_S = std::shared_ptr<APersonnage>;
