@@ -1,5 +1,7 @@
 #include "per/APersonnage.hpp"
+#include <stdexcept>
 #include "err/JaugeErreur.hpp"
+
 namespace per
 {
     size_t APersonnage::idSuivante = 0;
@@ -54,4 +56,21 @@ namespace per
     }
 
     void APersonnage::tuer() { m_pv.vider(); }
+
+    void APersonnage::ajouterObjet(__attribute__((unused)) obj::IObjet_S objet)
+    {
+        throw std::logic_error("APersonnage::ajouterObjet : Opération non supportée.");
+    }
+
+    void APersonnage::retirerObjet(__attribute__((unused)) obj::IObjet_S objet)
+    {
+        throw std::logic_error("APersonnage::retirerObjet : Opération non supportée.");
+    }
+
+    size_t APersonnage::tailleSac() const { return 0; }
+
+    const obj::IObjet& APersonnage::getObjet(__attribute__((unused)) size_t indice)
+    {
+        throw std::out_of_range("APersonnage::getObjet : Opération non supportée (pas de sac)");
+    }
 } // namespace per

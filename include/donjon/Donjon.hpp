@@ -58,6 +58,13 @@ namespace donjon
         Donjon& operator=(const Donjon&) = default;
         virtual ~Donjon() = default;
 
+        /**
+         * @brief Retourne la liste des cases disponibles.
+         * 
+         * @return set<hex::Coordonnees> la liste des cases disponibles.
+         */
+        std::vector<hex::Coordonnees> getCaseVide() const; 
+
     private:
         /**
          * @brief Donne le personnage présent aux coordonnées indiquées.
@@ -67,13 +74,13 @@ namespace donjon
          * @throw std::runtime_exception Quand il n'y a pas de personnage à
          * l'endroit indiqué.
          */
-        per::APersonnage_S trouver(const hex::Coordonnees& position);
+        per::APersonnage_S trouver(const hex::Coordonnees& position) const;
 
         /**
          * @brief Indique si un personnage se trouve sur la case.
          * @return true Si un personnage occupe la case, sinon false.
          */
-        bool estOccupee(const hex::Coordonnees& position);
+        bool estOccupee(const hex::Coordonnees& position) const;
 
         /**
          * @brief Pousse un personnage.

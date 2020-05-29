@@ -32,5 +32,5 @@ namespace donjon::cases
 
     bool Trou::estTransparent() const { return true; }
 
-    void Trou::accepter(ICaseVisiteur& visiteur) { visiteur.visite(*this); }
+    void Trou::accepter(ICaseVisiteur& visiteur) const { visiteur.visite(*this); }
 } // namespace donjon::cases
