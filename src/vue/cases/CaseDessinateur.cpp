@@ -1,34 +1,31 @@
 #include "vue/cases/CaseDessinateur.hpp"
 #include <SFML/Graphics.hpp>
-#include <cmath>
-#include <iostream>
-#include <stdexcept>
-#include "err/TextureESErreur.hpp"
+#include "vue/TextureGest.hpp"
 
 using namespace sf;
 
 namespace vue::cases
 {
-    CaseDessinateur::CaseDessinateur(sf::RenderTarget& cible) : m_textureSol(), m_cible(cible), m_rayon(50)
+    CaseDessinateur::CaseDessinateur(sf::RenderTarget& cible) :
+        ADessinateur(50),
+        m_textureSol(),
+        m_textureTrou(),
+        m_cible(cible),
+        m_hexagone()
     {
-        std::string chemin = "resources/textures/cases/sol.png";
-        if (!m_textureSol.loadFromFile(chemin))
-        { throw err::TextureESErreur("CaseDessinateur::CaseDessinateur : sol.png n'a pas pu être chargée.", chemin); }
-        chemin = "resources/textures/cases/trou.png";
-        if (!m_textureTrou.loadFromFile(chemin))
-        {
-            throw err::TextureESErreur("CaseDessinateur::CaseDessinateur : trou.png n'a pas pu être chargée.", chemin);
-        }
+        TextureGest& gest = TextureGest::getInstance();
+        m_textureSol = gest.obtenir("resources/textures/cases/sol.png");
+        m_textureTrou = gest.obtenir("resources/textures/cases/trou.png");
     }
 
     void CaseDessinateur::dessine(const hex::Coordonnees& position, donjon::cases::ICase& iCase)
     {
         Vector2u dim = m_cible.getSize();
-        m_hexagone = CircleShape(m_rayon, 6);
-        float x = m_rayon / 2. * 3. * (float)position.getColonne();
-        float y = m_rayon * sqrtf(3) * (position.getColonne() / 2. + position.getLigne());
-        m_hexagone.setOrigin(m_rayon, m_rayon);
-        m_hexagone.setPosition(dim.x / 2 + x, dim.y / 2 + y);
+        float rayon = getRayon();
+        Vector2f pixel = hexVersPixel(position);
+        m_hexagone = CircleShape(rayon, 6);
+        m_hexagone.setOrigin(rayon, rayon);
+        m_hexagone.setPosition(dim.x / 2 + pixel.x, dim.y / 2 + pixel.y);
         m_hexagone.setRotation(90);
         m_hexagone.setOutlineThickness(1);
         m_hexagone.setOutlineColor(Color::Black);
@@ -38,11 +35,11 @@ namespace vue::cases
 
     void CaseDessinateur::visite(__attribute__((unused)) const donjon::cases::Sol& sol)
     {
-        m_hexagone.setTexture(&m_textureSol);
+        m_hexagone.setTexture(m_textureSol.get());
     }
 
     void CaseDessinateur::visite(__attribute__((unused)) const donjon::cases::Trou& trou)
     {
-        m_hexagone.setTexture(&m_textureTrou);
+        m_hexagone.setTexture(m_textureTrou.get());
     }
 } // namespace vue::cases

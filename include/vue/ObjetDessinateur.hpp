@@ -4,15 +4,16 @@
 #include <SFML/Graphics.hpp>
 #include "hex/Coordonnees.hpp"
 #include "obj/IObjetVisiteur.hpp"
+#include "vue/ADessinateur.hpp"
+#include "vue/TextureGest.hpp"
 
 namespace vue
 {
-    class ObjetDessinateur : public obj::IObjetVisiteur
+    class ObjetDessinateur : public ADessinateur, public obj::IObjetVisiteur
     {
     private:
-        sf::Texture m_textureGravityGun;
+        Texture_S m_textureGravityGun;
         sf::RenderTarget& m_cible;
-        size_t m_rayon;
         sf::Sprite m_sprite;
 
     public:
