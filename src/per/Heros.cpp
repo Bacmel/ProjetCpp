@@ -1,7 +1,7 @@
 #include "per/Heros.hpp"
-#include "err/DeplacementErreur.hpp"
 #include <algorithm>
 #include <cmath>
+#include "err/DeplacementErreur.hpp"
 #include "per/IPersonnageVisiteur.hpp"
 
 namespace per
@@ -47,5 +47,5 @@ namespace per
         }
     }
 
-    void Heros::accepter(IPersonnageVisiteur& visiteur) { visiteur.visiter(*this); }
+    void Heros::accepter(IPersonnageVisiteur& visiteur) const { visiteur.visiter(*this); }
 }; // namespace per
