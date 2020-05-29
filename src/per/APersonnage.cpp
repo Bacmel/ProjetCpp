@@ -49,6 +49,7 @@ namespace per
         catch (err::JaugeErreur)
         {
             m_pv.ajouterValeurMax(-m_pv.getValMax());
+            m_pv.vider();
         }
     }
 

@@ -7,6 +7,8 @@
 
 namespace per
 {
+    class IPersonnageVisiteur;
+
     enum class Deplacement
     {
         Marcher,
@@ -108,6 +110,13 @@ namespace per
          * @brief Tue le personnage.
          */
         virtual void tuer();
+
+        /**
+         * @brief Accepte un visiteur.
+         *
+         * @param visiteur Le visiteur à accepter.
+         */
+        virtual void accepter(IPersonnageVisiteur& visiteur) = 0;
     };
 
     using APersonnage_S = std::shared_ptr<APersonnage>;

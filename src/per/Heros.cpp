@@ -2,6 +2,7 @@
 #include "err/DeplacementErreur.hpp"
 #include <algorithm>
 #include <cmath>
+#include "IPersonnageVisiteur.hpp"
 
 namespace per
 {
@@ -45,4 +46,6 @@ namespace per
             break;
         }
     }
+
+    void Heros::accepter(IPersonnageVisiteur& visiteur) { visiteur.visiter(*this); }
 }; // namespace per

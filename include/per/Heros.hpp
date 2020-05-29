@@ -37,7 +37,16 @@ namespace per
          */
         void rmObjet(obj::IObjet_S objet);
 
-        virtual void deplacer(Deplacement deplacement, hex::Coordonnees cible);
+        /**
+         * @brief Modifie la santé maximale
+         *
+         * @param sante La santé à ajouter. Elle peut être négative.
+         */
+        void addSanteMax(int sante);
+
+        virtual void deplacer(Deplacement deplacement, hex::Coordonnees cible) override;
+
+        virtual void accepter(IPersonnageVisiteur& visiteur) override;
     };
 }; // namespace per
 
