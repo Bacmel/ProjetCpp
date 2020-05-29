@@ -41,10 +41,7 @@ namespace partie
         (*m_carte)(positionTrou) = ICase_S(new Trou());
     }
 
-    void Partie::genererObjet(IObjet_S objet)
-    {
-        m_objets.push_back(objet);
-    }
+    void Partie::genererObjet(IObjet_S objet) { m_objets.push_back(objet); }
 
     void Partie::initialiserDonjon()
     {
@@ -53,16 +50,16 @@ namespace partie
         for (auto itrp = m_personnages.begin(); itrp != m_personnages.end(); itrp++)
         {
             size_t size = coordonnees.size();
-            if(size == 0) { throw err::CreationErreur("Partie::initialiserDonjon : Plus de case disponible.");}
-            c = coordonnees.begin() + rand()%coordonnees.size();
+            if (size == 0) { throw err::CreationErreur("Partie::initialiserDonjon : Plus de case disponible."); }
+            c = coordonnees.begin() + rand() % coordonnees.size();
             m_donjon->invoquer(*itrp, *c);
             coordonnees.erase(c);
         }
         for (auto itro = m_objets.begin(); itro != m_objets.end(); itro++)
         {
             size_t size = coordonnees.size();
-            if(size == 0) { throw err::CreationErreur("Partie::initialiserDonjon : Plus de case disponible.");}
-            c = coordonnees.begin() + rand()%coordonnees.size();
+            if (size == 0) { throw err::CreationErreur("Partie::initialiserDonjon : Plus de case disponible."); }
+            c = coordonnees.begin() + rand() % coordonnees.size();
             m_donjon->deposer(*itro, *c);
             coordonnees.erase(c);
         }
@@ -70,8 +67,8 @@ namespace partie
 
     void Partie::gererEquipe(size_t indice)
     {
-        set<size_t>::iterator itr = m_equipes.at(indice).begin();
-        for (itr; itr != m_equipes.at(indice).end(); itr++)
+        set<size_t> equipe = m_equipes.at(indice);
+        for (auto itr = equipe.begin(); itr != m_equipes.at(indice).end(); itr++)
         {
             gererPersonnage(indicePersonnage((*itr)));
         }
@@ -81,28 +78,28 @@ namespace partie
     {
         do
         {
-            int choix = rand()%6;
+            int choix = rand() % 6;
             Direction direction;
-            switch(choix)
+            switch (choix)
             {
-                case 0:
-                    direction = Direction::Nord;
-                    break;
-                case 1:
-                    direction = Direction::NordEst;
-                    break;
-                case 2:
-                    direction = Direction::SudEst;
-                    break;
-                case 3:
-                    direction = Direction::Sud;
-                    break;
-                case 4:
-                    direction = Direction::SudOuest;
-                    break;
-                case 5:
-                    direction = Direction::NordOuest;
-                    break;
+            case 0:
+                direction = Direction::Nord;
+                break;
+            case 1:
+                direction = Direction::NordEst;
+                break;
+            case 2:
+                direction = Direction::SudEst;
+                break;
+            case 3:
+                direction = Direction::Sud;
+                break;
+            case 4:
+                direction = Direction::SudOuest;
+                break;
+            case 5:
+                direction = Direction::NordOuest;
+                break;
             }
             Coordonnees c = m_personnages.at(indice)->getPosition().translate(direction);
             try
