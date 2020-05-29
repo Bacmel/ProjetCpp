@@ -106,7 +106,7 @@ namespace hex
         virtual T& operator()(const Coordonnees& c) override
         {
             // Vérifie que les coordonnees sont dans l'hexagone.
-            if (abs(c.getLigne()) > (int)m_rayon || abs(c.getColonne()) > (int)m_rayon)
+            if (c.longueur() > (int)m_rayon)
             {
                 std::stringstream ss;
                 ss << c << " est hors de l'hexagone de m_rayon " << m_rayon << ".";
@@ -120,7 +120,7 @@ namespace hex
         virtual const T& operator()(const Coordonnees& c) const override
         {
             // Vérifie que les coordonnees sont dans l'hexagone.
-            if (abs(c.getLigne()) > (int)m_rayon || abs(c.getColonne()) > (int)m_rayon)
+            if (c.longueur() > (int)m_rayon)
             {
                 std::stringstream ss;
                 ss << c << " est hors de l'hexagone de m_rayon " << m_rayon << ".";
