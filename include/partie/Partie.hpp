@@ -72,19 +72,13 @@ namespace partie
         /* Méthodes pour generer le jeu. */
 
         /**
-         * @brief Genere une equipe.
-         *
-         * @throw err::CreationErreur
-         */
-        void genererEquipe();
-
-        /**
-         * @brief Genere un personnage.
+         * @brief Genere un personnage dans une equipe.
          * 
+         * @param personnage le personnage.
          * @param indice l'indice de l'equipe.
-         * @throw err::CreationErreur
+         * @throw err::CreationErreur Quand la creation n'est pas possible.
          */
-        void genererPersonnage(size_t indice);
+        void genererPersonnage(per::APersonnage_S personnage, size_t indice);
 
         /**
          * @brief Genere une carte.
@@ -96,9 +90,10 @@ namespace partie
         /**
          * @brief Genere un objet abandonner.
          *
+         * @param objet l'objet.
          * @throw err::CreationErreur
          */
-        void genererObjet();
+        void genererObjet(obj::IObjet_S objet);
 
         /**
          * @brief Initialise le donjon.

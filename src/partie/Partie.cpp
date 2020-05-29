@@ -11,6 +11,7 @@ using namespace donjon;
 using namespace donjon::cases;
 using namespace hex;
 using namespace per;
+using namespace obj;
 using namespace std;
 
 namespace partie
@@ -24,38 +25,29 @@ namespace partie
     {
     }
 
-    void Partie::genererEquipe()
+    void Partie::genererPersonnage(APersonnage_S personnage, size_t indice)
     {
-        for (size_t i = 0; i < m_equipes.size(); i++)
-        {
-            genererPersonnage(i); // Generation Heros
-        }
-    }
-
-    void Partie::genererPersonnage(size_t indice)
-    {
-        APersonnage_S h(new Heros(3));
-        m_personnages.push_back(h);
-        m_equipes.at(indice).insert(h->getId());
+        m_personnages.push_back(personnage);
+        m_equipes.at(indice).insert(personnage->getId());
     }
 
     void Partie::genererCarte()
     {
+        // A changer
         function<ICase_S()> fournisseurSol = []() { return make_shared<Sol>(); };
         m_carte->remplir(fournisseurSol);
         Coordonnees positionTrou = Coordonnees().translate(Direction::Nord);
         (*m_carte)(positionTrou) = ICase_S(new Trou());
     }
 
-    void Partie::genererObjet()
+    void Partie::genererObjet(IObjet_S objet)
     {
-        // Pas encore.
+        m_objets.push_back(objet);
     }
 
     void Partie::initialiserDonjon()
     {
-        vector<APersonnage_S>::iterator itr;
-        for (itr = m_personnages.begin(); itr != m_personnages.end(); itr++)
+        for (auto itrp = m_personnages.begin(); itrp != m_personnages.end(); itrp++)
         {
             do
             {
@@ -64,7 +56,24 @@ namespace partie
                 Coordonnees c(colonne, ligne);
                 try
                 {
-                    m_donjon->invoquer(*itr, c);
+                    m_donjon->invoquer(*itrp, c);
+                    break;
+                }
+                catch (std::invalid_argument)
+                {
+                }
+            } while (true);
+        }
+        for (auto itro = m_objets.begin(); itro != m_objets.end(); itro++)
+        {
+            do
+            {
+                int ligne = (rand() % 10) - 5;
+                int colonne = (rand() % 10) - 5;
+                Coordonnees c(colonne, ligne);
+                try
+                {
+                    m_donjon->deposer(*itro, c);
                     break;
                 }
                 catch (std::invalid_argument)
