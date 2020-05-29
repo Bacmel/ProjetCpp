@@ -3,6 +3,7 @@
 #include "donjon/cases/ICaseVisiteur.hpp"
 #include "err/DepotErreur.hpp"
 #include "err/SansObjetErreur.hpp"
+#include "donjon/cases/ICaseVisiteur.hpp"
 
 namespace donjon::cases
 {
