@@ -1,6 +1,6 @@
 #include "donjon/Donjon.hpp"
-#include "err/SansObjetErreur.hpp"
 #include <algorithm>
+#include "err/SansObjetErreur.hpp"
 using namespace hex;
 using namespace per;
 using namespace obj;
@@ -10,26 +10,21 @@ using namespace err;
 
 namespace donjon
 {
-    Donjon::Donjon(const hex::ICarte_S<ICase_S>& carte) : m_personnages(PersonnageComparateur()), m_carte(carte) {}
-
-    std::vector<per::APersonnage_SC> Donjon::getPersonnages() const
-    {
-        vector<APersonnage_SC> list(m_personnages.size());
-        for (const APersonnage_S& personnage : m_personnages)
-        {
-            list.push_back(personnage);
-        }
-        return list;
-    }
+    Donjon::Donjon(const hex::ICarte_S<ICase_S>& carte) : m_personnages(), m_carte(carte) {}
 
     void Donjon::invoquer(per::APersonnage_S personnage, const hex::Coordonnees& position)
     {
-        // Vérifie que le personnage peut se trouver sur la case.
         if (personnage == nullptr) { return; }
+        // Vérifie que le personnage n'est pas déjà présent.
+        auto itrFin = m_personnages.end();
+        size_t idNouveau = personnage->getId();
+        auto itr =
+            find_if(m_personnages.begin(), itrFin, [&](const APersonnage_S& p) { return p->getId() == idNouveau; });
+        if (itr != itrFin) { throw invalid_argument("Donjon::invoquer : Ce personnage est déjà présent."); }
+        // Vérifie que le personnage peut se trouver sur la case.
         deplace(*personnage, Deplacement::Forcer, position);
-        // Insert le personnage et s'assure de l'unicité.
-        auto resultat = m_personnages.insert(personnage);
-        if (!resultat.second) { throw invalid_argument("Donjon::invoquer : Ce personnage est déjà présent."); }
+        // Insert le personnage.
+        m_personnages.push_back(personnage);
     }
 
     void Donjon::deplace(per::APersonnage& personnage, per::Deplacement type, const hex::Coordonnees& position)
@@ -139,12 +134,44 @@ namespace donjon
                     iCase->getObjet();
                     casesVide.push_back(c);
                 }
-                catch(const err::SansObjetErreur& e)
+                catch (const err::SansObjetErreur& e)
                 {
                 }
             }
         }
         return casesVide;
+    }
+
+    size_t Donjon::getNbPersonnages() const { return m_personnages.size(); }
+
+    APersonnage_SC Donjon::getPersonnage(size_t indice) const
+    {
+        APersonnage_SC personnage = m_personnages.at(indice);
+        return personnage;
+    }
+
+    APersonnage_S Donjon::getPersonnage(size_t indice)
+    {
+        APersonnage_S personnage = m_personnages.at(indice);
+        return personnage;
+    }
+
+    APersonnage_SC Donjon::getPersonnageParId(size_t id) const
+    {
+        auto itrFin = m_personnages.end();
+        auto itr = find_if(m_personnages.begin(), itrFin, [&](const APersonnage_S& e) { return e->getId() == id; });
+        if (itr == itrFin) { throw runtime_error("Donjon::getPersonnageParId : Pas de personnage avec l'id donnée."); }
+        APersonnage_SC personnage = *itr;
+        return personnage;
+    }
+
+    APersonnage_S Donjon::getPersonnageParId(size_t id)
+    {
+        auto itrFin = m_personnages.end();
+        auto itr = find_if(m_personnages.begin(), itrFin, [&](const APersonnage_S& e) { return e->getId() == id; });
+        if (itr == itrFin) { throw runtime_error("Donjon::getPersonnageParId : Pas de personnage avec l'id donnée."); }
+        APersonnage_S personnage = *itr;
+        return personnage;
     }
 
     APersonnage_S Donjon::trouver(const Coordonnees& position) const
