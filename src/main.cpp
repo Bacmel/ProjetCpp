@@ -8,13 +8,12 @@
 #include "hex/ICarte.hpp"
 #include "hex/Masque.hpp"
 #include "per/Heros.hpp"
+#include "utils/HexPixelConvertisseur.hpp"
+#include "vue/CaseDessinable.hpp"
 #include "vue/Fenetre.hpp"
-#include "vue/ObjetDessinateur.hpp"
 #include "vue/PersonnageDessinateur.hpp"
-#include "vue/cases/CaseDessinateur.hpp"
 
 using namespace donjon::cases;
-using namespace vue::cases;
 using namespace vue;
 using namespace std;
 using namespace hex;
@@ -37,15 +36,17 @@ int main()
     (*carte)(Coordonnees(-1, -1)) = ICase_S(new Trou());
 
     IObjet_S gravityGun(new GravityGun());
-    (*carte)(Coordonnees())->deposer(gravityGun);
+    (*carte)(Coordonnees().translate(Direction::NordOuest))->deposer(gravityGun);
 
     APersonnage_S heros = make_shared<Heros>(3);
     heros->deplacer(Deplacement::Marcher, Coordonnees().translate(Direction::NordEst));
     heros->subitAttaque(1);
 
-    CaseDessinateur cd(window);
-    ObjetDessinateur od(window);
     PersonnageDessinateur pd(window);
+    pd.setRayon(25);
+
+    CaseDessinable cdbl(25);
+    utils::HexPixelConvertisseur hpc;
 
     fen.setDessinateur([&](RenderWindow& rw) {
         auto itr = carte->iterateur();
@@ -53,15 +54,11 @@ int main()
         {
             Coordonnees pos = itr->suite();
             ICase_S iCase = (*carte)(pos);
-            cd.dessine(pos, *iCase);
-            try
-            {
-                const IObjet& iObjet = iCase->getObjet();
-                od.dessine(pos, iObjet);
-            }
-            catch (const err::SansObjetErreur& ex)
-            {
-            }
+            cdbl.setCase(*iCase);
+            auto pixel = hpc(cdbl.getCote(), pos);
+            auto dim = rw.getSize();
+            cdbl.setPosition(pixel.x + dim.x / 2., pixel.y + dim.y / 2.);
+            rw.draw(cdbl);
             pd.dessine(heros->getPosition(), *heros);
         }
     });
