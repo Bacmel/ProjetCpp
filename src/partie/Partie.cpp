@@ -17,105 +17,56 @@ using namespace std;
 
 namespace partie
 {
-    Partie::Partie(size_t joueurs) :
-        m_equipes(joueurs),
-        m_personnages(),
-        m_carte(new CarteHexagone<ICase_S>(5)),
-        m_objets(),
-        m_donjon(new Donjon(m_carte))
-    {
-    }
+    Partie::Partie(size_t joueurs) : m_equipes(joueurs) { genererCarte(); }
 
     void Partie::genererPersonnage(APersonnage_S personnage, size_t indice)
     {
-        m_personnages.push_back(personnage);
+        Coordonnees c = coordonneesLibre();
+        m_donjon->invoquer(personnage, c);
         m_equipes.at(indice).insert(personnage->getId());
     }
 
     void Partie::genererCarte()
     {
         // A changer
+        ICarte_S<ICase_S> carte(new CarteHexagone<ICase_S>(5));
         function<ICase_S()> fournisseurSol = []() { return make_shared<Sol>(); };
-        m_carte->remplir(fournisseurSol);
+        carte->remplir(fournisseurSol);
         Coordonnees positionTrou = Coordonnees().translate(Direction::Nord);
-        (*m_carte)(positionTrou) = ICase_S(new Trou());
+        (*carte)(positionTrou) = ICase_S(new Trou());
+        m_donjon = IDonjon_S(new Donjon(carte));
     }
 
-    void Partie::genererObjet(IObjet_S objet) { m_objets.push_back(objet); }
-
-    void Partie::initialiserDonjon()
+    void Partie::genererObjet(IObjet_S objet)
     {
-        vector<Coordonnees> coordonnees = m_donjon->getCaseVide();
-        auto c = coordonnees.begin();
-        for (auto itrp = m_personnages.begin(); itrp != m_personnages.end(); itrp++)
-        {
-            size_t size = coordonnees.size();
-            if (size == 0) { throw err::CreationErreur("Partie::initialiserDonjon : Plus de case disponible."); }
-            c = coordonnees.begin() + rand() % coordonnees.size();
-            m_donjon->invoquer(*itrp, *c);
-            coordonnees.erase(c);
-        }
-        for (auto itro = m_objets.begin(); itro != m_objets.end(); itro++)
-        {
-            size_t size = coordonnees.size();
-            if (size == 0) { throw err::CreationErreur("Partie::initialiserDonjon : Plus de case disponible."); }
-            c = coordonnees.begin() + rand() % coordonnees.size();
-            m_donjon->deposer(*itro, *c);
-            coordonnees.erase(c);
-        }
+        Coordonnees c = coordonneesLibre();
+        m_donjon->deposer(objet, c);
     }
 
-    void Partie::gererEquipe(size_t indice)
+    void Partie::deplacerPersonnage(size_t indice, per::APersonnage_S personnage, Deplacement deplacement, Coordonnees cible)
     {
-        set<size_t> equipe = m_equipes.at(indice);
-        for (auto itr = equipe.begin(); itr != m_equipes.at(indice).end(); itr++)
-        {
-            gererPersonnage(indicePersonnage((*itr)));
+        if (indice != indiceEquipe(personnage))
+        { /** throw (Partie::deplacerPersonnage : le personnage n'appartient pas a l'equipe.) */
         }
+        m_donjon->deplace(*personnage, deplacement, cible);
     }
 
-    void Partie::gererPersonnage(size_t indice)
+    void Partie::finTourJoueur(size_t indice)
     {
-        Direction directions[] = {Direction::Nord,
-                                  Direction::NordEst,
-                                  Direction::SudEst,
-                                  Direction::Sud,
-                                  Direction::SudOuest,
-                                  Direction::NordOuest};
-        bool aAgit(false);
-        while (!aAgit)
-        {
-            int choix = rand() % 6;
-            Direction direction = directions[choix];
-
-            Coordonnees c = m_personnages.at(indice)->getPosition().translate(direction);
-            try
-            {
-                m_donjon->deplace(*(m_personnages.at(indice)), Deplacement::Marcher, c);
-                aAgit = true;
-            }
-            catch (std::invalid_argument)
-            {
-            }
-        }
+        // A faire
     }
 
-    void Partie::gererObjet(size_t indice)
-    {
-        // Pas encore
-    }
-
-    int Partie::indiceGagnant()
+    int Partie::indiceGagnant() const
     {
         int precedent = -1;
         int gagnant = -1;
-        vector<APersonnage_S>::iterator itr;
-        for (itr = m_personnages.begin(); itr != m_personnages.end(); itr++)
+        for (size_t i = 0; i < m_donjon->getNbPersonnages(); i++)
         {
-            if ((*itr)->estVivant())
+            APersonnage_SC personnage = m_donjon->getPersonnage(i);
+            if (personnage->estVivant())
             {
                 precedent = gagnant;
-                gagnant = indiceEquipe((*itr));
+                gagnant = indiceEquipe(personnage);
             }
             if (precedent != -1 && precedent != gagnant)
             { throw err::InfoErreur("Partie::indiceGagnant : Information non disponible."); }
@@ -123,7 +74,7 @@ namespace partie
         return gagnant;
     }
 
-    size_t Partie::indiceEquipe(APersonnage_S personnage)
+    size_t Partie::indiceEquipe(APersonnage_SC personnage) const
     {
         size_t indice = personnage->getId();
         for (size_t i = 0; i < m_equipes.size(); i++)
@@ -133,13 +84,14 @@ namespace partie
         throw err::InfoErreur("Partie::indiceEquipe : Information non disponible.");
     }
 
-    size_t Partie::indicePersonnage(size_t id)
+    hex::Coordonnees Partie::coordonneesLibre()
     {
-        for (size_t i = 0; i < m_personnages.size(); i++)
-        {
-            if (id == m_personnages.at(i)->getId()) { return i; }
-        }
-        throw err::InfoErreur("Partie::indicePersonnage : Information non disponible.");
+        vector<Coordonnees> coordonnees = m_donjon->getCaseVide();
+        size_t size = coordonnees.size();
+        if (size == 0) { throw err::CreationErreur("Partie::coordonneesLibre : Plus de case disponible."); }
+        auto c = coordonnees.begin();
+        c = coordonnees.begin() + rand() % coordonnees.size();
+        return *c;
     }
 
 } // namespace partie

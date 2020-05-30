@@ -16,15 +16,9 @@ namespace partie
     protected:
         /* Liste des equipes. */
         std::vector<std::set<size_t>> m_equipes;
-        /* Liste des personnages. */
-        std::vector<per::APersonnage_S> m_personnages;
-        /* Carte du terrain. */
-        hex::ICarte_S<donjon::cases::ICase_S> m_carte;
-        /* Liste des objets abandonnes. */
-        std::vector<obj::IObjet_S> m_objets;
         /* Arbitre de la partie. */
         donjon::IDonjon_S m_donjon;
-        /* Autre a venir */
+        /* Autres a venir */
 
     public:
         Partie(size_t joueurs);
@@ -39,35 +33,18 @@ namespace partie
         inline std::vector<std::set<size_t>> getEquipes() const { return m_equipes; }
 
         /**
-         * @brief Obtient la liste des personnages.
+         * @brief Obtient le donjon.
          *
-         * @return std::set<per::APersonnage_S, donjon::PersonnageComparateur> La liste des personnages.
+         * @return donjon::IDonjon_S m_donjon; Le donjon.
          */
-        inline std::vector<per::APersonnage_S> getPersonnages() const
-        {
-            return m_personnages;
-        }
-
-        /**
-         * @brief Obtient la carte du donjon.
-         *
-         * @return hex::ICarte_S<donjon::cases::ICase_S> La carte du donjon.
-         */
-        inline hex::ICarte_S<donjon::cases::ICase_S> getCarte() const { return m_carte; }
-
-        /**
-         * @brief Obtient la liste des objets abandonnes.
-         *
-         * @return   std::vector<obj::IObjet_S> La liste des objets.
-         */
-        inline std::vector<obj::IObjet_S> getObjets() const { return m_objets; }
+        inline donjon::IDonjon_S getDonjon() { return m_donjon; }
 
         /**
          * @brief Obtient le donjon.
          *
          * @return donjon::IDonjon_S m_donjon; Le donjon.
          */
-        inline donjon::IDonjon_S getDonjon() const { return m_donjon; }
+        inline donjon::IDonjon_SC getDonjon() const { return m_donjon; }
 
         /* Méthodes pour generer le jeu. */
 
@@ -95,38 +72,24 @@ namespace partie
          */
         void genererObjet(obj::IObjet_S objet);
 
-        /**
-         * @brief Initialise le donjon.
-         *
-         * @throw err::CreationErreur
-         */
-        void initialiserDonjon();
-
         /* Methodes pour gerer le jeu. */
 
         /**
-         * @brief Gere une equipe.
-         *
-         * @param indice de l'equipe.
-         * @throw std::out_of_range si l'équipe n'existe pas.
+         * @brief Deplace un personnage.
+         * 
+         * @param indice de l'equipe en cours.
+         * @param personnage le personnage.
+         * @param type le déplacement.
+         * @param coordonnees la nouvelle position.
          */
-        void gererEquipe(size_t indice);
+        void deplacerPersonnage(size_t indice, per::APersonnage_S personnage, per::Deplacement deplacement, hex::Coordonnees cible); 
 
         /**
-         * @brief Gere un personnage.
-         *
-         * @param indice du joueur.
-         * @throw std::out_of_range si le personnage n'existe pas.
+         * @brief Fin de tour d'un joueur.
+         * 
+         * @param indice l'indice de l'équipe du joueur.
          */
-        void gererPersonnage(size_t indice);
-
-        /**
-         * @brief Gere un objet abandonnes.
-         *
-         * @param indice de l'objet.
-         * @throw std::out_of_range si l'objet n'existe pas.
-         */
-        void gererObjet(size_t indice);
+        void finTourJoueur(size_t indice);
 
         /* Méthodes autres. */
 
@@ -136,7 +99,7 @@ namespace partie
          * @return L'indice de l'équipe gagnante. -1 en cas d'egalite.
          * @throw err::InfoErreur Si l'info n'est pas disponible.
          */
-        int indiceGagnant();
+        int indiceGagnant() const;
 
         /**
          * @brief Indique l'equipe du personnage.
@@ -145,7 +108,7 @@ namespace partie
          * @return l'indice de son équipe.
          * @throw err::InfoErreur Si l'info n'est pas disponible.
          */
-        size_t indiceEquipe(per::APersonnage_S personnage);
+        size_t indiceEquipe(per::APersonnage_SC personnage) const;
 
         /**
          * @brief Indique l'indice du personnage dans le vector.
@@ -155,6 +118,13 @@ namespace partie
          * @throw err::InfoErreur Si l'info n'est pas disponible.
          */
         size_t indicePersonnage(size_t id);
+
+        /**
+         * @brief Obtient une coordonnees disponible.
+         * 
+         * @throw err:CreationErreur Quand la carte n'a plus de place.
+         */
+        hex::Coordonnees coordonneesLibre();
     };
 } // namespace partie
 
