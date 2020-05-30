@@ -29,7 +29,7 @@ namespace partie
     void Partie::genererCarte()
     {
         // A changer
-        ICarte_S<ICase_S> carte(new CarteHexagone<ICase_S>(5));
+        ICarte_S<ICase_S> carte(new CarteHexagone<ICase_S>(1));
         function<ICase_S()> fournisseurSol = []() { return make_shared<Sol>(); };
         carte->remplir(fournisseurSol);
         Coordonnees positionTrou = Coordonnees().translate(Direction::Nord);
@@ -92,6 +92,7 @@ namespace partie
         if (size == 0) { throw err::CreationErreur("Partie::coordonneesLibre : Plus de case disponible."); }
         auto c = coordonnees.begin();
         c += rand() % coordonnees.size();
+        cout << *c << endl;
         return *c;
     }
 

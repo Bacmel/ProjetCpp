@@ -3,6 +3,8 @@
 #include <map>
 #include <vector>
 #include "catch.hpp"
+#include "donjon/Donjon.hpp"
+#include "hex/ICarte.hpp"
 #include "donjon/cases/Sol.hpp"
 #include "donjon/cases/Trou.hpp"
 #include "hex/CarteHexagone.hpp"
@@ -40,14 +42,13 @@ TEST_CASE("Creation de Partie", "[partie]")
 
     SECTION("Partie::genererObjet")
     {
-        srand(time(0));
         cout << donjon->getCaseVide().size() << endl;
         // Generation d'un objet plusieur fois.
         partie.genererObjet(o1);
         REQUIRE_NOTHROW(partie.genererObjet(o1));
 
-        // Generation dans une carte sarture.
-        size_t size = donjon->getCaseVide().size();
+        // Generation dans une carte sarturee.
+        size_t size = donjon->getCaseVide().size(); 
         for(size_t i = 0; i < size; i++)
         {
             REQUIRE_NOTHROW(partie.genererObjet(IObjet_S(new GravityGun)));
@@ -77,7 +78,7 @@ TEST_CASE("Gestion de Partie", "[partie]")
 
         // Deplacement autorise.
         Coordonnees c = h1->getPosition().translate(Direction::Nord);
-        partie.deplacerPersonnage(0, h1, Deplacement::Marcher, c);
+        REQUIRE_THROWS(partie.deplacerPersonnage(0, h1, Deplacement::Marcher, c));
         REQUIRE(h1->getPosition()==c);
     }
 }
