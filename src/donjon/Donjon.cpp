@@ -132,10 +132,10 @@ namespace donjon
                 try
                 {
                     iCase->getObjet();
-                    casesVide.push_back(c);
                 }
                 catch (const err::SansObjetErreur& e)
                 {
+                    casesVide.push_back(c);
                 }
             }
         }
