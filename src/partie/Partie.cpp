@@ -22,8 +22,8 @@ namespace partie
     void Partie::genererPersonnage(APersonnage_S personnage, size_t indice)
     {
         Coordonnees c = coordonneesLibre();
-        m_donjon->invoquer(personnage, c);
         m_equipes.at(indice).insert(personnage->getId());
+        m_donjon->invoquer(personnage, c);
     }
 
     void Partie::genererCarte()
@@ -88,9 +88,10 @@ namespace partie
     {
         vector<Coordonnees> coordonnees = m_donjon->getCaseVide();
         size_t size = coordonnees.size();
+        cout << size << endl;
         if (size == 0) { throw err::CreationErreur("Partie::coordonneesLibre : Plus de case disponible."); }
         auto c = coordonnees.begin();
-        c = coordonnees.begin() + rand() % coordonnees.size();
+        c += rand() % coordonnees.size();
         return *c;
     }
 

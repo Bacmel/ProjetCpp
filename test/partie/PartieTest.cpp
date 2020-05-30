@@ -40,9 +40,11 @@ TEST_CASE("Creation de Partie", "[partie]")
 
     SECTION("Partie::genererObjet")
     {
+        srand(time(0));
+        cout << donjon->getCaseVide().size() << endl;
         // Generation d'un objet plusieur fois.
         partie.genererObjet(o1);
-        REQUIRE_THROWS(partie.genererObjet(o1));
+        REQUIRE_NOTHROW(partie.genererObjet(o1));
 
         // Generation dans une carte sarture.
         size_t size = donjon->getCaseVide().size();
