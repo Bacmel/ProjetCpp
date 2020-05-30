@@ -1,7 +1,6 @@
 #ifndef __DONJON_H__
 #define __DONJON_H__
 
-#include <set>
 #include <vector>
 #include "donjon/IDonjon.hpp"
 #include "donjon/PersonnageComparateur.hpp"
@@ -13,7 +12,7 @@ namespace donjon
 {
     class Donjon : public IDonjon
     {
-        std::set<per::APersonnage_S, PersonnageComparateur> m_personnages;
+        std::vector<per::APersonnage_S> m_personnages;
         hex::ICarte_S<cases::ICase_S> m_carte;
 
     public:
@@ -60,10 +59,20 @@ namespace donjon
 
         /**
          * @brief Retourne la liste des cases disponibles.
-         * 
+         *
          * @return set<hex::Coordonnees> la liste des cases disponibles.
          */
-        std::vector<hex::Coordonnees> getCaseVide() const; 
+        std::vector<hex::Coordonnees> getCaseVide() const;
+
+        size_t getNbPersonnages() const override;
+
+        per::APersonnage_SC getPersonnage(size_t indice) const override;
+
+        per::APersonnage_S getPersonnage(size_t indice) override;
+
+        per::APersonnage_SC getPersonnageParId(size_t id) const override;
+
+        per::APersonnage_S getPersonnageParId(size_t id) override;
 
     private:
         /**
