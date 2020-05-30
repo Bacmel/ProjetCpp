@@ -127,16 +127,9 @@ namespace donjon
         {
             ICase_S iCase(nullptr);
             iCase = (*m_carte)(c);
-            if (iCase->estPraticable() && !estOccupee(c))
+            if (iCase->estPraticable() && !iCase->aObjet() && !estOccupee(c))
             {
-                try
-                {
-                    iCase->getObjet();
-                }
-                catch (const err::SansObjetErreur& e)
-                {
-                    casesVide.push_back(c);
-                }
+                casesVide.push_back(c);
             }
         }
         return casesVide;
