@@ -43,17 +43,9 @@ namespace partie
         m_donjon->deposer(objet, c);
     }
 
-    void Partie::deplacerPersonnage(size_t indice, per::APersonnage_S personnage, Deplacement deplacement, Coordonnees cible)
+    void Partie::demande(Coordonnees coordonnees, IObjet_S objet)
     {
-        if (indice != indiceEquipe(personnage))
-        { /** throw (Partie::deplacerPersonnage : le personnage n'appartient pas a l'equipe.) */
-        }
-        m_donjon->deplace(*personnage, deplacement, cible);
-    }
-
-    void Partie::finTourJoueur(size_t indice)
-    {
-        // A faire
+        etat->operation(*this, coordonnees, objet);
     }
 
     int Partie::indiceGagnant() const

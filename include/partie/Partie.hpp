@@ -1,8 +1,9 @@
 #ifndef __PARTIE_HPP__
 #define __PARTIE_HPP__
 
-#include <set>
 #include <vector>
+#include <set>
+#include "partie/IEtat.hpp"
 #include "donjon/IDonjon.hpp"
 #include "donjon/PersonnageComparateur.hpp"
 #include "donjon/cases/ICase.hpp"
@@ -18,7 +19,8 @@ namespace partie
         std::vector<std::set<size_t>> m_equipes;
         /* Arbitre de la partie. */
         donjon::IDonjon_S m_donjon;
-        /* Autres a venir */
+        /* Etat courant */
+        IEtat_S etat;
 
     public:
         Partie(size_t joueurs);
@@ -42,11 +44,17 @@ namespace partie
         /**
          * @brief Obtient le donjon.
          *
-         * @return donjon::IDonjon_S m_donjon; Le donjon.
+         * @return donjon::IDonjon_SC m_donjon; Le donjon.
          */
         inline donjon::IDonjon_SC getDonjon() const { return m_donjon; }
 
         /* Méthodes pour generer le jeu. */
+        /**
+         * @brief Genere une carte.
+         *
+         * @throw err::CreationErreur
+         */
+        void genererCarte();
 
         /**
          * @brief Genere un personnage dans une equipe.
@@ -56,13 +64,6 @@ namespace partie
          * @throw err::CreationErreur Quand la creation n'est pas possible.
          */
         void genererPersonnage(per::APersonnage_S personnage, size_t indice);
-
-        /**
-         * @brief Genere une carte.
-         *
-         * @throw err::CreationErreur
-         */
-        void genererCarte();
 
         /**
          * @brief Genere un objet abandonner.
@@ -75,21 +76,12 @@ namespace partie
         /* Methodes pour gerer le jeu. */
 
         /**
-         * @brief Deplace un personnage.
+         * @brief Demande 
          * 
-         * @param indice de l'equipe en cours.
-         * @param personnage le personnage.
-         * @param type le déplacement.
-         * @param coordonnees la nouvelle position.
+         * @param coordonnees les coordonnees selectionnees.
+         * @param objet l'objet selectionne.
          */
-        void deplacerPersonnage(size_t indice, per::APersonnage_S personnage, per::Deplacement deplacement, hex::Coordonnees cible); 
-
-        /**
-         * @brief Fin de tour d'un joueur.
-         * 
-         * @param indice l'indice de l'équipe du joueur.
-         */
-        void finTourJoueur(size_t indice);
+        void demande(hex::Coordonnees coordonnees, obj::IObjet_S objet); 
 
         /* Méthodes autres. */
 
