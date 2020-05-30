@@ -125,12 +125,6 @@ namespace donjon
          *
          * @return hex::ICarte_S<cases::ICase_S> La carte du donjon.
          */
-        virtual hex::ICarte_S<cases::ICase_S> getCarte() = 0;
-        /**
-         * @brief Obtient la carte du donjon.
-         *
-         * @return hex::ICarte_S<cases::ICase_S> La carte du donjon.
-         */
         virtual hex::ICarte_SC<cases::ICase_S> getCarte() const = 0;
     };
 
