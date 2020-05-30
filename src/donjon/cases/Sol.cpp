@@ -17,6 +17,7 @@ namespace donjon::cases
         {
             // On stock ce nouvel objet.
             m_objet = objet;
+            notifier(*this);
         }
     }
 
@@ -26,8 +27,11 @@ namespace donjon::cases
         getObjet();
         obj::IObjet_S objet = m_objet;
         m_objet = obj::IObjet_S();
+        notifier(*this);
         return objet;
     }
+
+    bool Sol::aObjet() const { return m_objet != nullptr; }
 
     const obj::IObjet& Sol::getObjet() const
     {
@@ -49,6 +53,7 @@ namespace donjon::cases
                 // Ajoute l'objet au personnage et le retire de la case.
                 personnage.ajouterObjet(m_objet);
                 m_objet = obj::IObjet_S();
+                notifier(*this);
             }
             catch (const std::logic_error& ex)
             {

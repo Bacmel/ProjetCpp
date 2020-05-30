@@ -15,6 +15,8 @@ namespace donjon::cases
 
     obj::IObjet_S Trou::ramasser() { throw err::SansObjetErreur("Trou::ramasser : Il n'y a pas d'objet"); }
 
+    bool Trou::aObjet() const { return false; }
+
     const obj::IObjet& Trou::getObjet() const { throw err::SansObjetErreur("Trou::getObjet : Il n'y a pas d'objet"); }
 
     void Trou::enEntree(per::APersonnage& personnage)
