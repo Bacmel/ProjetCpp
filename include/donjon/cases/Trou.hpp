@@ -20,6 +20,8 @@ namespace donjon::cases
 
         virtual obj::IObjet_S ramasser() override;
 
+        virtual bool aObjet() const override;
+
         virtual const obj::IObjet& getObjet() const override;
 
         virtual void enEntree(per::APersonnage& personnage) override;

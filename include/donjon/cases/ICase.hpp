@@ -4,12 +4,13 @@
 #include <memory>
 #include "obj/IObjet.hpp"
 #include "per/APersonnage.hpp"
+#include "utils/AObservable.hpp"
 
 namespace donjon::cases
 {
     class ICaseVisiteur;
 
-    class ICase
+    class ICase: public utils::AObservable<ICase>
     {
     public:
         virtual ~ICase() {}
@@ -32,6 +33,14 @@ namespace donjon::cases
          * @throw err::SansObjetErreur Quand la case n'a pas d'objet.
          */
         virtual obj::IObjet_S ramasser() = 0;
+
+        /**
+         * @brief Prédicat sur la présence d'objet.
+         *
+         * @return true S'il y a un objet sur cette case, sinon false.
+         * @see getObjet()
+         */
+        virtual bool aObjet() const = 0;
 
         /**
          * @brief Obtient l'objet déposé.
