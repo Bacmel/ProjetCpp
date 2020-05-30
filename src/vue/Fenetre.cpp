@@ -34,7 +34,7 @@ namespace vue
                     // on met à jour la vue, avec la nouvelle taille de la fenêtre
                     sf::FloatRect visibleArea(0.f, 0.f, event.size.width, event.size.height);
                     View vue = sf::View(visibleArea);
-                    float facteurZoom = 2 * 500. / std::min(event.size.height, event.size.width);
+                    float facteurZoom = 500. / std::min(event.size.height, event.size.width);
                     vue.zoom(facteurZoom);
                     m_fenetre.setView(vue);
                 }
