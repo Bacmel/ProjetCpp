@@ -123,8 +123,10 @@ namespace donjon
     {
         vector<Coordonnees> casesVide;
         Coordonnees c;
-        for (auto itr = m_carte->iterateur(); itr->aSuite(); c = itr->suite())
+        auto itr = m_carte->iterateur();
+        while(itr->aSuite())
         {
+            c = itr->suite();
             ICase_S iCase(nullptr);
             iCase = (*m_carte)(c);
             if (iCase->estPraticable() && !iCase->aObjet() && !estOccupee(c))

@@ -132,4 +132,15 @@ TEST_CASE("Creation et manipulation de Donjon", "[Donjon]")
         IObjet_S objObtenu = donjon.ramasser(pos);
         REQUIRE(objet == objObtenu);
     }
+
+    SECTION("Donjon::getCaseVide")
+    {
+        // Obtenir aucune case vide
+        ICarte_S<ICase_S> carte2(new CarteHexagone<ICase_S>(2));
+        function<ICase_S()> fournisseurTrou = []() { return make_shared<Trou>(); };
+        carte2->remplir(fournisseurTrou);
+        Donjon donjon2(carte2);
+        REQUIRE(donjon2.getCaseVide().size()==0);
+        REQUIRE(donjon.getCaseVide().size()==18);
+    }
 }
