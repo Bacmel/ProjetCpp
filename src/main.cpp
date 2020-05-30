@@ -11,7 +11,7 @@
 #include "utils/HexPixelConvertisseur.hpp"
 #include "vue/CaseDessinable.hpp"
 #include "vue/Fenetre.hpp"
-#include "vue/PersonnageDessinateur.hpp"
+#include "vue/PersonnageDessinable.hpp"
 
 using namespace donjon::cases;
 using namespace vue;
@@ -42,10 +42,8 @@ int main()
     heros->deplacer(Deplacement::Marcher, Coordonnees().translate(Direction::NordEst));
     heros->subitAttaque(1);
 
-    PersonnageDessinateur pd(window);
-    pd.setRayon(25);
-
     CaseDessinable cdbl(25);
+    PersonnageDessinable pd(25, heros.get());
     utils::HexPixelConvertisseur hpc;
 
     fen.setDessinateur([&](RenderWindow& rw) {
@@ -59,7 +57,9 @@ int main()
             auto dim = rw.getSize();
             cdbl.setPosition(pixel.x + dim.x / 2., pixel.y + dim.y / 2.);
             rw.draw(cdbl);
-            pd.dessine(heros->getPosition(), *heros);
+            pixel = hpc(pd.getCote(), heros->getPosition());
+            pd.setPosition(pixel.x + dim.x / 2., pixel.y + dim.y / 2.);
+            rw.draw(pd);
         }
     });
 
