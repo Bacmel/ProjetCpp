@@ -81,6 +81,43 @@ namespace donjon
          * @return set<hex::Coordonnees> la liste des cases disponibles.
          */
         virtual std::vector<hex::Coordonnees> getCaseVide() const = 0;
+
+        /**
+         * @brief Obtient le nombre de personnage.
+         *
+         * @return Le nombre de personnages.
+         */
+        virtual size_t getNbPersonnages() const = 0;
+
+        /**
+         * @brief Obtient le i ème personnage.
+         *
+         * @param indice L'indice du personnage.
+         * @return Un pointeur partagé vers le personnage.
+         */
+        virtual per::APersonnage_SC getPersonnage(size_t indice) const = 0;
+        /**
+         * @brief Obtient le i ème personnage.
+         *
+         * @param indice L'indice du personnage.
+         * @return Un pointeur partagé vers le personnage.
+         */
+        virtual per::APersonnage_S getPersonnage(size_t indice) = 0;
+
+        /**
+         * @brief Obtient le personnage avec l'id précisiée.
+         *
+         * @param id L'identifiant du personnage.
+         * @return Un pointeur partagé vers le personnage.
+         */
+        virtual per::APersonnage_SC getPersonnageParId(size_t id) const = 0;
+        /**
+         * @brief Obtient le personnage avec l'id précisiée.
+         *
+         * @param id L'identifiant du personnage.
+         * @return Un pointeur partagé vers le personnage.
+         */
+        virtual per::APersonnage_S getPersonnageParId(size_t id) = 0;
     };
 
     using IDonjon_S = std::shared_ptr<IDonjon>;
