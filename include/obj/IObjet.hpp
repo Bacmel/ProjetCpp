@@ -39,7 +39,7 @@ namespace obj
          */
         virtual void accepter(IObjetVisiteur& visiteur) const = 0;
 
-        virtual void actualiser();
+        virtual void actualiser() {};
     };
 
     using IObjet_S = std::shared_ptr<IObjet>;
