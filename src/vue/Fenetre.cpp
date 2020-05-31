@@ -53,7 +53,7 @@ namespace vue
         auto itr = m_gestEven.find(type);
         if (itr == m_gestEven.end())
         {
-            auto res = m_gestEven.insert(pair<Event::EventType, list<IControlleur*>>(type, list<IControlleur*>(1)));
+            auto res = m_gestEven.insert(pair<Event::EventType, list<IControlleur*>>(type, list<IControlleur*>()));
             itr = res.first;
         }
         // Ajoute le gestionnaire à la liste.
@@ -77,7 +77,7 @@ namespace vue
             pair<Event::EventType, list<IControlleur*>> elem = *itr;
             for (IControlleur*& gest : elem.second)
             {
-                gest->enEvenement(even);
+                if (gest != nullptr) { gest->enEvenement(even); }
             }
         }
     }
