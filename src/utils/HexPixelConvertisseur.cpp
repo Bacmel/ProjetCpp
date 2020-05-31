@@ -11,10 +11,10 @@ namespace utils
         return pixel;
     }
 
-    hex::Coordonnees HexPixelConvertisseur::operator()(float cote, const sf::Vector2u& pixel) const
+    hex::Coordonnees HexPixelConvertisseur::operator()(float cote, const sf::Vector2i& pixel) const
     {
         float q = pixel.x / cote * 2. / 3.;
-        float r = (sqrtf(3) * pixel.y - pixel.x) / 3.;
+        float r = (sqrtf(3) * pixel.y - pixel.x) / 3. / cote;
         hex::Coordonnees hex;
         hex.arrondir(r, q);
         return hex;
