@@ -19,20 +19,12 @@ namespace per
          * @brief Construit un nouveau Hero.
          *
          * @param pvMax la sante maximale.
-         * @param position la position.
          */
         explicit Heros(size_t pvMax);
 
-        /**
-         * @brief Modifie la santé maximale
-         *
-         * @param sante La santé à ajouter. Elle peut être négative.
-         */
-        void addSanteMax(int sante);
+        void deplacer(Deplacement deplacement, hex::Coordonnees cible) override;
 
-        virtual void deplacer(Deplacement deplacement, hex::Coordonnees cible) override;
-
-        virtual void accepter(IPersonnageVisiteur& visiteur) const override;
+        void accepter(IPersonnageVisiteur& visiteur) const override;
 
         void ajouterObjet(obj::IObjet_S objet) override;
 
@@ -40,7 +32,7 @@ namespace per
 
         size_t tailleSac() const override;
 
-        const obj::IObjet& getObjet(size_t indice) override;
+        const obj::IObjet& getObjet(size_t indice) const override;
     };
 }; // namespace per
 
