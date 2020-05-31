@@ -112,6 +112,7 @@ namespace donjon
          * @return Un pointeur partagé vers le personnage.
          */
         virtual per::APersonnage_SC getPersonnageParId(size_t id) const = 0;
+
         /**
          * @brief Obtient le personnage avec l'id précisiée.
          *
@@ -126,6 +127,22 @@ namespace donjon
          * @return hex::ICarte_S<cases::ICase_S> La carte du donjon.
          */
         virtual hex::ICarte_SC<cases::ICase_S> getCarte() const = 0;
+
+                /**
+         * @brief Donne le personnage présent aux coordonnées indiquées.
+         *
+         * @param position La position du personnage.
+         * @return Le personnage à cette position.
+         * @throw std::runtime_exception Quand il n'y a pas de personnage à
+         * l'endroit indiqué.
+         */
+        virtual per::APersonnage_S trouver(const hex::Coordonnees& position) const = 0;
+
+        /**
+         * @brief Indique si un personnage se trouve sur la case.
+         * @return true Si un personnage occupe la case, sinon false.
+         */
+        virtual bool estOccupee(const hex::Coordonnees& position) const = 0;
     };
 
     using IDonjon_S = std::shared_ptr<IDonjon>;
