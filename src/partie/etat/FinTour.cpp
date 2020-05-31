@@ -1,8 +1,8 @@
 #include "partie/etat/FinTour.hpp"
-#include "partie/Partie.hpp"
-#include "partie/etat/Initial.hpp"
 #include "donjon/cases/ICase.hpp"
 #include "hex/Coordonnees.hpp"
+#include "partie/Partie.hpp"
+#include "partie/etat/Initial.hpp"
 
 using namespace partie;
 using namespace per;
@@ -29,10 +29,11 @@ namespace partie::etat
             Coordonnees c = itro->suite();
             (*carte)(c)->actualiser();
         }
-        
+
         /*Mise à jour membre de l'equipe. */
-        auto itre = partie.getEquipes().at(m_indiceEquipe).begin();
-        for(itre; itre != partie.getEquipes().at(m_indiceEquipe).end(); itre++)
+        for (auto itre = partie.getEquipes().at(m_indiceEquipe).begin();
+             itre != partie.getEquipes().at(m_indiceEquipe).end();
+             itre++)
         {
             partie.getDonjon()->getPersonnageParId(*itre)->actualiser();
         }

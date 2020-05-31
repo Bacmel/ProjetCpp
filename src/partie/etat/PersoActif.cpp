@@ -25,14 +25,14 @@ namespace partie::etat
             if (personnage != m_personnage && m_indiceEquipe == partie.indiceEquipe(personnage))
             { partie.setEtat(IEtat_S(new PersoActif(m_indiceEquipe, personnage))); }
         }
-        catch (runtime_error e)
+        catch (const runtime_error&)
         {
             try
             {
                 donjon->deplace(*m_personnage, Deplacement::Marcher, coordonnees);
                 partie.setEtat(IEtat_S(new FinTour(m_indiceEquipe)));
             }
-            catch (runtime_error e)
+            catch (const runtime_error&)
             {
             }
         }

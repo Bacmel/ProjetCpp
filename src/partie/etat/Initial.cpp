@@ -19,7 +19,7 @@ namespace partie::etat
             if (m_indiceEquipe == partie.indiceEquipe(personnage))
             { partie.setEtat(IEtat_S(new PersoActif(m_indiceEquipe, personnage))); }
         }
-        catch (runtime_error e)
+        catch (const runtime_error&)
         {
         }
     }
