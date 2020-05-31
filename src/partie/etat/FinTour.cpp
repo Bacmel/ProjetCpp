@@ -1,4 +1,5 @@
 #include "partie/etat/FinTour.hpp"
+#include <iostream>
 #include "donjon/cases/ICase.hpp"
 #include "hex/Coordonnees.hpp"
 #include "partie/Partie.hpp"
@@ -29,14 +30,17 @@ namespace partie::etat
             Coordonnees c = itro->suite();
             (*carte)(c)->actualiser();
         }
-
         /*Mise à jour membre de l'equipe. */
-        for (auto itre = partie.getEquipes().at(m_indiceEquipe).begin();
-             itre != partie.getEquipes().at(m_indiceEquipe).end();
-             itre++)
+        set<size_t> equipe = partie.getEquipes().at(m_indiceEquipe);
+        for (auto id : equipe)
         {
-            partie.getDonjon()->getPersonnageParId(*itre)->actualiser();
+            partie.getDonjon()->getPersonnageParId(id)->actualiser();
         }
-        partie.setEtat(IEtat_S(new Initial(m_indiceEquipe)));
+        size_t nbEquipe = partie.getEquipes().size();
+        partie.setEtat(IEtat_S(new Initial((m_indiceEquipe+1)%nbEquipe)));
+        return;
     }
+
+    void FinTour::afficher() const { cout << " Etat Fin de Tour : " << m_indiceEquipe << endl; }
+
 } // namespace partie::etat

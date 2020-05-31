@@ -1,8 +1,10 @@
 #include "partie/etat/PersoActif.hpp"
 #include <exception>
+#include <iostream>
 #include "donjon/IDonjon.hpp"
 #include "partie/Partie.hpp"
 #include "partie/etat/FinTour.hpp"
+#include "partie/etat/Initial.hpp"
 
 using namespace partie;
 using namespace per;
@@ -17,27 +19,48 @@ namespace partie::etat
 
     void PersoActif::operation(Partie& partie, const hex::Coordonnees& coordonnees)
     {
+        /* Annulation second clic. */
+        if (m_personnage->getPosition() == coordonnees)
+        {
+            partie.setEtat(IEtat_S(new Initial(m_indiceEquipe)));
+            return;
+        }
+
         IDonjon_S donjon = partie.getDonjon();
         try
         {
             APersonnage_S personnage = donjon->trouver(coordonnees);
-            /* Autre personnage de l'equipe. */
-            if (personnage != m_personnage && m_indiceEquipe == partie.indiceEquipe(personnage))
-            { partie.setEtat(IEtat_S(new PersoActif(m_indiceEquipe, personnage))); }
+            /* Selection autre personnage de l'equipe. */
+            if (m_indiceEquipe == partie.indiceEquipe(personnage))
+            {
+                m_personnage = personnage;
+                return;
+            }
         }
         catch (const runtime_error&)
         {
             try
             {
+                /* Deplacement Marche. */
                 donjon->deplace(*m_personnage, Deplacement::Marcher, coordonnees);
                 partie.setEtat(IEtat_S(new FinTour(m_indiceEquipe)));
+                partie.demande(coordonnees);
+                return;
             }
-            catch (const runtime_error&)
+            catch (...)
             {
+                /* Annulation clic random. */
+                partie.setEtat(IEtat_S(new Initial(m_indiceEquipe)));
+                return;
             }
         }
     }
 
     void PersoActif::operation(Partie& partie, obj::IObjet_S objet) { return; }
+
+    void PersoActif::afficher() const
+    {
+        cout << " Etat Personnage Actif : " << m_indiceEquipe << endl << "id : " << m_personnage->getId() << endl;
+    }
 
 } // namespace partie::etat

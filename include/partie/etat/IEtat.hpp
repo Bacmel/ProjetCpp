@@ -24,6 +24,11 @@ namespace partie
              */
             virtual void operation(Partie& partie, const hex::Coordonnees& coordonnees) = 0;
             virtual void operation(Partie& partie, obj::IObjet_S objet) = 0;
+
+            /**
+             * @brief Affiche l'état courant.
+             */
+            virtual void afficher() const = 0;
         };
 
         using IEtat_S = std::shared_ptr<IEtat>;

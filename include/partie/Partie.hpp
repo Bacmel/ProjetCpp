@@ -49,6 +49,12 @@ namespace partie
         inline donjon::IDonjon_SC getDonjon() const { return m_donjon; }
 
         /**
+         * @brief Obtient l'etat courant.
+         *
+         * @return partie::etat::IEtat_SC; l'etat courant.
+         */
+        inline etat::IEtat_SC getEtat() const { return m_etat; }
+        /**
          * @brief Change l'etat courant.
          *
          * @param etat::IEtat_S le nouvel etat courant.

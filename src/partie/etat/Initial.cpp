@@ -1,5 +1,6 @@
 #include "partie/etat/Initial.hpp"
 #include <exception>
+#include <iostream>
 #include "partie/Partie.hpp"
 #include "partie/etat/PersoActif.hpp"
 
@@ -25,5 +26,7 @@ namespace partie::etat
     }
 
     void Initial::operation(Partie& partie, obj::IObjet_S objet) { return; }
+
+    void Initial::afficher() const { cout << " Etat initial : " << m_indiceEquipe << endl; }
 
 } // namespace partie::etat

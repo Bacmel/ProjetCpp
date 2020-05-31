@@ -7,9 +7,11 @@
 #include "err/InfoErreur.hpp"
 #include "hex/CarteHexagone.hpp"
 #include "per/Heros.hpp"
+#include "partie/etat/Initial.hpp"
 
 using namespace donjon;
 using namespace donjon::cases;
+using namespace partie::etat;
 using namespace hex;
 using namespace per;
 using namespace obj;
@@ -17,7 +19,7 @@ using namespace std;
 
 namespace partie
 {
-    Partie::Partie(size_t joueurs) : m_equipes(joueurs) { genererCarte(); }
+    Partie::Partie(size_t joueurs) : m_equipes(joueurs), m_etat(new Initial(0)) { genererCarte(); }
 
     void Partie::genererPersonnage(APersonnage_S personnage, size_t indice)
     {
@@ -29,7 +31,7 @@ namespace partie
     void Partie::genererCarte()
     {
         // A changer
-        ICarte_S<ICase_S> carte(new CarteHexagone<ICase_S>(1));
+        ICarte_S<ICase_S> carte(new CarteHexagone<ICase_S>(5));
         function<ICase_S()> fournisseurSol = []() { return make_shared<Sol>(); };
         carte->remplir(fournisseurSol);
         Coordonnees positionTrou = Coordonnees().translate(Direction::Nord);
@@ -78,11 +80,9 @@ namespace partie
     {
         vector<Coordonnees> coordonnees = m_donjon->getCaseVide();
         size_t size = coordonnees.size();
-        cout << size << endl;
         if (size == 0) { throw err::CreationErreur("Partie::coordonneesLibre : Plus de case disponible."); }
         auto c = coordonnees.begin();
         c += rand() % coordonnees.size();
-        cout << *c << endl;
         return *c;
     }
 

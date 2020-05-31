@@ -1,9 +1,9 @@
-#ifndef __INITIAL_H__
-#define __INITIAL_H__
+#ifndef __Initial_H__
+#define __Initial_H__
 
+#include "partie/etat/IEtat.hpp"
 #include "hex/Coordonnees.hpp"
 #include "obj/IObjet.hpp"
-#include "partie/etat/IEtat.hpp"
 
 namespace partie::etat
 {
@@ -11,8 +11,7 @@ namespace partie::etat
     {
     protected:
         /* indice de L'Equipe en jeu. */
-        size_t m_indiceEquipe;
-
+        size_t m_indiceEquipe;        
     public:
         Initial(size_t indice);
 
@@ -25,7 +24,12 @@ namespace partie::etat
          */
         void operation(Partie& partie, const hex::Coordonnees& coordonnees);
         void operation(Partie& partie, obj::IObjet_S objet);
+
+        /**
+         * @brief Affiche l'état courant.
+         */
+        inline void afficher() const;
     };
 } // namespace partie::etat
 
-#endif //__INITIAL_H__
+#endif //__Initial_H__

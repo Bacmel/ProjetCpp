@@ -28,6 +28,11 @@ namespace partie::etat
          */
         void operation(Partie& partie, const hex::Coordonnees& coordonnees);
         void operation(Partie& partie, obj::IObjet_S objet);
+
+        /**
+         * @brief Affiche l'état courant.
+         */
+        void afficher() const;
     };
 } // namespace partie::etat
 

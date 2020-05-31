@@ -25,8 +25,12 @@ namespace partie::etat
          */
         void operation(Partie& partie, const hex::Coordonnees& coordonnees);
         void operation(Partie& partie, obj::IObjet_S objet);
-    private:
         void operation(Partie& partie);
+
+        /**
+         * @brief Affiche l'état courant.
+         */
+        void afficher() const;
     };
 } // namespace partie::etat
 
