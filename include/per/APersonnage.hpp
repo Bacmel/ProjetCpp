@@ -7,6 +7,7 @@
 #include "obj/IObjet.hpp"
 #include "utils/Jauge.hpp"
 #include "utils/AObservable.hpp"
+#include "utils/IActualisable.hpp"
 
 namespace per
 {
@@ -19,7 +20,7 @@ namespace per
         Forcer
     };
 
-    class APersonnage: public utils::AObservable<APersonnage>
+    class APersonnage: public utils::AObservable<APersonnage>, public utils::IActualisable
     {
     protected:
         /** Nombre de Personnages*/
