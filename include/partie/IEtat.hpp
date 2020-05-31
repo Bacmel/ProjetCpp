@@ -2,12 +2,13 @@
 #define __IEtat_H__
 
 #include <memory>
-#include "partie/Partie.hpp"
 #include "hex/Coordonnees.hpp"
 #include "obj/IObjet.hpp"
 
 namespace partie
 {
+    class Partie;
+
     class IEtat
     {
     public:
@@ -15,7 +16,7 @@ namespace partie
 
         /**
          * @brief Operation de l'etat courant sur la partie.
-         * 
+         *
          * @param partie la Partie.
          * @param coordonnees la coordonnee selectionnee.
          * @param objet l'objet selectionne.

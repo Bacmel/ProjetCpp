@@ -76,12 +76,12 @@ namespace partie
         /* Methodes pour gerer le jeu. */
 
         /**
-         * @brief Demande 
-         * 
+         * @brief Demande
+         *
          * @param coordonnees les coordonnees selectionnees.
          * @param objet l'objet selectionne.
          */
-        void demande(hex::Coordonnees coordonnees, obj::IObjet_S objet); 
+        void demande(hex::Coordonnees coordonnees, obj::IObjet_S objet);
 
         /* Méthodes autres. */
 
@@ -113,7 +113,7 @@ namespace partie
 
         /**
          * @brief Obtient une coordonnees disponible.
-         * 
+         *
          * @throw err:CreationErreur Quand la carte n'a plus de place.
          */
         hex::Coordonnees coordonneesLibre();

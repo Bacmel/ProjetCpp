@@ -43,10 +43,7 @@ namespace partie
         m_donjon->deposer(objet, c);
     }
 
-    void Partie::demande(Coordonnees coordonnees, IObjet_S objet)
-    {
-        etat->operation(*this, coordonnees, objet);
-    }
+    void Partie::demande(Coordonnees coordonnees, IObjet_S objet) { etat->operation(*this, coordonnees, objet); }
 
     int Partie::indiceGagnant() const
     {
