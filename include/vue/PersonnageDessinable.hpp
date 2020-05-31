@@ -4,19 +4,18 @@
 #include <SFML/Graphics.hpp>
 #include "per/IPersonnageVisiteur.hpp"
 #include "utils/IObservateur.hpp"
+#include "vue/ADessinable.hpp"
 #include "vue/TextureGest.hpp"
 
 namespace vue
 {
-    class PersonnageDessinable : public sf::Drawable,
-                                 public sf::Transformable,
+    class PersonnageDessinable : public vue::ADessinable<per::APersonnage>,
                                  public per::IPersonnageVisiteur,
                                  public utils::IObservateur<per::APersonnage>
     {
     private:
-        float m_cote;
         float m_margin;
-        per::APersonnage* m_personnage;
+        sf::Color m_couleur;
         sf::Sprite m_sprite;
         sf::RectangleShape m_barFond;
         sf::RectangleShape m_barValeur;
@@ -29,17 +28,30 @@ namespace vue
          * @param cote La longueur du côté des hexagones.
          * @param aPersonnage Un personnage à dessiner.
          */
-        PersonnageDessinable(float cote = 50, per::APersonnage* aPersonnage = nullptr);
+        PersonnageDessinable(float cote = 50);
+        PersonnageDessinable(float cote, per::APersonnage& aPersonnage);
+        PersonnageDessinable(const PersonnageDessinable& autre);
+        ~PersonnageDessinable();
 
-        const per::APersonnage* getPersonnage() const { return m_personnage; }
+        PersonnageDessinable& operator=(const PersonnageDessinable& autre);
 
-        per::APersonnage* getPersonnage() { return m_personnage; }
+        /**
+         * @brief Obtient la couleur du personnage.
+         *
+         * @return La couleur du personnage.
+         */
+        sf::Color getCouleur() const { return m_couleur; }
 
-        float getCote() const { return m_cote; }
+        void setCote(float cote) override;
 
-        void setCote(float cote);
+        /**
+         * @brief Définit la couleur du personnage.
+         *
+         * @param couleur La couleur du personnage.
+         */
+        void setCouleur(const sf::Color& couleur);
 
-        void setPersonnage(per::APersonnage& personnage);
+        void setElement(per::APersonnage& aPersonnage) override;
 
         virtual void draw(sf::RenderTarget& target, sf::RenderStates states) const override;
 
@@ -50,6 +62,11 @@ namespace vue
         virtual void actualiser(const per::APersonnage& info) override;
 
     private:
+        /**
+         * @brief Actualise la barre de santé au personnage.
+         *
+         * @param personnage Le personnage dont on souhaite afficher la santé.
+         */
         void preparerBarreSante(const per::APersonnage& personnage);
     };
 } // namespace vue

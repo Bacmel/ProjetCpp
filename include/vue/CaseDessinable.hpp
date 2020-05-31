@@ -1,7 +1,7 @@
 #ifndef __CASEDESSINABLE_H__
 #define __CASEDESSINABLE_H__
 
-#include <SFML/Graphics.hpp>
+#include "vue/ADessinable.hpp"
 #include "donjon/cases/ICaseVisiteur.hpp"
 #include "utils/IObservateur.hpp"
 #include "vue/ObjetDessinable.hpp"
@@ -9,8 +9,7 @@
 
 namespace vue
 {
-    class CaseDessinable : public sf::Drawable,
-                           public sf::Transformable,
+    class CaseDessinable : public vue::ADessinable<donjon::cases::ICase>,
                            public donjon::cases::ICaseVisiteur,
                            public utils::IObservateur<donjon::cases::ICase>
     {
@@ -22,19 +21,13 @@ namespace vue
         ObjetDessinable m_objDessinable;
 
     public:
-        /**
-         * @brief Construit un dessinateur de case dédié à la cible.
-         *
-         * @param cible La toile du dessin.
-         */
-        CaseDessinable(float cote = 50.f, donjon::cases::ICase* iCase = nullptr);
+        CaseDessinable(float cote);
+        CaseDessinable(float cote, donjon::cases::ICase& iCase);
         virtual ~CaseDessinable() {}
 
-        float getCote() const { return m_hexagone.getRadius(); }
+        void setCote(float cote) override;
 
-        void setCase(donjon::cases::ICase& iCase);
-
-        void setCote(float cote);
+        void setElement(donjon::cases::ICase& iCase) override;
 
         virtual void visite(const donjon::cases::Sol& sol) override;
 

@@ -10,7 +10,8 @@ using namespace obj;
 
 namespace vue
 {
-    CaseDessinable::CaseDessinable(float cote, ICase* iCase) :
+    CaseDessinable::CaseDessinable(float cote) :
+        ADessinable(cote),
         m_case(nullptr),
         m_hexagone(cote, 6),
         m_textureSol(),
@@ -26,11 +27,11 @@ namespace vue
         m_hexagone.setRotation(90);
         m_hexagone.setOutlineThickness(1);
         m_hexagone.setOutlineColor(Color::Black);
-        // S'adapte à la case.
-        if (iCase != nullptr) { setCase(*iCase); }
     }
 
-    void CaseDessinable::setCase(ICase& iCase)
+    CaseDessinable::CaseDessinable(float cote, ICase& iCase) : CaseDessinable(cote) { setElement(iCase); }
+
+    void CaseDessinable::setElement(ICase& iCase)
     {
         // On se détache de la précédente case et on s'attache à la nouvelle.
         if (m_case != nullptr) { m_case->detacher(this); }
@@ -42,6 +43,7 @@ namespace vue
 
     void CaseDessinable::setCote(float cote)
     {
+        ADessinable::setCote(cote);
         m_hexagone.setRadius(cote);
         m_hexagone.setOrigin(cote, cote);
     }
