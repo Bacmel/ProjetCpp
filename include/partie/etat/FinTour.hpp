@@ -1,5 +1,5 @@
-#ifndef __INITIAL_H__
-#define __INITIAL_H__
+#ifndef __FINTOUR_H__
+#define __FINTOUR_H__
 
 #include "hex/Coordonnees.hpp"
 #include "obj/IObjet.hpp"
@@ -7,14 +7,14 @@
 
 namespace partie::etat
 {
-    class Initial : public IEtat
+    class FinTour : public IEtat
     {
     protected:
-        /* indice de L'Equipe en jeu. */
+        /* indice de l'equipe en jeu. */
         size_t m_indiceEquipe;
 
     public:
-        Initial(size_t indice);
+        FinTour(size_t indice);
 
         /**
          * @brief Operation de l'etat courant sur la partie.
@@ -25,7 +25,9 @@ namespace partie::etat
          */
         void operation(Partie& partie, const hex::Coordonnees& coordonnees);
         void operation(Partie& partie, obj::IObjet_S objet);
+    private:
+        void operation(Partie& partie);
     };
 } // namespace partie::etat
 
-#endif //__INITIAL_H__
+#endif //__FINTOUR_H__

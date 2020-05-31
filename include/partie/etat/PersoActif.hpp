@@ -1,10 +1,10 @@
 #ifndef __PERSOACTIF_H__
 #define __PERSOACTIF_H__
 
-#include "partie/etat/IEtat.hpp"
-#include "per/APersonnage.hpp"
 #include "hex/Coordonnees.hpp"
 #include "obj/IObjet.hpp"
+#include "partie/etat/IEtat.hpp"
+#include "per/APersonnage.hpp"
 
 namespace partie::etat
 {
@@ -12,9 +12,10 @@ namespace partie::etat
     {
     protected:
         /* indice de l'equipe en jeu. */
-        size_t m_indiceEquipe;  
+        size_t m_indiceEquipe;
         /* personnage actif. */
         per::APersonnage_S m_personnage;
+
     public:
         PersoActif(size_t indice, per::APersonnage_S personnage);
 
@@ -25,7 +26,7 @@ namespace partie::etat
          * @param coordonnees les coordonnees selectionnees.
          * @param objet l'objet selectionne.
          */
-        void operation(Partie& partie, hex::Coordonnees coordonnees);
+        void operation(Partie& partie, const hex::Coordonnees& coordonnees);
         void operation(Partie& partie, obj::IObjet_S objet);
     };
 } // namespace partie::etat

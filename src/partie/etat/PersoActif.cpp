@@ -2,6 +2,7 @@
 #include <exception>
 #include "donjon/IDonjon.hpp"
 #include "partie/Partie.hpp"
+#include "partie/etat/FinTour.hpp"
 
 using namespace partie;
 using namespace per;
@@ -14,7 +15,7 @@ namespace partie::etat
     {
     }
 
-    void PersoActif::operation(Partie& partie, hex::Coordonnees coordonnees)
+    void PersoActif::operation(Partie& partie, const hex::Coordonnees& coordonnees)
     {
         IDonjon_S donjon = partie.getDonjon();
         try
@@ -29,7 +30,7 @@ namespace partie::etat
             try
             {
                 donjon->deplace(*m_personnage, Deplacement::Marcher, coordonnees);
-                partie.setEtat(IEtat_S(new FinTour(m_indiceEquipe)))
+                partie.setEtat(IEtat_S(new FinTour(m_indiceEquipe)));
             }
             catch (runtime_error e)
             {

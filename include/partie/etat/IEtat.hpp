@@ -1,5 +1,5 @@
-#ifndef __IEtat_H__
-#define __IEtat_H__
+#ifndef __IETAT_H__
+#define __IETAT_H__
 
 #include <memory>
 #include "hex/Coordonnees.hpp"
@@ -31,4 +31,4 @@ namespace partie
     } // namespace etat
 } // namespace partie
 
-#endif //__IEtat_H__
+#endif //__IETAT_H__
