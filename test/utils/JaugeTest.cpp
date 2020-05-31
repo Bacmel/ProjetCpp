@@ -16,50 +16,51 @@ TEST_CASE( "Creation, operation et manipulation des jauges", "[jauge]" ) {
 
     SECTION( "ajouterValeur" )
     {
-        j2.ajouterValeur(12);
-        REQUIRE(j2.getVal() == 42);
-        REQUIRE(j2.getValMax() == 42);
+        j1.ajouterValeur(12);
+        REQUIRE(j1.getVal() == 42);
+        REQUIRE(j1.getValMax() == 42);
 
-        j2.ajouterValeur(-12);
-        REQUIRE(j2.getVal() == 30);
-        REQUIRE(j2.getValMax() == 42);
+        j1.ajouterValeur(-12);
+        REQUIRE(j1.getVal() == 30);
+        REQUIRE(j1.getValMax() == 42);
 
-        REQUIRE_THROWS(j1.ajouterValeur(-1));
-        REQUIRE(j1.getVal() == 0);
-        REQUIRE(j1.getValMax() == 0);
+        REQUIRE_THROWS(j2.ajouterValeur(-1));
+        REQUIRE(j2.getVal() == 0);
+        REQUIRE(j2.getValMax() == 0);
     }
     
     SECTION( "ajouterValeurMax" )
     {
-        j2.ajouterValeurMax(12);
-        REQUIRE(j2.getVal() == 64);
-        REQUIRE(j2.getValMax() == 64);
+        j1.ajouterValeurMax(12);
+        REQUIRE(j1.getVal() == 54);
+        REQUIRE(j1.getValMax() == 54);
 
-        j2.ajouterValeur(-12);
-        REQUIRE(j2.getVal() == 42);
-        REQUIRE(j2.getValMax() == 64);
+        j1.ajouterValeur(-12);
+        REQUIRE(j1.getVal() == 42);
+        REQUIRE(j1.getValMax() == 54);
 
-        REQUIRE_THROWS(j1.ajouterValeurMax(1));
-        REQUIRE(j1.getVal() == 0);
-        REQUIRE(j1.getValMax() == 1);
+        REQUIRE_THROWS(j2.ajouterValeurMax(-1));
+        j2.ajouterValeurMax(1);
+        REQUIRE(j2.getVal() == 1);
+        REQUIRE(j2.getValMax() == 1);
     }
     
     SECTION( "remplir et vider" )
     {
-        j2.vider();
-        REQUIRE(j2.getVal() == 0);
-        REQUIRE(j2.getValMax() == 42);
-
-        j2.remplir();
-        REQUIRE(j2.getVal() == 42);
-        REQUIRE(j2.getValMax() == 42);
-
-        j1.remplir();
-        REQUIRE(j1.getVal() == 0);
-        REQUIRE(j1.getValMax() == 0);
-
         j1.vider();
         REQUIRE(j1.getVal() == 0);
-        REQUIRE(j1.getValMax() == 0);
+        REQUIRE(j1.getValMax() == 42);
+
+        j1.remplir();
+        REQUIRE(j1.getVal() == 42);
+        REQUIRE(j1.getValMax() == 42);
+
+        j2.remplir();
+        REQUIRE(j2.getVal() == 0);
+        REQUIRE(j2.getValMax() == 0);
+
+        j2.vider();
+        REQUIRE(j2.getVal() == 0);
+        REQUIRE(j2.getValMax() == 0);
     }
 }
