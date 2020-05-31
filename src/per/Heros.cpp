@@ -21,6 +21,7 @@ namespace per
             else
             {
                 m_position = cible;
+                notifier(*this);
             }
             break;
         case Deplacement::Sauter:
@@ -29,6 +30,7 @@ namespace per
             else
             {
                 m_position = cible;
+                notifier(*this);
             }
             break;
         default:
@@ -41,19 +43,32 @@ namespace per
 
     void Heros::ajouterObjet(obj::IObjet_S objet)
     {
-        if (objet != nullptr) { m_sac.push_back(objet); }
+        if (objet != nullptr)
+        {
+            m_sac.push_back(objet);
+            notifier(*this);
+        }
     }
 
     void Heros::retirerObjet(obj::IObjet_S objet)
     {
         m_sac.erase(std::remove(m_sac.begin(), m_sac.end(), objet), m_sac.end());
+        notifier(*this);
     }
 
     size_t Heros::tailleSac() const { return m_sac.size(); }
 
-    const obj::IObjet& Heros::getObjet(size_t indice)
+    const obj::IObjet& Heros::getObjet(size_t indice) const
     {
         obj::IObjet_S objet = m_sac.at(indice);
         return *objet;
+    }
+
+    void Heros::actualiser()
+    {
+        for(auto objet : m_sac)
+        {
+            objet->actualiser();
+        }
     }
 }; // namespace per

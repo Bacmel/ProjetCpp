@@ -6,6 +6,8 @@
 #include "hex/Coordonnees.hpp"
 #include "obj/IObjet.hpp"
 #include "utils/Jauge.hpp"
+#include "utils/AObservable.hpp"
+#include "utils/IActualisable.hpp"
 
 namespace per
 {
@@ -18,7 +20,7 @@ namespace per
         Forcer
     };
 
-    class APersonnage
+    class APersonnage: public utils::AObservable<APersonnage>, public utils::IActualisable
     {
     protected:
         /** Nombre de Personnages*/
@@ -153,7 +155,7 @@ namespace per
          *
          * @throw std::out_of_range Quand il n'y a pas d'objet à l'indice donné.
          */
-        virtual const obj::IObjet& getObjet(size_t indice);
+        virtual const obj::IObjet& getObjet(size_t indice) const;
     };
 
     using APersonnage_S = std::shared_ptr<APersonnage>;
