@@ -65,10 +65,12 @@ namespace donjon
         virtual void deposer(obj::IObjet_S objet, const hex::Coordonnees& position) = 0;
 
         /**
-         * @brief
+         * @brief Donne l'objet (s'il y en a) et le retire.
          *
-         * @param position
-         * @return obj::IObjet_S
+         * @param position La position à laquelle on ramasse.
+         * @return obj::IObjet_S L'objet présent sur la case.
+         *
+         * @throw err::SansObjetErreur Quand la case n'a pas d'objet.
          */
         virtual obj::IObjet_S ramasser(const hex::Coordonnees& position) = 0;
     };

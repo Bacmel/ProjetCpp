@@ -38,6 +38,10 @@ namespace obj
         GravityGun(size_t distance, hex::Masque porte, hex::Masque aire, size_t timeMax);
 
         void utiliser(donjon::IDonjon& donjon, const hex::Coordonnees& origine, const hex::Coordonnees& cible);
+
+        virtual void accepter(IObjetVisiteur& visiteur) const override;
+
+        virtual void actualiser();
     };
 } // namespace obj
 #endif // GRAVITYGUN_HPP
