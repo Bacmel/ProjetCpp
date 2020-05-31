@@ -73,4 +73,6 @@ namespace donjon::cases
     bool Sol::estTransparent() const { return true; }
 
     void Sol::accepter(ICaseVisiteur& visiteur) const { visiteur.visite(*this); }
+
+    void Sol::actualiser() {if(aObjet()) m_objet->actualiser();}
 } // namespace donjon::cases

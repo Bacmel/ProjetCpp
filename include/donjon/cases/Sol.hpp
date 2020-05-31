@@ -30,6 +30,8 @@ namespace donjon::cases
 
         virtual void accepter(ICaseVisiteur& visiteur) const override;
 
+        virtual void actualiser() override;
+        
         Sol(const Sol& autre) = default;
         Sol(Sol&& autre) = default;
         Sol& operator=(const Sol& autre) = default;
