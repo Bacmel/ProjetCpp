@@ -96,6 +96,7 @@ namespace donjon
          * @return Un pointeur partagé vers le personnage.
          */
         virtual per::APersonnage_SC getPersonnage(size_t indice) const = 0;
+
         /**
          * @brief Obtient le i ème personnage.
          *
@@ -118,6 +119,13 @@ namespace donjon
          * @return Un pointeur partagé vers le personnage.
          */
         virtual per::APersonnage_S getPersonnageParId(size_t id) = 0;
+
+        /**
+         * @brief Obtient la carte du donjon.
+         *
+         * @return hex::ICarte_S<cases::ICase_S> La carte du donjon.
+         */
+        virtual hex::ICarte_SC<cases::ICase_S> getCarte() const = 0;
     };
 
     using IDonjon_S = std::shared_ptr<IDonjon>;

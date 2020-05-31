@@ -35,7 +35,7 @@ namespace donjon
          *
          * @return hex::ICarte_S<cases::ICase_S> La carte du donjon.
          */
-        inline hex::ICarte_S<cases::ICase_S> getCarte() { return m_carte; }
+        inline hex::ICarte_SC<cases::ICase_S> getCarte() const { return m_carte; }
 
         virtual void invoquer(per::APersonnage_S personnage, const hex::Coordonnees& position) override;
 
