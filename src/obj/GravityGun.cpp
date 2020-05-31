@@ -84,4 +84,12 @@ namespace obj
 
     void GravityGun::accepter(IObjetVisiteur& visiteur) const { visiteur.visiter(*this); }
 
+    void GravityGun::actualiser()
+    {
+        if(m_time!= 0)
+        {
+            m_time--;
+        }
+    }
+
 } // namespace obj
