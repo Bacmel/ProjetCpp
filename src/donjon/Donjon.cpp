@@ -240,7 +240,7 @@ namespace donjon
     {
         for (auto itr = m_personnages.begin(); itr != m_personnages.end(); itr++)
         {
-            if ((*itr)->estVivant())
+            if (!(*itr)->estVivant())
             {
                 itr = m_personnages.erase(itr);
                 itr--;
