@@ -122,11 +122,11 @@ namespace vue
         ObjetDessinable objDessinable;
         for (size_t indiceObjet = 0; indiceObjet < nbObjet; indiceObjet++)
         {
-            const obj::IObjet& objet = personnage->getObjet(indiceObjet);
+            obj::IObjet_SC objet = personnage->getObjet(indiceObjet);
             FloatRect contours = getCaseInventaire(indiceObjet);
             objDessinable.setCote(contours.width);
             objDessinable.setPosition(contours.left + contours.width / 2, contours.top + contours.height / 2);
-            objDessinable.setObjet(objet);
+            objDessinable.setObjet(*objet);
             target.draw(objDessinable, states);
         }
     }
