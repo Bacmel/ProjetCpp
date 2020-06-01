@@ -3,6 +3,10 @@
 
 #include <SFML/Graphics.hpp>
 #include <memory>
+namespace vue
+{
+    class Fenetre;
+}
 
 namespace controlleur
 {
@@ -12,7 +16,7 @@ namespace controlleur
     class IControlleur
     {
     public:
-        virtual void enEvenement(sf::Event& even) = 0;
+        virtual void enEvenement(const vue::Fenetre& source, sf::Event& even) = 0;
         virtual ~IControlleur() {}
     };
 

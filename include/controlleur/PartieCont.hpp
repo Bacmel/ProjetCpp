@@ -17,7 +17,7 @@ namespace controlleur
         PartieCont(const vue::PartieDessinable& dessinable);
         ~PartieCont();
 
-        virtual void enEvenement(sf::Event& even) override;
+        virtual void enEvenement(const vue::Fenetre& source, sf::Event& even) override;
     };
 } // namespace controlleur
 #endif // __PARTIECONT_H__
