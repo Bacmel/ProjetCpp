@@ -43,4 +43,14 @@ namespace partie::etat
 
     void FinTour::afficher() const { cout << " Etat Fin de Tour : " << m_indiceEquipe << endl; }
 
+    APersonnage_SC FinTour::getPersoSelect() const
+    {
+        throw invalid_argument("FinTour::getPersoSelect() : Aucun personnage selectionne.");
+    }
+
+    IObjet_SC FinTour::getObjetSelect() const
+    {
+        throw invalid_argument("FinTour::getObjetSelect() : Aucun objet selectionne.");
+    }
+
 } // namespace partie::etat

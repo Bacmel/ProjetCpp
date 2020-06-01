@@ -8,6 +8,7 @@
 
 using namespace partie;
 using namespace per;
+using namespace obj;
 using namespace donjon;
 using namespace std;
 
@@ -61,6 +62,16 @@ namespace partie::etat
     void PersoActif::afficher() const
     {
         cout << " Etat Personnage Actif : " << m_indiceEquipe << endl << "id : " << m_personnage->getId() << endl;
+    }
+
+    APersonnage_SC PersoActif::getPersoSelect() const
+    {
+        throw invalid_argument("Initial::getPersoSelect() : Aucun personnage selectionne.");
+    }
+
+    IObjet_SC PersoActif::getObjetSelect() const
+    {
+        throw invalid_argument("Initial::getObjetSelect() : Aucun objet selectionne.");
     }
 
 } // namespace partie::etat
