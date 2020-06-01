@@ -11,7 +11,7 @@ namespace per
 
     void Heros::deplacer(Deplacement deplacement, hex::Coordonnees cible)
     {
-        hex::Masque voisin1 = hex::Masque::contour();
+        hex::Masque voisin1 = hex::Masque::contour().deplacer(m_position);
         switch (deplacement)
         {
         case Deplacement::Forcer:
@@ -38,7 +38,7 @@ namespace per
         default:
             throw err::DeplacementErreur("Heros::deplacer : Deplacement non precise");
         }
-        hex::Masque voisin2 = hex::Masque::contour();
+        hex::Masque voisin2 = hex::Masque::contour().deplacer(m_position);
         hex::Masque voisinfinaux = voisin1&&voisin2;
         for(auto itr = voisinfinaux.begin(); itr != voisinfinaux.end(); itr++)
         {
