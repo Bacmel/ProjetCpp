@@ -1,5 +1,6 @@
 #include "vue/PartieDessinable.hpp"
 #include <iostream>
+#include <stdexcept>
 #include "vue/CaseDessinable.hpp"
 #include "vue/PersonnageDessinable.hpp"
 
@@ -32,6 +33,17 @@ namespace vue
         CaseDessinable caseDessinable(m_cote);
         ICarte_SC<ICase_S> carte = donjon.getCarte();
         auto itr = carte->iterateur();
+        bool surligne(false);
+        Coordonnees posPerso;
+        try
+        {
+            auto perso = m_element->getPersoSelect();
+            posPerso = perso->getPosition();
+            surligne = true;
+        }
+        catch (const std::invalid_argument& e)
+        {
+        }
         while (itr->aSuite())
         {
             Coordonnees pos = itr->suite();
@@ -40,6 +52,7 @@ namespace vue
             // Place la case dans le monde.
             Vector2f pixel = m_convertisseur(m_cote, pos);
             caseDessinable.setPosition(pixel.x + dim.x / 2., pixel.y + dim.y / 2.);
+            if (surligne && pos == posPerso) { caseDessinable.surligner(); }
             // Dessine la case.
             target.draw(caseDessinable, states);
         }
@@ -58,7 +71,18 @@ namespace vue
             Vector2f pixel = m_convertisseur(m_cote, perso->getPosition());
             personnageDessinable.setElement(*perso);
             personnageDessinable.setPosition(pixel.x + dim.x / 2., pixel.y + dim.y / 2.);
+            personnageDessinable.setCouleur(couleurEquipe(m_element->indiceEquipe(perso)));
             target.draw(personnageDessinable, states);
+        }
+    }
+
+    sf::Color PartieDessinable::couleurEquipe(size_t equipe) const
+    {
+
+        if (equipe) { return sf::Color::Blue; }
+        else
+        {
+            return sf::Color::Red;
         }
     }
 } // namespace vue

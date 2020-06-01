@@ -29,6 +29,8 @@ namespace vue
 
         void setElement(donjon::cases::ICase& iCase) override;
 
+        void surligner();
+
         virtual void visite(const donjon::cases::Sol& sol) override;
 
         virtual void visite(const donjon::cases::Trou& trou) override;

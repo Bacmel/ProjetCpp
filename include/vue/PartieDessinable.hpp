@@ -25,6 +25,7 @@ namespace vue
     private:
         void drawCarte(sf::RenderTarget& target, sf::RenderStates& states, donjon::IDonjon& donjon) const;
         void drawPersonnages(sf::RenderTarget& target, sf::RenderStates& states, donjon::IDonjon& donjon) const;
+        sf::Color couleurEquipe(size_t equipe) const;
     };
 } // namespace vue
 #endif // __PARTIEDESSINABLE_H__

@@ -41,6 +41,8 @@ namespace vue
         m_case = &iCase;
     }
 
+    void CaseDessinable::surligner() { m_hexagone.setOutlineColor(sf::Color::Yellow); }
+
     void CaseDessinable::setCote(float cote)
     {
         ADessinable::setCote(cote);
