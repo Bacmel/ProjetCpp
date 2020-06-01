@@ -70,6 +70,27 @@ namespace hex
         return relative.longueur();
     }
 
+    void Coordonnees::arrondir(float x, float y, float z)
+    {
+        float xRond = std::roundf(x);
+        float yRond = std::roundf(y);
+        float zRond = std::roundf(z);
+
+        float xDiff = std::abs(x - xRond);
+        float yDiff = std::abs(y - yRond);
+        float zDiff = std::abs(z - zRond);
+
+        if (xDiff > yDiff && xDiff > zDiff) { xRond = -yRond - zRond; }
+        else if (yDiff > zDiff)
+        {
+            yRond = -xRond - zRond;
+        }
+        m_colonne = (int)xRond;
+        m_ligne = (int)yRond;
+    }
+
+    void Coordonnees::arrondir(float ligne, float colonne) { arrondir(colonne, ligne, -colonne - ligne); }
+
     Coordonnees Coordonnees::operator+(const Coordonnees& autre) const
     {
         Coordonnees somme(m_ligne + autre.m_ligne, m_colonne + autre.m_colonne);
@@ -103,11 +124,11 @@ namespace hex
 
     bool Coordonnees::operator>(const Coordonnees& autre) const
     {
-        return (m_colonne==autre.m_colonne)?(m_ligne>autre.m_ligne):(m_colonne>autre.m_colonne);
+        return (m_colonne == autre.m_colonne) ? (m_ligne > autre.m_ligne) : (m_colonne > autre.m_colonne);
     }
-    bool Coordonnees::operator>=(const Coordonnees& autre) const {return (*this == autre || *this > autre); }
-    bool Coordonnees::operator<(const Coordonnees& autre) const {return (autre > *this); }
-    bool Coordonnees::operator<=(const Coordonnees& autre) const {return (*this == autre || *this < autre); }
+    bool Coordonnees::operator>=(const Coordonnees& autre) const { return (*this == autre || *this > autre); }
+    bool Coordonnees::operator<(const Coordonnees& autre) const { return (autre > *this); }
+    bool Coordonnees::operator<=(const Coordonnees& autre) const { return (*this == autre || *this < autre); }
     std::ostream& operator<<(std::ostream& os, const Coordonnees& c)
     {
         os << "Coordonnees(" << c.getLigne() << ", " << c.getColonne() << ")";
