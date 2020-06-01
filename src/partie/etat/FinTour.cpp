@@ -6,7 +6,7 @@
 #include "hex/Coordonnees.hpp"
 #include "partie/Partie.hpp"
 #include "partie/etat/Selection.hpp"
-#include "etat/FinPartie.hpp"
+#include "partie/etat/FinPartie.hpp"
 
 using namespace partie;
 using namespace per;
