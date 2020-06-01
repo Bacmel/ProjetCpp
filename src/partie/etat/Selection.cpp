@@ -24,7 +24,7 @@ namespace partie::etat
         throw std::invalid_argument("Selection::getPersoSelect : Pas d'objet sélectionné.");
     }
 
-    void Selection::operation(Partie& partie, const hex::Coordonnees& coordonnees)
+    void Selection::operation(Partie& partie, const hex::Coordonnees&)
     {
         vector<set<size_t>>& equipes = partie.getEquipes();
         set<size_t>& membres = equipes.at(m_equipe);
@@ -44,4 +44,5 @@ namespace partie::etat
         }
     }
 
+    void Selection::operation(Partie&, size_t) {}
 } // namespace partie::etat
