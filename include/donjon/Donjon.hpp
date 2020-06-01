@@ -89,7 +89,7 @@ namespace donjon
          * @return true Si un personnage occupe la case, sinon false.
          */
         bool estOccupee(const hex::Coordonnees& position) const;
-        
+
     private:
         /**
          * @brief Pousse un personnage.
@@ -103,6 +103,8 @@ namespace donjon
          * @param distance La distance maximale parcourue.
          */
         void pousse(const per::APersonnage_S& personnage, hex::Direction direction, size_t distance);
+
+        void actualiser() override;
     };
 } // namespace donjon
 
