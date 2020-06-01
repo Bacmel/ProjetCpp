@@ -6,6 +6,7 @@
 #include "hex/Coordonnees.hpp"
 #include "partie/Partie.hpp"
 #include "partie/etat/Selection.hpp"
+#include "etat/FinPartie.hpp"
 
 using namespace partie;
 using namespace per;
@@ -23,7 +24,41 @@ namespace partie::etat
 
     void FinTour::operation(Partie& partie, size_t) { operation(partie); }
 
-    void FinTour::operation(Partie& partie) { return; }
+    void FinTour::operation(Partie& partie)
+    {
+        IDonjon_S donjon = partie.getDonjon();
+        ICarte_SC<ICase_S> carte = partie.getDonjon()->getCarte();
+        /*Mise à jour objet. */
+        auto itro = carte->iterateur();
+        while (itro->aSuite())
+        {
+            Coordonnees c = itro->suite();
+            (*carte)(c)->actualiser();
+        }
+        /*Mise à jour membre de l'equipe. */
+        set<size_t> equipe = partie.getEquipes().at(m_indiceEquipe);
+        for (auto id : equipe)
+        {
+            APersonnage_S p = donjon->getPersonnageParId(id);
+            donjon->degat(p->getZoneEffet());
+            p->actualiser();
+        }
+        donjon->actualiser();
+        try
+        {
+            size_t i = partie.indiceGagnant();
+            partie.setEtat(IEtat_S(new FinPartie(i)));
+            partie.demande(Coordonnees());
+            return;
+        }
+        catch (const err::InfoErreur&)
+        {
+            size_t nbEquipe = partie.getEquipes().size();
+            partie.setEtat(IEtat_S(new Selection((m_indiceEquipe + 1) % nbEquipe)));
+            partie.demande(Coordonnees());
+            return;
+        }
+    }
 
     void FinTour::afficher() const { cout << " Etat Fin de Partie : " << m_indiceEquipe << endl; }
 
