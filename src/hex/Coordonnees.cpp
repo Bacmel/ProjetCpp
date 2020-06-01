@@ -70,6 +70,22 @@ namespace hex
         return relative.longueur();
     }
 
+    Coordonnees Coordonnees::tournerGauche(const Coordonnees& centre) const
+    {
+        Coordonnees relative = *this - centre;
+        Coordonnees relativeTournee(-relative.getZ(), -relative.getX(), -relative.getY());
+        Coordonnees tournee = relativeTournee + centre;
+        return tournee;
+    }
+
+    Coordonnees Coordonnees::tournerDroite(const Coordonnees& centre) const
+    {
+        Coordonnees relative = *this - centre;
+        Coordonnees relativeTournee(-relative.getY(), -relative.getZ(), -relative.getX());
+        Coordonnees tournee = relativeTournee + centre;
+        return tournee;
+    }
+
     void Coordonnees::arrondir(float x, float y, float z)
     {
         float xRond = std::roundf(x);
