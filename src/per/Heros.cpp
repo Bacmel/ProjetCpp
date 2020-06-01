@@ -66,6 +66,7 @@ namespace per
 
     void Heros::actualiser()
     {
+        m_zoneEffet.clear();
         for(auto objet : m_sac)
         {
             objet->actualiser();
