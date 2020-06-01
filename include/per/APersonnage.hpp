@@ -1,13 +1,14 @@
 #ifndef PERSONNAGE_HPP
 #define PERSONNAGE_HPP
 
+#include <map>
 #include <memory>
 #include <vector>
 #include "hex/Coordonnees.hpp"
 #include "obj/IObjet.hpp"
-#include "utils/Jauge.hpp"
 #include "utils/AObservable.hpp"
 #include "utils/IActualisable.hpp"
+#include "utils/Jauge.hpp"
 
 namespace per
 {
@@ -20,10 +21,10 @@ namespace per
         Forcer
     };
 
-    class APersonnage: public utils::AObservable<APersonnage>, public utils::IActualisable
+    class APersonnage : public utils::AObservable<APersonnage>, public utils::IActualisable
     {
     protected:
-        /** Nombre de Personnages*/
+        /** Nombre de Personnages. */
         static size_t idSuivante;
 
         /** Santé du Personnage et points de vie actuel */
@@ -32,6 +33,8 @@ namespace per
         hex::Coordonnees m_position;
         /** Identifiant Personnage */
         size_t const m_id;
+        /** Carte des degats infliges. */
+        std::map<hex::Coordonnees, size_t> m_zoneEffet;
 
     public:
         APersonnage(size_t pvMax, hex::Coordonnees position);
@@ -85,6 +88,13 @@ namespace per
          * @return Coordonnees la position.
          */
         virtual hex::Coordonnees getPosition() const { return m_position; }
+
+        /**
+         * @brief Obtient la zone d'effet.
+         *
+         * @return std::map<hex::Coordonnees, size_t> m_zoneEffet
+         */
+        virtual std::map<hex::Coordonnees, size_t> getZoneEffet() const { return m_zoneEffet; }
 
         /**
          * @brief Modifie la santé.
@@ -155,7 +165,16 @@ namespace per
          *
          * @throw std::out_of_range Quand il n'y a pas d'objet à l'indice donné.
          */
-        virtual const obj::IObjet& getObjet(size_t indice) const;
+        virtual obj::IObjet_SC getObjet(size_t indice) const;
+        /**
+         * @brief Obtient l'objet à l'indice indiqué.
+         *
+         * @param indice L'indice de l'objet dans le sac.
+         * @return L'objet à cet indice.
+         *
+         * @throw std::out_of_range Quand il n'y a pas d'objet à l'indice donné.
+         */
+        virtual obj::IObjet_S getObjet(size_t indice);
     };
 
     using APersonnage_S = std::shared_ptr<APersonnage>;
@@ -163,4 +182,4 @@ namespace per
 
 }; // namespace per
 
-#endif
+#endif // APERSONNAGE_HPP

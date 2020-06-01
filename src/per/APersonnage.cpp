@@ -9,7 +9,8 @@ namespace per
     APersonnage::APersonnage(size_t pvMax, hex::Coordonnees position) :
         m_pv(pvMax),
         m_position(position),
-        m_id(idSuivante)
+        m_id(idSuivante),
+        m_zoneEffet()
     {
         idSuivante++;
     }
@@ -76,7 +77,12 @@ namespace per
 
     size_t APersonnage::tailleSac() const { return 0; }
 
-    const obj::IObjet& APersonnage::getObjet(__attribute__((unused)) size_t indice) const
+    obj::IObjet_SC APersonnage::getObjet(__attribute__((unused)) size_t indice) const
+    {
+        throw std::out_of_range("APersonnage::getObjet : Opération non supportée (pas de sac)");
+    }
+
+    obj::IObjet_S APersonnage::getObjet(__attribute__((unused)) size_t indice)
     {
         throw std::out_of_range("APersonnage::getObjet : Opération non supportée (pas de sac)");
     }
