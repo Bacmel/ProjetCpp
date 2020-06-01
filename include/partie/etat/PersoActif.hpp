@@ -47,7 +47,7 @@ namespace partie::etat
          * @throw std::invalide_argument ne possede pas d'information.
          * @return per::APersonnage_SC le personnage selestionne.
          */
-        inline per::APersonnage_SC getPersoSelect() const;
+        inline per::APersonnage_SC getPersoSelect() const { return m_personnage; };
 
         /**
          * @brief Obtient l'objet selectionne.

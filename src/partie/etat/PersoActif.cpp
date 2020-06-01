@@ -64,11 +64,6 @@ namespace partie::etat
         cout << " Etat Personnage Actif : " << m_indiceEquipe << endl << "id : " << m_personnage->getId() << endl;
     }
 
-    APersonnage_SC PersoActif::getPersoSelect() const
-    {
-        throw invalid_argument("Initial::getPersoSelect() : Aucun personnage selectionne.");
-    }
-
     IObjet_SC PersoActif::getObjetSelect() const
     {
         throw invalid_argument("Initial::getObjetSelect() : Aucun objet selectionne.");
