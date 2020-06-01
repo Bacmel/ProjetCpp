@@ -3,8 +3,8 @@
 #include "donjon/cases/ICase.hpp"
 #include "hex/Coordonnees.hpp"
 #include "partie/Partie.hpp"
-#include "partie/etat/Initial.hpp"
 #include "donjon/IDonjon.hpp"
+#include "partie/etat/Selection.hpp"
 
 using namespace partie;
 using namespace per;
@@ -42,7 +42,8 @@ namespace partie::etat
             p->actualiser();
         }
         size_t nbEquipe = partie.getEquipes().size();
-        partie.setEtat(IEtat_S(new Initial((m_indiceEquipe + 1) % nbEquipe)));
+        partie.setEtat(IEtat_S(new Selection((m_indiceEquipe + 1) % nbEquipe)));
+        partie.demande(Coordonnees());
         return;
     }
 
