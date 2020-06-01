@@ -38,6 +38,8 @@ int main()
 
     IObjet_S gravityGun(new GravityGun());
     partie.genererObjet(gravityGun);
+    IObjet_S gravityGun2(new GravityGun());
+    partie.genererObjet(gravityGun2);
     // (*carte)(Coordonnees().translate(Direction::NordOuest))->deposer(gravityGun);
 
     APersonnage_S heros = make_shared<Heros>(3);

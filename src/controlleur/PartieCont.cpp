@@ -23,17 +23,46 @@ namespace controlleur
     void PartieCont::enEvenement(const vue::Fenetre& source, sf::Event& even)
     {
         if (even.type != Event::EventType::MouseButtonPressed) { return; }
-        Vector2i clickPos(even.mouseButton.x, even.mouseButton.y);
-        std::cout << "Click at : " << clickPos.x << ", " << clickPos.y << std::endl;
+        Vector2i clicPos(even.mouseButton.x, even.mouseButton.y);
         const sf::RenderWindow& rw = source.getRenderWindow();
-        Vector2f coordWindow = rw.mapPixelToCoords(clickPos);
-        auto dim = rw.getSize();
-        clickPos.x = coordWindow.x - dim.x / 2;
-        clickPos.y = coordWindow.y - dim.y / 2;
-        std::cout << "Click at : " << clickPos.x << ", " << clickPos.y << std::endl;
-        hex::Coordonnees pos = m_convertisseur(m_dessinable->getCote(), clickPos);
-        std::cout << "Pos: " << pos << std::endl;
+        Vector2f coordonneesClic = rw.mapPixelToCoords(clicPos);
+        // Clique sur l'inventaire.
+        if (!clicObjet(coordonneesClic))
+        {
+            // Clique sur la carte.
+            clicCase(coordonneesClic, source);
+        }
+    }
 
+    bool PartieCont::clicObjet(const Vector2f& coordonneesClic)
+    {
+        try
+        {
+            per::APersonnage_SC personnage = m_partie->getPersoSelect();
+            size_t nbObjet = personnage->tailleSac();
+            for (size_t indice = 0; indice < nbObjet; indice++)
+            {
+                sf::FloatRect contours = m_dessinable->getCaseInventaire(indice);
+                if (contours.contains(coordonneesClic))
+                {
+                    return true;
+                }
+            }
+        }
+        catch (...)
+        {
+        }
+        return false;
+    }
+
+    void PartieCont::clicCase(const Vector2f& coordonneesClic, const vue::Fenetre& source)
+    {
+        const RenderWindow& rw = source.getRenderWindow();
+        Vector2u dimension = rw.getSize();
+        Vector2i coordCentree(coordonneesClic);
+        coordCentree.x -= dimension.x / 2;
+        coordCentree.y -= dimension.y / 2;
+        hex::Coordonnees pos = m_convertisseur(m_dessinable->getCote(), coordCentree);
         m_partie->demande(pos);
     }
 } // namespace controlleur

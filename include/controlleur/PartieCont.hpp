@@ -20,6 +20,10 @@ namespace controlleur
         ~PartieCont();
 
         virtual void enEvenement(const vue::Fenetre& source, sf::Event& even) override;
+
+    protected:
+        bool clicObjet(const sf::Vector2f& coordonneesClic);
+        void clicCase(const sf::Vector2f& coordonneesClic, const vue::Fenetre& source);
     };
 } // namespace controlleur
 #endif // __PARTIECONT_H__
