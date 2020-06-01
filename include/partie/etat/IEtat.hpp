@@ -3,8 +3,8 @@
 
 #include <memory>
 #include "hex/Coordonnees.hpp"
-#include "per/APersonnage.hpp"
 #include "obj/IObjet.hpp"
+#include "per/APersonnage.hpp"
 
 namespace partie
 {
@@ -15,21 +15,6 @@ namespace partie
         {
         public:
             virtual ~IEtat() {}
-
-            /**
-             * @brief Operation de l'etat courant sur la partie.
-             *
-             * @param partie la Partie.
-             * @param coordonnees les coordonnees selectionnees.
-             * @param objet l'objet selectionne.
-             */
-            virtual void operation(Partie& partie, const hex::Coordonnees& coordonnees) = 0;
-            virtual void operation(Partie& partie, obj::IObjet_S objet) = 0;
-
-            /**
-             * @brief Affiche l'état courant.
-             */
-            virtual void afficher() const = 0;
 
             /**
              * @brief Obtient l'equipe courante.
@@ -54,6 +39,26 @@ namespace partie
             */
             virtual obj::IObjet_SC getObjetSelect() const = 0;
 
+            /**
+             * @brief Affiche l'état courant.
+             */
+            virtual void afficher() const = 0;
+
+            /**
+             * @brief Operation de l'état courant sur la partie.
+             *
+             * @param partie La partie.
+             * @param coordonnees Les coordonnees selectionnees.
+             */
+            virtual void operation(Partie& partie, const hex::Coordonnees& coordonnees) = 0;
+
+            /**
+             * @brief Operation de l'état courant sur la partie.
+             *
+             * @param partie La partie.
+             * @param indiceObjet L'indice de l'objet selectionné.
+             */
+            virtual void operation(Partie& partie, size_t indiceObjet) = 0;
         };
 
         using IEtat_S = std::shared_ptr<IEtat>;

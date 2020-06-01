@@ -57,7 +57,7 @@ namespace partie::etat
         }
     }
 
-    void PersoActif::operation(Partie& partie, obj::IObjet_S objet) { return; }
+    void PersoActif::operation(Partie& partie, size_t objet) { return; }
 
     void PersoActif::afficher() const
     {

@@ -29,7 +29,7 @@ namespace partie::etat
         }
     }
 
-    void Initial::operation(Partie& partie, obj::IObjet_S objet) { return; }
+    void Initial::operation(Partie& partie, size_t objet) { return; }
 
     void Initial::afficher() const { cout << " Etat initial : " << m_indiceEquipe << endl; }
 

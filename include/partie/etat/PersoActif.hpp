@@ -19,43 +19,17 @@ namespace partie::etat
     public:
         PersoActif(size_t indice, per::APersonnage_S personnage);
 
-        /**
-         * @brief Operation de l'etat courant sur la partie.
-         *
-         * @param partie la Partie.
-         * @param coordonnees les coordonnees selectionnees.
-         * @param objet l'objet selectionne.
-         */
-        void operation(Partie& partie, const hex::Coordonnees& coordonnees);
-        void operation(Partie& partie, obj::IObjet_S objet);
+        void afficher() const override;
 
-        /**
-         * @brief Affiche l'état courant.
-         */
-        void afficher() const;
+        inline size_t getEquipeCourante() const override { return m_indiceEquipe; }
 
-        /**
-         * @brief Obtient l'equipe courante.
-         *
-         * @return size_t l'equipe courante.
-         */
-        inline size_t getEquipeCourante() const { return m_indiceEquipe; }
+        inline per::APersonnage_SC getPersoSelect() const override { return m_personnage; };
 
-        /**
-         * @brief Obtient le personnage selectionne.
-         *
-         * @throw std::invalide_argument ne possede pas d'information.
-         * @return per::APersonnage_SC le personnage selestionne.
-         */
-        inline per::APersonnage_SC getPersoSelect() const { return m_personnage; };
+        inline obj::IObjet_SC getObjetSelect() const override;
 
-        /**
-         * @brief Obtient l'objet selectionne.
-         *
-         * @throw std::invalide_argument ne possede pas d'information.
-         * @return obj::IObjet_SC l'objet selectionne.
-         */
-        inline obj::IObjet_SC getObjetSelect() const;
+        void operation(Partie& partie, const hex::Coordonnees& coordonnees) override;
+
+        void operation(Partie& partie, size_t indiceObjet) override;
     };
 } // namespace partie::etat
 
