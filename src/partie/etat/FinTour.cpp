@@ -4,9 +4,11 @@
 #include "hex/Coordonnees.hpp"
 #include "partie/Partie.hpp"
 #include "partie/etat/Initial.hpp"
+#include "donjon/IDonjon.hpp"
 
 using namespace partie;
 using namespace per;
+using namespace donjon;
 using namespace donjon::cases;
 using namespace hex;
 using namespace obj;
@@ -22,6 +24,7 @@ namespace partie::etat
 
     void FinTour::operation(Partie& partie)
     {
+        IDonjon_S donjon = partie.getDonjon();
         ICarte_SC<ICase_S> carte = partie.getDonjon()->getCarte();
         /*Mise à jour objet. */
         auto itro = carte->iterateur();
@@ -34,7 +37,9 @@ namespace partie::etat
         set<size_t> equipe = partie.getEquipes().at(m_indiceEquipe);
         for (auto id : equipe)
         {
-            partie.getDonjon()->getPersonnageParId(id)->actualiser();
+            APersonnage_S p = donjon->getPersonnageParId(id);
+            donjon->degat(p->getZoneEffet());
+            p->actualiser();
         }
         size_t nbEquipe = partie.getEquipes().size();
         partie.setEtat(IEtat_S(new Initial((m_indiceEquipe + 1) % nbEquipe)));
