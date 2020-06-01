@@ -12,9 +12,23 @@ using namespace sf;
 
 namespace vue
 {
-    PartieDessinable::PartieDessinable(float cote) : ADessinable(cote) {}
+    PartieDessinable::PartieDessinable(float cote) : ADessinable(cote), m_font(), m_equipeText(), m_equipeIndicateur()
+    {
+        if (!m_font.loadFromFile("resources/font/joystix monospace.ttf"))
+        { throw std::invalid_argument("Font n'a pas pu être chargée."); }
+        m_equipeText.setFont(m_font);
+        m_equipeText.setString("Equipe");
+        m_equipeText.setCharacterSize(12);
+        m_equipeText.setFillColor(Color::White);
+        FloatRect bordures = m_equipeText.getLocalBounds();
+        m_equipeIndicateur.setSize(Vector2f(bordures.height, bordures.height));
+        m_equipeIndicateur.setPosition(bordures.left + bordures.width + 5, bordures.top);
+    }
 
-    PartieDessinable::PartieDessinable(float cote, partie::Partie& partie) : ADessinable(cote, partie) {}
+    PartieDessinable::PartieDessinable(float cote, partie::Partie& partie) : PartieDessinable(cote)
+    {
+        setElement(partie);
+    }
 
     void PartieDessinable::setElement(partie::Partie& element) { m_element = &element; }
 
@@ -25,6 +39,15 @@ namespace vue
         IDonjon_S donjon = m_element->getDonjon();
         drawCarte(target, states, *donjon);
         drawPersonnages(target, states, *donjon);
+        drawEquipe(target, states);
+        drawInventaire(target, states);
+    }
+
+    sf::FloatRect PartieDessinable::getCaseInventaire(size_t indice) const
+    {
+        float cote = 50;
+        FloatRect contours(cote * .1, cote * (indice + .5), cote, cote);
+        return contours;
     }
 
     void PartieDessinable::drawCarte(sf::RenderTarget& target, sf::RenderStates& states, donjon::IDonjon& donjon) const
@@ -41,7 +64,7 @@ namespace vue
             posPerso = perso->getPosition();
             surligne = true;
         }
-        catch (const std::invalid_argument& e)
+        catch (const std::invalid_argument&)
         {
         }
         while (itr->aSuite())
@@ -73,6 +96,38 @@ namespace vue
             personnageDessinable.setPosition(pixel.x + dim.x / 2., pixel.y + dim.y / 2.);
             personnageDessinable.setCouleur(couleurEquipe(m_element->indiceEquipe(perso)));
             target.draw(personnageDessinable, states);
+        }
+    }
+
+    void PartieDessinable::drawEquipe(sf::RenderTarget& target, sf::RenderStates& states) const
+    {
+        RectangleShape indicateur(m_equipeIndicateur);
+        indicateur.setFillColor(couleurEquipe(m_element->getEquipeCourante()));
+        target.draw(m_equipeText, states);
+        target.draw(indicateur, states);
+    }
+
+    void PartieDessinable::drawInventaire(sf::RenderTarget& target, sf::RenderStates& states) const
+    {
+        per::APersonnage_SC personnage;
+        try
+        {
+            personnage = m_element->getPersoSelect();
+        }
+        catch (const std::invalid_argument&)
+        {
+            return;
+        }
+        size_t nbObjet = personnage->tailleSac();
+        ObjetDessinable objDessinable;
+        for (size_t indiceObjet = 0; indiceObjet < nbObjet; indiceObjet++)
+        {
+            const obj::IObjet& objet = personnage->getObjet(indiceObjet);
+            FloatRect contours = getCaseInventaire(indiceObjet);
+            objDessinable.setCote(contours.width);
+            objDessinable.setPosition(contours.left + contours.width / 2, contours.top + contours.height / 2);
+            objDessinable.setObjet(objet);
+            target.draw(objDessinable, states);
         }
     }
 

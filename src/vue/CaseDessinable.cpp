@@ -25,7 +25,7 @@ namespace vue
         // Prépare un hexagone.
         m_hexagone.setOrigin(cote, cote);
         m_hexagone.setRotation(90);
-        m_hexagone.setOutlineThickness(1);
+        m_hexagone.setOutlineThickness(-1);
         m_hexagone.setOutlineColor(Color::Black);
     }
 
@@ -41,7 +41,9 @@ namespace vue
         m_case = &iCase;
     }
 
-    void CaseDessinable::surligner() { m_hexagone.setOutlineColor(sf::Color::Yellow); }
+    void CaseDessinable::surligner() {
+        m_hexagone.setOutlineThickness(-2);
+        m_hexagone.setOutlineColor(sf::Color::Yellow); }
 
     void CaseDessinable::setCote(float cote)
     {
@@ -50,10 +52,14 @@ namespace vue
         m_hexagone.setOrigin(cote, cote);
     }
 
-    void CaseDessinable::visite(__attribute__((unused)) const Sol& sol) { m_hexagone.setTexture(m_textureSol.get()); }
+    void CaseDessinable::visite(__attribute__((unused)) const Sol& sol) {
+        m_hexagone.setOutlineThickness(-0.5);
+        m_hexagone.setOutlineColor(sf::Color::Black);
+        m_hexagone.setTexture(m_textureSol.get()); }
 
     void CaseDessinable::visite(__attribute__((unused)) const Trou& trou)
     {
+        m_hexagone.setOutlineThickness(0);
         m_hexagone.setTexture(m_textureTrou.get());
     }
 
