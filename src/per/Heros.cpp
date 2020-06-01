@@ -58,9 +58,15 @@ namespace per
 
     size_t Heros::tailleSac() const { return m_sac.size(); }
 
-    const obj::IObjet& Heros::getObjet(size_t indice) const
+    obj::IObjet_SC Heros::getObjet(size_t indice) const
     {
         obj::IObjet_S objet = m_sac.at(indice);
-        return *objet;
+        return objet;
+    }
+
+    obj::IObjet_S Heros::getObjet(size_t indice)
+    {
+        obj::IObjet_S objet = m_sac.at(indice);
+        return objet;
     }
 }; // namespace per

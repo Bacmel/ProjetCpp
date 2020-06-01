@@ -5,8 +5,8 @@
 #include <vector>
 #include "hex/Coordonnees.hpp"
 #include "obj/IObjet.hpp"
-#include "utils/Jauge.hpp"
 #include "utils/AObservable.hpp"
+#include "utils/Jauge.hpp"
 
 namespace per
 {
@@ -19,7 +19,7 @@ namespace per
         Forcer
     };
 
-    class APersonnage: public utils::AObservable<APersonnage>
+    class APersonnage : public utils::AObservable<APersonnage>
     {
     protected:
         /** Nombre de Personnages*/
@@ -154,7 +154,16 @@ namespace per
          *
          * @throw std::out_of_range Quand il n'y a pas d'objet à l'indice donné.
          */
-        virtual const obj::IObjet& getObjet(size_t indice) const;
+        virtual obj::IObjet_SC getObjet(size_t indice) const;
+        /**
+         * @brief Obtient l'objet à l'indice indiqué.
+         *
+         * @param indice L'indice de l'objet dans le sac.
+         * @return L'objet à cet indice.
+         *
+         * @throw std::out_of_range Quand il n'y a pas d'objet à l'indice donné.
+         */
+        virtual obj::IObjet_S getObjet(size_t indice);
     };
 
     using APersonnage_S = std::shared_ptr<APersonnage>;

@@ -32,7 +32,9 @@ namespace per
 
         size_t tailleSac() const override;
 
-        const obj::IObjet& getObjet(size_t indice) const override;
+        obj::IObjet_SC getObjet(size_t indice) const override;
+
+        obj::IObjet_S getObjet(size_t indice) override;
     };
 }; // namespace per
 
