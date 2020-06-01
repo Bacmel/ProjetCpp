@@ -32,7 +32,7 @@ namespace partie
          *
          * @return std::vector<std::set<size_t> > La liste des equipes.
          */
-        inline std::vector<std::set<size_t>> getEquipes() const { return m_equipes; }
+        inline std::vector<std::set<size_t>>& getEquipes() { return m_equipes; }
 
         /**
          * @brief Obtient le donjon.
