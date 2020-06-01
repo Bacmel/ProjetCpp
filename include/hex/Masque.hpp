@@ -10,7 +10,12 @@ namespace hex
     {
     public:
         /**
+         * @brief Genere un contour true.
+         * 
+         * @return Le contour true.
          */
+        static Masque contour();
+        
         explicit Masque();
 
         /* Constructeurs & operateurs de copie & destructeur */
