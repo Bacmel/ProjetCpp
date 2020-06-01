@@ -77,7 +77,7 @@ namespace vue
             pair<Event::EventType, list<IControlleur*>> elem = *itr;
             for (IControlleur*& gest : elem.second)
             {
-                if (gest != nullptr) { gest->enEvenement(even); }
+                if (gest != nullptr) { gest->enEvenement(*this, even); }
             }
         }
     }
