@@ -74,7 +74,6 @@ namespace donjon
 
         per::APersonnage_S getPersonnageParId(size_t id) override;
 
-    private:
         /**
          * @brief Donne le personnage présent aux coordonnées indiquées.
          *
@@ -90,7 +89,8 @@ namespace donjon
          * @return true Si un personnage occupe la case, sinon false.
          */
         bool estOccupee(const hex::Coordonnees& position) const;
-
+        
+    private:
         /**
          * @brief Pousse un personnage.
          *

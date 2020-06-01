@@ -5,12 +5,13 @@
 #include "obj/IObjet.hpp"
 #include "per/APersonnage.hpp"
 #include "utils/AObservable.hpp"
+#include "utils/IActualisable.hpp"
 
 namespace donjon::cases
 {
     class ICaseVisiteur;
 
-    class ICase: public utils::AObservable<ICase>
+    class ICase: public utils::AObservable<ICase>, public utils::IActualisable
     {
     public:
         virtual ~ICase() {}
@@ -81,6 +82,8 @@ namespace donjon::cases
         virtual bool estTransparent() const = 0;
 
         virtual void accepter(ICaseVisiteur& visiteur) const = 0;
+
+        virtual void actualiser() {}
     };
 
     using ICase_S = std::shared_ptr<ICase>;
