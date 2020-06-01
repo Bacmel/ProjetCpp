@@ -8,12 +8,7 @@ using namespace hex;
 TEST_CASE("Creation et egalite de masque", "[masque]")
 {
     Masque m1;
-    m1 = m1 + Coordonnees::direction(Direction::Nord);
-    m1 = m1 + Coordonnees::direction(Direction::NordEst);
-    m1 = m1 + Coordonnees::direction(Direction::SudEst);
-    m1 = m1 + Coordonnees::direction(Direction::Sud);
-    m1 = m1 + Coordonnees::direction(Direction::SudOuest);
-    m1 = m1 + Coordonnees::direction(Direction::NordOuest);
+    m1 = Masque::contour();
     Masque m2;
     m2 = m2 + Coordonnees();
 
