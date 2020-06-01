@@ -1,6 +1,7 @@
 #include <SFML/Graphics.hpp>
 #include <cmath>
 #include <iostream>
+#include "controlleur/PartieCont.hpp"
 #include "donjon/cases/Sol.hpp"
 #include "err/SansObjetErreur.hpp"
 #include "hex/CarteHexagone.hpp"
@@ -14,7 +15,6 @@
 #include "vue/Fenetre.hpp"
 #include "vue/PartieDessinable.hpp"
 #include "vue/PersonnageDessinable.hpp"
-#include "controlleur/PartieCont.hpp"
 
 using namespace donjon::cases;
 using namespace vue;
@@ -41,8 +41,11 @@ int main()
     // (*carte)(Coordonnees().translate(Direction::NordOuest))->deposer(gravityGun);
 
     APersonnage_S heros = make_shared<Heros>(3);
-    partie.genererPersonnage(heros, 1);
+    partie.genererPersonnage(heros, 0);
     heros->subitAttaque(1);
+
+    APersonnage_S herosAdverse = make_shared<Heros>(3);
+    partie.genererPersonnage(herosAdverse, 1);
 
     PartieDessinable pd(25, partie);
 
@@ -50,7 +53,7 @@ int main()
 
     fen.setDessinateur([&](RenderWindow& rw) { rw.draw(pd); });
 
-    PartieCont control(pd);
+    PartieCont control(pd, partie);
     fen.attacher(Event::EventType::MouseButtonPressed, &control);
 
     fen.actualiser();

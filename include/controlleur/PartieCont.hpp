@@ -4,6 +4,7 @@
 #include "controlleur/IControlleur.hpp"
 #include "utils/HexPixelConvertisseur.hpp"
 #include "vue/PartieDessinable.hpp"
+#include "partie/Partie.hpp"
 
 namespace controlleur
 {
@@ -11,10 +12,11 @@ namespace controlleur
     {
     private:
         const vue::PartieDessinable* m_dessinable;
+        partie::Partie* m_partie;
         utils::HexPixelConvertisseur m_convertisseur;
 
     public:
-        PartieCont(const vue::PartieDessinable& dessinable);
+        PartieCont(const vue::PartieDessinable& dessinable, partie::Partie& partie);
         ~PartieCont();
 
         virtual void enEvenement(const vue::Fenetre& source, sf::Event& even) override;

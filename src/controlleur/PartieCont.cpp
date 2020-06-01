@@ -1,13 +1,22 @@
 #include "controlleur/PartieCont.hpp"
 #include <iostream>
+#include <stdexcept>
 #include "vue/Fenetre.hpp"
 
 using namespace sf;
+using namespace partie;
 using namespace utils;
 
 namespace controlleur
 {
-    PartieCont::PartieCont(const vue::PartieDessinable& dessinable) : m_dessinable(&dessinable), m_convertisseur() {}
+    PartieCont::PartieCont(const vue::PartieDessinable& dessinable, Partie& partie) :
+        m_dessinable(&dessinable),
+        m_partie(&partie),
+        m_convertisseur()
+    {
+        if (dessinable.getElement() != &partie)
+        { throw std::invalid_argument("PartieCont::PartieCont : Le dessinable ne dessine pas la partie"); }
+    }
 
     PartieCont::~PartieCont() {}
 
@@ -24,5 +33,7 @@ namespace controlleur
         std::cout << "Click at : " << clickPos.x << ", " << clickPos.y << std::endl;
         hex::Coordonnees pos = m_convertisseur(m_dessinable->getCote(), clickPos);
         std::cout << "Pos: " << pos << std::endl;
+
+        m_partie->demande(pos);
     }
 } // namespace controlleur
