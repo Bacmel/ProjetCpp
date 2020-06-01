@@ -1,6 +1,8 @@
 #include "donjon/cases/Sol.hpp"
+#include <iostream>
 #include "err/DepotErreur.hpp"
 #include "err/SansObjetErreur.hpp"
+#include "donjon/cases/ICaseVisiteur.hpp"
 
 namespace donjon::cases
 {
@@ -8,15 +10,19 @@ namespace donjon::cases
 
     void Sol::deposer(obj::IObjet_S objet)
     {
-        if (objet != nullptr) { m_objet = objet; }
+        // On s'assure que l'objet existe et que la case est vide.
+        if (objet == nullptr) { throw err::DepotErreur("Sol::deposer : L'objet est un pointeur null"); }
+        if (m_objet != nullptr) { throw err::DepotErreur("Un objet est déjà présent"); }
         else
         {
-            throw err::DepotErreur("Un objet est déjà présent");
+            // On stock ce nouvel objet.
+            m_objet = objet;
         }
     }
 
     obj::IObjet_S Sol::ramasser()
     {
+        // On récupère l'objet et on vide la case.
         getObjet();
         obj::IObjet_S objet = m_objet;
         m_objet = obj::IObjet_S();
@@ -25,10 +31,11 @@ namespace donjon::cases
 
     const obj::IObjet& Sol::getObjet() const
     {
-        if (m_objet != nullptr) { return *m_objet; }
+        // On s'assure qu'il y ait un objet à récupérer.
+        if (m_objet == nullptr) { throw err::SansObjetErreur("Il n'y a rien à ramasser"); }
         else
         {
-            throw err::SansObjetErreur("Il n'y a rien à ramasser");
+            return *m_objet;
         }
     }
 
@@ -46,4 +53,6 @@ namespace donjon::cases
     }
 
     bool Sol::estTransparent() const { return true; }
+
+    void Sol::accepter(ICaseVisiteur& visiteur) { visiteur.visite(*this); }
 } // namespace donjon::cases

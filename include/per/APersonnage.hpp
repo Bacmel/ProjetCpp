@@ -1,11 +1,13 @@
 #ifndef PERSONNAGE_HPP
 #define PERSONNAGE_HPP
 
+#include <map>
 #include <memory>
 #include <vector>
 #include "hex/Coordonnees.hpp"
 #include "obj/IObjet.hpp"
 #include "utils/AObservable.hpp"
+#include "utils/IActualisable.hpp"
 #include "utils/Jauge.hpp"
 
 namespace per
@@ -19,10 +21,10 @@ namespace per
         Forcer
     };
 
-    class APersonnage : public utils::AObservable<APersonnage>
+    class APersonnage : public utils::AObservable<APersonnage>, public utils::IActualisable
     {
     protected:
-        /** Nombre de Personnages*/
+        /** Nombre de Personnages. */
         static size_t idSuivante;
 
         /** Santé du Personnage et points de vie actuel */
@@ -31,6 +33,8 @@ namespace per
         hex::Coordonnees m_position;
         /** Identifiant Personnage */
         size_t const m_id;
+        /** Carte des degats infliges. */
+        std::map<hex::Coordonnees, size_t> m_zoneEffet;
 
     public:
         APersonnage(size_t pvMax, hex::Coordonnees position);
@@ -84,6 +88,13 @@ namespace per
          * @return Coordonnees la position.
          */
         virtual hex::Coordonnees getPosition() const { return m_position; }
+
+        /**
+         * @brief Obtient la zone d'effet.
+         *
+         * @return std::map<hex::Coordonnees, size_t> m_zoneEffet
+         */
+        virtual std::map<hex::Coordonnees, size_t> getZoneEffet() const { return m_zoneEffet; }
 
         /**
          * @brief Modifie la santé.
@@ -171,4 +182,4 @@ namespace per
 
 }; // namespace per
 
-#endif
+#endif // APERSONNAGE_HPP

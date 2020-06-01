@@ -9,7 +9,8 @@ namespace per
     APersonnage::APersonnage(size_t pvMax, hex::Coordonnees position) :
         m_pv(pvMax),
         m_position(position),
-        m_id(idSuivante)
+        m_id(idSuivante),
+        m_zoneEffet()
     {
         idSuivante++;
     }
@@ -24,7 +25,7 @@ namespace per
         {
             m_pv.ajouterValeur(-degat);
         }
-        catch (err::JaugeErreur)
+        catch (const err::JaugeErreur&)
         {
             m_pv.vider();
         }
@@ -37,7 +38,7 @@ namespace per
         {
             m_pv.ajouterValeur(sante);
         }
-        catch (err::JaugeErreur)
+        catch (const err::JaugeErreur&)
         {
             m_pv.vider();
         }
@@ -50,7 +51,7 @@ namespace per
         {
             m_pv.ajouterValeurMax(sante);
         }
-        catch (err::JaugeErreur)
+        catch (const err::JaugeErreur&)
         {
             m_pv.ajouterValeurMax(-m_pv.getValMax());
             m_pv.vider();

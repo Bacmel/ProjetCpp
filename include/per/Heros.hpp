@@ -35,6 +35,8 @@ namespace per
         obj::IObjet_SC getObjet(size_t indice) const override;
 
         obj::IObjet_S getObjet(size_t indice) override;
+
+        void actualiser() override;
     };
 }; // namespace per
 
