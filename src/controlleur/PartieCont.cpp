@@ -45,6 +45,7 @@ namespace controlleur
                 sf::FloatRect contours = m_dessinable->getCaseInventaire(indice);
                 if (contours.contains(coordonneesClic))
                 {
+                    m_partie->demande(indice);
                     return true;
                 }
             }
