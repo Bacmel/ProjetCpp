@@ -14,6 +14,7 @@
 #include "vue/Fenetre.hpp"
 #include "vue/PartieDessinable.hpp"
 #include "vue/PersonnageDessinable.hpp"
+#include "controlleur/PartieCont.hpp"
 
 using namespace donjon::cases;
 using namespace vue;
@@ -23,6 +24,7 @@ using namespace sf;
 using namespace obj;
 using namespace partie;
 using namespace per;
+using namespace controlleur;
 
 int main()
 {
@@ -47,6 +49,9 @@ int main()
     auto carte = partie.getDonjon()->getCarte();
 
     fen.setDessinateur([&](RenderWindow& rw) { rw.draw(pd); });
+
+    PartieCont control(pd);
+    fen.attacher(Event::EventType::MouseButtonPressed, &control);
 
     fen.actualiser();
     return 0;
