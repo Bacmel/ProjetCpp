@@ -10,7 +10,7 @@
 
 namespace donjon
 {
-    class IDonjon
+    class IDonjon : public utils::IActualisable
     {
     public:
         virtual ~IDonjon() {}
@@ -128,7 +128,7 @@ namespace donjon
          */
         virtual hex::ICarte_SC<cases::ICase_S> getCarte() const = 0;
 
-                /**
+        /**
          * @brief Donne le personnage présent aux coordonnées indiquées.
          *
          * @param position La position du personnage.

@@ -124,15 +124,12 @@ namespace donjon
         vector<Coordonnees> casesVide;
         Coordonnees c;
         auto itr = m_carte->iterateur();
-        while(itr->aSuite())
+        while (itr->aSuite())
         {
             c = itr->suite();
             ICase_S iCase(nullptr);
             iCase = (*m_carte)(c);
-            if (iCase->estPraticable() && !iCase->aObjet() && !estOccupee(c))
-            {
-                casesVide.push_back(c);
-            }
+            if (iCase->estPraticable() && !iCase->aObjet() && !estOccupee(c)) { casesVide.push_back(c); }
         }
         return casesVide;
     }
@@ -236,6 +233,18 @@ namespace donjon
             // On déplace le personnage vers la nouvelle case.
             personnage->deplacer(Deplacement::Forcer, cible);
             iCase->enEntree(*personnage);
+        }
+    }
+
+    void Donjon::actualiser()
+    {
+        for (auto itr = m_personnages.begin(); itr != m_personnages.end(); itr++)
+        {
+            if ((*itr)->estVivant())
+            {
+                itr = m_personnages.erase(itr);
+                itr--;
+            }
         }
     }
 } // namespace donjon
