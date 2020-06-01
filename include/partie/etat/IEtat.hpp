@@ -3,6 +3,7 @@
 
 #include <memory>
 #include "hex/Coordonnees.hpp"
+#include "per/APersonnage.hpp"
 #include "obj/IObjet.hpp"
 
 namespace partie
@@ -29,6 +30,30 @@ namespace partie
              * @brief Affiche l'état courant.
              */
             virtual void afficher() const = 0;
+
+            /**
+             * @brief Obtient l'equipe courante.
+             *
+             * @return size_t l'equipe courante.
+             */
+            virtual size_t getEquipeCourante() const = 0;
+
+            /**
+             * @brief Obtient le personnage selectionne.
+             *
+             * @throw std::invalide_argument ne possede pas d'information.
+             * @return per::APersonnage_SC le personnage selestionne.
+             */
+            virtual per::APersonnage_SC getPersoSelect() const = 0;
+
+            /**
+             * @brief Obtient l'objet selectionne.
+
+            * @throw std::invalide_argument ne possede pas d'information.
+            * @return obj::IObjet_SC l'objet selectionne.
+            */
+            virtual obj::IObjet_SC getObjetSelect() const = 0;
+
         };
 
         using IEtat_S = std::shared_ptr<IEtat>;

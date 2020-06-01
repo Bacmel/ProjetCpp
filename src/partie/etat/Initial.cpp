@@ -6,6 +6,7 @@
 
 using namespace partie;
 using namespace per;
+using namespace obj;
 using namespace std;
 
 namespace partie::etat
@@ -18,7 +19,10 @@ namespace partie::etat
         {
             APersonnage_S personnage = partie.getDonjon()->trouver(coordonnees);
             if (m_indiceEquipe == partie.indiceEquipe(personnage))
-            { partie.setEtat(IEtat_S(new PersoActif(m_indiceEquipe, personnage))); }
+            {
+                partie.setEtat(IEtat_S(new PersoActif(m_indiceEquipe, personnage)));
+                return;
+            }
         }
         catch (const runtime_error&)
         {
@@ -28,5 +32,15 @@ namespace partie::etat
     void Initial::operation(Partie& partie, obj::IObjet_S objet) { return; }
 
     void Initial::afficher() const { cout << " Etat initial : " << m_indiceEquipe << endl; }
+
+    APersonnage_SC Initial::getPersoSelect() const
+    {
+        throw invalid_argument("Initial::getPersoSelect() : Aucun personnage selectionne.");
+    }
+
+    IObjet_SC Initial::getObjetSelect() const
+    {
+        throw invalid_argument("Initial::getObjetSelect() : Aucun objet selectionne.");
+    }
 
 } // namespace partie::etat
