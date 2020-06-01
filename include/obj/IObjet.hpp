@@ -3,6 +3,7 @@
 
 #include <memory>
 #include "hex/Coordonnees.hpp"
+#include "utils/IActualisable.hpp"
 
 namespace donjon
 {
@@ -13,7 +14,7 @@ namespace obj
 {
     class IObjetVisiteur;
 
-    class IObjet
+    class IObjet : public utils::IActualisable
     {
     public:
         virtual ~IObjet() {}
@@ -37,6 +38,8 @@ namespace obj
          * @param visiteur Le visiteur à accepter.
          */
         virtual void accepter(IObjetVisiteur& visiteur) const = 0;
+
+        virtual void actualiser() {};
     };
 
     using IObjet_S = std::shared_ptr<IObjet>;

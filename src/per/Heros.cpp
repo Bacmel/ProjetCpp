@@ -63,4 +63,12 @@ namespace per
         obj::IObjet_S objet = m_sac.at(indice);
         return *objet;
     }
+
+    void Heros::actualiser()
+    {
+        for(auto objet : m_sac)
+        {
+            objet->actualiser();
+        }
+    }
 }; // namespace per
