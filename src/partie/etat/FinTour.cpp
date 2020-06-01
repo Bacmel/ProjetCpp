@@ -16,9 +16,9 @@ namespace partie::etat
 {
     FinTour::FinTour(size_t indice) : m_indiceEquipe(indice) {}
 
-    void FinTour::operation(Partie& partie, const Coordonnees& coordonnees) { operation(partie); }
+    void FinTour::operation(Partie& partie, const Coordonnees&) { operation(partie); }
 
-    void FinTour::operation(Partie& partie, IObjet_S objet) { operation(partie); }
+    void FinTour::operation(Partie& partie, size_t) { operation(partie); }
 
     void FinTour::operation(Partie& partie)
     {
@@ -37,7 +37,7 @@ namespace partie::etat
             partie.getDonjon()->getPersonnageParId(id)->actualiser();
         }
         size_t nbEquipe = partie.getEquipes().size();
-        partie.setEtat(IEtat_S(new Initial((m_indiceEquipe+1)%nbEquipe)));
+        partie.setEtat(IEtat_S(new Initial((m_indiceEquipe + 1) % nbEquipe)));
         return;
     }
 

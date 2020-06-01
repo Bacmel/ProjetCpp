@@ -20,40 +20,20 @@ namespace partie::etat
          * @brief Operation de l'etat courant sur la partie.
          *
          * @param partie la Partie.
-         * @param coordonnees les coordonnees selectionnees.
-         * @param objet l'objet selectionne.
          */
-        void operation(Partie& partie, const hex::Coordonnees& coordonnees);
-        void operation(Partie& partie, obj::IObjet_S objet);
         void operation(Partie& partie);
 
-        /**
-         * @brief Affiche l'état courant.
-         */
-        void afficher() const;
+        void afficher() const override;
 
-                /**
-         * @brief Obtient l'equipe courante.
-         *
-         * @return size_t l'equipe courante.
-         */
-        inline size_t getEquipeCourante() const {return m_indiceEquipe;}
+        inline size_t getEquipeCourante() const override { return m_indiceEquipe; }
 
-        /**
-         * @brief Obtient le personnage selectionne.
-         *
-         * @throw std::invalide_argument ne possede pas d'information.
-         * @return per::APersonnage_SC le personnage selestionne.
-         */
-        inline per::APersonnage_SC getPersoSelect() const;
+        per::APersonnage_SC getPersoSelect() const override;
 
-        /**
-         * @brief Obtient l'objet selectionne.
-         * 
-         * @throw std::invalide_argument ne possede pas d'information.
-         * @return obj::IObjet_SC l'objet selectionne.
-         */
-        inline obj::IObjet_SC getObjetSelect() const;
+        obj::IObjet_SC getObjetSelect() const override;
+
+        void operation(Partie& partie, const hex::Coordonnees& coordonnees) override;
+
+        void operation(Partie& partie, size_t objet) override;
     };
 } // namespace partie::etat
 
