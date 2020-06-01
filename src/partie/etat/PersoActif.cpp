@@ -5,6 +5,7 @@
 #include "partie/Partie.hpp"
 #include "partie/etat/FinTour.hpp"
 #include "partie/etat/Initial.hpp"
+#include "partie/etat/ObjetActif.hpp"
 
 using namespace partie;
 using namespace per;
@@ -57,7 +58,14 @@ namespace partie::etat
         }
     }
 
-    void PersoActif::operation(Partie& partie, size_t objet) { return; }
+    void PersoActif::operation(Partie& partie, size_t indiceObjet)
+    {
+        if (indiceObjet < m_personnage->tailleSac())
+        {
+            IObjet_S objet = m_personnage->getObjet(indiceObjet);
+            partie.setEtat(IEtat_S(new ObjetActif(m_indiceEquipe, m_personnage, objet)));
+        }
+    }
 
     void PersoActif::afficher() const
     {

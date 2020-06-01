@@ -1,4 +1,5 @@
 #include "partie/etat/ObjetActif.hpp"
+#include <iostream>
 #include <stdexcept>
 #include "partie/Partie.hpp"
 #include "partie/etat/FinTour.hpp"
@@ -10,6 +11,22 @@ using namespace obj;
 
 namespace partie::etat
 {
+    ObjetActif::ObjetActif(size_t equipe, per::APersonnage_S personnage, obj::IObjet_S objet) :
+        m_equipe(equipe),
+        m_personnage(personnage),
+        m_objet(objet)
+    {
+    }
+
+    ObjetActif::~ObjetActif() {}
+
+    void ObjetActif::afficher() const
+    {
+        std::cout << "ObjetActif{"
+                  << "m_equipe : " << m_equipe << ", m_personnage : " << m_personnage << ", m_objet : " << m_objet
+                  << "}\n";
+    }
+
     void ObjetActif::operation(Partie& partie, const hex::Coordonnees& coordonnees)
     {
         IDonjon_S donjon = partie.getDonjon();

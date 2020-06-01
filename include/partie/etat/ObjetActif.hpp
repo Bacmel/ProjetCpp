@@ -15,7 +15,7 @@ namespace partie::etat
         obj::IObjet_S m_objet;
 
     public:
-        ObjetActif(size_t equipe);
+        ObjetActif(size_t equipe, per::APersonnage_S personnage, obj::IObjet_S objet);
         ~ObjetActif();
 
         void afficher() const override;

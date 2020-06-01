@@ -29,7 +29,7 @@ namespace partie::etat
         }
     }
 
-    void Initial::operation(Partie& partie, size_t objet) { return; }
+    void Initial::operation(Partie&, size_t) { throw std::logic_error("Initial::operation : Opération invalide."); }
 
     void Initial::afficher() const { cout << " Etat initial : " << m_indiceEquipe << endl; }
 

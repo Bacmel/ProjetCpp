@@ -16,9 +16,9 @@ namespace partie::etat
 {
     FinTour::FinTour(size_t indice) : m_indiceEquipe(indice) {}
 
-    void FinTour::operation(Partie& partie, const Coordonnees& coordonnees) { operation(partie); }
+    void FinTour::operation(Partie& partie, const Coordonnees&) { operation(partie); }
 
-    void FinTour::operation(Partie& partie, size_t objet) { operation(partie); }
+    void FinTour::operation(Partie& partie, size_t) { operation(partie); }
 
     void FinTour::operation(Partie& partie)
     {
