@@ -3,21 +3,21 @@
 
 namespace hex
 {
-    Masque::Masque(size_t m_rayon) : hex::CarteHexagone<bool>(m_rayon) {}
+    Masque::Masque() : std::set<Coordonnees>() {}
 
-    Masque::Masque(const Masque& autre) : CarteHexagone<bool>(autre) {}
+    Masque::Masque(const Masque& autre) : std::set<Coordonnees>(autre) {}
 
-    Masque::Masque(Masque&& autre) : CarteHexagone<bool>(autre) {}
+    Masque::Masque(Masque&& autre) : std::set<Coordonnees>(autre) {}
 
     Masque& Masque::operator=(const Masque& autre)
     {
-        CarteHexagone<bool>::operator=(autre);
+        std::set<Coordonnees>::operator=(autre);
         return *this;
     }
 
     Masque& Masque::operator=(Masque&& autre)
     {
-        CarteHexagone<bool>::operator=(autre);
+        std::set<Coordonnees>::operator=(autre);
         return *this;
     }
 
@@ -25,43 +25,57 @@ namespace hex
 
     Masque Masque::operator||(const Masque& autre) const
     {
-        if (autre.m_rayon != m_rayon) { throw std::invalid_argument("Masques de tailles différentes"); }
-        Masque ou(m_rayon);
-        // Applique un OU sur chaque élément avec celui de autre au même coordonnees.
-        auto itr = ou.iterateur();
-        while (itr->aSuite())
+        Masque ou(autre);
+        for(auto itr = this->begin(); itr != this->end(); itr++)
         {
-            Coordonnees c = itr->suite();
-            ou(c) = (*this)(c) || autre(c);
+            ou.insert(*itr);
         }
         return ou;
     }
 
     Masque Masque::operator&&(const Masque& autre) const
     {
-        if (autre.m_rayon != m_rayon) { throw std::invalid_argument("Masques de tailles différentes"); }
-        Masque et(m_rayon);
-        // Applique un ET sur chaque élément avec celui de autre au même coordonnees.
-        auto itr = et.iterateur();
-        while (itr->aSuite())
+        Masque et;
+        for(auto itr = this->begin(); itr != this->end(); itr++)
         {
-            Coordonnees c = itr->suite();
-            et(c) = (*this)(c) && autre(c);
+            if(autre(*itr))
+            {
+                et.insert(*itr);
+            }
         }
         return et;
     }
 
-    Masque Masque::operator!() const
+    Masque Masque::operator+(const Coordonnees& autre) const
     {
-        Masque inverse(*this);
-        // Applique un NON sur chaque élément.
-        auto itr = inverse.iterateur();
-        while (itr->aSuite())
-        {
-            Coordonnees c = itr->suite();
-            inverse(c) = !(*this)(c);
-        }
-        return inverse;
+        Masque plus(*this);
+        plus.insert(autre);
+        return plus;
     }
 
+    Masque Masque::operator-(const Coordonnees& autre) const
+    {
+        Masque moins(*this);
+        moins.erase(moins.find(autre));
+        return moins;
+    }
+
+    Masque Masque::deplacer(const Coordonnees& vecteur) const
+    {
+        Masque deplace;
+        for(auto itr = this->begin(); itr!= this->end(); itr++)
+        {
+            deplace.insert((*itr)+vecteur);
+        }
+        return deplace;
+    }
+
+    bool Masque::operator()(const Coordonnees& c) const
+    {
+        if(this->find(c) != this->end())
+        {
+            return true;
+        }
+        return false;
+    }
 } // namespace hex

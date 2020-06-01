@@ -1,22 +1,17 @@
-#ifndef __IMASQUE_H__
-#define __IMASQUE_H__
+#ifndef __MASQUE_H__
+#define __MASQUE_H__
 
-#include "hex/CarteHexagone.hpp"
+#include <set>
+#include "hex/Coordonnees.hpp"
 
 namespace hex
 {
-    class Masque : public CarteHexagone<bool>
+    class Masque : public std::set<Coordonnees>
     {
     public:
         /**
-         * @brief Construit un nouveau masque hexagonale.
-         *
-         * Le rayon ne tient pas compte de la case centrale. Un masque de rayon
-         * 0 est de diamètre 1. Un masque de rayon 2 est de diamètre 5.
-         *
-         * @param rayon Le rayon de l'hexagone (ne compte pas le centre).
          */
-        explicit Masque(size_t rayon);
+        explicit Masque();
 
         /* Constructeurs & operateurs de copie & destructeur */
         Masque(const Masque& autre);
@@ -44,12 +39,37 @@ namespace hex
         virtual Masque operator&&(const Masque& autre) const;
 
         /**
-         * @brief Applique un NON sur chaque case.
+         * @brief Ajoute une case au masque.
          *
-         * @return Le masque inverse de l'instance.
+         * @param autre une autre case.
+         * @return Le masque résultant plus une case.
          */
-        virtual Masque operator!() const;
+        virtual Masque operator+(const Coordonnees& autre) const;
+
+        /**
+         * @brief Retire une case au masque.
+         *
+         * @param autre une autre case.
+         * @return Le masque résultant plus une case.
+         */
+        virtual Masque operator-(const Coordonnees& autre) const;
+
+        /**
+         * @brief Deplace l'ensemble des cases.
+         * 
+         * @param vecteur le vecteur de deplacement.
+         * @return Le masque deplace.
+         */
+        virtual Masque deplacer(const Coordonnees& vecteur) const;
+
+        /**
+         * @brief Indique la valeur booleenne de la case.
+         * 
+         * @param coordonnees la case a etudier.
+         * @return bool la valeur de la case
+         */
+        virtual bool operator()(const Coordonnees& c) const;
     };
 } // namespace hex
 
-#endif // __IMASQUE_H__
+#endif // __MASQUE_H__
