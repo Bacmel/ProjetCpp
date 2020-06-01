@@ -6,8 +6,8 @@
 #include "err/CreationErreur.hpp"
 #include "err/InfoErreur.hpp"
 #include "hex/CarteHexagone.hpp"
-#include "per/Heros.hpp"
 #include "partie/etat/Initial.hpp"
+#include "per/Heros.hpp"
 
 using namespace donjon;
 using namespace donjon::cases;
@@ -46,7 +46,8 @@ namespace partie
     }
 
     void Partie::demande(Coordonnees coordonnees) { m_etat->operation(*this, coordonnees); }
-    void Partie::demande(IObjet_S objet) { m_etat->operation(*this, objet); }
+
+    void Partie::demande(size_t indiceObjet) { m_etat->operation(*this, indiceObjet); }
 
     int Partie::indiceGagnant() const
     {

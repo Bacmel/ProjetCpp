@@ -117,10 +117,15 @@ namespace partie
          * @brief Demande
          *
          * @param coordonnees les coordonnees selectionnees.
-         * @param objet l'objet selectionne.
          */
         void demande(hex::Coordonnees coordonnees);
-        void demande(obj::IObjet_S objet);
+
+        /**
+         * @brief Demande
+         *
+         * @param indiceObjet l'objet selectionne.
+         */
+        void demande(size_t indiceObjet);
 
         /* Méthodes autres. */
 
