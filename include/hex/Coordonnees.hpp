@@ -46,6 +46,8 @@ namespace hex
         int longueur() const;
         int distance(const Coordonnees& autre) const;
 
+        float angle(const Coordonnees& autre) const;
+
         Coordonnees tournerGauche(const Coordonnees& centre) const;
         Coordonnees tournerDroite(const Coordonnees& centre) const;
 

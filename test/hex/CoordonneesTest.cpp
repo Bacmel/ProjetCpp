@@ -115,3 +115,13 @@ TEST_CASE("Egalite et distance des coordonnees", "[coordonnees]")
         REQUIRE(c1.distance(c2) == c2.longueur());
     }
 }
+
+TEST_CASE("Rotation et angle entre coordonnees", "[coordonnees]")
+{
+    Coordonnees c1(0, 0);
+    Coordonnees c2 = c1.translate(Direction::Nord);
+
+    REQUIRE(c1.angle(c2) == 0);
+    c2 = c1.translate(Direction::SudEst);
+    REQUIRE(c1.angle(c2) == M_PI * 2.f / 3.f);
+}

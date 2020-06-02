@@ -2,6 +2,7 @@
 #include <cmath>
 #include <sstream>
 #include <stdexcept>
+#include "utils/HexPixelConvertisseur.hpp"
 
 namespace hex
 {
@@ -68,6 +69,15 @@ namespace hex
     {
         Coordonnees relative = autre - *this;
         return relative.longueur();
+    }
+
+    float Coordonnees::angle(const Coordonnees& autre) const
+    {
+        utils::HexPixelConvertisseur convertisseur;
+        sf::Vector2f pixel = convertisseur(1, autre - *this);
+        // Calcul l'angle depuis l'axe du nord vers le point relatif.
+        float angle = M_PI_2 + std::atan2(pixel.y, pixel.x);
+        return angle;
     }
 
     Coordonnees Coordonnees::tournerGauche(const Coordonnees& centre) const
