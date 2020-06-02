@@ -69,22 +69,6 @@ int main()
     }
     cout << "Il y a " << compte << " cases." << endl;
 
-    hex::Masque m1(1);
-    m1.remplir(true);
-
-    hex::Masque m2(1);
-    m2.remplir(false);
-    hex::Coordonnees c2(1, 0);
-    m2(c2) = true;
-
-    cout << "ET" << endl;
-    hex::Masque et(m1 && m2);
-    auto itrEt = et.iterateur();
-    while (itrEt->aSuite())
-    {
-        hex::Coordonnees coord = itrEt->suite();
-        cout << coord << '\t' << m1(coord) << " && " << m2(coord) << " = " << et(coord) << endl;
-    }
 
     return 0;
 }

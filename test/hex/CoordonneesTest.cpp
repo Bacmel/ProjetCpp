@@ -56,15 +56,18 @@ TEST_CASE("Egalite et distance des coordonnees", "[coordonnees]")
     Coordonnees c2(1, 2); // Ligne et colonne
     Coordonnees c3(2, 1, -3); // Coordonnees x, y et z
 
-    REQUIRE(c1.getLigne() == 0);
-    REQUIRE(c1.getColonne() == 0);
+    SECTION("getters")
+    {
+        REQUIRE(c1.getLigne() == 0);
+        REQUIRE(c1.getColonne() == 0);
 
-    REQUIRE(c2.getLigne() == 1);
-    REQUIRE(c2.getColonne() == 2);
+        REQUIRE(c2.getLigne() == 1);
+        REQUIRE(c2.getColonne() == 2);
 
-    REQUIRE(c3.getX() == 2);
-    REQUIRE(c3.getY() == 1);
-    REQUIRE(c3.getZ() == -3);
+        REQUIRE(c3.getX() == 2);
+        REQUIRE(c3.getY() == 1);
+        REQUIRE(c3.getZ() == -3);
+    }
 
     SECTION("operator==")
     {
@@ -118,10 +121,27 @@ TEST_CASE("Egalite et distance des coordonnees", "[coordonnees]")
 
 TEST_CASE("Rotation et angle entre coordonnees", "[coordonnees]")
 {
-    Coordonnees c1(0, 0);
-    Coordonnees c2 = c1.translate(Direction::Nord);
+    SECTION("Angle et direction")
+    {
+        Coordonnees c1(1, -3);
+        Coordonnees c2 = c1.translate(Direction::Nord);
 
-    REQUIRE(c1.angle(c2) == 0);
-    c2 = c1.translate(Direction::SudEst);
-    REQUIRE(c1.angle(c2) == M_PI * 2.f / 3.f);
+        REQUIRE(std::abs(c1.angle(c2)) < 1e-5);
+        REQUIRE(c1.direction(c2) == Direction::Nord);
+        c2 = c1.translate(Direction::SudEst);
+        REQUIRE(std::abs(c1.angle(c2) - M_PI * 2.f / 3.f) < 1e-5);
+        REQUIRE(c1.direction(c2) == Direction::SudEst);
+        c2 = c2.translate(Direction::Sud);
+        REQUIRE_THROWS(c1.direction(c2));
+    }
+
+    SECTION("Rotation")
+    {
+        Coordonnees c = Coordonnees::direction(Direction::NordEst);
+        Coordonnees cTG = c.tournerGauche(Coordonnees());
+        Coordonnees cTD = c.tournerDroite(Coordonnees());
+
+        REQUIRE(Coordonnees().direction(cTG) == Direction::Nord);
+        REQUIRE(Coordonnees().direction(cTD) == Direction::SudEst);
+    }
 }
