@@ -12,11 +12,13 @@ namespace vue
         m_sprite(),
         m_barFond(),
         m_barValeur(),
-        m_herosTex()
+        m_herosTex(),
+        m_fantassinTex()
     {
         // Récupération des textures.
         TextureGest& gest = TextureGest::getInstance();
         m_herosTex = gest.obtenir("resources/textures/per/heros.png");
+        m_fantassinTex = gest.obtenir("resources/textures/per/fantassin.png");
     }
 
     PersonnageDessinable::PersonnageDessinable(float cote, per::APersonnage& aPersonnage) :
@@ -26,11 +28,13 @@ namespace vue
         m_sprite(),
         m_barFond(),
         m_barValeur(),
-        m_herosTex()
+        m_herosTex(),
+        m_fantassinTex()
     {
         // Récupération des textures.
         TextureGest& gest = TextureGest::getInstance();
         m_herosTex = gest.obtenir("resources/textures/per/heros.png");
+        m_fantassinTex = gest.obtenir("resources/textures/per/fantassin.png");
         // S'adapte au personnage.
         setElement(aPersonnage);
     }
@@ -53,6 +57,7 @@ namespace vue
         m_barFond = autre.m_barFond;
         m_barValeur = autre.m_barValeur;
         m_herosTex = autre.m_herosTex;
+        m_fantassinTex = autre.m_fantassinTex;
         // Se détache du précédent personnage et s'adapte au nouveau.
         if (m_element != nullptr) { m_element->detacher(this); }
         if (autre.m_element != nullptr) { setElement(*(autre.m_element)); }
@@ -105,7 +110,15 @@ namespace vue
         m_sprite.setColor(m_couleur);
         personnage.accepter(*this);
     }
-    void PersonnageDessinable::visiter(__attribute__((unused)) const per::Fantassin& fantassin) {}
+    void PersonnageDessinable::visiter(__attribute__((unused)) const per::Fantassin& fantassin)
+    {
+        m_sprite.setTexture(*m_fantassinTex);
+        // Met l'origine du sprite en son centre.
+        Vector2u dim = m_fantassinTex->getSize();
+        m_sprite.setOrigin(dim.x / 2., dim.y / 2.);
+        // Rend la longueur du côté du sprite égale à celle d'une case.
+        m_sprite.setScale(m_cote / dim.x, m_cote / dim.y);
+    }
 
     void PersonnageDessinable::preparerBarreSante(const per::APersonnage& personnage)
     {

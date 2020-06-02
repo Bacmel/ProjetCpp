@@ -2,6 +2,7 @@
 #include <exception>
 #include <iostream>
 #include "donjon/IDonjon.hpp"
+#include "err/DeplacementErreur.hpp"
 #include "partie/Partie.hpp"
 #include "partie/etat/FinTour.hpp"
 #include "partie/etat/Initial.hpp"
@@ -12,6 +13,7 @@ using namespace per;
 using namespace obj;
 using namespace donjon;
 using namespace std;
+using namespace err;
 
 namespace partie::etat
 {
@@ -49,11 +51,14 @@ namespace partie::etat
                 partie.demande(coordonnees);
                 return;
             }
-            catch (...)
+            catch (const invalid_argument&)
             {
                 /* Annulation clic random. */
                 partie.setEtat(IEtat_S(new Initial(m_indiceEquipe)));
                 return;
+            }
+            catch (const DeplacementErreur&)
+            {
             }
         }
     }

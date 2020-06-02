@@ -1,14 +1,11 @@
 #include "per/Fantassin.hpp"
-#include "hex/Coordonnees.hpp"
 #include "err/DeplacementErreur.hpp"
+#include "hex/Coordonnees.hpp"
 #include "per/IPersonnageVisiteur.hpp"
 
 namespace per
 {
-    Fantassin::Fantassin(): APersonnage(1, hex::Coordonnees())
-    {
-        
-    }
+    Fantassin::Fantassin() : APersonnage(1, hex::Coordonnees()) {}
 
     void Fantassin::deplacer(Deplacement deplacement, hex::Coordonnees cible)
     {
@@ -33,6 +30,6 @@ namespace per
 
     void Fantassin::accepter(IPersonnageVisiteur& visiteur) const { visiteur.visiter(*this); }
 
-
+    void Fantassin::actualiser() {}
 
 } // namespace per

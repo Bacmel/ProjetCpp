@@ -25,7 +25,7 @@ namespace partie::etat
 
     void FinPartie::operation(Partie& partie) { return; }
 
-    void FinPartie::afficher() const { cout << " Etat Fin de Tour : " << m_indiceGagnant << endl; }
+    void FinPartie::afficher() const { cout << " Etat Fin de Partie : " << m_indiceGagnant << endl; }
 
     APersonnage_SC FinPartie::getPersoSelect() const
     {

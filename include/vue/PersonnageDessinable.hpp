@@ -20,6 +20,7 @@ namespace vue
         sf::RectangleShape m_barFond;
         sf::RectangleShape m_barValeur;
         Texture_S m_herosTex;
+        Texture_S m_fantassinTex;
 
     public:
         /**

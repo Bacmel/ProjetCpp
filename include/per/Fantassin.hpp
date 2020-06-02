@@ -22,6 +22,7 @@ namespace per
 
         void deplacer(Deplacement deplacement, hex::Coordonnees cible) override;
         void accepter(IPersonnageVisiteur& visiteur) const override;
+        void actualiser() override;
     };
 }; // namespace per
 

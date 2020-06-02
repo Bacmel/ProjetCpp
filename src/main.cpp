@@ -49,6 +49,9 @@ int main()
     APersonnage_S herosAdverse = make_shared<Heros>(3);
     partie.genererPersonnage(herosAdverse, 1);
 
+    APersonnage_S fantassin = make_shared<Fantassin>();
+    partie.genererPersonnage(fantassin, 0);
+
     PartieDessinable pd(25, partie);
 
     auto carte = partie.getDonjon()->getCarte();

@@ -5,8 +5,8 @@
 #include "err/InfoErreur.hpp"
 #include "hex/Coordonnees.hpp"
 #include "partie/Partie.hpp"
-#include "partie/etat/Selection.hpp"
 #include "partie/etat/FinPartie.hpp"
+#include "partie/etat/Selection.hpp"
 
 using namespace partie;
 using namespace per;
@@ -36,12 +36,19 @@ namespace partie::etat
             (*carte)(c)->actualiser();
         }
         /*Mise à jour membre de l'equipe. */
-        set<size_t> equipe = partie.getEquipes().at(m_indiceEquipe);
+        set<size_t>& equipe = partie.getEquipes().at(m_indiceEquipe);
         for (auto id : equipe)
         {
-            APersonnage_S p = donjon->getPersonnageParId(id);
-            donjon->degat(p->getZoneEffet());
-            p->actualiser();
+            try
+            {
+                APersonnage_S p = donjon->getPersonnageParId(id);
+                donjon->degat(p->getZoneEffet());
+                p->actualiser();
+            }
+            catch(const runtime_error&)
+            {
+                equipe.erase(id);
+            }
         }
         donjon->actualiser();
         try
@@ -60,7 +67,7 @@ namespace partie::etat
         }
     }
 
-    void FinTour::afficher() const { cout << " Etat Fin de Partie : " << m_indiceEquipe << endl; }
+    void FinTour::afficher() const { cout << " Etat Fin de Tour : " << m_indiceEquipe << endl; }
 
     APersonnage_SC FinTour::getPersoSelect() const
     {
