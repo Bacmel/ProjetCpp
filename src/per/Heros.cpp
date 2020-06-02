@@ -44,6 +44,10 @@ namespace per
         {
             m_zoneEffet[*itr] += 1;
         }
+        if(deplacement==Deplacement::Forcer)
+        {
+            m_zoneEffet.clear();
+        }
     }
 
     void Heros::accepter(IPersonnageVisiteur& visiteur) const { visiteur.visiter(*this); }
