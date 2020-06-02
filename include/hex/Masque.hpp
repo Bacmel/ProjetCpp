@@ -11,11 +11,11 @@ namespace hex
     public:
         /**
          * @brief Genere un contour true.
-         * 
+         *
          * @return Le contour true.
          */
         static Masque contour();
-        
+
         explicit Masque();
 
         /* Constructeurs & operateurs de copie & destructeur */
@@ -61,7 +61,7 @@ namespace hex
 
         /**
          * @brief Deplace l'ensemble des cases.
-         * 
+         *
          * @param vecteur le vecteur de deplacement.
          * @return Le masque deplace.
          */
@@ -69,11 +69,27 @@ namespace hex
 
         /**
          * @brief Indique la valeur booleenne de la case.
-         * 
+         *
          * @param coordonnees la case a etudier.
          * @return bool la valeur de la case
          */
         virtual bool operator()(const Coordonnees& c) const;
+
+        /**
+         * @brief Tourne le masque vers la gauche.
+         *
+         * @param centre Le centre de la rotation.
+         * @return Le masque tourné vers la gauche.
+         */
+        virtual Masque tournerGauche(const Coordonnees& centre) const;
+
+        /**
+         * @brief Tourne le masque vers la droite.
+         *
+         * @param centre Le centre de la rotation.
+         * @return Le masque tourné vers la droite.
+         */
+        virtual Masque tournerDroite(const Coordonnees& centre) const;
     };
 } // namespace hex
 
