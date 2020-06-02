@@ -1,8 +1,8 @@
 #ifndef FANTASSIN_HPP
 #define FANTASSIN_HPP
 
-#include "hex/ICarte.hpp"
 #include "per/APersonnage.hpp"
+#include "hex/Masque.hpp"
 
 namespace per
 {
@@ -10,8 +10,6 @@ namespace per
     {
     protected:
         /** Arme du Fantassin : arme de CàC */
-        size_t m_degat;
-        hex::ICarte_SC<bool> m_porte;
 
     public:
         Fantassin();
@@ -22,6 +20,8 @@ namespace per
         Fantassin& operator=(Fantassin&& autre) = default;
         ~Fantassin() {}
 
+        void deplacer(Deplacement deplacement, hex::Coordonnees cible) override;
+        void accepter(IPersonnageVisiteur& visiteur) const override;
     };
 }; // namespace per
 
