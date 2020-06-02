@@ -1,6 +1,8 @@
 #include "donjon/cases/Sol.hpp"
-#include "donjon/DepotError.hpp"
-#include "donjon/SansObjetError.hpp"
+#include <iostream>
+#include "err/DepotErreur.hpp"
+#include "err/SansObjetErreur.hpp"
+#include "donjon/cases/ICaseVisiteur.hpp"
 
 namespace donjon::cases
 {
@@ -8,15 +10,19 @@ namespace donjon::cases
 
     void Sol::deposer(obj::IObjet_S objet)
     {
-        if (objet != nullptr) { m_objet = objet; }
+        // On s'assure que l'objet existe et que la case est vide.
+        if (objet == nullptr) { throw err::DepotErreur("Sol::deposer : L'objet est un pointeur null"); }
+        if (m_objet != nullptr) { throw err::DepotErreur("Un objet est déjà présent"); }
         else
         {
-            throw DepotError("Un objet est déjà présent");
+            // On stock ce nouvel objet.
+            m_objet = objet;
         }
     }
 
     obj::IObjet_S Sol::ramasser()
     {
+        // On récupère l'objet et on vide la case.
         getObjet();
         obj::IObjet_S objet = m_objet;
         m_objet = obj::IObjet_S();
@@ -25,24 +31,28 @@ namespace donjon::cases
 
     const obj::IObjet& Sol::getObjet() const
     {
-        if (m_objet != nullptr) { return *m_objet; }
+        // On s'assure qu'il y ait un objet à récupérer.
+        if (m_objet == nullptr) { throw err::SansObjetErreur("Il n'y a rien à ramasser"); }
         else
         {
-            throw SansObjetError("Il n'y a rien à ramasser");
+            return *m_objet;
         }
     }
 
-    void Sol::enEntree(per::APersonnage& personnage)
+    // __attribute__((unused)) Signal au compilateur que l'argument n'est pas utilisé
+    void Sol::enEntree(__attribute__((unused)) per::APersonnage& personnage)
     {
         // Ne rien faire.
     }
 
     bool Sol::estPraticable() const { return true; }
 
-    void Sol::enActivation(per::APersonnage& personnage)
+    void Sol::enActivation(__attribute__((unused)) per::APersonnage& personnage)
     {
         // Ne rien faire.
     }
 
     bool Sol::estTransparent() const { return true; }
+
+    void Sol::accepter(ICaseVisiteur& visiteur) { visiteur.visite(*this); }
 } // namespace donjon::cases

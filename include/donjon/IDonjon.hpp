@@ -1,8 +1,8 @@
 #ifndef __IDONJON_H__
 #define __IDONJON_H__
 
-#include <memory>
 #include <map>
+#include <memory>
 #include "donjon/cases/ICase.hpp"
 #include "hex/ICarte.hpp"
 #include "per/APersonnage.hpp"
@@ -26,11 +26,12 @@ namespace donjon
          * @brief Déplace un personnage aux cordonnées indiqué.
          *
          * @param personnage Le personnage à déplacer.
+         * @param type Le type de déplacement.
          * @param position La nouvelle position du personnage.
          *
          * @throw invalid_argument Quand le déplacement est impossible.
          */
-        virtual void deplace(per::APersonnage& personnage, const hex::Coordonnees& position) = 0;
+        virtual void deplace(per::APersonnage& personnage, per::Deplacement type, const hex::Coordonnees& position) = 0;
 
         /**
          * @brief Pousse les personnages dans la zone d'effet.
@@ -64,10 +65,12 @@ namespace donjon
         virtual void deposer(obj::IObjet_S objet, const hex::Coordonnees& position) = 0;
 
         /**
-         * @brief
+         * @brief Donne l'objet (s'il y en a) et le retire.
          *
-         * @param position
-         * @return obj::IObjet_S
+         * @param position La position à laquelle on ramasse.
+         * @return obj::IObjet_S L'objet présent sur la case.
+         *
+         * @throw err::SansObjetErreur Quand la case n'a pas d'objet.
          */
         virtual obj::IObjet_S ramasser(const hex::Coordonnees& position) = 0;
     };
