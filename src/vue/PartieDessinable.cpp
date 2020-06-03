@@ -1,6 +1,9 @@
 #include "vue/PartieDessinable.hpp"
+#include <cmath>
 #include <iostream>
+#include <sstream>
 #include <stdexcept>
+#include "err/InfoErreur.hpp"
 #include "vue/CaseDessinable.hpp"
 #include "vue/PersonnageDessinable.hpp"
 
@@ -41,6 +44,7 @@ namespace vue
         drawPersonnages(target, states, *donjon);
         drawEquipe(target, states);
         drawInventaire(target, states);
+        drawGagnant(target, states);
     }
 
     sf::FloatRect PartieDessinable::getCaseInventaire(size_t indice) const
@@ -120,6 +124,14 @@ namespace vue
         }
         size_t nbObjet = personnage->tailleSac();
         ObjetDessinable objDessinable;
+        obj::IObjet_SC objSel;
+        try
+        {
+            objSel = m_element->getObjetSelect();
+        }
+        catch (const std::invalid_argument&)
+        {
+        }
         for (size_t indiceObjet = 0; indiceObjet < nbObjet; indiceObjet++)
         {
             obj::IObjet_SC objet = personnage->getObjet(indiceObjet);
@@ -127,17 +139,84 @@ namespace vue
             objDessinable.setCote(contours.width);
             objDessinable.setPosition(contours.left + contours.width / 2, contours.top + contours.height / 2);
             objDessinable.setObjet(*objet);
+            if (objSel == objet) { objDessinable.surligner(); }
             target.draw(objDessinable, states);
+        }
+    }
+
+    void PartieDessinable::drawGagnant(sf::RenderTarget& target, sf::RenderStates& states) const
+    {
+        try
+        {
+            // Récupère le vainqueur et construit un sf::Text
+            int indiceGagnant = m_element->indiceGagnant();
+            std::stringstream ss;
+            ss << "L'equipe " << (indiceGagnant + 1) << " remporte\n\tla victoire!";
+            Text victoire(ss.str(), m_font);
+            // Met le sf::Text au centre de l'écran.
+            FloatRect contours = victoire.getLocalBounds();
+            victoire.setOrigin(contours.width / 2, contours.height / 2);
+            victoire.setFillColor(couleurEquipe(indiceGagnant));
+            Vector2u dimensions = target.getSize();
+            victoire.setPosition(dimensions.x / 2.f, dimensions.y / 2.f);
+            target.draw(victoire, states);
+        }
+        catch (const err::InfoErreur&)
+        {
         }
     }
 
     sf::Color PartieDessinable::couleurEquipe(size_t equipe) const
     {
+        size_t nbEquipe = m_element->getEquipes().size();
+        int hue = (int)(((float)equipe / nbEquipe) * 360);
+        Color couleur = depuisHSV(hue, 1, 1);
+        return couleur;
+    }
 
-        if (equipe) { return sf::Color::Blue; }
+    sf::Color PartieDessinable::depuisHSV(int hue, float saturation, float value) const
+    {
+        // Basé sur: https://www.rapidtables.com/convert/color/hsv-to-rgb.html
+        float c = value * saturation;
+        float x = c * (1 - std::abs((hue / 60) % 2 - 1));
+        float m = value - c;
+        float r, g, b;
+        if (0 <= hue && hue < 60)
+        {
+            r = c;
+            g = x;
+            b = 0;
+        }
+        else if (hue < 120)
+        {
+            r = x;
+            g = c;
+            b = 0;
+        }
+        else if (hue < 180)
+        {
+            r = 0;
+            g = c;
+            b = x;
+        }
+        else if (hue < 240)
+        {
+            r = 0;
+            g = x;
+            b = c;
+        }
+        else if (hue < 300)
+        {
+            r = x;
+            g = 0;
+            b = c;
+        }
         else
         {
-            return sf::Color::Red;
+            r = c;
+            g = 0;
+            b = x;
         }
+        return Color((r + m) * 255, (g + m) * 255, (b + m) * 255);
     }
 } // namespace vue

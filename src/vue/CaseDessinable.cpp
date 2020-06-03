@@ -35,15 +35,19 @@ namespace vue
     {
         // On se détache de la précédente case et on s'attache à la nouvelle.
         if (m_case != nullptr) { m_case->detacher(this); }
+        m_hexagone.setFillColor(Color::White);
         iCase.attacher(this);
         // On met à jour les champs.
         actualiser(iCase);
         m_case = &iCase;
     }
 
-    void CaseDessinable::surligner() {
+    void CaseDessinable::surligner()
+    {
         m_hexagone.setOutlineThickness(-2);
-        m_hexagone.setOutlineColor(sf::Color::Yellow); }
+        m_hexagone.setFillColor(Color(255, 255, 50));
+        m_hexagone.setOutlineColor(sf::Color::Yellow);
+    }
 
     void CaseDessinable::setCote(float cote)
     {
@@ -52,10 +56,12 @@ namespace vue
         m_hexagone.setOrigin(cote, cote);
     }
 
-    void CaseDessinable::visite(const Sol&) {
+    void CaseDessinable::visite(const Sol&)
+    {
         m_hexagone.setOutlineThickness(-0.5);
         m_hexagone.setOutlineColor(sf::Color::Black);
-        m_hexagone.setTexture(m_textureSol.get()); }
+        m_hexagone.setTexture(m_textureSol.get());
+    }
 
     void CaseDessinable::visite(const Trou&)
     {

@@ -25,6 +25,8 @@ namespace vue
         ObjetDessinable(float cote = 50, const obj::IObjet* iObjet = nullptr);
         virtual ~ObjetDessinable() {}
 
+        void surligner();
+
         /**
          * @brief Obtient la longueur du côté de l'hexagone utilisé.
          *

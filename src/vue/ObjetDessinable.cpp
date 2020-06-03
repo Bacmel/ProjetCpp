@@ -20,9 +20,12 @@ namespace vue
         if (iObjet != nullptr) { setObjet(*iObjet); }
     }
 
+    void ObjetDessinable::surligner() { m_sprite.setColor(Color(255, 255, 50)); }
+
     void ObjetDessinable::setObjet(const obj::IObjet& iObjet)
     {
         m_objet = &iObjet;
+        m_sprite.setColor(Color::White);
         iObjet.accepter(*this);
     }
 
