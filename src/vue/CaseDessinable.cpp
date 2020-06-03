@@ -52,12 +52,12 @@ namespace vue
         m_hexagone.setOrigin(cote, cote);
     }
 
-    void CaseDessinable::visite(__attribute__((unused)) const Sol& sol) {
+    void CaseDessinable::visite(const Sol&) {
         m_hexagone.setOutlineThickness(-0.5);
         m_hexagone.setOutlineColor(sf::Color::Black);
         m_hexagone.setTexture(m_textureSol.get()); }
 
-    void CaseDessinable::visite(__attribute__((unused)) const Trou& trou)
+    void CaseDessinable::visite(const Trou&)
     {
         m_hexagone.setOutlineThickness(0);
         m_hexagone.setTexture(m_textureTrou.get());

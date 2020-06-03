@@ -94,7 +94,7 @@ namespace vue
         target.draw(m_barValeur, states);
     }
 
-    void PersonnageDessinable::visiter(__attribute__((unused)) const per::Heros& heros)
+    void PersonnageDessinable::visiter(const per::Heros&)
     {
         m_sprite.setTexture(*m_herosTex);
         // Met l'origine du sprite en son centre.
@@ -110,7 +110,7 @@ namespace vue
         m_sprite.setColor(m_couleur);
         personnage.accepter(*this);
     }
-    void PersonnageDessinable::visiter(__attribute__((unused)) const per::Fantassin& fantassin)
+    void PersonnageDessinable::visiter(const per::Fantassin&)
     {
         m_sprite.setTexture(*m_fantassinTex);
         // Met l'origine du sprite en son centre.

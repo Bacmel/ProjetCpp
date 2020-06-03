@@ -43,8 +43,7 @@ namespace donjon::cases
         }
     }
 
-    // __attribute__((unused)) Signal au compilateur que l'argument n'est pas utilisé
-    void Sol::enEntree(__attribute__((unused)) per::APersonnage& personnage)
+    void Sol::enEntree(per::APersonnage& personnage)
     {
         if (m_objet != nullptr)
         {
@@ -65,7 +64,7 @@ namespace donjon::cases
 
     bool Sol::estPraticable() const { return true; }
 
-    void Sol::enActivation(__attribute__((unused)) per::APersonnage& personnage)
+    void Sol::enActivation(per::APersonnage&)
     {
         // Ne rien faire.
     }

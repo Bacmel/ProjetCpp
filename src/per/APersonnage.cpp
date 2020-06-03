@@ -65,24 +65,24 @@ namespace per
         notifier(*this);
     }
 
-    void APersonnage::ajouterObjet(__attribute__((unused)) obj::IObjet_S objet)
+    void APersonnage::ajouterObjet(obj::IObjet_S)
     {
         throw std::logic_error("APersonnage::ajouterObjet : Opération non supportée.");
     }
 
-    void APersonnage::retirerObjet(__attribute__((unused)) obj::IObjet_S objet)
+    void APersonnage::retirerObjet(obj::IObjet_S)
     {
         throw std::logic_error("APersonnage::retirerObjet : Opération non supportée.");
     }
 
     size_t APersonnage::tailleSac() const { return 0; }
 
-    obj::IObjet_SC APersonnage::getObjet(__attribute__((unused)) size_t indice) const
+    obj::IObjet_SC APersonnage::getObjet(size_t) const
     {
         throw std::out_of_range("APersonnage::getObjet : Opération non supportée (pas de sac)");
     }
 
-    obj::IObjet_S APersonnage::getObjet(__attribute__((unused)) size_t indice)
+    obj::IObjet_S APersonnage::getObjet(size_t)
     {
         throw std::out_of_range("APersonnage::getObjet : Opération non supportée (pas de sac)");
     }

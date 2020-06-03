@@ -32,13 +32,13 @@ namespace per
 
     void Fantassin::actualiser() {}
 
-    obj::IObjet_SC Fantassin::getObjet(__attribute__((unused)) size_t indice) const
+    obj::IObjet_SC Fantassin::getObjet(size_t indice) const
     {
         if (indice != 0) { throw std::out_of_range("APersonnage::getObjet : Opération non supportée (pas de sac)"); }
         return m_arme;
     }
 
-    obj::IObjet_S Fantassin::getObjet(__attribute__((unused)) size_t indice)
+    obj::IObjet_S Fantassin::getObjet(size_t indice)
     {
         if (indice != 0) { throw std::out_of_range("APersonnage::getObjet : Opération non supportée (pas de sac)"); }
         return m_arme;

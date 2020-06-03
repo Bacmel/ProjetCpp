@@ -23,7 +23,7 @@ namespace partie::etat
 
     void FinPartie::operation(Partie& partie, size_t) { operation(partie); }
 
-    void FinPartie::operation(Partie& partie) { return; }
+    void FinPartie::operation(Partie&) {}
 
     void FinPartie::afficher() const { cout << " Etat Fin de Partie : " << m_indiceGagnant << endl; }
 

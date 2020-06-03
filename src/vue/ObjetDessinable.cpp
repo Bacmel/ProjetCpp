@@ -26,7 +26,7 @@ namespace vue
         iObjet.accepter(*this);
     }
 
-    void ObjetDessinable::visiter(__attribute__((unused)) const obj::GravityGun& gravityGun)
+    void ObjetDessinable::visiter(const obj::GravityGun&)
     {
         m_sprite.setTexture(*m_textureGravityGun);
         Vector2u dim = m_textureGravityGun->getSize();
@@ -36,7 +36,7 @@ namespace vue
         m_sprite.setScale(m_cote / dim.x, m_cote / dim.y);
     }
 
-    void ObjetDessinable::visiter(__attribute__((unused)) const obj::Taser& taser)
+    void ObjetDessinable::visiter(const obj::Taser&)
     {
         m_sprite.setTexture(*m_textureTaser);
         Vector2u dim = m_textureTaser->getSize();
