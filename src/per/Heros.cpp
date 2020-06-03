@@ -89,4 +89,9 @@ namespace per
             objet->actualiser();
         }
     }
+    
+    hex::Masque Heros::getPorte() const
+    {
+        return hex::Masque::contour();
+    }
 }; // namespace per

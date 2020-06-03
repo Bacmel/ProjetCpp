@@ -8,6 +8,7 @@
 #include "obj/IObjet.hpp"
 #include "utils/AObservable.hpp"
 #include "utils/IActualisable.hpp"
+#include "utils/IPorte.hpp"
 #include "utils/Jauge.hpp"
 
 namespace per
@@ -21,7 +22,7 @@ namespace per
         Forcer
     };
 
-    class APersonnage : public utils::AObservable<APersonnage>, public utils::IActualisable
+    class APersonnage : public utils::AObservable<APersonnage>, public utils::IActualisable, public utils::IPorte
     {
     protected:
         /** Nombre de Personnages. */
@@ -175,6 +176,8 @@ namespace per
          * @throw std::out_of_range Quand il n'y a pas d'objet à l'indice donné.
          */
         virtual obj::IObjet_S getObjet(size_t indice);
+
+        virtual hex::Masque getPorte() const override = 0;
     };
 
     using APersonnage_S = std::shared_ptr<APersonnage>;

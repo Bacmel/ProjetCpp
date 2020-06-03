@@ -28,6 +28,9 @@ namespace per
         obj::IObjet_S getObjet(size_t indice) override;
         size_t tailleSac() const override;
 
+        hex::Masque getPorte() const override;
+
+
     };
 }; // namespace per
 

@@ -66,4 +66,9 @@ namespace obj
 
     void GravityGun::actualiser() { m_charge.ajouterValeur(1); }
 
+    hex::Masque GravityGun::getPorte() const
+    {
+        return hex::Masque::contour();
+    }
+
 } // namespace obj

@@ -37,6 +37,9 @@ namespace per
         obj::IObjet_S getObjet(size_t indice) override;
 
         void actualiser() override;
+
+        hex::Masque getPorte() const override;
+
     };
 }; // namespace per
 

@@ -45,4 +45,9 @@ namespace per
     }
     size_t Fantassin::tailleSac() const { return 1; }
 
+    hex::Masque Fantassin::getPorte() const
+    {
+        return hex::Masque::contour();
+    }
+
 } // namespace per

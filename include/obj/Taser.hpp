@@ -21,6 +21,9 @@ namespace obj
         virtual void accepter(IObjetVisiteur& visiteur) const override;
 
         virtual void actualiser() override;
+
+        hex::Masque getPorte() const override;
+
     };
 } // namespace obj
 

@@ -22,4 +22,10 @@ namespace obj
     void Taser::accepter(IObjetVisiteur& visiteur) const { visiteur.visiter(*this); }
 
     void Taser::actualiser() {}
+
+    hex::Masque Taser::getPorte() const
+    {
+        return hex::Masque::contour();
+    }
+
 } // namespace obj

@@ -4,6 +4,7 @@
 #include <memory>
 #include "hex/Coordonnees.hpp"
 #include "utils/IActualisable.hpp"
+#include "utils/IPorte.hpp"
 
 namespace donjon
 {
@@ -14,7 +15,7 @@ namespace obj
 {
     class IObjetVisiteur;
 
-    class IObjet : public utils::IActualisable
+    class IObjet : public utils::IActualisable, public utils::IPorte
     {
     public:
         virtual ~IObjet() {}
@@ -45,6 +46,9 @@ namespace obj
          * @param visiteur Le visiteur à accepter.
          */
         virtual void accepter(IObjetVisiteur& visiteur) const = 0;
+
+        virtual hex::Masque getPorte() const override = 0;
+
     };
 
     using IObjet_S = std::shared_ptr<IObjet>;
