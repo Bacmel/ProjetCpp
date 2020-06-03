@@ -38,7 +38,7 @@ namespace hex
     Masque Masque::operator||(const Masque& autre) const
     {
         Masque ou(autre);
-        for(auto itr = this->begin(); itr != this->end(); itr++)
+        for (auto itr = this->begin(); itr != this->end(); itr++)
         {
             ou.insert(*itr);
         }
@@ -48,12 +48,9 @@ namespace hex
     Masque Masque::operator&&(const Masque& autre) const
     {
         Masque et;
-        for(auto itr = this->begin(); itr != this->end(); itr++)
+        for (auto itr = this->begin(); itr != this->end(); itr++)
         {
-            if(autre(*itr))
-            {
-                et.insert(*itr);
-            }
+            if (autre(*itr)) { et.insert(*itr); }
         }
         return et;
     }
@@ -75,19 +72,49 @@ namespace hex
     Masque Masque::deplacer(const Coordonnees& vecteur) const
     {
         Masque deplace;
-        for(auto itr = this->begin(); itr!= this->end(); itr++)
+        for (auto itr = this->begin(); itr != this->end(); itr++)
         {
-            deplace.insert((*itr)+vecteur);
+            deplace.insert((*itr) + vecteur);
         }
         return deplace;
     }
 
     bool Masque::operator()(const Coordonnees& c) const
     {
-        if(this->find(c) != this->end())
-        {
-            return true;
-        }
+        if (this->find(c) != this->end()) { return true; }
         return false;
+    }
+
+    Masque Masque::tournerGauche(const Coordonnees& centre) const
+    {
+        Masque masqueTournee;
+        for (auto itr = begin(); itr != end(); itr++)
+        {
+            Coordonnees tournee = (*itr).tournerGauche(centre);
+            masqueTournee.insert(tournee);
+        }
+        return masqueTournee;
+    }
+
+    Masque Masque::tournerDroite(const Coordonnees& centre) const
+    {
+        Masque masqueTournee;
+        for (auto itr = begin(); itr != end(); itr++)
+        {
+            Coordonnees tournee = (*itr).tournerDroite(centre);
+            masqueTournee.insert(tournee);
+        }
+        return masqueTournee;
+    }
+
+    Masque Masque::tournerVers(const Coordonnees& centre, Direction cible, Direction initiale) const
+    {
+        Masque masqueTournee;
+        for (auto itr = begin(); itr != end(); itr++)
+        {
+            Coordonnees tournee = (*itr).tournerVers(centre, cible, initiale);
+            masqueTournee.insert(tournee);
+        }
+        return masqueTournee;
     }
 } // namespace hex

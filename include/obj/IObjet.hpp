@@ -20,6 +20,13 @@ namespace obj
         virtual ~IObjet() {}
 
         /**
+         * @brief Indique si l'objet peut être utilisé.
+         *
+         * @return true si l'objet peut être utilisé.
+         */
+        virtual bool estUtilisable() const = 0;
+
+        /**
          * @brief Utilise l'objet sur un personnage.
          *
          * @param donjon Le donjon.
@@ -38,8 +45,6 @@ namespace obj
          * @param visiteur Le visiteur à accepter.
          */
         virtual void accepter(IObjetVisiteur& visiteur) const = 0;
-
-        virtual void actualiser() {};
     };
 
     using IObjet_S = std::shared_ptr<IObjet>;

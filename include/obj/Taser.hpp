@@ -14,9 +14,13 @@ namespace obj
     public:
         Taser();
 
+        bool estUtilisable() const override;
+
         void utiliser(donjon::IDonjon& donjon, const hex::Coordonnees& origine, const hex::Coordonnees& cible) override;
+
         virtual void accepter(IObjetVisiteur& visiteur) const override;
 
+        virtual void actualiser() override;
     };
 } // namespace obj
 

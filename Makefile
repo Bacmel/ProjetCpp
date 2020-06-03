@@ -16,7 +16,7 @@ BINT = Test # Nom de l'exécutable
 all: build test
 
 test: $(OBJT)
-	$(CXX) $(CXXFLAGS) $(LDFLAGS) -o $(BINT) $^
+	$(CXX) $(CXXFLAGS) $(LDFLAGS) -o $(BINT) $^ $(LDLIBS)
 
 build: src/main.o $(OBJ)
 	$(CXX) $(LDFLAGS) -o $(BIN) $^ $(LDLIBS)

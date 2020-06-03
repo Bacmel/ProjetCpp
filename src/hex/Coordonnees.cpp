@@ -2,6 +2,7 @@
 #include <cmath>
 #include <sstream>
 #include <stdexcept>
+#include "utils/HexPixelConvertisseur.hpp"
 
 namespace hex
 {
@@ -70,6 +71,36 @@ namespace hex
         return relative.longueur();
     }
 
+    float Coordonnees::angle(const Coordonnees& autre) const
+    {
+        utils::HexPixelConvertisseur convertisseur;
+        sf::Vector2f pixel = convertisseur(1, autre - *this);
+        // Calcul l'angle depuis l'axe du nord vers le point relatif.
+        float angle = M_PI_2 + std::atan2(pixel.y, pixel.x);
+        return angle;
+    }
+
+    Direction Coordonnees::direction(const Coordonnees& autre) const
+    {
+        // Récupère l'angle dans [0; 2 * M_PI[
+        float angle = M_PI + this->angle(autre);
+        float indiceDirectionf = 3.f * angle / M_PI;
+        int indiceDirection = (int)indiceDirectionf;
+        // Vérifie que l'indice est un entier.
+        if (std::abs(indiceDirectionf - indiceDirection) > 1e-5)
+        {
+            throw std::invalid_argument(
+                "Coordonnees::direction : L'angle avec l'autre case ne correspond pas à une direction.");
+        }
+        // Récupère la direction.
+        Direction directions[] = {Direction::Sud,
+                                  Direction::SudOuest,
+                                  Direction::NordOuest,
+                                  Direction::Nord,
+                                  Direction::NordEst,
+                                  Direction::SudEst};
+        return directions[indiceDirection % 6];
+    }
     Coordonnees Coordonnees::tournerGauche(const Coordonnees& centre) const
     {
         Coordonnees relative = *this - centre;
@@ -83,6 +114,20 @@ namespace hex
         Coordonnees relative = *this - centre;
         Coordonnees relativeTournee(-relative.getY(), -relative.getZ(), -relative.getX());
         Coordonnees tournee = relativeTournee + centre;
+        return tournee;
+    }
+
+    Coordonnees Coordonnees::tournerVers(const Coordonnees& centre, Direction cible, Direction initiale) const
+    {
+        Coordonnees origine;
+        Coordonnees repere = Coordonnees::direction(initiale);
+        Coordonnees tournee = *this;
+        for (size_t i = 0; i < 6; i++)
+        {
+            if (origine.direction(repere) == cible) { break; }
+            tournee = tournee.tournerGauche(centre);
+            repere = repere.tournerGauche(origine);
+        }
         return tournee;
     }
 

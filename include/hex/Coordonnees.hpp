@@ -22,7 +22,6 @@ namespace hex
         int m_colonne;
 
     public:
-
         static Coordonnees direction(Direction direction);
 
         Coordonnees();
@@ -46,8 +45,30 @@ namespace hex
         int longueur() const;
         int distance(const Coordonnees& autre) const;
 
+        /**
+         * @brief Calcul l'angle entre deux cases.
+         *
+         * L'angle est mesuré depuis l'axe vertical ascendant et dans le sens
+         * horaire. L'angle est dans [-M_PI; M_PI].
+         *
+         * @param autre La case avec laquelle on désire connaitre l'angle.
+         * @return L'angle entre la case courrante et celle sélectionnée.
+         */
+        float angle(const Coordonnees& autre) const;
+
+        /**
+         * @brief Donne la direction entre deux cases.
+         *
+         * @param autre La case avec laquelle on désire connaitre la direction.
+         * @return La direction entre la case courrante et celle sélectionnée.
+         * @throw std::invalide_argument Quand les deux cases ne sont pas
+         * alignées.
+         */
+        Direction direction(const Coordonnees& autre) const;
+
         Coordonnees tournerGauche(const Coordonnees& centre) const;
         Coordonnees tournerDroite(const Coordonnees& centre) const;
+        Coordonnees tournerVers(const Coordonnees& centre, Direction cible, Direction initiale = Direction::Nord) const;
 
         void arrondir(float x, float y, float z);
         void arrondir(float ligne, float colonne);

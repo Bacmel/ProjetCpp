@@ -3,6 +3,7 @@
 
 #include "hex/Masque.hpp"
 #include "obj/IObjet.hpp"
+#include "utils/Jauge.hpp"
 
 namespace obj
 {
@@ -11,13 +12,10 @@ namespace obj
     protected:
         /* Distance de projection du gravity gun en case*/
         size_t m_distance;
-        /* Porte du gravity gun */
-        hex::Masque m_porte;
         /* Aire d'effet du gravity gun */
         hex::Masque m_aire;
-        /* Temps de rechargement apres utilisation et temps restant*/
-        size_t m_timeMax;
-        size_t m_time;
+        /** @brief La charge de l'objet. */
+        utils::Jauge m_charge;
 
     public:
         /**
@@ -31,17 +29,20 @@ namespace obj
          * Permet une personnalisation totale du gravity gun
          *
          * @param distance La distance de projection
-         * @param porte La porte du coup
-         * @param aire l'aire d'action du coup
+         * @param aire L'aire d'action du coup quand le personnage est face au
+         * Nord.
          * @param timeMax le Temps de rechargement
          */
-        GravityGun(size_t distance, hex::Masque porte, hex::Masque aire, size_t timeMax);
+        GravityGun(size_t distance, hex::Masque aire, size_t timeMax);
+        virtual ~GravityGun() {}
 
-        void utiliser(donjon::IDonjon& donjon, const hex::Coordonnees& origine, const hex::Coordonnees& cible);
+        bool estUtilisable() const override;
+
+        void utiliser(donjon::IDonjon& donjon, const hex::Coordonnees& origine, const hex::Coordonnees& cible) override;
 
         virtual void accepter(IObjetVisiteur& visiteur) const override;
 
-        virtual void actualiser();
+        virtual void actualiser() override;
     };
 } // namespace obj
 #endif // GRAVITYGUN_HPP
