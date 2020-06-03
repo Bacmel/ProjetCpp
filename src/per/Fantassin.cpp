@@ -5,7 +5,7 @@
 
 namespace per
 {
-    Fantassin::Fantassin() : APersonnage(1, hex::Coordonnees()) {}
+    Fantassin::Fantassin() : APersonnage(1, hex::Coordonnees()) { m_arme = obj::IObjet_S(new obj::Taser()); }
 
     void Fantassin::deplacer(Deplacement deplacement, hex::Coordonnees cible)
     {
@@ -31,5 +31,18 @@ namespace per
     void Fantassin::accepter(IPersonnageVisiteur& visiteur) const { visiteur.visiter(*this); }
 
     void Fantassin::actualiser() {}
+
+    obj::IObjet_SC Fantassin::getObjet(__attribute__((unused)) size_t indice) const
+    {
+        if (indice != 0) { throw std::out_of_range("APersonnage::getObjet : Opération non supportée (pas de sac)"); }
+        return m_arme;
+    }
+
+    obj::IObjet_S Fantassin::getObjet(__attribute__((unused)) size_t indice)
+    {
+        if (indice != 0) { throw std::out_of_range("APersonnage::getObjet : Opération non supportée (pas de sac)"); }
+        return m_arme;
+    }
+    size_t Fantassin::tailleSac() const { return 1; }
 
 } // namespace per

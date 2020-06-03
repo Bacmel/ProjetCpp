@@ -14,6 +14,7 @@ namespace vue
         const obj::IObjet* m_objet;
         sf::Sprite m_sprite;
         Texture_S m_textureGravityGun;
+        Texture_S m_textureTaser;
 
     public:
         /**
@@ -55,6 +56,8 @@ namespace vue
         void setObjet(const obj::IObjet& iObjet);
 
         virtual void visiter(const obj::GravityGun& gravityGun) override;
+
+        virtual void visiter(const obj::Taser& taser) override;
 
         virtual void draw(sf::RenderTarget& target, sf::RenderStates states) const override;
     };

@@ -2,6 +2,7 @@
 #define __IOBJETVISITEUR_H__
 
 #include "obj/GravityGun.hpp"
+#include "obj/Taser.hpp"
 
 namespace obj
 {
@@ -16,6 +17,13 @@ namespace obj
          * @param gravityGun Le gravity gun à visiter.
          */
         virtual void visiter(const obj::GravityGun& gravityGun) = 0;
+
+        /**
+         * @brief Permet au visiteur d'adapter son action au Taser.
+         *
+         * @param taser Le taser à visiter.
+         */
+        virtual void visiter(const obj::Taser& taser) = 0;
     };
 } // namespace obj
 #endif // __IOBJETVISITEUR_H__

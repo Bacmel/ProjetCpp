@@ -3,6 +3,7 @@
 
 #include "per/APersonnage.hpp"
 #include "hex/Masque.hpp"
+#include "obj/Taser.hpp"
 
 namespace per
 {
@@ -10,7 +11,7 @@ namespace per
     {
     protected:
         /** Arme du Fantassin : arme de CàC */
-
+        obj::IObjet_S m_arme;
     public:
         Fantassin();
 
@@ -23,6 +24,10 @@ namespace per
         void deplacer(Deplacement deplacement, hex::Coordonnees cible) override;
         void accepter(IPersonnageVisiteur& visiteur) const override;
         void actualiser() override;
+        obj::IObjet_SC getObjet(size_t indice) const override;
+        obj::IObjet_S getObjet(size_t indice) override;
+        size_t tailleSac() const override;
+
     };
 }; // namespace per
 

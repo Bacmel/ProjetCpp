@@ -11,12 +11,7 @@ namespace obj
      */
     GravityGun::GravityGun() : m_distance(1), m_porte(), m_aire(), m_timeMax(3), m_time(0)
     {
-        m_porte = m_porte + hex::Coordonnees::direction(hex::Direction::NordOuest);
-        m_porte = m_porte + hex::Coordonnees::direction(hex::Direction::Nord);
-        m_porte = m_porte + hex::Coordonnees::direction(hex::Direction::NordEst);
-        m_porte = m_porte + hex::Coordonnees::direction(hex::Direction::SudEst);
-        m_porte = m_porte + hex::Coordonnees::direction(hex::Direction::Sud);
-        m_porte = m_porte + hex::Coordonnees::direction(hex::Direction::SudOuest);
+        m_porte = hex::Masque::contour();
         m_aire = m_aire + hex::Coordonnees();
     }
 

@@ -10,11 +10,13 @@ namespace vue
         m_cote(cote),
         m_objet(nullptr),
         m_sprite(),
-        m_textureGravityGun()
+        m_textureGravityGun(),
+        m_textureTaser()
     {
         // Récupère les textures.
         TextureGest& gest = TextureGest::getInstance();
         m_textureGravityGun = gest.obtenir("resources/textures/obj/gravity_gun.png");
+        m_textureTaser = gest.obtenir("resources/textures/obj/taser.png");
         if (iObjet != nullptr) { setObjet(*iObjet); }
     }
 
@@ -28,6 +30,16 @@ namespace vue
     {
         m_sprite.setTexture(*m_textureGravityGun);
         Vector2u dim = m_textureGravityGun->getSize();
+        // Met l'origine du sprite en son centre.
+        m_sprite.setOrigin(dim.x / 2., dim.y / 2.);
+        // Rend la longueur du côté du sprite égale à celle d'une case.
+        m_sprite.setScale(m_cote / dim.x, m_cote / dim.y);
+    }
+
+    void ObjetDessinable::visiter(__attribute__((unused)) const obj::Taser& taser)
+    {
+        m_sprite.setTexture(*m_textureTaser);
+        Vector2u dim = m_textureTaser->getSize();
         // Met l'origine du sprite en son centre.
         m_sprite.setOrigin(dim.x / 2., dim.y / 2.);
         // Rend la longueur du côté du sprite égale à celle d'une case.
