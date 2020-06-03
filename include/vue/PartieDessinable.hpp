@@ -32,7 +32,9 @@ namespace vue
         void drawPersonnages(sf::RenderTarget& target, sf::RenderStates& states, donjon::IDonjon& donjon) const;
         void drawEquipe(sf::RenderTarget& target, sf::RenderStates& states) const;
         void drawInventaire(sf::RenderTarget& target, sf::RenderStates& states) const;
+        void drawGagnant(sf::RenderTarget& target, sf::RenderStates& states) const;
         sf::Color couleurEquipe(size_t equipe) const;
+        sf::Color depuisHSV(int hue, float saturation, float value) const;
     };
 } // namespace vue
 #endif // __PARTIEDESSINABLE_H__
