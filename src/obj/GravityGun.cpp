@@ -54,7 +54,8 @@ namespace obj
         std::map<Coordonnees, Direction> aoe;
         for (auto itr = aire.begin(); itr != aire.end(); itr++)
         {
-            aoe.insert(pair<Coordonnees, Direction>(*itr + origine, direction));
+            Coordonnees pos = *itr + origine;
+            aoe.insert(pair<Coordonnees, Direction>(pos, direction));
         }
         // Utilise l'objet et vide sa charge.
         donjon.pousse(aoe, m_distance);

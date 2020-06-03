@@ -82,7 +82,7 @@ namespace hex
 
     Direction Coordonnees::direction(const Coordonnees& autre) const
     {
-        // Récupère l'angle dans [0; M_PI[
+        // Récupère l'angle dans [0; 2 * M_PI[
         float angle = M_PI + this->angle(autre);
         float indiceDirectionf = 3.f * angle / M_PI;
         int indiceDirection = (int)indiceDirectionf;
@@ -99,7 +99,7 @@ namespace hex
                                   Direction::Nord,
                                   Direction::NordEst,
                                   Direction::SudEst};
-        return directions[indiceDirection];
+        return directions[indiceDirection % 6];
     }
     Coordonnees Coordonnees::tournerGauche(const Coordonnees& centre) const
     {
