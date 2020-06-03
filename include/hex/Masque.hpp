@@ -90,6 +90,8 @@ namespace hex
          * @return Le masque tourné vers la droite.
          */
         virtual Masque tournerDroite(const Coordonnees& centre) const;
+
+        virtual Masque tournerVers(const Coordonnees& centre, Direction cible, Direction initiale) const;
     };
 } // namespace hex
 

@@ -1,23 +1,22 @@
 #include "obj/GravityGun.hpp"
 #include <map>
+#include <stdexcept>
 #include "donjon/IDonjon.hpp"
 #include "hex/IterateurCarteHexagone.hpp"
 #include "obj/IObjetVisiteur.hpp"
+
+using namespace hex;
+using namespace std;
 
 namespace obj
 {
     /**
      * @brief Constructeur par defaut
      */
-    GravityGun::GravityGun() : m_distance(1), m_porte(), m_aire(), m_timeMax(3), m_time(0)
+    GravityGun::GravityGun() : m_distance(1), m_aire(), m_charge(1)
     {
-        m_porte = m_porte + hex::Coordonnees::direction(hex::Direction::NordOuest);
-        m_porte = m_porte + hex::Coordonnees::direction(hex::Direction::Nord);
-        m_porte = m_porte + hex::Coordonnees::direction(hex::Direction::NordEst);
-        m_porte = m_porte + hex::Coordonnees::direction(hex::Direction::SudEst);
-        m_porte = m_porte + hex::Coordonnees::direction(hex::Direction::Sud);
-        m_porte = m_porte + hex::Coordonnees::direction(hex::Direction::SudOuest);
-        m_aire = m_aire + hex::Coordonnees();
+        // Pousse le personnage sur la case immédiatement en face.
+        m_aire.insert(Coordonnees::direction(Direction::Nord));
     }
 
     /**
@@ -30,69 +29,40 @@ namespace obj
      * @param aire l'aire d'action du coup
      * @param timeMax le Temps de rechargement
      */
-    GravityGun::GravityGun(size_t distance, hex::Masque porte, hex::Masque aire, size_t timeMax) :
+    GravityGun::GravityGun(size_t distance, Masque aire, size_t timeMax) :
         m_distance(distance),
-        m_porte(porte),
         m_aire(aire),
-        m_timeMax(timeMax),
-        m_time(0)
+        m_charge(timeMax)
     {
+        // Pousse le personnage sur la case immédiatement en face.
+        m_aire.insert(Coordonnees::direction(Direction::Nord));
     }
 
-    void GravityGun::utiliser(donjon::IDonjon& donjon, const hex::Coordonnees& origine, const hex::Coordonnees& cible)
+    bool GravityGun::estUtilisable() const { return m_charge.getVal() >= m_charge.getValMax(); }
+
+    void GravityGun::utiliser(donjon::IDonjon& donjon, const Coordonnees& origine, const Coordonnees& cible)
     {
-        std::map<hex::Coordonnees, hex::Direction> modele;
-        hex::Coordonnees relative = cible - origine;
-        if (m_porte(relative)) // Check si la cible est valide
+        // Vérifie la charge du gravity gun.
+        if (!estUtilisable()) {
+            throw std::runtime_error("GravityGun::utiliser : L'objet n'est pas prêt."); }
+        // Vérifie la porté.
+        if (origine.distance(cible) != 1)
+        { throw std::invalid_argument("GravityGun::utiliser : La cible n'est pas adajente à l'origine."); }
+        // Construit l'Area of Effect du gravity gun (l'oriente vers la cible).
+        Direction direction = origine.direction(cible);
+        Masque aire = m_aire.tournerVers(Coordonnees(), direction, Direction::Nord);
+        std::map<Coordonnees, Direction> aoe;
+        for (auto itr = aire.begin(); itr != aire.end(); itr++)
         {
-            for (auto itr = m_aire.begin(); itr != m_aire.end(); itr++)
-            {
-                if (*itr == hex::Coordonnees::direction(hex::Direction::Nord))
-                {
-                    modele.insert(
-                        std::pair<hex::Coordonnees, hex::Direction>(*itr + relative, hex::Direction::Nord));
-                }
-                else if (*itr == hex::Coordonnees::direction(hex::Direction::NordEst))
-                {
-                    modele.insert(
-                        std::pair<hex::Coordonnees, hex::Direction>(*itr + relative, hex::Direction::NordEst));
-                }
-                else if (*itr == hex::Coordonnees::direction(hex::Direction::SudEst))
-                {
-                    modele.insert(
-                        std::pair<hex::Coordonnees, hex::Direction>(*itr + relative, hex::Direction::SudEst));
-                }
-                else if (*itr == hex::Coordonnees::direction(hex::Direction::Sud))
-                {
-                    modele.insert(
-                        std::pair<hex::Coordonnees, hex::Direction>(*itr + relative, hex::Direction::Sud));
-                }
-                else if (*itr == hex::Coordonnees::direction(hex::Direction::SudOuest))
-                {
-                    modele.insert(
-                        std::pair<hex::Coordonnees, hex::Direction>(*itr + relative, hex::Direction::SudOuest));
-                }
-                else if (*itr == hex::Coordonnees::direction(hex::Direction::NordOuest))
-                {
-                    modele.insert(
-                        std::pair<hex::Coordonnees, hex::Direction>(*itr + relative, hex::Direction::NordOuest));
-                }
-                else
-                {
-                } // Autre (?)
-            }
-            donjon.pousse(modele, m_distance);
+            aoe.insert(pair<Coordonnees, Direction>(*itr + origine, direction));
         }
+        // Utilise l'objet et vide sa charge.
+        donjon.pousse(aoe, m_distance);
+        m_charge.vider();
     }
 
     void GravityGun::accepter(IObjetVisiteur& visiteur) const { visiteur.visiter(*this); }
 
-    void GravityGun::actualiser()
-    {
-        if(m_time!= 0)
-        {
-            m_time--;
-        }
-    }
+    void GravityGun::actualiser() { m_charge.ajouterValeur(1); }
 
 } // namespace obj

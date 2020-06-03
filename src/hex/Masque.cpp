@@ -106,4 +106,15 @@ namespace hex
         }
         return masqueTournee;
     }
+
+    Masque Masque::tournerVers(const Coordonnees& centre, Direction cible, Direction initiale) const
+    {
+        Masque masqueTournee;
+        for (auto itr = begin(); itr != end(); itr++)
+        {
+            Coordonnees tournee = (*itr).tournerVers(centre, cible, initiale);
+            masqueTournee.insert(tournee);
+        }
+        return masqueTournee;
+    }
 } // namespace hex

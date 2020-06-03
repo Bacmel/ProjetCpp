@@ -117,6 +117,20 @@ namespace hex
         return tournee;
     }
 
+    Coordonnees Coordonnees::tournerVers(const Coordonnees& centre, Direction cible, Direction initiale) const
+    {
+        Coordonnees origine;
+        Coordonnees repere = Coordonnees::direction(initiale);
+        Coordonnees tournee = *this;
+        for (size_t i = 0; i < 6; i++)
+        {
+            if (origine.direction(repere) == cible) { break; }
+            tournee = tournee.tournerGauche(centre);
+            repere = repere.tournerGauche(origine);
+        }
+        return tournee;
+    }
+
     void Coordonnees::arrondir(float x, float y, float z)
     {
         float xRond = std::roundf(x);

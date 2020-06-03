@@ -68,6 +68,7 @@ namespace hex
 
         Coordonnees tournerGauche(const Coordonnees& centre) const;
         Coordonnees tournerDroite(const Coordonnees& centre) const;
+        Coordonnees tournerVers(const Coordonnees& centre, Direction cible, Direction initiale = Direction::Nord) const;
 
         void arrondir(float x, float y, float z);
         void arrondir(float ligne, float colonne);
