@@ -64,6 +64,12 @@ namespace controlleur
         coordCentree.x -= dimension.x / 2;
         coordCentree.y -= dimension.y / 2;
         hex::Coordonnees pos = m_convertisseur(m_dessinable->getCote(), coordCentree);
-        m_partie->demande(pos);
+        try
+        {
+            m_partie->demande(pos);
+        }
+        catch (const std::logic_error&)
+        {
+        }
     }
 } // namespace controlleur
