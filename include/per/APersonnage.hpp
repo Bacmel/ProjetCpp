@@ -178,11 +178,14 @@ namespace per
         virtual obj::IObjet_S getObjet(size_t indice);
 
         virtual hex::Masque getPorte() const override = 0;
+
         virtual hex::Masque getZoneDegat(hex::Coordonnees cible) const override = 0;
     };
 
     using APersonnage_S = std::shared_ptr<APersonnage>;
     using APersonnage_SC = std::shared_ptr<const APersonnage>;
+    using APersonnage_W = std::weak_ptr<APersonnage>;
+    using APersonnage_WC = std::weak_ptr<const APersonnage>;
 
 }; // namespace per
 

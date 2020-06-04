@@ -145,6 +145,6 @@ TEST_CASE("Rotation et angle entre coordonnees", "[coordonnees]")
         REQUIRE(Coordonnees().direction(cTD) == Direction::SudEst);
 
         Coordonnees cTV = c.tournerVers(Coordonnees(), Direction::SudOuest, Direction::NordEst);
-        REQUIRE(cTV == Coordonnees::direction(Direction::NordEst));
+        REQUIRE(cTV == Coordonnees::direction(Direction::SudOuest));
     }
 }
