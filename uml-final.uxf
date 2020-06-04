@@ -1,0 +1,267 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<diagram program="umlet" version="14.3.0">
+  <zoom_level>5</zoom_level>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>95</x>
+      <y>90</y>
+      <w>65</w>
+      <h>70</h>
+    </coordinates>
+    <panel_attributes>&lt;&lt;enum class&gt;&gt;
+hex::Direction
+--
+NordOuest
+Nord
+NordEst
+SudEst
+Sud
+SudOuest</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>745</x>
+      <y>70</y>
+      <w>305</w>
+      <h>300</h>
+    </coordinates>
+    <panel_attributes>hex::Coordonnees
+--
+#m_ligne: int
+#m_colonne: int
+--
+_+direction(direction: hex::Direction): hex::Coordonnees_
+
++Coordonnees()
++Coordonnees(ligne: int, colonne: int)
++Coordonnees(x: int, y: int, z: int)
+
++translate(dir: hex::Direction, distance: int) const: hex::Coordonnees
+
++longueur() const: int
++distance(autre: const Coordonnees&amp;) const: int
+
++angle(autre: const Coordonnees&amp;) const: float
++direction(autre: const Coordonnees&amp;) const: hex::Direction
+
++tournerGauche(centre: const Coordonnees&amp;) const: hex::Coordonnees
++tournerDroite(centre: const Coordonnees&amp;) const: hex::Coordonnees
++tournerVers(centre: const hex::Coordonnees&amp;, cible: hex::Direction, 
+             initiale: hex::Direction) const: hex::Coordonnees
+
++arrondir(x: float, y: float, z: float): void
++arrondir(float ligne, float colonne): void
+
++operator+(autre: const hex::Coordonnees&amp;) const: hex::Coordonnees
++operator-() const: hex::Coordonnees
++operator-(autre: const Coordonnees&amp;) const: hex::Coordonnees
++operator*(scalaire: int) const: hex::Coordonnees
+
++operator==(autre: const Coordonnees&amp;) const: bool
++operator!=(autre: const Coordonnees&amp;) const: bool
++operator&gt;(autre: const Coordonnees&amp;) const: bool
++operator&gt;=(autre: const Coordonnees&amp;) const: bool
++operator&lt;(autre: const Coordonnees&amp;) const: bool
++operator&lt;=(autre: const Coordonnees&amp;) const: bool</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>745</x>
+      <y>390</y>
+      <w>280</w>
+      <h>90</h>
+    </coordinates>
+    <panel_attributes>&lt;&lt;Interface&gt;&gt;
+/hex::ICarte&lt;T&gt;/
+--
+/+operator()(c: const Coordonnees&amp;): T&amp;/
+/+operator()(c: const Coordonnees&amp;) const: const T&amp;/
+
+/+remplir(valeur: const T&amp;): void/
+/+remplir(source: const ICarte&amp;, centre: const Coordonnees&amp;): void/
+/+remplir(fournisseur: std::function&lt;T()&gt;): void/
+
+/+iterateur(): std::shared_ptr&lt;IIterator&lt;Coordonnees&gt; &gt; /</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>745</x>
+      <y>505</y>
+      <w>280</w>
+      <h>180</h>
+    </coordinates>
+    <panel_attributes>hex::CarteHexagone&lt;T&gt;
+--
+#m_rayon: size_t
+#m_plateau: T**
+--
++CarteHexagone(rayon: size_t)
++CarteHexagone(autre: const CarteHexagone&amp;)
++CarteHexagone(autre: CarteHexagone&amp;&amp;)
++operator=(autre: const CarteHexagone&amp;): CarteHexagone&amp; 
++operator=(autre: CarteHexagone&amp;&amp;): CarteHexagone&amp; 
++~CarteHexagone()
+
+
++operator()(c: const Coordonnees&amp;): T&amp;
++operator()(c: const Coordonnees&amp;) const: const T&amp;
+
++remplir(valeur: const T&amp;): void
++remplir(source: const ICarte&amp;, centre: const Coordonnees&amp;): void
++remplir(fournisseur: std::function&lt;T()&gt;): void
+
++iterateur(): std::shared_ptr&lt;IIterator&lt;Coordonnees&gt; &gt;
+
+#deletePlateau(): void</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>450</x>
+      <y>150</y>
+      <w>240</w>
+      <h>85</h>
+    </coordinates>
+    <panel_attributes>hex::IterateurCarteHexagone&lt;T&gt;
+--
+-m_carte: const CarteHexagone&lt;T&gt;*
+-m_colonne: int
+-m_ligne: int
+-m_colonneMax: int
+-m_centre: Coordonnees
+--
++IterateurCarteHexagone(carte: const CarteHexagone&lt;T&gt;*)
++aSuite(): bool
++suite(): Coordonnees</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>470</x>
+      <y>80</y>
+      <w>95</w>
+      <h>40</h>
+    </coordinates>
+    <panel_attributes>&lt;&lt;Interface&gt;&gt;
+/hex::IIterateur&lt;T&gt;/
+--
+/+aSuite(): bool/
+/+suite(): Coordonnees/</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>500</x>
+      <y>115</y>
+      <w>15</w>
+      <h>45</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;.</panel_attributes>
+    <additional_attributes>10.0;10.0;10.0;70.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>880</x>
+      <y>475</y>
+      <w>15</w>
+      <h>40</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;.</panel_attributes>
+    <additional_attributes>10.0;10.0;10.0;60.0</additional_attributes>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>400</x>
+      <y>305</y>
+      <w>245</w>
+      <h>210</h>
+    </coordinates>
+    <panel_attributes>hex::Masque
+--
+_+contour(): Masque_
+
++Masque()
++Masque(rayon: size_t)
++Masque(autre: const Masque&amp;)
++Masque(autre: Masque&amp;&amp;)
++operator=(autre: const Masque&amp;): Masque&amp; 
++operator=(autre: Masque&amp;&amp;): Masque&amp; 
++~Masque()
+
++deplacer(vecteur: const Coordonnees&amp;) const: Masque
+
++operator()(c: const Coordonnees&amp;) const: bool
+
++tournerGauche(centre: const Coordonnees&amp;) const: Masque
++tournerDroite(centre: const Coordonnees&amp;) const: Masque
++tournerVers(centre: const Coordonnees&amp;, cible: Direction, 
+             initiale: Direction) const: Masque
+
++operator||(autre: const Masque&amp;) const: Masque
++operator&amp;&amp;(autre: const Masque&amp;) const: Masque
+
++operator+(autre: const Coordonnees&amp;) const: Masque
++operator-(autre: const Coordonnees&amp;) const: Masque</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>685</x>
+      <y>180</y>
+      <w>70</w>
+      <h>20</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;&lt;&lt;&lt;-
+m1=*
+m2=1</panel_attributes>
+    <additional_attributes>10.0;10.0;120.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>485</x>
+      <y>250</y>
+      <w>115</w>
+      <h>15</h>
+    </coordinates>
+    <panel_attributes>std::set&lt;hex::Coordonnee&gt;</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>510</x>
+      <y>260</y>
+      <w>15</w>
+      <h>55</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;-</panel_attributes>
+    <additional_attributes>10.0;10.0;10.0;90.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>640</x>
+      <y>335</y>
+      <w>115</w>
+      <h>20</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;&lt;&lt;&lt;-
+m1=*
+m2=1</panel_attributes>
+    <additional_attributes>10.0;10.0;210.0;10.0</additional_attributes>
+  </element>
+</diagram>
