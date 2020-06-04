@@ -66,16 +66,18 @@ namespace partie
 
     per::APersonnage_S Equipe::getMembre(size_t indice) { return m_membres.at(indice); }
 
-    void Equipe::jouer(partie::Partie& partie)
-    {
-        m_strategie->mettreEnOeuvre(partie, *this);
-    }
+    void Equipe::jouer(partie::Partie& partie) { m_strategie->mettreEnOeuvre(partie, *this); }
 
     void Equipe::retirerMorts()
     {
-        // Retire de l'équipe les personnages morts.
-        std::remove_if(m_membres.begin(), m_membres.end(), [](per::APersonnage_S personnage) {
-            return !personnage->estVivant();
-        });
+        // Retire les personnages morts de l'équipe.
+        for (auto itr = m_membres.begin(); itr != m_membres.end(); itr++)
+        {
+            if (!(*itr)->estVivant())
+            {
+                itr = m_membres.erase(itr);
+                itr--;
+            }
+        }
     }
 } // namespace partie

@@ -33,7 +33,6 @@ namespace partie
 
     void Partie::setEtat(etat::IEtat_S etat)
     {
-        etat->afficher();
         m_etatP = m_etat;
         m_etat = etat;
     }
