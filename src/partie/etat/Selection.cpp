@@ -36,16 +36,13 @@ namespace partie::etat
 
     void Selection::operation(Partie& partie)
     {
-        vector<set<size_t>>& equipes = partie.getEquipes();
-        set<size_t>& membres = equipes.at(m_equipe);
-
-        if (membres.size() == 0) { partie.setEtat(IEtat_S(new FinTour(m_equipe))); }
-        else if (membres.size() == 1)
+        vector<Equipe>& equipes = partie.getEquipes();
+        Equipe& equipe = equipes.at(m_equipe);
+        size_t nbMembres = equipe.compterMembres();
+        if (nbMembres == 0) { partie.setEtat(IEtat_S(new FinTour(m_equipe))); }
+        else if (nbMembres == 1)
         {
-            auto itr = membres.begin();
-            size_t idPerso = *itr;
-            donjon::IDonjon_S donjon = partie.getDonjon();
-            per::APersonnage_S personnage = donjon->getPersonnageParId(idPerso);
+            per::APersonnage_S personnage = equipe.getMembre(0);
             partie.setEtat(IEtat_S(new PersoActif(m_equipe, personnage)));
         }
         else

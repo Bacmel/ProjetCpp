@@ -1,5 +1,4 @@
 #include "partie/Partie.hpp"
-#include <algorithm>
 #include "donjon/Donjon.hpp"
 #include "donjon/cases/ICase.hpp"
 #include "donjon/cases/Sol.hpp"
@@ -7,7 +6,7 @@
 #include "err/CreationErreur.hpp"
 #include "err/InfoErreur.hpp"
 #include "hex/CarteHexagone.hpp"
-#include "partie/etat/Initial.hpp"
+#include "partie/etat/Decision.hpp"
 #include "per/Heros.hpp"
 
 using namespace donjon;
@@ -20,14 +19,39 @@ using namespace std;
 
 namespace partie
 {
-    Partie::Partie(std::vector<Equipe>& equipes) : m_equipes(equipes) {
-        
-        genererCarte(); }
+    Partie::Partie(strat::IStrategie_S& strategie) : m_equipes()
+    {
+        // Crée la carte.
+        genererCarte();
+        size_t indice = genererEquipe(strategie);
+        m_etat = IEtat_S(new Decision(indice));
+    }
+
+    Equipe& Partie::getEquipe(size_t indice) { return m_equipes.at(indice); }
+
+    const Equipe& Partie::getEquipe(size_t indice) const { return m_equipes.at(indice); }
+
+    void Partie::setEtat(etat::IEtat_S etat)
+    {
+        etat->afficher();
+        m_etatP = m_etat;
+        m_etat = etat;
+    }
+
+    size_t Partie::genererEquipe(strat::IStrategie_S& strategie)
+    {
+        Equipe equipe(strategie);
+        m_equipes.push_back(equipe);
+        return m_equipes.size() - 1;
+    }
 
     void Partie::genererPersonnage(APersonnage_S personnage, size_t indice)
     {
+        // Récupère une case libre et l'équipe souhaitée.
         Coordonnees c = coordonneesLibre();
-        m_equipes.at(indice).insert(personnage->getId());
+        Equipe& equipe = m_equipes.at(indice);
+        // Ajoute le joueur dans l'équipe et dans le donjon.
+        equipe.ajouterMembre(personnage);
         m_donjon->invoquer(personnage, c);
     }
 
@@ -74,10 +98,10 @@ namespace partie
 
     size_t Partie::indiceEquipe(APersonnage_SC personnage) const
     {
-        size_t indice = personnage->getId();
         for (size_t i = 0; i < m_equipes.size(); i++)
         {
-            if (m_equipes.at(i).find(indice) != m_equipes.at(i).end()) { return i; }
+            const Equipe& equipe = m_equipes.at(i);
+            if (equipe.estMembre(*personnage)) { return i; }
         }
         throw err::InfoErreur("Partie::indiceEquipe : Information non disponible.");
     }

@@ -152,7 +152,7 @@ namespace donjon
     {
         auto itrFin = m_personnages.end();
         auto itr = find_if(m_personnages.begin(), itrFin, [&](const APersonnage_S& e) { return e->getId() == id; });
-        if (itr == itrFin) { throw runtime_error("Donjon::getPersonnageParId : Pas de personnage avec l'id donnée."); }
+        if (itr == itrFin) { throw out_of_range("Donjon::getPersonnageParId : Pas de personnage avec l'id donnée."); }
         APersonnage_SC personnage = *itr;
         return personnage;
     }
@@ -161,7 +161,7 @@ namespace donjon
     {
         auto itrFin = m_personnages.end();
         auto itr = find_if(m_personnages.begin(), itrFin, [&](const APersonnage_S& e) { return e->getId() == id; });
-        if (itr == itrFin) { throw runtime_error("Donjon::getPersonnageParId : Pas de personnage avec l'id donnée."); }
+        if (itr == itrFin) { throw out_of_range("Donjon::getPersonnageParId : Pas de personnage avec l'id donnée."); }
         APersonnage_S personnage = *itr;
         return personnage;
     }

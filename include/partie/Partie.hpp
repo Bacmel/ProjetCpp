@@ -9,6 +9,7 @@
 #include "hex/ICarte.hpp"
 #include "partie/Equipe.hpp"
 #include "partie/etat/IEtat.hpp"
+#include "partie/strat/IStrategie.hpp"
 #include "per/APersonnage.hpp"
 
 namespace partie
@@ -25,9 +26,15 @@ namespace partie
         etat::IEtat_S m_etatP;
 
     public:
-        Partie(std::vector<Equipe>& equipes);
+        /**
+         * @brief Construit une partie à partir de la stratégie pour la première équipe.
+         *
+         * @param strategie La stratégie pour la première équipe (indice 0).
+         */
+        Partie(strat::IStrategie_S& strategie);
 
-        /* Méthodes get. */
+        Equipe& getEquipe(size_t indice);
+        const Equipe& getEquipe(size_t indice)const;
 
         /**
          * @brief Obtient la liste des equipes.
@@ -92,20 +99,16 @@ namespace partie
          *
          * @param etat::IEtat_S le nouvel etat courant.
          */
-        inline void setEtat(etat::IEtat_S etat)
-        {
-            m_etatP = m_etat;
-            m_etat = etat;
-        }
+        void setEtat(etat::IEtat_S etat);
 
-        /* Méthodes pour generer le jeu. */
 
         /**
-         * @brief Genere une carte.
+         * @brief Crée une équipe et donne son indice.
          *
-         * @throw err::CreationErreur
+         * @param strategie La stratégie pour l'équipe.
+         * @return L'indice de l'équipe crée.
          */
-        void genererCarte();
+        size_t genererEquipe(strat::IStrategie_S& strategie);
 
         /**
          * @brief Genere un personnage dans une equipe.
@@ -123,8 +126,6 @@ namespace partie
          * @throw err::CreationErreur
          */
         void genererObjet(obj::IObjet_S objet);
-
-        /* Methodes pour gerer le jeu. */
 
         /**
          * @brief Demande
@@ -179,6 +180,14 @@ namespace partie
          * @throw err:CreationErreur Quand la carte n'a plus de place.
          */
         hex::Coordonnees coordonneesLibre();
+
+    private:
+        /**
+         * @brief Genere une carte.
+         *
+         * @throw err::CreationErreur
+         */
+        void genererCarte();
     };
 } // namespace partie
 

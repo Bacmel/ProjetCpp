@@ -3,8 +3,8 @@
 
 #include "hex/Coordonnees.hpp"
 #include "obj/IObjet.hpp"
-#include "partie/etat/IEtat.hpp"
 #include "partie/Equipe.hpp"
+#include "partie/etat/IEtat.hpp"
 
 namespace partie::etat
 {
@@ -13,11 +13,9 @@ namespace partie::etat
     protected:
         /** indice de L'Equipe en jeu. */
         size_t m_indiceEquipe;
-        /** Equipe. */
-        Equipe* m_equipe;
 
     public:
-        Decision(size_t indice, Equipe& equipe);
+        Decision(size_t indice);
 
         inline void afficher() const override;
 
@@ -32,7 +30,6 @@ namespace partie::etat
         void operation(Partie& partie, size_t indiceObjet) override;
 
         void operation(Partie& partie) override;
-
     };
 } // namespace partie::etat
 

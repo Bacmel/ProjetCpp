@@ -94,6 +94,7 @@ namespace donjon
          *
          * @param indice L'indice du personnage.
          * @return Un pointeur partagé vers le personnage.
+         * @throw std::out_of_range Quand le personnage n'existe pas.
          */
         virtual per::APersonnage_SC getPersonnage(size_t indice) const = 0;
 
@@ -102,6 +103,7 @@ namespace donjon
          *
          * @param indice L'indice du personnage.
          * @return Un pointeur partagé vers le personnage.
+         * @throw std::out_of_range Quand le personnage n'existe pas.
          */
         virtual per::APersonnage_S getPersonnage(size_t indice) = 0;
 
