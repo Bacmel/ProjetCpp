@@ -48,7 +48,7 @@ namespace obj
         virtual void accepter(IObjetVisiteur& visiteur) const = 0;
 
         virtual hex::Masque getPorte() const override = 0;
-
+        virtual hex::Masque getZoneDegat(hex::Coordonnees cible) const override = 0;
     };
 
     using IObjet_S = std::shared_ptr<IObjet>;

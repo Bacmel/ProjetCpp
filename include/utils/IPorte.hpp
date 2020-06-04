@@ -17,6 +17,13 @@ namespace utils
          */
         virtual hex::Masque getPorte() const = 0;
 
+        /**
+         * @brief Obtient le masque des degats.
+         * 
+         * @param cible la coordonnees cible.
+         * @return le masque de degat.
+         */
+        virtual hex::Masque getZoneDegat(hex::Coordonnees cible) const = 0;
     };
 } // namespace utils
 
