@@ -26,6 +26,16 @@ namespace partie::etat
 
     void Selection::operation(Partie& partie, const hex::Coordonnees&)
     {
+        throw logic_error("Selection::operation() : operation non supporte");
+    }
+
+    void Selection::operation(Partie&, size_t)
+    {
+        throw logic_error("Selection::operation() : operation non supporte");
+    }
+
+    void Selection::operation(Partie& partie)
+    {
         vector<set<size_t>>& equipes = partie.getEquipes();
         set<size_t>& membres = equipes.at(m_equipe);
 
@@ -44,5 +54,4 @@ namespace partie::etat
         }
     }
 
-    void Selection::operation(Partie&, size_t) {}
 } // namespace partie::etat

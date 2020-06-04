@@ -127,6 +127,11 @@ namespace partie
          */
         void demande(size_t indiceObjet);
 
+        /**
+         * @brief Demande
+         */
+        void demande();
+
         /* Méthodes autres. */
 
         /**

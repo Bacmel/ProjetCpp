@@ -8,6 +8,7 @@
 using namespace donjon;
 using namespace hex;
 using namespace obj;
+using namespace std;
 
 namespace partie::etat
 {
@@ -37,7 +38,7 @@ namespace partie::etat
             m_objet->utiliser(*donjon, origine, coordonnees);
             // Passe en fin de tour et actualise la MAE.
             partie.setEtat(std::make_shared<FinTour>(m_equipe));
-            partie.demande(coordonnees);
+            partie.demande();
         }
         catch (...)
         {
@@ -66,4 +67,7 @@ namespace partie::etat
             throw std::logic_error("ObjetActif::operation : L'indice est hors du sac.");
         }
     }
+
+    void ObjetActif::operation(Partie& partie) { throw logic_error("ObjetActif::operation() : operation non supporte"); }
+
 } // namespace partie::etat

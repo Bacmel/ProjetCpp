@@ -1,5 +1,6 @@
 #include "partie/etat/FinPartie.hpp"
 #include <iostream>
+#include <exception>
 #include "donjon/IDonjon.hpp"
 #include "donjon/cases/ICase.hpp"
 #include "err/InfoErreur.hpp"
@@ -19,9 +20,9 @@ namespace partie::etat
 {
     FinPartie::FinPartie(size_t indice) : m_indiceGagnant(indice) {}
 
-    void FinPartie::operation(Partie& partie, const Coordonnees&) { operation(partie); }
+    void FinPartie::operation(Partie& partie, const Coordonnees&) { throw logic_error("FinPartie::operation() : operation non supporte"); }
 
-    void FinPartie::operation(Partie& partie, size_t) { operation(partie); }
+    void FinPartie::operation(Partie& partie, size_t) { throw invalid_argument("FinPartie::operation() : operation non supporte"); }
 
     void FinPartie::operation(Partie&) {}
 

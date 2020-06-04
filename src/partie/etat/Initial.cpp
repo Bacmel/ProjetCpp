@@ -31,6 +31,8 @@ namespace partie::etat
 
     void Initial::operation(Partie&, size_t) { throw std::logic_error("Initial::operation : Opération invalide."); }
 
+    void Initial::operation(Partie&) { throw std::logic_error("Initial::operation : Opération invalide."); }
+
     void Initial::afficher() const { cout << " Etat initial : " << m_indiceEquipe << endl; }
 
     APersonnage_SC Initial::getPersoSelect() const

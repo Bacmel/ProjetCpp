@@ -49,6 +49,8 @@ namespace partie
 
     void Partie::demande(size_t indiceObjet) { m_etat->operation(*this, indiceObjet); }
 
+    void Partie::demande() { m_etat->operation(*this); }
+
     int Partie::indiceGagnant() const
     {
         int precedent = -1;

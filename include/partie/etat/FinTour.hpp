@@ -21,8 +21,6 @@ namespace partie::etat
          *
          * @param partie la Partie.
          */
-        void operation(Partie& partie);
-
         void afficher() const override;
 
         inline size_t getEquipeCourante() const override { return m_indiceEquipe; }
@@ -34,6 +32,8 @@ namespace partie::etat
         void operation(Partie& partie, const hex::Coordonnees& coordonnees) override;
 
         void operation(Partie& partie, size_t objet) override;
+
+        void operation(Partie& partie) override;
     };
 } // namespace partie::etat
 

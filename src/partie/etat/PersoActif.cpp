@@ -48,7 +48,7 @@ namespace partie::etat
                 /* Deplacement Marche. */
                 donjon->deplace(*m_personnage, Deplacement::Marcher, coordonnees);
                 partie.setEtat(IEtat_S(new FinTour(m_indiceEquipe)));
-                partie.demande(coordonnees);
+                partie.demande();
                 return;
             }
             catch (const invalid_argument&)
@@ -71,6 +71,8 @@ namespace partie::etat
             partie.setEtat(IEtat_S(new ObjetActif(m_indiceEquipe, m_personnage, objet)));
         }
     }
+
+    void PersoActif::operation(Partie& partie) { throw logic_error("PersoActif::operation() : operation non supporte"); }
 
     void PersoActif::afficher() const
     {
