@@ -15,6 +15,8 @@
 #include "vue/Fenetre.hpp"
 #include "vue/PartieDessinable.hpp"
 #include "vue/PersonnageDessinable.hpp"
+#include "partie/Equipe.hpp"
+#include "partie/strat/JoueurHumain.hpp"
 
 using namespace donjon::cases;
 using namespace vue;
@@ -23,6 +25,7 @@ using namespace hex;
 using namespace sf;
 using namespace obj;
 using namespace partie;
+using namespace partie::strat;
 using namespace per;
 using namespace controlleur;
 
@@ -60,6 +63,9 @@ int main()
 
     PartieCont control(pd, partie);
     fen.attacher(Event::EventType::MouseButtonPressed, &control);
+
+    IStrategie_U strat = std::make_unique<JoueurHumain>();
+    Equipe eqp1(strat);
 
     fen.actualiser();
     return 0;
