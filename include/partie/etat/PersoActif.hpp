@@ -30,6 +30,9 @@ namespace partie::etat
         void operation(Partie& partie, const hex::Coordonnees& coordonnees) override;
 
         void operation(Partie& partie, size_t indiceObjet) override;
+
+        void operation(Partie& partie) override;
+
     };
 } // namespace partie::etat
 

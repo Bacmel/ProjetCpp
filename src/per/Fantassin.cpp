@@ -50,7 +50,7 @@ namespace per
         return hex::Masque::contour();
     }
 
-    hex::Masque Fantassin::getZoneDegat(hex::Coordonnees cible) const
+    hex::Masque Fantassin::getZoneDegat(hex::Coordonnees ) const
     {
         return hex::Masque();
     }

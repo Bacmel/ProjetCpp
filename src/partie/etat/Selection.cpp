@@ -24,18 +24,25 @@ namespace partie::etat
         throw std::invalid_argument("Selection::getPersoSelect : Pas d'objet sélectionné.");
     }
 
-    void Selection::operation(Partie& partie, const hex::Coordonnees&)
+    void Selection::operation(Partie&, const hex::Coordonnees&)
     {
-        vector<set<size_t>>& equipes = partie.getEquipes();
-        set<size_t>& membres = equipes.at(m_equipe);
+        throw logic_error("Selection::operation() : operation non supporte");
+    }
 
-        if (membres.size() == 0) { partie.setEtat(IEtat_S(new FinTour(m_equipe))); }
-        else if (membres.size() == 1)
+    void Selection::operation(Partie&, size_t)
+    {
+        throw logic_error("Selection::operation() : operation non supporte");
+    }
+
+    void Selection::operation(Partie& partie)
+    {
+        vector<Equipe>& equipes = partie.getEquipes();
+        Equipe& equipe = equipes.at(m_equipe);
+        size_t nbMembres = equipe.compterMembres();
+        if (nbMembres == 0) { partie.setEtat(IEtat_S(new FinTour(m_equipe))); }
+        else if (nbMembres == 1)
         {
-            auto itr = membres.begin();
-            size_t idPerso = *itr;
-            donjon::IDonjon_S donjon = partie.getDonjon();
-            per::APersonnage_S personnage = donjon->getPersonnageParId(idPerso);
+            per::APersonnage_S personnage = equipe.getMembre(0);
             partie.setEtat(IEtat_S(new PersoActif(m_equipe, personnage)));
         }
         else
@@ -44,5 +51,4 @@ namespace partie::etat
         }
     }
 
-    void Selection::operation(Partie&, size_t) {}
 } // namespace partie::etat

@@ -47,6 +47,8 @@ namespace partie
             /**
              * @brief Operation de l'état courant sur la partie.
              *
+             * Permet de communiquer la case selectionne a l'etat.
+             * 
              * @param partie La partie.
              * @param coordonnees Les coordonnees selectionnees.
              */
@@ -55,10 +57,22 @@ namespace partie
             /**
              * @brief Operation de l'état courant sur la partie.
              *
+             * Permet de communiquer l'objet selectionne a l'etat.
+             * 
              * @param partie La partie.
              * @param indiceObjet L'indice de l'objet selectionné.
              */
             virtual void operation(Partie& partie, size_t indiceObjet) = 0;
+
+            /**
+             * @brief Operation de l'état courant sur la partie.
+             *
+             * Lance l'etat seul.
+             * 
+             * @param partie La partie.
+             * @param indiceObjet L'indice de l'objet selectionné.
+             */
+            virtual void operation(Partie& partie) = 0;
         };
 
         using IEtat_S = std::shared_ptr<IEtat>;

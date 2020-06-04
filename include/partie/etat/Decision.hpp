@@ -1,20 +1,21 @@
-#ifndef __Initial_H__
-#define __Initial_H__
+#ifndef __DECISION_H__
+#define __DECISION_H__
 
 #include "hex/Coordonnees.hpp"
 #include "obj/IObjet.hpp"
+#include "partie/Equipe.hpp"
 #include "partie/etat/IEtat.hpp"
 
 namespace partie::etat
 {
-    class Initial : public IEtat
+    class Decision : public IEtat
     {
     protected:
         /** indice de L'Equipe en jeu. */
         size_t m_indiceEquipe;
 
     public:
-        Initial(size_t indice);
+        Decision(size_t indice);
 
         inline void afficher() const override;
 
@@ -29,8 +30,7 @@ namespace partie::etat
         void operation(Partie& partie, size_t indiceObjet) override;
 
         void operation(Partie& partie) override;
-
     };
 } // namespace partie::etat
 
-#endif //__Initial_H__
+#endif //__DECISION_H__

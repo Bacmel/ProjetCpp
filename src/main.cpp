@@ -1,6 +1,7 @@
 #include <SFML/Graphics.hpp>
 #include <cmath>
 #include <iostream>
+#include <vector>
 #include "controlleur/PartieCont.hpp"
 #include "donjon/cases/Sol.hpp"
 #include "err/SansObjetErreur.hpp"
@@ -8,15 +9,15 @@
 #include "hex/Coordonnees.hpp"
 #include "hex/ICarte.hpp"
 #include "hex/Masque.hpp"
+#include "partie/Equipe.hpp"
 #include "partie/Partie.hpp"
+#include "partie/strat/JoueurHumain.hpp"
 #include "per/Heros.hpp"
 #include "utils/HexPixelConvertisseur.hpp"
 #include "vue/CaseDessinable.hpp"
 #include "vue/Fenetre.hpp"
 #include "vue/PartieDessinable.hpp"
 #include "vue/PersonnageDessinable.hpp"
-#include "partie/Equipe.hpp"
-#include "partie/strat/JoueurHumain.hpp"
 
 using namespace donjon::cases;
 using namespace vue;
@@ -36,24 +37,23 @@ int main()
     sf::RenderWindow& window = fen.getRenderWindow();
     window.setFramerateLimit(60);
 
-    Partie partie(2);
-    partie.genererCarte();
+    IStrategie_S strat1 = make_shared<JoueurHumain>();
+    Partie partie(strat1);
 
     IObjet_S gravityGun(new GravityGun());
     partie.genererObjet(gravityGun);
     IObjet_S taser(new Taser());
     partie.genererObjet(taser);
-    // (*carte)(Coordonnees().translate(Direction::NordOuest))->deposer(gravityGun);
-
+    // Crée l'équipe 1
     APersonnage_S heros = make_shared<Heros>(3);
     partie.genererPersonnage(heros, 0);
-    heros->subitAttaque(1);
-
-    APersonnage_S herosAdverse = make_shared<Heros>(3);
-    partie.genererPersonnage(herosAdverse, 1);
-
     APersonnage_S fantassin = make_shared<Fantassin>();
     partie.genererPersonnage(fantassin, 0);
+    // Crée l'équipe 2
+    IStrategie_S strat2 = make_shared<JoueurHumain>();
+    size_t eqp2 = partie.genererEquipe(strat1);
+    APersonnage_S herosAdverse = make_shared<Heros>(3);
+    partie.genererPersonnage(herosAdverse, eqp2);
 
     PartieDessinable pd(25, partie);
 
@@ -63,10 +63,7 @@ int main()
 
     PartieCont control(pd, partie);
     fen.attacher(Event::EventType::MouseButtonPressed, &control);
-
-    IStrategie_U strat = std::make_unique<JoueurHumain>();
-    Equipe eqp1(strat);
-
+    partie.demande();
     fen.actualiser();
     return 0;
 }
