@@ -5,7 +5,7 @@ using namespace std;
 using namespace controlleur;
 namespace vue
 {
-    Fenetre::Fenetre(sf::VideoMode& videoMode, std::string titre) : m_fenetre(), m_gestEven(), m_dessinateur(nullptr)
+    Fenetre::Fenetre(sf::VideoMode& videoMode, std::string titre) : m_fenetre(), m_gestEven(), m_dessinable(nullptr)
     {
         ContextSettings cs;
         cs.antialiasingLevel = 5;
@@ -42,25 +42,26 @@ namespace vue
             }
             // Dessin de la fenêtre actualisée.
             m_fenetre.clear();
-            m_dessinateur(m_fenetre);
+            m_fenetre.draw(*m_dessinable);
             m_fenetre.display();
         }
     }
 
-    void Fenetre::attacher(sf::Event::EventType type, IControlleur* evenGest)
+    void Fenetre::attacher(sf::Event::EventType type, IControlleur_S evenGest)
     {
+        if (evenGest == nullptr) { throw std::invalid_argument("Fenetre::attacher : Le controleur est nullptr!"); }
         // Crée une liste si il n'y en a pas déjà.
         auto itr = m_gestEven.find(type);
         if (itr == m_gestEven.end())
         {
-            auto res = m_gestEven.insert(pair<Event::EventType, list<IControlleur*>>(type, list<IControlleur*>()));
+            auto res = m_gestEven.insert(pair<Event::EventType, list<IControlleur_S>>(type, list<IControlleur_S>()));
             itr = res.first;
         }
         // Ajoute le gestionnaire à la liste.
         itr->second.push_back(evenGest);
     }
 
-    void Fenetre::detacher(sf::Event::EventType type, IControlleur* evenGest)
+    void Fenetre::detacher(sf::Event::EventType type, IControlleur_S evenGest)
     {
         // Vérifie que le type d'évènements a des gestionnaires et supprime celui donné.
         auto itr = m_gestEven.find(type);
@@ -74,8 +75,8 @@ namespace vue
         if (itr != m_gestEven.end())
         {
             // Appelle chaque gestionnaire.
-            pair<Event::EventType, list<IControlleur*>> elem = *itr;
-            for (IControlleur*& gest : elem.second)
+            pair<Event::EventType, list<IControlleur_S>> elem = *itr;
+            for (IControlleur_S& gest : elem.second)
             {
                 if (gest != nullptr) { gest->enEvenement(*this, even); }
             }
