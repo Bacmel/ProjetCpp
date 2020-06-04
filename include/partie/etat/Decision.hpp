@@ -11,11 +11,13 @@ namespace partie::etat
     class Decision : public IEtat
     {
     protected:
-        /** Equipe */
-        Equipe m_equipe;
+        /** indice de L'Equipe en jeu. */
+        size_t m_indiceEquipe;
+        /** Equipe. */
+        Equipe* m_equipe;
 
     public:
-        Decision(Equipe equipe);
+        Decision(size_t indice, Equipe& equipe);
 
         inline void afficher() const override;
 

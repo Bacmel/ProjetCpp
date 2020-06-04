@@ -68,6 +68,6 @@ namespace partie::etat
         }
     }
 
-    void ObjetActif::operation(Partie& partie) { throw logic_error("ObjetActif::operation() : operation non supporte"); }
+    void ObjetActif::operation(Partie&) { throw logic_error("ObjetActif::operation() : operation non supporte"); }
 
 } // namespace partie::etat

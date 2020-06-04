@@ -7,6 +7,7 @@
 #include "donjon/PersonnageComparateur.hpp"
 #include "donjon/cases/ICase.hpp"
 #include "hex/ICarte.hpp"
+#include "partie/Equipe.hpp"
 #include "partie/etat/IEtat.hpp"
 #include "per/APersonnage.hpp"
 
@@ -16,23 +17,24 @@ namespace partie
     {
     protected:
         /* Liste des equipes. */
-        std::vector<std::set<size_t>> m_equipes;
+        std::vector<Equipe> m_equipes;
         /* Arbitre de la partie. */
         donjon::IDonjon_S m_donjon;
         /* Etat courant */
         etat::IEtat_S m_etat;
+        etat::IEtat_S m_etatP;
 
     public:
-        Partie(size_t joueurs);
+        Partie(std::vector<Equipe>& equipes);
 
         /* Méthodes get. */
 
         /**
          * @brief Obtient la liste des equipes.
          *
-         * @return std::vector<std::set<size_t> > La liste des equipes.
+         * @return std::vector<Equipe> La liste des equipes.
          */
-        inline std::vector<std::set<size_t>>& getEquipes() { return m_equipes; }
+        inline std::vector<Equipe>& getEquipes() { return m_equipes; }
 
         /**
          * @brief Obtient le donjon.
@@ -54,6 +56,13 @@ namespace partie
          * @return partie::etat::IEtat_SC; l'etat courant.
          */
         inline etat::IEtat_SC getEtat() const { return m_etat; }
+
+        /**
+         * @brief Obtient l'etat precedent.
+         *
+         * @return partie::etat::IEtat_SC; l'etat precedent.
+         */
+        inline etat::IEtat_SC getEtatPre() const { return m_etatP; }
 
         /**
          * @brief Obtient l'equipe courante.
@@ -83,7 +92,11 @@ namespace partie
          *
          * @param etat::IEtat_S le nouvel etat courant.
          */
-        inline void setEtat(etat::IEtat_S etat) { m_etat = etat; }
+        inline void setEtat(etat::IEtat_S etat)
+        {
+            m_etatP = m_etat;
+            m_etat = etat;
+        }
 
         /* Méthodes pour generer le jeu. */
 

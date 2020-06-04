@@ -20,9 +20,9 @@ namespace partie::etat
 {
     FinPartie::FinPartie(size_t indice) : m_indiceGagnant(indice) {}
 
-    void FinPartie::operation(Partie& partie, const Coordonnees&) { throw logic_error("FinPartie::operation() : operation non supporte"); }
+    void FinPartie::operation(Partie&, const Coordonnees&) { throw logic_error("FinPartie::operation() : operation non supporte"); }
 
-    void FinPartie::operation(Partie& partie, size_t) { throw invalid_argument("FinPartie::operation() : operation non supporte"); }
+    void FinPartie::operation(Partie&, size_t) { throw invalid_argument("FinPartie::operation() : operation non supporte"); }
 
     void FinPartie::operation(Partie&) {}
 

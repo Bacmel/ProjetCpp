@@ -1,4 +1,5 @@
 #include "partie/Partie.hpp"
+#include <algorithm>
 #include "donjon/Donjon.hpp"
 #include "donjon/cases/ICase.hpp"
 #include "donjon/cases/Sol.hpp"
@@ -19,7 +20,9 @@ using namespace std;
 
 namespace partie
 {
-    Partie::Partie(size_t joueurs) : m_equipes(joueurs), m_etat(new Initial(0)) { genererCarte(); }
+    Partie::Partie(std::vector<Equipe>& equipes) : m_equipes(equipes) {
+        
+        genererCarte(); }
 
     void Partie::genererPersonnage(APersonnage_S personnage, size_t indice)
     {

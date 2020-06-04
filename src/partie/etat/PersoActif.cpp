@@ -72,7 +72,7 @@ namespace partie::etat
         }
     }
 
-    void PersoActif::operation(Partie& partie) { throw logic_error("PersoActif::operation() : operation non supporte"); }
+    void PersoActif::operation(Partie&) { throw logic_error("PersoActif::operation() : operation non supporte"); }
 
     void PersoActif::afficher() const
     {

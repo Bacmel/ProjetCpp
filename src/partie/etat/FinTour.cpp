@@ -20,9 +20,9 @@ namespace partie::etat
 {
     FinTour::FinTour(size_t indice) : m_indiceEquipe(indice) {}
 
-    void FinTour::operation(Partie& partie, const Coordonnees&) { throw logic_error("FinTour::operation() : operation non supporte"); }
+    void FinTour::operation(Partie&, const Coordonnees&) { throw logic_error("FinTour::operation() : operation non supporte"); }
 
-    void FinTour::operation(Partie& partie, size_t) { throw logic_error("FinTour::operation() : operation non supporte"); }
+    void FinTour::operation(Partie&, size_t) { throw logic_error("FinTour::operation() : operation non supporte"); }
 
     void FinTour::operation(Partie& partie)
     {

@@ -24,7 +24,7 @@ namespace partie::etat
         throw std::invalid_argument("Selection::getPersoSelect : Pas d'objet sélectionné.");
     }
 
-    void Selection::operation(Partie& partie, const hex::Coordonnees&)
+    void Selection::operation(Partie&, const hex::Coordonnees&)
     {
         throw logic_error("Selection::operation() : operation non supporte");
     }
