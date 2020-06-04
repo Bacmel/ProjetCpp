@@ -28,4 +28,10 @@ namespace obj
         return hex::Masque::contour();
     }
 
+    hex::Masque Taser::getZoneDegat(hex::Coordonnees cible) const
+    {
+        hex::Masque degat;
+        return (degat + cible);
+    }
+
 } // namespace obj

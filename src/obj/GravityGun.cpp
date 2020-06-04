@@ -43,8 +43,7 @@ namespace obj
     void GravityGun::utiliser(donjon::IDonjon& donjon, const Coordonnees& origine, const Coordonnees& cible)
     {
         // Vérifie la charge du gravity gun.
-        if (!estUtilisable()) {
-            throw std::runtime_error("GravityGun::utiliser : L'objet n'est pas prêt."); }
+        if (!estUtilisable()) { throw std::runtime_error("GravityGun::utiliser : L'objet n'est pas prêt."); }
         // Vérifie la porté.
         if (origine.distance(cible) != 1)
         { throw std::invalid_argument("GravityGun::utiliser : La cible n'est pas adajente à l'origine."); }
@@ -66,9 +65,13 @@ namespace obj
 
     void GravityGun::actualiser() { m_charge.ajouterValeur(1); }
 
-    hex::Masque GravityGun::getPorte() const
+    hex::Masque GravityGun::getPorte() const { return hex::Masque::contour(); }
+
+    hex::Masque GravityGun::getZoneDegat(hex::Coordonnees cible) const
     {
-        return hex::Masque::contour();
+        Coordonnees origine;
+        Direction direction = origine.direction(cible);
+        return m_aire.tournerVers(Coordonnees(), direction, Direction::Nord);
     }
 
 } // namespace obj

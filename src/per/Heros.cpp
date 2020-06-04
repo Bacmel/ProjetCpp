@@ -94,4 +94,11 @@ namespace per
     {
         return hex::Masque::contour();
     }
+
+    hex::Masque Heros::getZoneDegat(hex::Coordonnees cible) const
+    {
+        hex::Masque voisin1 = hex::Masque::contour();
+        hex::Masque voisin2 = hex::Masque::contour().deplacer(cible);
+        return voisin1&&voisin2;
+    }
 }; // namespace per

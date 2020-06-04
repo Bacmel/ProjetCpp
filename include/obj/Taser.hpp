@@ -23,7 +23,7 @@ namespace obj
         virtual void actualiser() override;
 
         hex::Masque getPorte() const override;
-
+        hex::Masque getZoneDegat(hex::Coordonnees cible) const override;
     };
 } // namespace obj
 
