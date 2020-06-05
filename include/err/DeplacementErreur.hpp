@@ -1,5 +1,5 @@
-#ifndef __DEPLACEMENTERREUR_H__
-#define __DEPLACEMENTERREUR_H__
+#ifndef __DEPLACEMENTERREUR_HPP__
+#define __DEPLACEMENTERREUR_HPP__
 
 #include <stdexcept>
 #include <string>
@@ -20,4 +20,4 @@ namespace err
     };
 } // namespace err
 
-#endif // __DEPLACEMENTERREUR_H__
+#endif // __DEPLACEMENTERREUR_HPP__

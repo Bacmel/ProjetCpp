@@ -1,7 +1,9 @@
-#ifndef __TEXTUREMANQUANTEERREUR_H__
-#define __TEXTUREMANQUANTEERREUR_H__
+#ifndef __TEXTUREMANQUANTEERREUR_HPP__
+#define __TEXTUREMANQUANTEERREUR_HPP__
 
 #include <stdexcept>
+#include <string>
+
 namespace err
 {
     class TextureESErreur : public std::runtime_error
@@ -14,4 +16,4 @@ namespace err
         inline const std::string& getChemin() { return m_chemin; }
     };
 } // namespace err
-#endif // __TEXTUREMANQUANTEERREUR_H__
+#endif // __TEXTUREMANQUANTEERREUR_HPP__

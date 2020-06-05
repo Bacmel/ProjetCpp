@@ -1,5 +1,5 @@
-#ifndef __DEPOTERREUR_H__
-#define __DEPOTERREUR_H__
+#ifndef __DEPOTERREUR_HPP__
+#define __DEPOTERREUR_HPP__
 
 #include <stdexcept>
 #include <string>
@@ -20,4 +20,4 @@ namespace err
     };
 } // namespace err
 
-#endif // __DEPOTERREUR_H__
+#endif // __DEPOTERREUR_HPP__
