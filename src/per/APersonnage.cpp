@@ -1,5 +1,6 @@
 #include "per/APersonnage.hpp"
 #include <stdexcept>
+#include "err/DeplacementErreur.hpp"
 #include "err/JaugeErreur.hpp"
 
 namespace per
@@ -15,11 +16,9 @@ namespace per
         idSuivante++;
     }
 
-    APersonnage::~APersonnage() {}
-
     bool APersonnage::estVivant() const { return m_pv.getVal() > 0; }
 
-    void APersonnage::subitAttaque(size_t degat)
+    void APersonnage::subirAttaque(size_t degat)
     {
         try
         {
@@ -65,25 +64,52 @@ namespace per
         notifier(*this);
     }
 
+    void APersonnage::deplacer(Deplacement deplacement, hex::Coordonnees cible)
+    {
+        hex::Masque masqueDegat = getZoneDegat(cible - m_position).deplacer(m_position);
+        for (auto itr = masqueDegat.begin(); itr != masqueDegat.end(); itr++)
+        {
+            m_zoneEffet[*itr] += 1;
+        }
+        if (deplacement == Deplacement::Forcer) { m_zoneEffet.clear(); }
+        switch (deplacement)
+        {
+        case Deplacement::Forcer:
+            m_position = cible;
+            break;
+        case Deplacement::Marcher:
+            if (m_position.distance(cible) != 1)
+            { throw err::DeplacementErreur("Fantassin::deplacer : Hors de porter de marche"); }
+            else
+            {
+                m_position = cible;
+                notifier(*this);
+            }
+            break;
+        default:
+            throw err::DeplacementErreur("Fantassin::deplacer : Deplacement non precise");
+        }
+    }
+
     void APersonnage::ajouterObjet(obj::IObjet_S)
     {
-        throw std::logic_error("APersonnage::ajouterObjet : Opération non supportée.");
+        throw std::logic_error("APersonnage::ajouterObjet : Operation non supportee.");
     }
 
     void APersonnage::retirerObjet(obj::IObjet_S)
     {
-        throw std::logic_error("APersonnage::retirerObjet : Opération non supportée.");
+        throw std::logic_error("APersonnage::retirerObjet : Operation non supportee.");
     }
 
     size_t APersonnage::tailleSac() const { return 0; }
 
     obj::IObjet_SC APersonnage::getObjet(size_t) const
     {
-        throw std::out_of_range("APersonnage::getObjet : Opération non supportée (pas de sac)");
+        throw std::out_of_range("APersonnage::getObjet : Operation non supportee (pas de sac)");
     }
 
     obj::IObjet_S APersonnage::getObjet(size_t)
     {
-        throw std::out_of_range("APersonnage::getObjet : Opération non supportée (pas de sac)");
+        throw std::out_of_range("APersonnage::getObjet : Operation non supportee (pas de sac)");
     }
 } // namespace per

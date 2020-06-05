@@ -79,7 +79,7 @@ namespace donjon
             for (const APersonnage_S& personnage : m_personnages)
             {
                 Coordonnees perPos = personnage->getPosition();
-                if (position == perPos) { personnage->subitAttaque(dommages); }
+                if (position == perPos) { personnage->subirAttaque(dommages); }
             }
         }
     }
@@ -209,14 +209,14 @@ namespace donjon
             {
                 // On est sortie de la carte. On ne quitte pas la case
                 // précédante.
-                personnage->subitAttaque(1);
+                personnage->subirAttaque(1);
                 break;
             }
             if (!iCase->estTransparent())
             {
                 // Le personnage se heurte à un obstacle. On ne quitte pas
                 // la case précédante.
-                personnage->subitAttaque(1);
+                personnage->subirAttaque(1);
                 break;
             }
             else if (!iCase->estPraticable())

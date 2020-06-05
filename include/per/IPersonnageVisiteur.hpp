@@ -1,5 +1,5 @@
-#ifndef __IPERSONNAGEVISITEUR_H__
-#define __IPERSONNAGEVISITEUR_H__
+#ifndef __IPERSONNAGEVISITEUR_HPP__
+#define __IPERSONNAGEVISITEUR_HPP__
 
 #include "per/Fantassin.hpp"
 #include "per/Heros.hpp"
@@ -11,8 +11,19 @@ namespace per
     public:
         virtual ~IPersonnageVisiteur() {}
 
-        virtual void visiter(const per::Heros& heros) = 0;
-        virtual void visiter(const per::Fantassin& fantassin) = 0;
+        /**
+         * @brief Permet d'obtenir l'instance précise d'un APersonnage_S.
+         *
+         * @param heros l'instance a visiter.
+         */
+        virtual void visiter(const Heros& heros) = 0;
+
+        /**
+         * @brief Permet d'obtenir l'instance précise d'un APersonnage_S.
+         *
+         * @param fantassin l'instance a visiter.
+         */
+        virtual void visiter(const Fantassin& fantassin) = 0;
     };
 } // namespace per
-#endif // __IPERSONNAGEVISITEUR_H__
+#endif // __IPERSONNAGEVISITEUR_HPP__

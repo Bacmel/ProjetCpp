@@ -1,5 +1,5 @@
-#ifndef HEROS_HPP
-#define HEROS_HPP
+#ifndef __HEROS_HPP__
+#define __HEROS_HPP__
 
 #include <vector>
 #include "obj/IObjet.hpp"
@@ -22,25 +22,27 @@ namespace per
          */
         explicit Heros(size_t pvMax);
 
-        void deplacer(Deplacement deplacement, hex::Coordonnees cible) override;
+        Heros(const Heros& autre) = default;
+        Heros(Heros&& autre) = default;
+        Heros& operator=(const Heros& autre) = default;
+        Heros& operator=(Heros&& autre) = default;
+        ~Heros() = default;
 
+        /* Méthodes APersonnage. */
         void accepter(IPersonnageVisiteur& visiteur) const override;
-
         void ajouterObjet(obj::IObjet_S objet) override;
-
         void retirerObjet(obj::IObjet_S objet) override;
-
+        obj::IObjet_SC getObjet(size_t indice) const override;
+        obj::IObjet_S getObjet(size_t indice) override;
         size_t tailleSac() const override;
 
-        obj::IObjet_SC getObjet(size_t indice) const override;
-
-        obj::IObjet_S getObjet(size_t indice) override;
-
+        /* Méthode IAtualisable. */
         void actualiser() override;
 
+        /* Méthodes IPorte. */
         hex::Masque getPorte() const override;
         hex::Masque getZoneDegat(hex::Coordonnees cible) const override;
     };
 }; // namespace per
 
-#endif // HEROS_HPP
+#endif // __HEROS_HPP__

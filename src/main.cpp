@@ -8,15 +8,15 @@
 #include "hex/Coordonnees.hpp"
 #include "hex/ICarte.hpp"
 #include "hex/Masque.hpp"
+#include "partie/Equipe.hpp"
 #include "partie/Partie.hpp"
+#include "partie/strat/JoueurHumain.hpp"
 #include "per/Heros.hpp"
 #include "utils/HexPixelConvertisseur.hpp"
 #include "vue/CaseDessinable.hpp"
 #include "vue/Fenetre.hpp"
 #include "vue/PartieDessinable.hpp"
 #include "vue/PersonnageDessinable.hpp"
-#include "partie/Equipe.hpp"
-#include "partie/strat/JoueurHumain.hpp"
 
 using namespace donjon::cases;
 using namespace vue;
@@ -47,7 +47,7 @@ int main()
 
     APersonnage_S heros = make_shared<Heros>(3);
     partie.genererPersonnage(heros, 0);
-    heros->subitAttaque(1);
+    heros->subirAttaque(1);
 
     APersonnage_S herosAdverse = make_shared<Heros>(3);
     partie.genererPersonnage(herosAdverse, 1);

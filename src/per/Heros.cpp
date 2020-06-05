@@ -2,53 +2,12 @@
 #include <algorithm>
 #include <cmath>
 #include "err/DeplacementErreur.hpp"
-#include "per/IPersonnageVisiteur.hpp"
 #include "hex/Masque.hpp"
+#include "per/IPersonnageVisiteur.hpp"
 
 namespace per
 {
     Heros::Heros(size_t pvMax) : APersonnage::APersonnage(pvMax, hex::Coordonnees()), m_sac() {}
-
-    void Heros::deplacer(Deplacement deplacement, hex::Coordonnees cible)
-    {
-        hex::Masque voisin1 = hex::Masque::contour().deplacer(m_position);
-        switch (deplacement)
-        {
-        case Deplacement::Forcer:
-            m_position = cible;
-            break;
-        case Deplacement::Marcher:
-            if (m_position.distance(cible) != 1)
-            { throw err::DeplacementErreur("Heros::deplacer : Hors de porter de marche"); }
-            else
-            {
-                m_position = cible;
-                notifier(*this);
-            }
-            break;
-        case Deplacement::Sauter:
-            if (m_position.distance(cible) != 2)
-            { throw err::DeplacementErreur("Heros::deplacer : Hors de porter de saut"); }
-            else
-            {
-                m_position = cible;
-                notifier(*this);
-            }
-            break;
-        default:
-            throw err::DeplacementErreur("Heros::deplacer : Deplacement non precise");
-        }
-        hex::Masque voisin2 = hex::Masque::contour().deplacer(m_position);
-        hex::Masque voisinfinaux = voisin1&&voisin2;
-        for(auto itr = voisinfinaux.begin(); itr != voisinfinaux.end(); itr++)
-        {
-            m_zoneEffet[*itr] += 1;
-        }
-        if(deplacement==Deplacement::Forcer)
-        {
-            m_zoneEffet.clear();
-        }
-    }
 
     void Heros::accepter(IPersonnageVisiteur& visiteur) const { visiteur.visiter(*this); }
 
@@ -67,8 +26,6 @@ namespace per
         notifier(*this);
     }
 
-    size_t Heros::tailleSac() const { return m_sac.size(); }
-
     obj::IObjet_SC Heros::getObjet(size_t indice) const
     {
         obj::IObjet_S objet = m_sac.at(indice);
@@ -81,24 +38,23 @@ namespace per
         return objet;
     }
 
+    size_t Heros::tailleSac() const { return m_sac.size(); }
+
     void Heros::actualiser()
     {
         m_zoneEffet.clear();
-        for(auto objet : m_sac)
+        for (auto objet : m_sac)
         {
             objet->actualiser();
         }
     }
-    
-    hex::Masque Heros::getPorte() const
-    {
-        return hex::Masque::contour();
-    }
+
+    hex::Masque Heros::getPorte() const { return hex::Masque::contour(); }
 
     hex::Masque Heros::getZoneDegat(hex::Coordonnees cible) const
     {
         hex::Masque voisin1 = hex::Masque::contour();
         hex::Masque voisin2 = hex::Masque::contour().deplacer(cible);
-        return voisin1&&voisin2;
+        return voisin1 && voisin2;
     }
 }; // namespace per
