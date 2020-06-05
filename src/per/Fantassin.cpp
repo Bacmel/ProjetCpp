@@ -31,6 +31,6 @@ namespace per
 
     hex::Masque Fantassin::getPorte() const { return hex::Masque::contour(); }
 
-    hex::Masque Fantassin::getZoneDegat(hex::Coordonnees) const { return hex::Masque(); }
+    hex::Masque Fantassin::getZoneDegat(const hex::Coordonnees&) const { return hex::Masque(); }
 
 } // namespace per

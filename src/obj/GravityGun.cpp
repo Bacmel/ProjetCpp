@@ -10,25 +10,12 @@ using namespace std;
 
 namespace obj
 {
-    /**
-     * @brief Constructeur par defaut
-     */
     GravityGun::GravityGun() : m_distance(1), m_aire(), m_charge(1)
     {
         // Pousse le personnage sur la case immédiatement en face.
         m_aire.insert(Coordonnees::direction(Direction::Nord));
     }
 
-    /**
-     * @brief Constructeur pour la personnalisation
-     *
-     * Permet une personnalisation totale du gravity gun
-     *
-     * @param distance La distance de projection
-     * @param porte La porte du coup
-     * @param aire l'aire d'action du coup
-     * @param timeMax le Temps de rechargement
-     */
     GravityGun::GravityGun(size_t distance, Masque aire, size_t timeMax) :
         m_distance(distance),
         m_aire(aire),
@@ -38,7 +25,7 @@ namespace obj
         m_aire.insert(Coordonnees::direction(Direction::Nord));
     }
 
-    bool GravityGun::estUtilisable() const { return m_charge.getVal() >= m_charge.getValMax(); }
+    bool GravityGun::estUtilisable() const { return m_charge.getVal() == m_charge.getValMax(); }
 
     void GravityGun::utiliser(donjon::IDonjon& donjon, const Coordonnees& origine, const Coordonnees& cible)
     {
@@ -67,10 +54,11 @@ namespace obj
 
     hex::Masque GravityGun::getPorte() const { return hex::Masque::contour(); }
 
-    hex::Masque GravityGun::getZoneDegat(hex::Coordonnees cible) const
+    hex::Masque GravityGun::getZoneDegat(const hex::Coordonnees& cible) const
     {
         Coordonnees origine;
         Direction direction = origine.direction(cible);
+        // Oriente correctement le masque d'effet.
         return m_aire.tournerVers(Coordonnees(), direction, Direction::Nord);
     }
 

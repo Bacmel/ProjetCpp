@@ -1,5 +1,5 @@
-#ifndef IOBJET_HPP
-#define IOBJET_HPP
+#ifndef __IOBJET_HPP__
+#define __IOBJET_HPP__
 
 #include <memory>
 #include "hex/Coordonnees.hpp"
@@ -46,9 +46,6 @@ namespace obj
          * @param visiteur Le visiteur à accepter.
          */
         virtual void accepter(IObjetVisiteur& visiteur) const = 0;
-
-        virtual hex::Masque getPorte() const override = 0;
-        virtual hex::Masque getZoneDegat(hex::Coordonnees cible) const override = 0;
     };
 
     using IObjet_S = std::shared_ptr<IObjet>;
@@ -56,4 +53,4 @@ namespace obj
 
 }; // namespace obj
 
-#endif
+#endif // __IOBJET_HPP__

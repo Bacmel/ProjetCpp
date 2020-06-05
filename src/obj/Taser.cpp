@@ -11,6 +11,7 @@ namespace obj
 
     void Taser::utiliser(donjon::IDonjon& donjon, const hex::Coordonnees& origine, const hex::Coordonnees& cible)
     {
+        /* Au CàC. */
         if (origine.distance(cible) == 1)
         {
             std::map<hex::Coordonnees, size_t> zoneEffet;
@@ -25,13 +26,19 @@ namespace obj
 
     hex::Masque Taser::getPorte() const
     {
+        /* Masque indiquant toute les cases qu l'entoure. */
         return hex::Masque::contour();
     }
 
-    hex::Masque Taser::getZoneDegat(hex::Coordonnees cible) const
+    hex::Masque Taser::getZoneDegat(const hex::Coordonnees& cible) const
     {
         hex::Masque degat;
-        return (degat + cible);
+        /* Au CàC. */
+        if(cible.longueur()==1)
+        {
+            degat = degat + cible;
+        }
+        return degat;
     }
 
 } // namespace obj

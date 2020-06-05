@@ -41,7 +41,7 @@ namespace per
 
         /* Méthodes IPorte. */
         hex::Masque getPorte() const override;
-        hex::Masque getZoneDegat(hex::Coordonnees cible) const override;
+        hex::Masque getZoneDegat(const hex::Coordonnees& cible) const override;
     };
 }; // namespace per
 

@@ -1,5 +1,5 @@
-#ifndef __HEXPIXELCONVERTISSEUR_H__
-#define __HEXPIXELCONVERTISSEUR_H__
+#ifndef __HEXPIXELCONVERTISSEUR_HPP__
+#define __HEXPIXELCONVERTISSEUR_HPP__
 
 #include <SFML/Graphics.hpp>
 #include "hex/Coordonnees.hpp"
@@ -28,4 +28,4 @@ namespace utils
         hex::Coordonnees operator()(float cote, const sf::Vector2i& pixel) const;
     };
 } // namespace utils
-#endif // __HEXPIXELCONVERTISSEUR_H__
+#endif // __HEXPIXELCONVERTISSEUR_HPP__

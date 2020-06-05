@@ -14,6 +14,9 @@ namespace per
         obj::IObjet_S m_arme;
 
     public:
+        /**
+         * @brief Constructeur par defaut
+         */
         Fantassin();
 
         Fantassin(const Fantassin& autre) = default;
@@ -33,7 +36,7 @@ namespace per
 
         /* Méthodes IPorte. */
         hex::Masque getPorte() const override;
-        hex::Masque getZoneDegat(hex::Coordonnees cible) const override;
+        hex::Masque getZoneDegat(const hex::Coordonnees& cible) const override;
     };
 }; // namespace per
 
