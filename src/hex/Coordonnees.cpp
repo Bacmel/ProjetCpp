@@ -45,7 +45,33 @@ namespace hex
 
     Coordonnees::Coordonnees() : m_ligne(0), m_colonne(0) {}
 
+    Coordonnees::Coordonnees(float x, float y, float z) : Coordonnees()
+    {
+        if (std::abs(x + y + z) > 1e-5)
+        { throw std::invalid_argument("Coordonnees::Coordonnees : La somme des composantes n'est pas nulle."); }
+        // Arrondie les coordonnées.
+        float xRond = std::round(x);
+        float yRond = std::round(y);
+        float zRond = std::round(z);
+        // S'assure que la somme des composantes soit nulle. On recalcule la
+        // composante arrondie qui maximise l'erreur en fonction des 2 autres.
+        float xDiff = std::abs(x - xRond);
+        float yDiff = std::abs(y - yRond);
+        float zDiff = std::abs(z - zRond);
+
+        if (xDiff > yDiff && xDiff > zDiff) { xRond = -yRond - zRond; }
+        else if (yDiff > zDiff)
+        {
+            yRond = -xRond - zRond;
+        }
+        // On initialise l'objet.
+        m_colonne = (int)xRond;
+        m_ligne = (int)yRond;
+    }
+
     Coordonnees::Coordonnees(int ligne, int colonne) : m_ligne(ligne), m_colonne(colonne) {}
+
+    Coordonnees::Coordonnees(float ligne, float colonne) : Coordonnees(colonne, ligne, -colonne - ligne) {}
 
     Coordonnees::Coordonnees(int x, int y, int z) : m_ligne(y), m_colonne(x)
     {
@@ -54,19 +80,18 @@ namespace hex
 
     Coordonnees Coordonnees::translater(Direction dir, int distance) const
     {
+        // Calcul le déplacement relatif.
         Coordonnees relative = Coordonnees::direction(dir) * distance;
+        // Ajoute l'origine à la coordonnées relative pour avoir la position absolue.
         Coordonnees absolue = *this + relative;
         return absolue;
     }
 
-    int Coordonnees::longueur() const
-    {
-        float x(getX()), y(getY()), z(getZ());
-        return int((std::abs(x) + std::abs(y) + std::abs(z)) / 2.0F);
-    }
+    int Coordonnees::longueur() const { return int((std::abs(getX()) + std::abs(getY()) + std::abs(getZ())) / 2.0F); }
 
     int Coordonnees::distance(const Coordonnees& autre) const
     {
+        // Calcule la longueur de la position relative.
         Coordonnees relative = autre - *this;
         return relative.longueur();
     }
@@ -74,8 +99,9 @@ namespace hex
     float Coordonnees::angle(const Coordonnees& autre) const
     {
         utils::HexPixelConvertisseur convertisseur;
+        // Passage dans le repère orthogonale (repère de l'écran).
         sf::Vector2f pixel = convertisseur(1, autre - *this);
-        // Calcul l'angle depuis l'axe du nord vers le point relatif.
+        // Puis calcul de l'angle depuis l'axe du nord vers le point relatif.
         float angle = M_PI_2 + std::atan2(pixel.y, pixel.x);
         return angle;
     }
@@ -103,6 +129,7 @@ namespace hex
     }
     Coordonnees Coordonnees::tournerTrigonometrique(const Coordonnees& centre) const
     {
+        // Fait tourner la coordonnée relative pour l'ajoute au centre de la rotation.
         Coordonnees relative = *this - centre;
         Coordonnees relativeTournee(-relative.getZ(), -relative.getX(), -relative.getY());
         Coordonnees tournee = relativeTournee + centre;
@@ -111,6 +138,7 @@ namespace hex
 
     Coordonnees Coordonnees::tournerHoraire(const Coordonnees& centre) const
     {
+        // Fait tourner la coordonnée relative pour l'ajoute au centre de la rotation.
         Coordonnees relative = *this - centre;
         Coordonnees relativeTournee(-relative.getY(), -relative.getZ(), -relative.getX());
         Coordonnees tournee = relativeTournee + centre;
@@ -122,6 +150,9 @@ namespace hex
         Coordonnees origine;
         Coordonnees repere = Coordonnees::direction(initiale);
         Coordonnees tournee = *this;
+        // Fait tourner la coordonnées voulue avec la coordonnées qui sert
+        // d'indicateur, jusqu'à ce que l'indicateur soit dans la direction
+        // ciblée.
         for (size_t i = 0; i < 6; i++)
         {
             if (origine.direction(repere) == cible) { break; }
@@ -131,53 +162,37 @@ namespace hex
         return tournee;
     }
 
-    void Coordonnees::arrondir(float x, float y, float z)
-    {
-        float xRond = std::round(x);
-        float yRond = std::round(y);
-        float zRond = std::round(z);
-
-        float xDiff = std::abs(x - xRond);
-        float yDiff = std::abs(y - yRond);
-        float zDiff = std::abs(z - zRond);
-
-        if (xDiff > yDiff && xDiff > zDiff) { xRond = -yRond - zRond; }
-        else if (yDiff > zDiff)
-        {
-            yRond = -xRond - zRond;
-        }
-        m_colonne = (int)xRond;
-        m_ligne = (int)yRond;
-    }
-
-    void Coordonnees::arrondir(float ligne, float colonne) { arrondir(colonne, ligne, -colonne - ligne); }
-
     Coordonnees Coordonnees::operator+(const Coordonnees& autre) const
     {
+        // Somme chaque composante.
         Coordonnees somme(m_ligne + autre.m_ligne, m_colonne + autre.m_colonne);
         return somme;
     }
 
     Coordonnees Coordonnees::operator-() const
     {
+        // Inverse chaque composante.
         Coordonnees oppose(-m_ligne, -m_colonne);
         return oppose;
     }
 
     Coordonnees Coordonnees::operator-(const Coordonnees& autre) const
     {
+        // Fait la différence avec chaque composante.
         Coordonnees difference(m_ligne - autre.m_ligne, m_colonne - autre.m_colonne);
         return difference;
     }
 
     Coordonnees Coordonnees::operator*(int scalaire) const
     {
+        // Multiplie les coordonnees par le scalaire.
         Coordonnees produit(scalaire * m_ligne, scalaire * m_colonne);
         return produit;
     }
 
     bool Coordonnees::operator==(const Coordonnees& autre) const
     {
+        // Vérifie l'égalité des 2 composantes.
         return m_ligne == autre.m_ligne && m_colonne == autre.m_colonne;
     }
 
@@ -185,6 +200,7 @@ namespace hex
 
     bool Coordonnees::operator>(const Coordonnees& autre) const
     {
+        // On tri par colonne puis par ligne.
         return (m_colonne == autre.m_colonne) ? (m_ligne > autre.m_ligne) : (m_colonne > autre.m_colonne);
     }
 

@@ -50,14 +50,6 @@ TEST_CASE("Creation, operation et manipulation des coordonnees", "[coordonnees]"
         REQUIRE(c4.getLigne() == c3.getLigne() - 2);
         REQUIRE(c4.getColonne() == c3.getColonne());
     }
-}
-
-TEST_CASE("Egalite et distance des coordonnees", "[coordonnees]")
-{
-
-    Coordonnees c1; // Par defaut
-    Coordonnees c2(1, 2); // Ligne et colonne
-    Coordonnees c3(2, 1, -3); // Coordonnees x, y et z
 
     SECTION("operator==")
     {
@@ -107,10 +99,7 @@ TEST_CASE("Egalite et distance des coordonnees", "[coordonnees]")
         REQUIRE(c2.distance(c3) == 0);
         REQUIRE(c1.distance(c2) == c2.longueur());
     }
-}
 
-TEST_CASE("Rotation et angle entre coordonnees", "[coordonnees]")
-{
     SECTION("Angle et direction")
     {
         Coordonnees c1(1, -3);
@@ -136,5 +125,16 @@ TEST_CASE("Rotation et angle entre coordonnees", "[coordonnees]")
 
         Coordonnees cTV = c.tournerVers(Coordonnees(), Direction::SudOuest, Direction::NordEst);
         REQUIRE(cTV == Coordonnees::direction(Direction::SudOuest));
+    }
+
+    SECTION("Arrondis")
+    {
+        REQUIRE_THROWS(Coordonnees(2.33f, -1.3f, 0.f));
+
+        Coordonnees c1(-1.45f, 0.35f, 1.1f);
+        REQUIRE(c1 == Coordonnees(-1, 0, 1));
+
+        Coordonnees c2(14.7f, 9.2f);
+        REQUIRE(c2 == Coordonnees(15, 9));
     }
 }

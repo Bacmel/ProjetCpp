@@ -15,8 +15,7 @@ namespace utils
     {
         float q = pixel.x / cote * 2. / 3.;
         float r = (sqrtf(3) * pixel.y - pixel.x) / 3. / cote;
-        hex::Coordonnees hex;
-        hex.arrondir(r, q);
+        hex::Coordonnees hex(r, q);
         return hex;
     }
 } // namespace utils

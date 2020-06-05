@@ -2,6 +2,7 @@
 #include "catch.hpp"
 #include "hex/CarteHexagone.hpp"
 #include "hex/Coordonnees.hpp"
+#include <set>
 
 using namespace hex;
 
@@ -14,9 +15,17 @@ TEST_CASE("Creation, operation et manipulation des iterateurCarteHexagone", "[it
 
     SECTION("iterator")
     {
-        for (Coordonnees coordonnees; itr->aSuite(); coordonnees = itr->suite())
+        std::set<Coordonnees> casesVues;
+        size_t nbItr(0);
+        while (itr->aSuite())
         {
+            Coordonnees coordonnees = itr->suite();
+            nbItr++;
+            casesVues.insert(coordonnees);
             REQUIRE(ch1(coordonnees));
         }
+        // S'assure d'être passé sur chaque case 1 seule fois.
+        REQUIRE(casesVues.size() == 331);
+        REQUIRE(nbItr == 331);
     }
 }

@@ -44,7 +44,6 @@ namespace hex
             m_plateau[m_rayon] = new T[diametre]();
         }
 
-        /*====== Constructeurs & opérateurs de copie & destructeur ======*/
         CarteHexagone(const CarteHexagone& autre) : m_rayon(0), m_plateau(nullptr) { *this = autre; }
 
         CarteHexagone(CarteHexagone&& autre) : m_rayon(0), m_plateau(nullptr) { *this = autre; }
@@ -91,8 +90,6 @@ namespace hex
         }
 
         virtual ~CarteHexagone() { deletePlateau(); }
-
-        /*====== Méthodes ======*/
 
         /**
          * @brief Obtient le rayon.

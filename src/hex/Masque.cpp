@@ -17,24 +17,6 @@ namespace hex
 
     Masque::Masque() : std::set<Coordonnees>() {}
 
-    Masque::Masque(const Masque& autre) : std::set<Coordonnees>(autre) {}
-
-    Masque::Masque(Masque&& autre) : std::set<Coordonnees>(autre) {}
-
-    Masque& Masque::operator=(const Masque& autre)
-    {
-        std::set<Coordonnees>::operator=(autre);
-        return *this;
-    }
-
-    Masque& Masque::operator=(Masque&& autre)
-    {
-        std::set<Coordonnees>::operator=(autre);
-        return *this;
-    }
-
-    Masque::~Masque() {}
-
     Masque Masque::operator||(const Masque& autre) const
     {
         Masque ou(autre);

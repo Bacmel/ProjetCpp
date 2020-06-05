@@ -20,6 +20,11 @@ namespace hex
         Coordonnees m_centre;
 
     public:
+        /**
+         * @brief Crée un itérateur pour la carte hexagone donnée.
+         *
+         * @param carte La carte sur laquelle on veut itérer.
+         */
         IterateurCarteHexagone(const CarteHexagone<T>* carte) :
             m_carte(carte),
             m_colonne(0),
@@ -29,29 +34,34 @@ namespace hex
             m_colonneMax = carte->getRayon() * 2;
         }
 
-        bool aSuite() { return m_colonne < m_colonneMax || m_ligne < (int)m_carte->getRayon(); }
+        bool aSuite() override { return m_colonne < m_colonneMax || m_ligne < (int)m_carte->getRayon(); }
 
-        Coordonnees suite()
+        Coordonnees suite() override
         {
             if (m_colonne <= (int)m_carte->getRayon())
             {
+                // La taille des lignes est croissante. (Partie gauche de l'hexagone)
                 if (m_ligne < (int)m_carte->getRayon() + m_colonne) { m_ligne++; }
                 else
                 {
+                    // On a fini la ligne, on démarre la colonne suivante.
                     m_colonne++;
                     m_ligne = 0;
                 }
             }
             else
             {
+                // La taille des lignes est décroissante. (Partie droite de l'hexagone)
                 if (m_ligne < 3 * (int)m_carte->getRayon() - m_colonne) { m_ligne++; }
                 else
                 {
+                    // On a fini la ligne, on démarre la colonne suivante.
                     m_colonne++;
                     m_ligne = 0;
                 }
             }
-            int r = m_ligne - std::min(m_colonne, (int) m_carte->getRayon());
+            // Conversion des coordonnées "mémoire" en axiale.
+            int r = m_ligne - std::min(m_colonne, (int)m_carte->getRayon());
             int q = m_colonne - m_carte->getRayon();
             Coordonnees c(r, q);
             return c;

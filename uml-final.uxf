@@ -37,7 +37,9 @@ _+direction(direction: hex::Direction): hex::Coordonnees_
 
 +Coordonnees()
 +Coordonnees(ligne: int, colonne: int)
++Coordonnees(ligne: float, colonne: float)
 +Coordonnees(x: int, y: int, z: int)
++Coordonnees(x: float, y: float, z: float)
 
 +translate(dir: hex::Direction, distance: int) const: hex::Coordonnees
 
@@ -49,11 +51,8 @@ _+direction(direction: hex::Direction): hex::Coordonnees_
 
 +tournerGauche(centre: const Coordonnees&amp;) const: hex::Coordonnees
 +tournerDroite(centre: const Coordonnees&amp;) const: hex::Coordonnees
-+tournerVers(centre: const hex::Coordonnees&amp;, cible: hex::Direction, 
++tournerVers(centre: const hex::Coordonnees&amp;, cible: hex::Direction,
              initiale: hex::Direction) const: hex::Coordonnees
-
-+arrondir(x: float, y: float, z: float): void
-+arrondir(float ligne, float colonne): void
 
 +operator+(autre: const hex::Coordonnees&amp;) const: hex::Coordonnees
 +operator-() const: hex::Coordonnees
@@ -105,8 +104,8 @@ _+direction(direction: hex::Direction): hex::Coordonnees_
 +CarteHexagone(rayon: size_t)
 +CarteHexagone(autre: const CarteHexagone&amp;)
 +CarteHexagone(autre: CarteHexagone&amp;&amp;)
-+operator=(autre: const CarteHexagone&amp;): CarteHexagone&amp; 
-+operator=(autre: CarteHexagone&amp;&amp;): CarteHexagone&amp; 
++operator=(autre: const CarteHexagone&amp;): CarteHexagone&amp;
++operator=(autre: CarteHexagone&amp;&amp;): CarteHexagone&amp;
 +~CarteHexagone()
 
 
@@ -196,8 +195,8 @@ _+contour(): Masque_
 +Masque(rayon: size_t)
 +Masque(autre: const Masque&amp;)
 +Masque(autre: Masque&amp;&amp;)
-+operator=(autre: const Masque&amp;): Masque&amp; 
-+operator=(autre: Masque&amp;&amp;): Masque&amp; 
++operator=(autre: const Masque&amp;): Masque&amp;
++operator=(autre: Masque&amp;&amp;): Masque&amp;
 +~Masque()
 
 +deplacer(vecteur: const Coordonnees&amp;) const: Masque
@@ -206,7 +205,7 @@ _+contour(): Masque_
 
 +tournerGauche(centre: const Coordonnees&amp;) const: Masque
 +tournerDroite(centre: const Coordonnees&amp;) const: Masque
-+tournerVers(centre: const Coordonnees&amp;, cible: Direction, 
++tournerVers(centre: const Coordonnees&amp;, cible: Direction,
              initiale: Direction) const: Masque
 
 +operator||(autre: const Masque&amp;) const: Masque
