@@ -199,7 +199,7 @@ namespace donjon
         bool estArrete = false;
         for (size_t deplacement = 1; deplacement <= distance && !estArrete; deplacement++)
         {
-            Coordonnees cible = perPos.translate(direction, deplacement);
+            Coordonnees cible = perPos.translater(direction, deplacement);
             ICase_S iCase(nullptr);
             try
             {

@@ -85,23 +85,23 @@ namespace hex
         return false;
     }
 
-    Masque Masque::tournerGauche(const Coordonnees& centre) const
+    Masque Masque::tournerTrigonometrique(const Coordonnees& centre) const
     {
         Masque masqueTournee;
         for (auto itr = begin(); itr != end(); itr++)
         {
-            Coordonnees tournee = (*itr).tournerGauche(centre);
+            Coordonnees tournee = (*itr).tournerTrigonometrique(centre);
             masqueTournee.insert(tournee);
         }
         return masqueTournee;
     }
 
-    Masque Masque::tournerDroite(const Coordonnees& centre) const
+    Masque Masque::tournerHoraire(const Coordonnees& centre) const
     {
         Masque masqueTournee;
         for (auto itr = begin(); itr != end(); itr++)
         {
-            Coordonnees tournee = (*itr).tournerDroite(centre);
+            Coordonnees tournee = (*itr).tournerHoraire(centre);
             masqueTournee.insert(tournee);
         }
         return masqueTournee;

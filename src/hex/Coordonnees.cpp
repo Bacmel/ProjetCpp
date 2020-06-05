@@ -52,7 +52,7 @@ namespace hex
         if (x + y + z != 0) { throw std::invalid_argument("La somme des coordonnees n'est pas nulle."); }
     }
 
-    Coordonnees Coordonnees::translate(Direction dir, int distance) const
+    Coordonnees Coordonnees::translater(Direction dir, int distance) const
     {
         Coordonnees relative = Coordonnees::direction(dir) * distance;
         Coordonnees absolue = *this + relative;
@@ -62,7 +62,7 @@ namespace hex
     int Coordonnees::longueur() const
     {
         float x(getX()), y(getY()), z(getZ());
-        return int((fabsf(x) + fabsf(y) + fabsf(z)) / 2);
+        return int((std::abs(x) + std::abs(y) + std::abs(z)) / 2.0F);
     }
 
     int Coordonnees::distance(const Coordonnees& autre) const
@@ -101,7 +101,7 @@ namespace hex
                                   Direction::SudEst};
         return directions[indiceDirection % 6];
     }
-    Coordonnees Coordonnees::tournerGauche(const Coordonnees& centre) const
+    Coordonnees Coordonnees::tournerTrigonometrique(const Coordonnees& centre) const
     {
         Coordonnees relative = *this - centre;
         Coordonnees relativeTournee(-relative.getZ(), -relative.getX(), -relative.getY());
@@ -109,7 +109,7 @@ namespace hex
         return tournee;
     }
 
-    Coordonnees Coordonnees::tournerDroite(const Coordonnees& centre) const
+    Coordonnees Coordonnees::tournerHoraire(const Coordonnees& centre) const
     {
         Coordonnees relative = *this - centre;
         Coordonnees relativeTournee(-relative.getY(), -relative.getZ(), -relative.getX());
@@ -125,17 +125,17 @@ namespace hex
         for (size_t i = 0; i < 6; i++)
         {
             if (origine.direction(repere) == cible) { break; }
-            tournee = tournee.tournerGauche(centre);
-            repere = repere.tournerGauche(origine);
+            tournee = tournee.tournerTrigonometrique(centre);
+            repere = repere.tournerTrigonometrique(origine);
         }
         return tournee;
     }
 
     void Coordonnees::arrondir(float x, float y, float z)
     {
-        float xRond = std::roundf(x);
-        float yRond = std::roundf(y);
-        float zRond = std::roundf(z);
+        float xRond = std::round(x);
+        float yRond = std::round(y);
+        float zRond = std::round(z);
 
         float xDiff = std::abs(x - xRond);
         float yDiff = std::abs(y - yRond);
@@ -187,9 +187,13 @@ namespace hex
     {
         return (m_colonne == autre.m_colonne) ? (m_ligne > autre.m_ligne) : (m_colonne > autre.m_colonne);
     }
+
     bool Coordonnees::operator>=(const Coordonnees& autre) const { return (*this == autre || *this > autre); }
+
     bool Coordonnees::operator<(const Coordonnees& autre) const { return (autre > *this); }
+
     bool Coordonnees::operator<=(const Coordonnees& autre) const { return (*this == autre || *this < autre); }
+
     std::ostream& operator<<(std::ostream& os, const Coordonnees& c)
     {
         os << "Coordonnees(" << c.getLigne() << ", " << c.getColonne() << ")";

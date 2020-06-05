@@ -82,7 +82,7 @@ TEST_CASE("Gestion de Partie", "[partie]")
     //     REQUIRE_THROWS(partie.deplacerPersonnage(1, h1, Deplacement::Forcer, h1->getPosition()));
 
     //     // Deplacement autorise.
-    //     Coordonnees c = h1->getPosition().translate(Direction::Nord);
+    //     Coordonnees c = h1->getPosition().translater(Direction::Nord);
     //     REQUIRE_THROWS(partie.deplacerPersonnage(0, h1, Deplacement::Marcher, c));
     //     REQUIRE(h1->getPosition()==c);
     // }

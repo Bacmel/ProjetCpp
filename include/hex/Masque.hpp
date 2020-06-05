@@ -81,7 +81,7 @@ namespace hex
          * @param centre Le centre de la rotation.
          * @return Le masque tourné vers la gauche.
          */
-        virtual Masque tournerGauche(const Coordonnees& centre) const;
+        virtual Masque tournerTrigonometrique(const Coordonnees& centre) const;
 
         /**
          * @brief Tourne le masque vers la droite.
@@ -89,7 +89,7 @@ namespace hex
          * @param centre Le centre de la rotation.
          * @return Le masque tourné vers la droite.
          */
-        virtual Masque tournerDroite(const Coordonnees& centre) const;
+        virtual Masque tournerHoraire(const Coordonnees& centre) const;
 
         virtual Masque tournerVers(const Coordonnees& centre, Direction cible, Direction initiale) const;
     };

@@ -21,7 +21,7 @@ TEST_CASE("Creation et manipulation de Donjon", "[Donjon]")
     ICarte_S<ICase_S> carte(new CarteHexagone<ICase_S>(2));
     function<ICase_S()> fournisseurSol = []() { return make_shared<Sol>(); };
     carte->remplir(fournisseurSol);
-    Coordonnees positionTrou = Coordonnees().translate(Direction::Nord);
+    Coordonnees positionTrou = Coordonnees().translater(Direction::Nord);
     (*carte)(positionTrou) = ICase_S(new Trou());
     Donjon donjon(carte);
 
@@ -38,7 +38,7 @@ TEST_CASE("Creation et manipulation de Donjon", "[Donjon]")
         // Invocation sur une case invalide.
         REQUIRE_THROWS(donjon.invoquer(herosBis, positionTrou));
         // Invocation d'un personnage déjà présent.
-        REQUIRE_THROWS(donjon.invoquer(heros, Coordonnees().translate(Direction::Sud)));
+        REQUIRE_THROWS(donjon.invoquer(heros, Coordonnees().translater(Direction::Sud)));
     }
 
     SECTION("Donjon::deplacer")
@@ -48,16 +48,16 @@ TEST_CASE("Creation et manipulation de Donjon", "[Donjon]")
         Coordonnees pos(0, 0);
         donjon.invoquer(heros, pos);
         // Déplacement vers une case interdite.
-        REQUIRE_THROWS(donjon.deplace(*heros, Deplacement::Forcer, pos.translate(Direction::Nord)));
+        REQUIRE_THROWS(donjon.deplace(*heros, Deplacement::Forcer, pos.translater(Direction::Nord)));
         // Déplacement hors carte.
-        REQUIRE_THROWS(donjon.deplace(*heros, Deplacement::Forcer, pos.translate(Direction::NordEst, 4)));
+        REQUIRE_THROWS(donjon.deplace(*heros, Deplacement::Forcer, pos.translater(Direction::NordEst, 4)));
         // Déplacement vers une case occupée.
         APersonnage_S herosBis(new Heros(1));
-        Coordonnees posBis = pos.translate(Direction::Sud);
+        Coordonnees posBis = pos.translater(Direction::Sud);
         donjon.invoquer(herosBis, posBis);
         REQUIRE_THROWS(donjon.deplace(*heros, Deplacement::Forcer, posBis));
         // Déplacement valide
-        Coordonnees destination = pos.translate(Direction::NordEst);
+        Coordonnees destination = pos.translater(Direction::NordEst);
         REQUIRE_NOTHROW(donjon.deplace(*heros, Deplacement::Forcer, destination));
         REQUIRE(heros->getPosition() == destination);
     }
@@ -71,17 +71,17 @@ TEST_CASE("Creation et manipulation de Donjon", "[Donjon]")
         map<Coordonnees, Direction> aoe;
         aoe.insert(pair<Coordonnees, Direction>(pos, Direction::Sud));
         donjon.pousse(aoe, 1);
-        REQUIRE(heros->getPosition() == pos.translate(Direction::Sud));
+        REQUIRE(heros->getPosition() == pos.translater(Direction::Sud));
         // Pousse vers une case interdite.
         aoe = map<Coordonnees, Direction>();
-        aoe.insert(pair<Coordonnees, Direction>(pos.translate(Direction::Sud), Direction::Nord));
+        aoe.insert(pair<Coordonnees, Direction>(pos.translater(Direction::Sud), Direction::Nord));
         donjon.pousse(aoe, 2);
         REQUIRE(heros->getPosition() == positionTrou);
         // Pousse vers une case occupée.
         heros = make_shared<Heros>(3);
         donjon.invoquer(heros, pos);
         APersonnage_S herosBis = make_shared<Heros>(2);
-        donjon.invoquer(herosBis, pos.translate(Direction::NordEst));
+        donjon.invoquer(herosBis, pos.translater(Direction::NordEst));
         aoe = map<Coordonnees, Direction>();
         aoe.insert(pair<Coordonnees, Direction>(pos, Direction::NordEst));
         REQUIRE(heros->getPosition() == pos);
@@ -90,7 +90,7 @@ TEST_CASE("Creation et manipulation de Donjon", "[Donjon]")
         aoe = map<Coordonnees, Direction>();
         aoe.insert(pair<Coordonnees, Direction>(pos, Direction::Sud));
         donjon.pousse(aoe, 15);
-        REQUIRE(heros->getPosition() == pos.translate(Direction::Sud, 2));
+        REQUIRE(heros->getPosition() == pos.translater(Direction::Sud, 2));
         REQUIRE(heros->getSante() == heros->getSanteMax() - 1);
     }
 
@@ -101,7 +101,7 @@ TEST_CASE("Creation et manipulation de Donjon", "[Donjon]")
         donjon.invoquer(heros, pos);
         // Dégat à côté du héros.
         map<Coordonnees, size_t> aoe;
-        aoe.insert(pair<Coordonnees, size_t>(pos.translate(Direction::NordEst), 1));
+        aoe.insert(pair<Coordonnees, size_t>(pos.translater(Direction::NordEst), 1));
         donjon.degat(aoe);
         REQUIRE(heros->getSante() == heros->getSanteMax());
         // Dégat sur le héros.

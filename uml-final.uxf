@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <diagram program="umlet" version="14.3.0">
-  <zoom_level>5</zoom_level>
+  <zoom_level>7</zoom_level>
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>95</x>
-      <y>90</y>
-      <w>65</w>
-      <h>70</h>
+      <x>0</x>
+      <y>28</y>
+      <w>91</w>
+      <h>98</h>
     </coordinates>
     <panel_attributes>&lt;&lt;enum class&gt;&gt;
 hex::Direction
@@ -23,10 +23,10 @@ SudOuest</panel_attributes>
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>745</x>
-      <y>70</y>
-      <w>305</w>
-      <h>300</h>
+      <x>910</x>
+      <y>0</y>
+      <w>427</w>
+      <h>420</h>
     </coordinates>
     <panel_attributes>hex::Coordonnees
 --
@@ -71,10 +71,10 @@ _+direction(direction: hex::Direction): hex::Coordonnees_
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>745</x>
-      <y>390</y>
-      <w>280</w>
-      <h>90</h>
+      <x>910</x>
+      <y>448</y>
+      <w>392</w>
+      <h>126</h>
     </coordinates>
     <panel_attributes>&lt;&lt;Interface&gt;&gt;
 /hex::ICarte&lt;T&gt;/
@@ -92,10 +92,10 @@ _+direction(direction: hex::Direction): hex::Coordonnees_
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>745</x>
-      <y>505</y>
-      <w>280</w>
-      <h>180</h>
+      <x>910</x>
+      <y>609</y>
+      <w>392</w>
+      <h>252</h>
     </coordinates>
     <panel_attributes>hex::CarteHexagone&lt;T&gt;
 --
@@ -125,10 +125,10 @@ _+direction(direction: hex::Direction): hex::Coordonnees_
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>450</x>
-      <y>150</y>
-      <w>240</w>
-      <h>85</h>
+      <x>497</x>
+      <y>112</y>
+      <w>336</w>
+      <h>119</h>
     </coordinates>
     <panel_attributes>hex::IterateurCarteHexagone&lt;T&gt;
 --
@@ -146,10 +146,10 @@ _+direction(direction: hex::Direction): hex::Coordonnees_
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>470</x>
-      <y>80</y>
-      <w>95</w>
-      <h>40</h>
+      <x>525</x>
+      <y>14</y>
+      <w>133</w>
+      <h>56</h>
     </coordinates>
     <panel_attributes>&lt;&lt;Interface&gt;&gt;
 /hex::IIterateur&lt;T&gt;/
@@ -161,10 +161,10 @@ _+direction(direction: hex::Direction): hex::Coordonnees_
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>500</x>
-      <y>115</y>
-      <w>15</w>
-      <h>45</h>
+      <x>567</x>
+      <y>63</y>
+      <w>21</w>
+      <h>63</h>
     </coordinates>
     <panel_attributes>lt=&lt;&lt;.</panel_attributes>
     <additional_attributes>10.0;10.0;10.0;70.0</additional_attributes>
@@ -172,10 +172,10 @@ _+direction(direction: hex::Direction): hex::Coordonnees_
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>880</x>
-      <y>475</y>
-      <w>15</w>
-      <h>40</h>
+      <x>1099</x>
+      <y>567</y>
+      <w>21</w>
+      <h>56</h>
     </coordinates>
     <panel_attributes>lt=&lt;&lt;.</panel_attributes>
     <additional_attributes>10.0;10.0;10.0;60.0</additional_attributes>
@@ -183,10 +183,10 @@ _+direction(direction: hex::Direction): hex::Coordonnees_
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>400</x>
-      <y>305</y>
-      <w>245</w>
-      <h>210</h>
+      <x>427</x>
+      <y>329</y>
+      <w>343</w>
+      <h>294</h>
     </coordinates>
     <panel_attributes>hex::Masque
 --
@@ -219,10 +219,10 @@ _+contour(): Masque_
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>685</x>
-      <y>180</y>
-      <w>70</w>
-      <h>20</h>
+      <x>826</x>
+      <y>154</y>
+      <w>98</w>
+      <h>28</h>
     </coordinates>
     <panel_attributes>lt=&lt;&lt;&lt;&lt;&lt;-
 m1=*
@@ -232,32 +232,33 @@ m2=1</panel_attributes>
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>485</x>
-      <y>250</y>
-      <w>115</w>
-      <h>15</h>
+      <x>546</x>
+      <y>252</y>
+      <w>161</w>
+      <h>21</h>
     </coordinates>
-    <panel_attributes>std::set&lt;hex::Coordonnee&gt;</panel_attributes>
+    <panel_attributes>std::set&lt;T&gt;</panel_attributes>
     <additional_attributes/>
   </element>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>510</x>
-      <y>260</y>
-      <w>15</w>
-      <h>55</h>
+      <x>581</x>
+      <y>266</y>
+      <w>133</w>
+      <h>77</h>
     </coordinates>
-    <panel_attributes>lt=&lt;&lt;-</panel_attributes>
+    <panel_attributes>lt=&lt;&lt;-
+m2=T = hex::Coordonnee</panel_attributes>
     <additional_attributes>10.0;10.0;10.0;90.0</additional_attributes>
   </element>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>640</x>
-      <y>335</y>
-      <w>115</w>
-      <h>20</h>
+      <x>763</x>
+      <y>371</y>
+      <w>161</w>
+      <h>28</h>
     </coordinates>
     <panel_attributes>lt=&lt;&lt;&lt;&lt;&lt;-
 m1=*

@@ -60,7 +60,7 @@ namespace partie
         ICarte_S<ICase_S> carte(new CarteHexagone<ICase_S>(5));
         function<ICase_S()> fournisseurSol = []() { return make_shared<Sol>(); };
         carte->remplir(fournisseurSol);
-        Coordonnees positionTrou = Coordonnees().translate(Direction::Nord);
+        Coordonnees positionTrou = Coordonnees().translater(Direction::Nord);
         (*carte)(positionTrou) = ICase_S(new Trou());
         m_donjon = IDonjon_S(new Donjon(carte));
     }

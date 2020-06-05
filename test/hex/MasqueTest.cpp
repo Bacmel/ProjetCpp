@@ -41,7 +41,7 @@ TEST_CASE("Creation et egalite de masque", "[masque]")
 
     SECTION("deplacer")
     {
-        Masque m3 = m1.deplacer(Coordonnees().translate(Direction::Nord, 2));
+        Masque m3 = m1.deplacer(Coordonnees().translater(Direction::Nord, 2));
         REQUIRE_FALSE(m3(Coordonnees()));
     }
 }
