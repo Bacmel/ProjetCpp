@@ -66,20 +66,37 @@ namespace per
 
     void APersonnage::deplacer(Deplacement deplacement, hex::Coordonnees cible)
     {
+        /* Calcul du masque de dégât. */
         hex::Masque masqueDegat = getZoneDegat(cible - m_position).deplacer(m_position);
         for (auto itr = masqueDegat.begin(); itr != masqueDegat.end(); itr++)
         {
             m_zoneEffet[*itr] += 1;
         }
-        if (deplacement == Deplacement::Forcer) { m_zoneEffet.clear(); }
+        /* Gestion du deplacement .*/
         switch (deplacement)
         {
         case Deplacement::Forcer:
             m_position = cible;
+            m_zoneEffet.clear();
             break;
         case Deplacement::Marcher:
             if (m_position.distance(cible) != 1)
-            { throw err::DeplacementErreur("Fantassin::deplacer : Hors de porter de marche"); }
+            {
+                m_zoneEffet.clear();
+                throw err::DeplacementErreur("APersonnage::deplacer : Hors de porter de marche");
+            }
+            else
+            {
+                m_position = cible;
+                notifier(*this);
+            }
+            break;
+        case Deplacement::Sauter:
+            if (m_position.distance(cible) != 2)
+            {
+                m_zoneEffet.clear();
+                throw err::DeplacementErreur("APersonnage::deplacer : Hors de porter de marche");
+            }
             else
             {
                 m_position = cible;
@@ -87,7 +104,8 @@ namespace per
             }
             break;
         default:
-            throw err::DeplacementErreur("Fantassin::deplacer : Deplacement non precise");
+            m_zoneEffet.clear();
+            throw err::DeplacementErreur("APersonnage::deplacer : Deplacement non precise");
         }
     }
 

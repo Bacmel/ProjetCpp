@@ -2,10 +2,11 @@
 #include <memory>
 #include "catch.hpp"
 #include "hex/Coordonnees.hpp"
+#include "obj/GravityGun.hpp"
 
 using namespace per;
 
-TEST_CASE("Creation et manipulation d'un Heros", "[Heros]")
+TEST_CASE("Creation et manipulation de APersonnage", "[APersonnage]")
 {
     APersonnage_S heros1 = std::make_shared<Heros>(3);
     APersonnage_S heros2 = std::make_shared<Heros>(0);
@@ -70,5 +71,29 @@ TEST_CASE("Creation et manipulation d'un Heros", "[Heros]")
         REQUIRE_NOTHROW(heros1->deplacer(Deplacement::Forcer, marche));
         REQUIRE_NOTHROW(heros1->deplacer(Deplacement::Forcer, saut));
         REQUIRE_NOTHROW(heros1->deplacer(Deplacement::Forcer, force));
+    }
+}
+
+TEST_CASE("Manipulation inventaire du Heros","[Heros]")
+{
+    APersonnage_S heros1 = std::make_shared<Heros>(3);
+    obj::IObjet_S objet1 = std::make_shared<obj::GravityGun>();
+    obj::IObjet_S objet2 = std::make_shared<obj::GravityGun>();
+
+    SECTION("Heros::ajouterObjet")
+    {
+        REQUIRE(heros1->tailleSac()==0);
+        REQUIRE_NOTHROW(heros1->ajouterObjet(objet1));
+        REQUIRE(heros1->tailleSac()==1);
+        REQUIRE(heros1->getObjet(0)==objet1);
+    }
+
+    SECTION("Heros::retirerObjet")
+    {
+        REQUIRE(heros1->tailleSac()==0);
+        REQUIRE_NOTHROW(heros1->ajouterObjet(objet1));
+        REQUIRE(heros1->tailleSac()==1);
+        REQUIRE_NOTHROW(heros1->retirerObjet(objet1));
+        REQUIRE(heros1->tailleSac()==0);
     }
 }
