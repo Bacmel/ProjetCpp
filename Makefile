@@ -1,5 +1,5 @@
 CXX = g++
-CXXFLAGS = -Iinclude -Wall -Wextra -g -O0
+CXXFLAGS = -Iinclude -Wall -Wextra -g -O0 -std=c++17
 
 LDFLAGS = # Paramètres : -L
 LDLIBS = -lsfml-graphics -lsfml-window -lsfml-system
