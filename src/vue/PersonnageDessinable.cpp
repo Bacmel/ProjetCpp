@@ -21,7 +21,7 @@ namespace vue
         m_fantassinTex = gest.obtenir("resources/textures/per/fantassin.png");
     }
 
-    PersonnageDessinable::PersonnageDessinable(float cote, per::APersonnage& aPersonnage) :
+    PersonnageDessinable::PersonnageDessinable(float cote, per::APersonnage_S aPersonnage) :
         ADessinable(cote, aPersonnage),
         m_margin(2),
         m_couleur(255, 255, 255),
@@ -60,7 +60,7 @@ namespace vue
         m_fantassinTex = autre.m_fantassinTex;
         // Se détache du précédent personnage et s'adapte au nouveau.
         if (m_element != nullptr) { m_element->detacher(this); }
-        if (autre.m_element != nullptr) { setElement(*(autre.m_element)); }
+        if (autre.m_element != nullptr) { setElement(autre.m_element); }
         return *this;
     }
 
@@ -76,13 +76,14 @@ namespace vue
         if (m_element != nullptr) { actualiser(*m_element); }
     }
 
-    void PersonnageDessinable::setElement(APersonnage& personnage)
+    void PersonnageDessinable::setElement(APersonnage_S personnage)
     {
+        if (personnage == nullptr)
+        { throw std::invalid_argument("PersonnageDessinable::setElement : personnage est null!"); }
         if (m_element != nullptr) { m_element->detacher(this); }
-        m_element = &personnage;
+        m_element = personnage;
         m_element->attacher(this);
-        m_element = &personnage;
-        actualiser(personnage);
+        actualiser(*personnage);
     }
 
     void PersonnageDessinable::draw(sf::RenderTarget& target, sf::RenderStates states) const

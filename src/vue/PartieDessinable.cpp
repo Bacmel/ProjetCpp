@@ -28,19 +28,24 @@ namespace vue
         m_equipeIndicateur.setPosition(bordures.left + bordures.width + 5, bordures.top);
     }
 
-    PartieDessinable::PartieDessinable(float cote, partie::Partie& partie) : PartieDessinable(cote)
+    PartieDessinable::PartieDessinable(float cote, std::shared_ptr<partie::Partie> partie) : PartieDessinable(cote)
     {
         setElement(partie);
     }
 
-    void PartieDessinable::setElement(partie::Partie& element) { m_element = &element; }
+    void PartieDessinable::setElement(std::shared_ptr<partie::Partie> element)
+    {
+        if (element == nullptr) { throw std::invalid_argument("PartieDessinable::setElement : element est null!"); }
+        m_element = element;
+    }
 
     void PartieDessinable::draw(sf::RenderTarget& target, sf::RenderStates states) const
     {
+        // Applique la transformation.
         states.transform *= getTransform();
-        if (m_element == nullptr) { return; }
+        // Dessine tous les éléments de la partie.
         IDonjon_S donjon = m_element->getDonjon();
-        drawCarte(target, states, *donjon);
+        drawDonjon(target, states, *donjon);
         drawPersonnages(target, states, *donjon);
         drawEquipe(target, states);
         drawInventaire(target, states);
@@ -54,12 +59,13 @@ namespace vue
         return contours;
     }
 
-    void PartieDessinable::drawCarte(sf::RenderTarget& target, sf::RenderStates& states, donjon::IDonjon& donjon) const
+    void PartieDessinable::drawDonjon(sf::RenderTarget& target, sf::RenderStates& states, donjon::IDonjon& donjon) const
     {
         Vector2u dim = target.getSize();
         CaseDessinable caseDessinable(m_cote);
         ICarte_S<ACase_S> carte = donjon.getCarte();
         auto itr = carte->iterateur();
+        // Récupère les coordonnées du personnage sélectionné (s'il existe).
         bool surligne(false);
         Coordonnees posPerso;
         try
@@ -71,11 +77,12 @@ namespace vue
         catch (const std::logic_error&)
         {
         }
+        // Dessine chaque case.
         while (itr->aSuite())
         {
             Coordonnees pos = itr->suite();
-            ACase_S iCase = (*carte)(pos);
-            caseDessinable.setElement(*iCase);
+            ACase_S aCase = (*carte)(pos);
+            caseDessinable.setElement(aCase);
             // Place la case dans le monde.
             Vector2f pixel = m_convertisseur(m_cote, pos);
             caseDessinable.setPosition(pixel.x + dim.x / 2., pixel.y + dim.y / 2.);
@@ -96,7 +103,7 @@ namespace vue
         {
             APersonnage_S perso = donjon.getPersonnage(idcPerso);
             Vector2f pixel = m_convertisseur(m_cote, perso->getPosition());
-            personnageDessinable.setElement(*perso);
+            personnageDessinable.setElement(perso);
             personnageDessinable.setPosition(pixel.x + dim.x / 2., pixel.y + dim.y / 2.);
             personnageDessinable.setCouleur(couleurEquipe(m_element->indiceEquipe(perso)));
             target.draw(personnageDessinable, states);
@@ -123,7 +130,7 @@ namespace vue
             return;
         }
         size_t nbObjet = personnage->tailleSac();
-        ObjetDessinable objDessinable;
+        ObjetDessinable objDessinable(m_cote);
         obj::IObjet_SC objSel;
         try
         {
@@ -138,7 +145,7 @@ namespace vue
             FloatRect contours = getCaseInventaire(indiceObjet);
             objDessinable.setCote(contours.width);
             objDessinable.setPosition(contours.left + contours.width / 2, contours.top + contours.height / 2);
-            objDessinable.setObjet(*objet);
+            objDessinable.setElement(objet);
             if (objSel == objet) { objDessinable.surligner(); }
             target.draw(objDessinable, states);
         }

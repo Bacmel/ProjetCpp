@@ -1,18 +1,18 @@
 #include "vue/CaseDessinable.hpp"
 #include <SFML/Graphics.hpp>
+#include <stdexcept>
 #include "err/SansObjetErreur.hpp"
 #include "utils/HexPixelConvertisseur.hpp"
 #include "vue/TextureGest.hpp"
 
-using namespace sf;
 using namespace donjon::cases;
 using namespace obj;
+using namespace sf;
 
 namespace vue
 {
     CaseDessinable::CaseDessinable(float cote) :
         ADessinable(cote),
-        m_case(nullptr),
         m_hexagone(cote, 6),
         m_textureSol(),
         m_textureTrou(),
@@ -29,17 +29,22 @@ namespace vue
         m_hexagone.setOutlineColor(Color::Black);
     }
 
-    CaseDessinable::CaseDessinable(float cote, ACase& iCase) : CaseDessinable(cote) { setElement(iCase); }
-
-    void CaseDessinable::setElement(ACase& iCase)
+    CaseDessinable::CaseDessinable(float cote, ACase_S aCase) : CaseDessinable(cote)
     {
+        if (aCase == nullptr) { throw std::invalid_argument("CaseDessinable::CaseDessinable : La case est nulle!"); }
+        setElement(aCase);
+    }
+
+    void CaseDessinable::setElement(ACase_S aCase)
+    {
+        if (aCase == nullptr) { throw std::invalid_argument("CaseDessinable::setElement : La case est nulle!"); }
         // On se détache de la précédente case et on s'attache à la nouvelle.
-        if (m_case != nullptr) { m_case->detacher(this); }
-        m_hexagone.setFillColor(Color::White);
-        iCase.attacher(this);
+        if (m_element != nullptr) { m_element->detacher(this); }
+        aCase->attacher(this);
         // On met à jour les champs.
-        actualiser(iCase);
-        m_case = &iCase;
+        m_hexagone.setFillColor(Color::White);
+        actualiser(*aCase);
+        m_element = aCase;
     }
 
     void CaseDessinable::surligner()
@@ -71,17 +76,21 @@ namespace vue
 
     void CaseDessinable::draw(RenderTarget& target, RenderStates states) const
     {
+        // Applique la transformation.
         states.transform *= getTransform();
+        // Dessine la case puis son objet.
         target.draw(m_hexagone, states);
-        if (m_case->aObjet()) { target.draw(m_objDessinable, states); }
+        if (m_element->aObjet()) { target.draw(m_objDessinable, states); }
     }
 
-    void CaseDessinable::actualiser(const donjon::cases::ACase& iCase)
+    void CaseDessinable::actualiser(const donjon::cases::ACase& aCase)
     {
-        iCase.accepter(*this);
-        if (iCase.aObjet())
+        // S'adapte au type exacte.
+        aCase.accepter(*this);
+        if (aCase.aObjet())
         {
-            const IObjet& iObjet = iCase.getObjet();
+            // Adapte l'objet dessinable.
+            const IObjet& iObjet = aCase.getObjet();
             m_objDessinable.setObjet(iObjet);
         }
     }

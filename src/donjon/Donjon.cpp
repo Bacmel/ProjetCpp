@@ -30,24 +30,24 @@ namespace donjon
     void Donjon::deplacer(per::APersonnage& personnage, per::Deplacement type, const hex::Coordonnees& position)
     {
         // Vérifie qu'une case existe à ces coordonnées.
-        ACase_S iCase(nullptr);
+        ACase_S aCase(nullptr);
         try
         {
-            iCase = (*m_carte)(position);
+            aCase = (*m_carte)(position);
         }
         catch (const std::out_of_range& ex)
         {
             throw std::invalid_argument("Donjon::deplace : Coordonnées invalides (pas de case)");
         }
         // Vérifie que la case est praticable.
-        if (iCase == nullptr) { throw std::invalid_argument("Donjon::deplace : Case nulle"); }
-        if (!iCase->estPraticable()) { throw std::invalid_argument("Donjon::deplace : Case non praticable"); }
+        if (aCase == nullptr) { throw std::invalid_argument("Donjon::deplace : Case nulle"); }
+        if (!aCase->estPraticable()) { throw std::invalid_argument("Donjon::deplace : Case non praticable"); }
         // Vérifie qu'aucun joueur ne soit à ces coordonnées.
         if (estOccupee(position))
         { throw std::invalid_argument("Donjon::deplace : Coordonnées invalides (déjà occupées)"); }
         // Met à jour la position du joueur et notifie la case.
         personnage.deplacer(type, position);
-        iCase->enEntree(personnage);
+        aCase->enEntree(personnage);
     }
 
     void Donjon::pousser(const std::map<hex::Coordonnees, hex::Direction>& aoe, size_t distance)
@@ -91,33 +91,33 @@ namespace donjon
         // Obtient la case (en s'assurant qu'elle existe) et y met l'objet (s'il
         // n'est pas null).
         if (objet == nullptr) { return; }
-        ACase_S iCase(nullptr);
+        ACase_S aCase(nullptr);
         try
         {
-            iCase = (*m_carte)(position);
+            aCase = (*m_carte)(position);
         }
         catch (const std::out_of_range& exception)
         {
             throw std::invalid_argument("Donjon::deposer : Case inaccessible");
         }
-        if (iCase != nullptr) { iCase->deposer(objet); }
+        if (aCase != nullptr) { aCase->deposer(objet); }
     }
 
     obj::IObjet_S Donjon::ramasser(const hex::Coordonnees& position)
     {
         // Obtient la case en s'assurant qu'elle existe.
-        ACase_S iCase(nullptr);
+        ACase_S aCase(nullptr);
         try
         {
-            iCase = (*m_carte)(position);
+            aCase = (*m_carte)(position);
         }
         catch (const std::out_of_range& exception)
         {
             throw std::invalid_argument("Donjon::ramasser : Case inaccessible");
         }
-        if (iCase == nullptr) { throw std::runtime_error("Donjon::ramasser : Pointeur null pour la case"); }
+        if (aCase == nullptr) { throw std::runtime_error("Donjon::ramasser : Pointeur null pour la case"); }
         // Récupère l'objet et le renvoie.
-        IObjet_S objet = iCase->ramasser();
+        IObjet_S objet = aCase->ramasser();
         return objet;
     }
 
@@ -129,10 +129,10 @@ namespace donjon
         while (itr->aSuite())
         {
             c = itr->suite();
-            ACase_S iCase(nullptr);
-            iCase = (*m_carte)(c);
+            ACase_S aCase(nullptr);
+            aCase = (*m_carte)(c);
             // Vérifie si la case est praticable et vide d'objet et de personnage.
-            if (iCase->estPraticable() && !iCase->aObjet() && !estOccupee(c)) { casesVide.push_back(c); }
+            if (aCase->estPraticable() && !aCase->aObjet() && !estOccupee(c)) { casesVide.push_back(c); }
         }
         return casesVide;
     }
@@ -217,10 +217,10 @@ namespace donjon
         for (size_t deplacement = 1; deplacement <= distance && !estArrete; deplacement++)
         {
             Coordonnees cible = perPos.translater(direction, deplacement);
-            ACase_S iCase(nullptr);
+            ACase_S aCase(nullptr);
             try
             {
-                iCase = (*m_carte)(cible);
+                aCase = (*m_carte)(cible);
             }
             catch (const out_of_range&)
             {
@@ -229,14 +229,14 @@ namespace donjon
                 personnage->subirAttaque(1);
                 break;
             }
-            if (!iCase->estTransparent())
+            if (!aCase->estTransparent())
             {
                 // Le personnage se heurte à un obstacle. On ne quitte pas
                 // la case précédante.
                 personnage->subirAttaque(1);
                 break;
             }
-            else if (!iCase->estPraticable())
+            else if (!aCase->estPraticable())
             {
                 // Le personnage "tombe" sur cette case.
                 estArrete = true;
@@ -249,7 +249,7 @@ namespace donjon
             }
             // On déplace le personnage vers la nouvelle case.
             personnage->deplacer(Deplacement::Forcer, cible);
-            iCase->enEntree(*personnage);
+            aCase->enEntree(*personnage);
         }
     }
 

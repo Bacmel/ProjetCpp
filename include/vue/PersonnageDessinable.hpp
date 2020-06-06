@@ -27,14 +27,18 @@ namespace vue
          * @brief Crée un dessinateur de Personnage.
          *
          * @param cote La longueur du côté des hexagones.
-         * @param aPersonnage Un personnage à dessiner.
          */
         PersonnageDessinable(float cote = 50);
-        PersonnageDessinable(float cote, per::APersonnage& aPersonnage);
+        /**
+         * @brief Crée un dessinateur de Personnage.
+         *
+         * @param cote La longueur du côté des hexagones.
+         * @param aPersonnage Un personnage à dessiner.
+         */
+        PersonnageDessinable(float cote, per::APersonnage_S aPersonnage);
         PersonnageDessinable(const PersonnageDessinable& autre);
         PersonnageDessinable& operator=(const PersonnageDessinable& autre);
         ~PersonnageDessinable();
-
 
         /**
          * @brief Obtient la couleur du personnage.
@@ -57,15 +61,15 @@ namespace vue
          */
         void setCouleur(const sf::Color& couleur);
 
-        void setElement(per::APersonnage& aPersonnage) override;
-
+        /* Implémentation de ADessinable */
+        void setElement(per::APersonnage_S aPersonnage) override;
+        /* Implémentation de Drawable */
         virtual void draw(sf::RenderTarget& target, sf::RenderStates states) const override;
-
-        virtual void visiter(const per::Heros& heros) override;
-
-        virtual void visiter(const per::Fantassin& fantassin) override;
-
+        /* Implémentation de IActualisable */
         virtual void actualiser(const per::APersonnage& info) override;
+        /* Implémentation de IPersonnageVisiteur */
+        virtual void visiter(const per::Heros& heros) override;
+        virtual void visiter(const per::Fantassin& fantassin) override;
 
     private:
         /**
