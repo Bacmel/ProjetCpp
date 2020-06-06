@@ -15,8 +15,6 @@ namespace err
          * @param message Le descriptif de l'erreur.
          */
         DeplacementErreur(const std::string& message);
-
-        virtual ~DeplacementErreur();
     };
 } // namespace err
 

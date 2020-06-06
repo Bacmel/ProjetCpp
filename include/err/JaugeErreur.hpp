@@ -15,8 +15,6 @@ namespace err
          * @param message Le descriptif de l'erreur.
          */
         JaugeErreur(const std::string& message);
-
-        virtual ~JaugeErreur();
     };
 } // namespace err
 

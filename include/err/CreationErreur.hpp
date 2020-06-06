@@ -15,8 +15,6 @@ namespace err
          * @param message Le descriptif de l'erreur.
          */
         CreationErreur(const std::string& message);
-
-        virtual ~CreationErreur();
     };
 } // namespace err
 

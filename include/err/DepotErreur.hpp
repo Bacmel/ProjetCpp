@@ -15,8 +15,6 @@ namespace err
          * @param message Le descriptif de l'erreur.
          */
         DepotErreur(const std::string& message);
-
-        virtual ~DepotErreur();
     };
 } // namespace err
 
