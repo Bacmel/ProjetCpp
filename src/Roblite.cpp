@@ -15,7 +15,7 @@ Roblite::Roblite() : m_partie(), m_fenetre(), m_partieDessinable(), m_controlleu
     sf::RenderWindow& window = m_fenetre->getRenderWindow();
     window.setFramerateLimit(60);
     m_partieDessinable = std::make_shared<vue::PartieDessinable>(25);
-    m_partieDessinable->setElement(*m_partie);
+    m_partieDessinable->setElement(m_partie);
     m_fenetre->setDessinable(m_partieDessinable);
     // Prépare le controlleur.
     m_controlleur = std::make_shared<controlleur::PartieCont>(*m_partieDessinable, *m_partie);

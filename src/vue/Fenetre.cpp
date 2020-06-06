@@ -14,6 +14,7 @@ namespace vue
 
     void Fenetre::actualiser()
     {
+        // Actualise en "permanence" la fenêtre.
         while (m_fenetre.isOpen())
         {
             actualiserUneFois();

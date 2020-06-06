@@ -33,13 +33,23 @@ namespace donjon::cases
 
     bool Sol::aObjet() const { return m_objet != nullptr; }
 
-    const obj::IObjet& Sol::getObjet() const
+    const obj::IObjet_SC Sol::getObjet() const
     {
         // On s'assure qu'il y ait un objet à récupérer.
         if (m_objet == nullptr) { throw err::SansObjetErreur("Il n'y a rien à ramasser"); }
         else
         {
-            return *m_objet;
+            return m_objet;
+        }
+    }
+
+    const obj::IObjet_S Sol::getObjet()
+    {
+        // On s'assure qu'il y ait un objet à récupérer.
+        if (m_objet == nullptr) { throw err::SansObjetErreur("Il n'y a rien à ramasser"); }
+        else
+        {
+            return m_objet;
         }
     }
 
@@ -73,5 +83,8 @@ namespace donjon::cases
 
     void Sol::accepter(ICaseVisiteur& visiteur) const { visiteur.visite(*this); }
 
-    void Sol::actualiser() {if(aObjet()) m_objet->actualiser();}
+    void Sol::actualiser()
+    {
+        if (aObjet()) m_objet->actualiser();
+    }
 } // namespace donjon::cases

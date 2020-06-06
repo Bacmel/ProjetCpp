@@ -29,6 +29,32 @@ namespace vue
         m_hexagone.setOutlineColor(Color::Black);
     }
 
+    CaseDessinable::CaseDessinable(const CaseDessinable& autre) :
+        ADessinable(autre.m_cote),
+        m_objDessinable(autre.m_cote)
+    {
+        *this = autre;
+    }
+
+    CaseDessinable& CaseDessinable::operator=(const CaseDessinable& autre)
+    {
+        // Copie les valeurs
+        m_hexagone = autre.m_hexagone;
+        m_textureSol = autre.m_textureSol;
+        m_textureTrou = autre.m_textureTrou;
+        m_objDessinable = autre.m_objDessinable;
+        // Se détache du précédent personnage et s'adapte au nouveau.
+        if (m_element != nullptr) { m_element->detacher(this); }
+        if (autre.m_element != nullptr) { setElement(autre.m_element); }
+        return *this;
+    }
+
+    CaseDessinable::~CaseDessinable()
+    {
+        // Se détache du personnage observé.
+        if (m_element != nullptr) { m_element->detacher(this); }
+    }
+
     CaseDessinable::CaseDessinable(float cote, ACase_S aCase) : CaseDessinable(cote)
     {
         if (aCase == nullptr) { throw std::invalid_argument("CaseDessinable::CaseDessinable : La case est nulle!"); }
@@ -43,8 +69,8 @@ namespace vue
         aCase->attacher(this);
         // On met à jour les champs.
         m_hexagone.setFillColor(Color::White);
-        actualiser(*aCase);
         m_element = aCase;
+        actualiser(*aCase);
     }
 
     void CaseDessinable::surligner()
@@ -83,15 +109,15 @@ namespace vue
         if (m_element->aObjet()) { target.draw(m_objDessinable, states); }
     }
 
-    void CaseDessinable::actualiser(const donjon::cases::ACase& aCase)
+    void CaseDessinable::actualiser(const donjon::cases::ACase&)
     {
         // S'adapte au type exacte.
-        aCase.accepter(*this);
-        if (aCase.aObjet())
+        m_element->accepter(*this);
+        if (m_element->aObjet())
         {
             // Adapte l'objet dessinable.
-            const IObjet& iObjet = aCase.getObjet();
-            m_objDessinable.setObjet(iObjet);
+            IObjet_S iObjet = m_element->getObjet();
+            m_objDessinable.setElement(iObjet);
         }
     }
 } // namespace vue

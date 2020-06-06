@@ -13,7 +13,9 @@ namespace donjon::cases
 
     bool Trou::aObjet() const { return false; }
 
-    const obj::IObjet& Trou::getObjet() const { throw err::SansObjetErreur("Trou::getObjet : Il n'y a pas d'objet"); }
+    const obj::IObjet_SC Trou::getObjet() const { throw err::SansObjetErreur("Trou::getObjet : Il n'y a pas d'objet"); }
+
+    const obj::IObjet_S Trou::getObjet() { throw err::SansObjetErreur("Trou::getObjet : Il n'y a pas d'objet"); }
 
     void Trou::enEntree(per::APersonnage& personnage)
     {

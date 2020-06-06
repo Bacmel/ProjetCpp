@@ -36,6 +36,10 @@ namespace vue
          */
         CaseDessinable(float cote, donjon::cases::ACase_S aCase);
 
+        CaseDessinable(const CaseDessinable& autre);
+        CaseDessinable& operator=(const CaseDessinable& autre);
+        ~CaseDessinable();
+
         /**
          * @brief Surligne la case.
          *

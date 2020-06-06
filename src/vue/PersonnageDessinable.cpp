@@ -80,7 +80,9 @@ namespace vue
     {
         if (personnage == nullptr)
         { throw std::invalid_argument("PersonnageDessinable::setElement : personnage est null!"); }
+        // Se détache de l'objet précédent.
         if (m_element != nullptr) { m_element->detacher(this); }
+        // S'attache au nouvel objet et s'y adapte.
         m_element = personnage;
         m_element->attacher(this);
         actualiser(*personnage);
@@ -107,10 +109,12 @@ namespace vue
 
     void PersonnageDessinable::actualiser(const per::APersonnage& personnage)
     {
+        // Adapte la barre de vie, la couleur du sprite la texture, etc.
         preparerBarreSante(personnage);
         m_sprite.setColor(m_couleur);
         personnage.accepter(*this);
     }
+
     void PersonnageDessinable::visiter(const per::Fantassin&)
     {
         m_sprite.setTexture(*m_fantassinTex);

@@ -101,6 +101,7 @@ namespace vue
         size_t nbPerso = donjon.getNbPersonnages();
         for (size_t idcPerso = 0; idcPerso < nbPerso; idcPerso++)
         {
+            // Récupère un personnage, prépare le dessinable et dessine le personnage.
             APersonnage_S perso = donjon.getPersonnage(idcPerso);
             Vector2f pixel = m_convertisseur(m_cote, perso->getPosition());
             personnageDessinable.setElement(perso);
@@ -112,6 +113,7 @@ namespace vue
 
     void PartieDessinable::drawEquipe(sf::RenderTarget& target, sf::RenderStates& states) const
     {
+        // Place un rectangle colorée à côté du texte et le dessine.
         RectangleShape indicateur(m_equipeIndicateur);
         indicateur.setFillColor(couleurEquipe(m_element->getEquipeCourante()));
         target.draw(m_equipeText, states);
@@ -120,7 +122,8 @@ namespace vue
 
     void PartieDessinable::drawInventaire(sf::RenderTarget& target, sf::RenderStates& states) const
     {
-        per::APersonnage_SC personnage;
+        // Récupère le personnage sélectionné.
+        per::APersonnage_S personnage;
         try
         {
             personnage = m_element->getPersoSelect();
@@ -131,6 +134,7 @@ namespace vue
         }
         size_t nbObjet = personnage->tailleSac();
         ObjetDessinable objDessinable(m_cote);
+        // Récupère l'objet sélectionné.
         obj::IObjet_SC objSel;
         try
         {
@@ -139,9 +143,10 @@ namespace vue
         catch (const std::logic_error&)
         {
         }
+        // Dessine chaque objet de l'inventaire.
         for (size_t indiceObjet = 0; indiceObjet < nbObjet; indiceObjet++)
         {
-            obj::IObjet_SC objet = personnage->getObjet(indiceObjet);
+            obj::IObjet_S objet = personnage->getObjet(indiceObjet);
             FloatRect contours = getCaseInventaire(indiceObjet);
             objDessinable.setCote(contours.width);
             objDessinable.setPosition(contours.left + contours.width / 2, contours.top + contours.height / 2);

@@ -32,7 +32,8 @@ namespace donjon::cases
         virtual void deposer(obj::IObjet_S objet) override;
         virtual obj::IObjet_S ramasser() override;
         virtual bool aObjet() const override;
-        virtual const obj::IObjet& getObjet() const override;
+        virtual const obj::IObjet_SC getObjet() const override;
+        virtual const obj::IObjet_S getObjet() override;
         virtual void enEntree(per::APersonnage& personnage) override;
         virtual bool estPraticable() const override;
         virtual void enActivation(per::APersonnage& personnage) override;
