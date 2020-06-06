@@ -9,12 +9,12 @@
 
 namespace vue
 {
-    class CaseDessinable : public vue::ADessinable<donjon::cases::ICase>,
+    class CaseDessinable : public vue::ADessinable<donjon::cases::ACase>,
                            public donjon::cases::ICaseVisiteur,
-                           public utils::IObservateur<donjon::cases::ICase>
+                           public utils::IObservateur<donjon::cases::ACase>
     {
     private:
-        donjon::cases::ICase* m_case;
+        donjon::cases::ACase* m_case;
         sf::CircleShape m_hexagone;
         Texture_S m_textureSol;
         Texture_S m_textureTrou;
@@ -22,12 +22,12 @@ namespace vue
 
     public:
         CaseDessinable(float cote);
-        CaseDessinable(float cote, donjon::cases::ICase& iCase);
+        CaseDessinable(float cote, donjon::cases::ACase& iCase);
         virtual ~CaseDessinable() {}
 
         void setCote(float cote) override;
 
-        void setElement(donjon::cases::ICase& iCase) override;
+        void setElement(donjon::cases::ACase& iCase) override;
 
         void surligner();
 
@@ -37,7 +37,7 @@ namespace vue
 
         virtual void draw(sf::RenderTarget& target, sf::RenderStates states) const override;
 
-        virtual void actualiser(const donjon::cases::ICase& iCase) override;
+        virtual void actualiser(const donjon::cases::ACase& iCase) override;
     };
 } // namespace vue
 #endif // __CASEDESSINABLE_H__

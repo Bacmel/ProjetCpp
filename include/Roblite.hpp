@@ -18,7 +18,6 @@ private:
 
 public:
     Roblite();
-    ~Roblite() = default;
 
     void jouer();
 

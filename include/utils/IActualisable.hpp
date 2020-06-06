@@ -6,7 +6,8 @@ namespace utils
     class IActualisable
     {
     public:
-        virtual ~IActualisable() {}
+        virtual ~IActualisable() = default;
+
         /**
          * @brief Effectue la mise a jour de l'element.
          */

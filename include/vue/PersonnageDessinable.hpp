@@ -32,9 +32,9 @@ namespace vue
         PersonnageDessinable(float cote = 50);
         PersonnageDessinable(float cote, per::APersonnage& aPersonnage);
         PersonnageDessinable(const PersonnageDessinable& autre);
+        PersonnageDessinable& operator=(const PersonnageDessinable& autre);
         ~PersonnageDessinable();
 
-        PersonnageDessinable& operator=(const PersonnageDessinable& autre);
 
         /**
          * @brief Obtient la couleur du personnage.
@@ -43,6 +43,11 @@ namespace vue
          */
         sf::Color getCouleur() const { return m_couleur; }
 
+        /**
+         * @brief Définie la longueur du côté des hexagones.
+         *
+         * @param cote La longueur du côté des hexagones.
+         */
         void setCote(float cote) override;
 
         /**

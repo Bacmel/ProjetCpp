@@ -11,12 +11,18 @@ namespace partie::etat
     class PersoActif : public IEtat
     {
     protected:
-        /* indice de l'equipe en jeu. */
+        /** @brief Indice de l'equipe en jeu. */
         size_t m_indiceEquipe;
-        /* personnage actif. */
+        /** @brief Personnage actif. */
         per::APersonnage_S m_personnage;
 
     public:
+        /**
+         * @brief Construit un état PersoActif.
+         *
+         * @param indice L'indice de l'équipe active.
+         * @param personnage Le personnage actif.
+         */
         PersoActif(size_t indice, per::APersonnage_S personnage);
 
         void afficher() const override;
@@ -32,7 +38,6 @@ namespace partie::etat
         void operation(Partie& partie, size_t indiceObjet) override;
 
         void operation(Partie& partie) override;
-
     };
 } // namespace partie::etat
 

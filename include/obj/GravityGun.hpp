@@ -9,10 +9,10 @@ namespace obj
 {
     class GravityGun : public IObjet
     {
-    protected:
-        /* Distance de projection du gravity gun en case*/
+    private:
+        /** @brief Distance de projection du gravity gun en case*/
         size_t m_distance;
-        /* Aire d'effet du gravity gun */
+        /** @brief Aire d'effet du gravity gun */
         hex::Masque m_aire;
         /** @brief La charge de l'objet. */
         utils::Jauge m_charge;

@@ -9,7 +9,7 @@ namespace per
 {
     class Fantassin : public APersonnage
     {
-    protected:
+    private:
         /** Arme du Fantassin : arme de CàC. */
         obj::IObjet_S m_arme;
 

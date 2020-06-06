@@ -1,5 +1,5 @@
-#ifndef __IETAT_H__
-#define __IETAT_H__
+#ifndef __IETAT_HPP__
+#define __IETAT_HPP__
 
 #include <memory>
 #include "hex/Coordonnees.hpp"
@@ -9,12 +9,13 @@
 namespace partie
 {
     class Partie;
+
     namespace etat
     {
         class IEtat
         {
         public:
-            virtual ~IEtat() {}
+            virtual ~IEtat() = default;
 
             /**
              * @brief Obtient l'equipe courante.
@@ -26,7 +27,7 @@ namespace partie
             /**
              * @brief Obtient le personnage selectionne.
              *
-             * @throw std::invalide_argument ne possede pas d'information.
+             * @throw std::logic_error ne possede pas d'information.
              * @return per::APersonnage_SC le personnage selestionne.
              */
             virtual per::APersonnage_SC getPersoSelect() const = 0;
@@ -34,7 +35,7 @@ namespace partie
             /**
              * @brief Obtient l'objet selectionne.
 
-            * @throw std::invalide_argument ne possede pas d'information.
+            * @throw std::logic_error ne possede pas d'information.
             * @return obj::IObjet_SC l'objet selectionne.
             */
             virtual obj::IObjet_SC getObjetSelect() const = 0;
@@ -48,7 +49,7 @@ namespace partie
              * @brief Operation de l'état courant sur la partie.
              *
              * Permet de communiquer la case selectionne a l'etat.
-             * 
+             *
              * @param partie La partie.
              * @param coordonnees Les coordonnees selectionnees.
              */
@@ -58,7 +59,7 @@ namespace partie
              * @brief Operation de l'état courant sur la partie.
              *
              * Permet de communiquer l'objet selectionne a l'etat.
-             * 
+             *
              * @param partie La partie.
              * @param indiceObjet L'indice de l'objet selectionné.
              */
@@ -68,7 +69,7 @@ namespace partie
              * @brief Operation de l'état courant sur la partie.
              *
              * Lance l'etat seul.
-             * 
+             *
              * @param partie La partie.
              * @param indiceObjet L'indice de l'objet selectionné.
              */
@@ -80,4 +81,4 @@ namespace partie
     } // namespace etat
 } // namespace partie
 
-#endif //__IETAT_H__
+#endif //__IETAT_HPP__

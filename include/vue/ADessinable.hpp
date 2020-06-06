@@ -2,8 +2,8 @@
 #define __ADESSINATEUR_H__
 
 #include <SFML/Graphics.hpp>
-#include "hex/Coordonnees.hpp"
 #include <memory>
+#include "hex/Coordonnees.hpp"
 
 namespace vue
 {
@@ -22,7 +22,7 @@ namespace vue
          */
         ADessinable(float cote) : m_cote(cote), m_element(nullptr) {}
         ADessinable(float cote, T& element) : m_cote(cote), m_element(&element) {}
-        virtual ~ADessinable(){};
+        virtual ~ADessinable() = default;
 
         /**
          * @brief Obtient le côté des hexagones de la carte.

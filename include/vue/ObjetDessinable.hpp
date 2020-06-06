@@ -23,8 +23,10 @@ namespace vue
          * @param cote La longueur du coté de l'hexagone.
          */
         ObjetDessinable(float cote = 50, const obj::IObjet* iObjet = nullptr);
-        virtual ~ObjetDessinable() {}
 
+        /**
+         * @brief Mets en surbriance l'objet dessiné.
+         */
         void surligner();
 
         /**

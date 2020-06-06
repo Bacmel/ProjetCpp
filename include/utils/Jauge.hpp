@@ -7,9 +7,10 @@ namespace utils
 {
     class Jauge
     {
-    protected:
-        /** Valeur maximal et valeur actuelle de la jauge. */
+    private:
+        /** @brief Valeur maximale de la jauge. */
         size_t m_valMax;
+        /** @brief Valeur actuelle de la jauge. */
         size_t m_val;
 
     public:

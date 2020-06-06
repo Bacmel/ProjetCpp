@@ -15,8 +15,14 @@ namespace partie::etat
         obj::IObjet_S m_objet;
 
     public:
+        /**
+         * @brief Construit un état ObjetActif.
+         *
+         * @param equipe L'indice de l'équipe active.
+         * @param personnage Le personnage actif.
+         * @param objet L'objet sélectionné.
+         */
         ObjetActif(size_t equipe, per::APersonnage_S personnage, obj::IObjet_S objet);
-        ~ObjetActif();
 
         void afficher() const override;
 
@@ -31,7 +37,6 @@ namespace partie::etat
         void operation(Partie& partie, size_t indiceObjet) override;
 
         void operation(Partie& partie) override;
-
     };
 
 } // namespace partie::etat

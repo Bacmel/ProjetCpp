@@ -10,7 +10,7 @@ using namespace err;
 
 namespace donjon
 {
-    Donjon::Donjon(const hex::ICarte_S<ICase_S>& carte) : m_personnages(), m_carte(carte) {}
+    Donjon::Donjon(const hex::ICarte_S<ACase_S>& carte) : m_personnages(), m_carte(carte) {}
 
     void Donjon::invoquer(per::APersonnage_S personnage, const hex::Coordonnees& position)
     {
@@ -30,7 +30,7 @@ namespace donjon
     void Donjon::deplace(per::APersonnage& personnage, per::Deplacement type, const hex::Coordonnees& position)
     {
         // Vérifie qu'une case existe à ces coordonnées.
-        ICase_S iCase(nullptr);
+        ACase_S iCase(nullptr);
         try
         {
             iCase = (*m_carte)(position);
@@ -89,7 +89,7 @@ namespace donjon
         // Obtient la case (en s'assurant qu'elle existe) et y met l'objet (s'il
         // n'est pas null).
         if (objet == nullptr) { return; }
-        ICase_S iCase(nullptr);
+        ACase_S iCase(nullptr);
         try
         {
             iCase = (*m_carte)(position);
@@ -104,7 +104,7 @@ namespace donjon
     obj::IObjet_S Donjon::ramasser(const hex::Coordonnees& position)
     {
         // Obtient la case en s'assurant qu'elle existe.
-        ICase_S iCase(nullptr);
+        ACase_S iCase(nullptr);
         try
         {
             iCase = (*m_carte)(position);
@@ -127,7 +127,7 @@ namespace donjon
         while (itr->aSuite())
         {
             c = itr->suite();
-            ICase_S iCase(nullptr);
+            ACase_S iCase(nullptr);
             iCase = (*m_carte)(c);
             if (iCase->estPraticable() && !iCase->aObjet() && !estOccupee(c)) { casesVide.push_back(c); }
         }
@@ -166,7 +166,21 @@ namespace donjon
         return personnage;
     }
 
-    APersonnage_S Donjon::trouver(const Coordonnees& position) const
+    APersonnage_SC Donjon::trouver(const Coordonnees& position) const
+    {
+        for (APersonnage_S personnage : m_personnages)
+        {
+            // Verifie que le pointeur ne soit pas null (dans ce cas, on regarde
+            // le suivant) et test la position.
+            if (personnage == nullptr) { continue; }
+            Coordonnees coordonnees = personnage->getPosition();
+            if (coordonnees == position) { return personnage; }
+        }
+        // On a pas trouvé de personnage -> On lève une exception.
+        throw std::runtime_error("Donjon::trouver : Pas de personnage à cette position");
+    }
+
+    per::APersonnage_S Donjon::trouver(const hex::Coordonnees& position)
     {
         for (APersonnage_S personnage : m_personnages)
         {
@@ -200,7 +214,7 @@ namespace donjon
         for (size_t deplacement = 1; deplacement <= distance && !estArrete; deplacement++)
         {
             Coordonnees cible = perPos.translate(direction, deplacement);
-            ICase_S iCase(nullptr);
+            ACase_S iCase(nullptr);
             try
             {
                 iCase = (*m_carte)(cible);

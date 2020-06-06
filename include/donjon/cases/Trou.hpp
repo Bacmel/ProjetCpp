@@ -1,13 +1,16 @@
-#ifndef __CASEINTERDITE_H__
-#define __CASEINTERDITE_H__
+#ifndef __TROU_HPP__
+#define __TROU_HPP__
 
-#include "donjon/cases/ICase.hpp"
+#include "donjon/cases/ACase.hpp"
 
 namespace donjon::cases
 {
-    class Trou : public ICase
+    class Trou : public ACase
     {
     public:
+        /**
+         * @brief Construit un Trou.
+         */
         Trou();
 
         Trou(const Trou& autre) = default;
@@ -16,23 +19,23 @@ namespace donjon::cases
         Trou& operator=(Trou&& autre) = default;
         ~Trou() = default;
 
-        virtual void deposer(obj::IObjet_S objet) override;
+        void deposer(obj::IObjet_S objet) override;
 
-        virtual obj::IObjet_S ramasser() override;
+        obj::IObjet_S ramasser() override;
 
-        virtual bool aObjet() const override;
+        bool aObjet() const override;
 
-        virtual const obj::IObjet& getObjet() const override;
+        const obj::IObjet& getObjet() const override;
 
-        virtual void enEntree(per::APersonnage& personnage) override;
+        void enEntree(per::APersonnage& personnage) override;
 
-        virtual bool estPraticable() const override;
+        bool estPraticable() const override;
 
-        virtual void enActivation(per::APersonnage& personnage) override;
+        void enActivation(per::APersonnage& personnage) override;
 
-        virtual bool estTransparent() const override;
+        bool estTransparent() const override;
 
-        virtual void accepter(ICaseVisiteur& visiteur) const override;
+        void accepter(ICaseVisiteur& visiteur) const override;
     };
 } // namespace donjon::cases
-#endif // __CASEINTERDITE_H__
+#endif // __TROU_HPP__

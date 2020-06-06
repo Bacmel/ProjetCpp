@@ -58,7 +58,7 @@ namespace vue
     {
         Vector2u dim = target.getSize();
         CaseDessinable caseDessinable(m_cote);
-        ICarte_SC<ICase_S> carte = donjon.getCarte();
+        ICarte_S<ACase_S> carte = donjon.getCarte();
         auto itr = carte->iterateur();
         bool surligne(false);
         Coordonnees posPerso;
@@ -68,13 +68,13 @@ namespace vue
             posPerso = perso->getPosition();
             surligne = true;
         }
-        catch (const std::invalid_argument&)
+        catch (const std::logic_error&)
         {
         }
         while (itr->aSuite())
         {
             Coordonnees pos = itr->suite();
-            ICase_S iCase = (*carte)(pos);
+            ACase_S iCase = (*carte)(pos);
             caseDessinable.setElement(*iCase);
             // Place la case dans le monde.
             Vector2f pixel = m_convertisseur(m_cote, pos);
@@ -118,7 +118,7 @@ namespace vue
         {
             personnage = m_element->getPersoSelect();
         }
-        catch (const std::invalid_argument&)
+        catch (const std::logic_error&)
         {
             return;
         }
@@ -129,7 +129,7 @@ namespace vue
         {
             objSel = m_element->getObjetSelect();
         }
-        catch (const std::invalid_argument&)
+        catch (const std::logic_error&)
         {
         }
         for (size_t indiceObjet = 0; indiceObjet < nbObjet; indiceObjet++)

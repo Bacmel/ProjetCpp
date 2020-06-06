@@ -19,13 +19,10 @@ namespace partie::etat
     {
     }
 
-    ObjetActif::~ObjetActif() {}
-
     void ObjetActif::afficher() const
     {
-        std::cout << "ObjetActif{"
-                  << "m_equipe : " << m_equipe << ", m_personnage : " << m_personnage << ", m_objet : " << m_objet
-                  << "}\n";
+        std::cout << "ObjetActif : " << m_equipe << ", m_personnage : " << m_personnage << ", m_objet : " << m_objet
+                  << endl;
     }
 
     void ObjetActif::operation(Partie& partie, const hex::Coordonnees& coordonnees)
@@ -38,7 +35,7 @@ namespace partie::etat
             m_objet->utiliser(*donjon, origine, coordonnees);
             // Passe en fin de tour et actualise la MAE.
             partie.setEtat(std::make_shared<FinTour>(m_equipe));
-            partie.demande();
+            partie.demander();
         }
         catch (...)
         {

@@ -9,7 +9,7 @@ namespace per
     class IPersonnageVisiteur
     {
     public:
-        virtual ~IPersonnageVisiteur() {}
+        virtual ~IPersonnageVisiteur() = default;
 
         /**
          * @brief Permet d'obtenir l'instance précise d'un APersonnage_S.

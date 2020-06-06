@@ -19,7 +19,7 @@ namespace vue
     public:
         PartieDessinable(float cote);
         PartieDessinable(float cote, partie::Partie& partie);
-        ~PartieDessinable() {}
+        ~PartieDessinable() = default;
 
         void setElement(partie::Partie& element) override;
 

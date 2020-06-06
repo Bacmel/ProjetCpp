@@ -1,5 +1,5 @@
-#ifndef __DECISION_H__
-#define __DECISION_H__
+#ifndef __DECISION_HPP__
+#define __DECISION_HPP__
 
 #include "hex/Coordonnees.hpp"
 #include "obj/IObjet.hpp"
@@ -15,6 +15,11 @@ namespace partie::etat
         size_t m_indiceEquipe;
 
     public:
+        /**
+         * @brief Construit un état Décision
+         *
+         * @param indice L'indice de l'équipe active.
+         */
         Decision(size_t indice);
 
         inline void afficher() const override;
@@ -33,4 +38,4 @@ namespace partie::etat
     };
 } // namespace partie::etat
 
-#endif //__DECISION_H__
+#endif //__DECISION_HPP__
