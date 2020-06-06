@@ -1,5 +1,5 @@
-#ifndef __ICASEVISITEUR_H__
-#define __ICASEVISITEUR_H__
+#ifndef __ICASEVISITEUR_HPP__
+#define __ICASEVISITEUR_HPP__
 
 #include "donjon/cases/Sol.hpp"
 #include "donjon/cases/Trou.hpp"
@@ -14,4 +14,4 @@ namespace donjon::cases
         virtual ~ICaseVisiteur() = default;
     };
 } // namespace donjon::cases
-#endif // __ICASEVISITEUR_H__
+#endif // __ICASEVISITEUR_HPP__

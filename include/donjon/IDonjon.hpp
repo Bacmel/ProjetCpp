@@ -1,5 +1,5 @@
-#ifndef __IDONJON_H__
-#define __IDONJON_H__
+#ifndef __IDONJON_HPP__
+#define __IDONJON_HPP__
 
 #include <map>
 #include <memory>
@@ -29,10 +29,9 @@ namespace donjon
          * @param personnage Le personnage à déplacer.
          * @param type Le type de déplacement.
          * @param position La nouvelle position du personnage.
-         *
          * @throw invalid_argument Quand le déplacement est impossible.
          */
-        virtual void deplace(per::APersonnage& personnage, per::Deplacement type, const hex::Coordonnees& position) = 0;
+        virtual void deplacer(per::APersonnage& personnage, per::Deplacement type, const hex::Coordonnees& position) = 0;
 
         /**
          * @brief Pousse les personnages dans la zone d'effet.
@@ -46,7 +45,7 @@ namespace donjon
          * personnages présents dans la direction indiquée.
          * @param distance La distance à laquelle un personnage est poussé.
          */
-        virtual void pousse(const std::map<hex::Coordonnees, hex::Direction>& aoe, size_t distance) = 0;
+        virtual void pousser(const std::map<hex::Coordonnees, hex::Direction>& aoe, size_t distance) = 0;
 
         /**
          * @brief Endommage tous les personnages présents dans la zone.
@@ -60,7 +59,6 @@ namespace donjon
          *
          * @param objet L'objet à déposer.
          * @param position La position à laquelle déposer l'objet.
-         *
          * @throw invalid_argument Quand un objet est déjà présent sur la case.
          */
         virtual void deposer(obj::IObjet_S objet, const hex::Coordonnees& position) = 0;
@@ -70,7 +68,6 @@ namespace donjon
          *
          * @param position La position à laquelle on ramasse.
          * @return obj::IObjet_S L'objet présent sur la case.
-         *
          * @throw err::SansObjetErreur Quand la case n'a pas d'objet.
          */
         virtual obj::IObjet_S ramasser(const hex::Coordonnees& position) = 0;
@@ -151,4 +148,4 @@ namespace donjon
     using IDonjon_SC = std::shared_ptr<const IDonjon>;
 } // namespace donjon
 
-#endif // __IDONJON_H__
+#endif // __IDONJON_HPP__

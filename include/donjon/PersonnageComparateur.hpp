@@ -1,5 +1,5 @@
-#ifndef __PERSONNAGECOMPARATEUR_H__
-#define __PERSONNAGECOMPARATEUR_H__
+#ifndef __PERSONNAGECOMPARATEUR_HPP__
+#define __PERSONNAGECOMPARATEUR_HPP__
 
 #include "per/APersonnage.hpp"
 namespace donjon
@@ -17,4 +17,4 @@ namespace donjon
     };
 
 } // namespace donjon
-#endif // __PERSONNAGECOMPARATEUR_H__
+#endif // __PERSONNAGECOMPARATEUR_HPP__

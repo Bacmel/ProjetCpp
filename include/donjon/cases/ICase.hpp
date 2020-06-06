@@ -1,5 +1,5 @@
-#ifndef __CASE_H__
-#define __CASE_H__
+#ifndef __ICASE_HPP__
+#define __ICASE_HPP__
 
 #include <memory>
 #include "obj/IObjet.hpp"
@@ -82,12 +82,10 @@ namespace donjon::cases
         virtual bool estTransparent() const = 0;
 
         virtual void accepter(ICaseVisiteur& visiteur) const = 0;
-
-        virtual void actualiser() {}
     };
 
     using ICase_S = std::shared_ptr<ICase>;
     using ICase_SC = std::shared_ptr<const ICase>;
 } // namespace donjon::cases
 
-#endif // __CASE_H__
+#endif // __ICASE_HPP__

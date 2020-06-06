@@ -11,13 +11,13 @@ using namespace per;
 TEST_CASE("Creation et manipulation de Sol", "[Sol]")
 {
     Sol sol;
+    Heros heros(3);
 
     REQUIRE(sol.estPraticable());
     REQUIRE(sol.estTransparent());
 
     SECTION("Sol::enActivation")
     {
-        Heros heros(3);
         // Sauvegarde de l'état du héros.
         size_t sante = heros.getSante();
         size_t santeMax = heros.getSanteMax();
@@ -52,8 +52,7 @@ TEST_CASE("Creation et manipulation de Sol", "[Sol]")
         sol.deposer(objet);
         sol.enEntree(heros);
         REQUIRE_THROWS(sol.getObjet());
-        const obj::IObjet& obj = heros.getObjet(0);
-        REQUIRE(&obj == objet.get());
+        REQUIRE_NOTHROW(heros.getObjet(0));
     }
 
     SECTION("Sol::deposer")
@@ -63,6 +62,7 @@ TEST_CASE("Creation et manipulation de Sol", "[Sol]")
         REQUIRE_THROWS(sol.deposer(IObjet_S()));
         // Dépot d'un objet sur une case vide.
         REQUIRE_NOTHROW(sol.deposer(objet));
+        REQUIRE(sol.aObjet());
         REQUIRE(&sol.getObjet() == objet.get());
         // Dépot d'un objet sur une case pleine.
         REQUIRE_THROWS(sol.deposer(std::make_shared<GravityGun>()));
@@ -76,9 +76,21 @@ TEST_CASE("Creation et manipulation de Sol", "[Sol]")
         IObjet_S objet = std::make_shared<GravityGun>();
         sol.deposer(objet);
         IObjet_S objObtenu;
+        REQUIRE(sol.aObjet());
         REQUIRE_NOTHROW(objObtenu = sol.ramasser());
+        REQUIRE_FALSE(sol.aObjet());
         REQUIRE(objObtenu == objet);
         // S'assure que la case est à nouveau vide.
         REQUIRE_THROWS(sol.ramasser());
+    }
+
+    SECTION("Sol::accepter")
+    {
+        // A Tester.
+    }
+
+    SECTION("Sol::actualiser")
+    {
+        // A Tester.
     }
 }

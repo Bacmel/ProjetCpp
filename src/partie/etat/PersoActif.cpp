@@ -46,7 +46,7 @@ namespace partie::etat
             try
             {
                 /* Deplacement Marche. */
-                donjon->deplace(*m_personnage, Deplacement::Marcher, coordonnees);
+                donjon->deplacer(*m_personnage, Deplacement::Marcher, coordonnees);
                 partie.setEtat(IEtat_S(new FinTour(m_indiceEquipe)));
                 partie.demande();
                 return;

@@ -44,7 +44,7 @@ namespace obj
             aoe.insert(pair<Coordonnees, Direction>(pos, direction));
         }
         // Utilise l'objet et vide sa charge.
-        donjon.pousse(aoe, m_distance);
+        donjon.pousser(aoe, m_distance);
         m_charge.vider();
     }
 

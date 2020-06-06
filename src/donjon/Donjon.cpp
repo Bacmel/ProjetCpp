@@ -22,12 +22,12 @@ namespace donjon
             find_if(m_personnages.begin(), itrFin, [&](const APersonnage_S& p) { return p->getId() == idNouveau; });
         if (itr != itrFin) { throw invalid_argument("Donjon::invoquer : Ce personnage est déjà présent."); }
         // Vérifie que le personnage peut se trouver sur la case.
-        deplace(*personnage, Deplacement::Forcer, position);
+        deplacer(*personnage, Deplacement::Forcer, position);
         // Insert le personnage.
         m_personnages.push_back(personnage);
     }
 
-    void Donjon::deplace(per::APersonnage& personnage, per::Deplacement type, const hex::Coordonnees& position)
+    void Donjon::deplacer(per::APersonnage& personnage, per::Deplacement type, const hex::Coordonnees& position)
     {
         // Vérifie qu'une case existe à ces coordonnées.
         ICase_S iCase(nullptr);
@@ -50,7 +50,7 @@ namespace donjon
         iCase->enEntree(personnage);
     }
 
-    void Donjon::pousse(const std::map<hex::Coordonnees, hex::Direction>& aoe, size_t distance)
+    void Donjon::pousser(const std::map<hex::Coordonnees, hex::Direction>& aoe, size_t distance)
     {
         for (const pair<Coordonnees, Direction>& pair : aoe)
         {
@@ -72,6 +72,7 @@ namespace donjon
 
     void Donjon::degat(const std::map<hex::Coordonnees, size_t>& aoe)
     {
+        // Parcour la zone de dégât.
         for (const std::pair<Coordonnees, size_t>& pair : aoe)
         {
             Coordonnees position = pair.first;
@@ -79,6 +80,7 @@ namespace donjon
             for (const APersonnage_S& personnage : m_personnages)
             {
                 Coordonnees perPos = personnage->getPosition();
+                // Verifie si un personnage ce trouve sur une case dégât.
                 if (position == perPos) { personnage->subirAttaque(dommages); }
             }
         }
@@ -129,6 +131,7 @@ namespace donjon
             c = itr->suite();
             ICase_S iCase(nullptr);
             iCase = (*m_carte)(c);
+            // Vérifie si la case est praticable et vide d'objet et de personnage.
             if (iCase->estPraticable() && !iCase->aObjet() && !estOccupee(c)) { casesVide.push_back(c); }
         }
         return casesVide;
@@ -186,7 +189,7 @@ namespace donjon
         {
             trouver(position);
         }
-        catch (const std::runtime_error& e)
+        catch (const std::runtime_error&)
         {
             return false;
         }
@@ -205,7 +208,7 @@ namespace donjon
             {
                 iCase = (*m_carte)(cible);
             }
-            catch (const out_of_range& exception)
+            catch (const out_of_range&)
             {
                 // On est sortie de la carte. On ne quitte pas la case
                 // précédante.

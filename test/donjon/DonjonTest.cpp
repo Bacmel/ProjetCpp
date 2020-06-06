@@ -24,6 +24,21 @@ TEST_CASE("Creation et manipulation de Donjon", "[Donjon]")
     Coordonnees positionTrou = Coordonnees().translater(Direction::Nord);
     (*carte)(positionTrou) = ICase_S(new Trou());
     Donjon donjon(carte);
+    REQUIRE(donjon.getCarte() == carte);
+
+    SECTION("Personnages")
+    {
+        REQUIRE(donjon.getNbPersonnages() == 0);
+        APersonnage_S heros(new Heros(3));
+        REQUIRE_NOTHROW(donjon.invoquer(heros, Coordonnees()));
+        REQUIRE(donjon.getNbPersonnages() == 1);
+        // Par indice.
+        REQUIRE_THROWS(donjon.getPersonnage(1));
+        REQUIRE(donjon.getPersonnage(0) == heros);
+        // Par identifiant.
+        REQUIRE_THROWS(donjon.getPersonnageParId(heros->getId() + 1));
+        REQUIRE(donjon.getPersonnageParId(heros->getId()) == heros);
+    }
 
     SECTION("Donjon::invoquer")
     {
@@ -48,21 +63,21 @@ TEST_CASE("Creation et manipulation de Donjon", "[Donjon]")
         Coordonnees pos(0, 0);
         donjon.invoquer(heros, pos);
         // Déplacement vers une case interdite.
-        REQUIRE_THROWS(donjon.deplace(*heros, Deplacement::Forcer, pos.translater(Direction::Nord)));
+        REQUIRE_THROWS(donjon.deplacer(*heros, Deplacement::Forcer, pos.translater(Direction::Nord)));
         // Déplacement hors carte.
-        REQUIRE_THROWS(donjon.deplace(*heros, Deplacement::Forcer, pos.translater(Direction::NordEst, 4)));
+        REQUIRE_THROWS(donjon.deplacer(*heros, Deplacement::Forcer, pos.translater(Direction::NordEst, 4)));
         // Déplacement vers une case occupée.
         APersonnage_S herosBis(new Heros(1));
         Coordonnees posBis = pos.translater(Direction::Sud);
         donjon.invoquer(herosBis, posBis);
-        REQUIRE_THROWS(donjon.deplace(*heros, Deplacement::Forcer, posBis));
+        REQUIRE_THROWS(donjon.deplacer(*heros, Deplacement::Forcer, posBis));
         // Déplacement valide
         Coordonnees destination = pos.translater(Direction::NordEst);
-        REQUIRE_NOTHROW(donjon.deplace(*heros, Deplacement::Forcer, destination));
+        REQUIRE_NOTHROW(donjon.deplacer(*heros, Deplacement::Forcer, destination));
         REQUIRE(heros->getPosition() == destination);
     }
 
-    SECTION("Donjon::pousse")
+    SECTION("Donjon::pousser")
     {
         APersonnage_S heros(new Heros(4));
         Coordonnees pos;
@@ -70,12 +85,12 @@ TEST_CASE("Creation et manipulation de Donjon", "[Donjon]")
         // Pousse vers une case libre.
         map<Coordonnees, Direction> aoe;
         aoe.insert(pair<Coordonnees, Direction>(pos, Direction::Sud));
-        donjon.pousse(aoe, 1);
+        donjon.pousser(aoe, 1);
         REQUIRE(heros->getPosition() == pos.translater(Direction::Sud));
         // Pousse vers une case interdite.
         aoe = map<Coordonnees, Direction>();
         aoe.insert(pair<Coordonnees, Direction>(pos.translater(Direction::Sud), Direction::Nord));
-        donjon.pousse(aoe, 2);
+        donjon.pousser(aoe, 2);
         REQUIRE(heros->getPosition() == positionTrou);
         // Pousse vers une case occupée.
         heros = make_shared<Heros>(3);
@@ -89,7 +104,7 @@ TEST_CASE("Creation et manipulation de Donjon", "[Donjon]")
         // Pousse hors du terrain.
         aoe = map<Coordonnees, Direction>();
         aoe.insert(pair<Coordonnees, Direction>(pos, Direction::Sud));
-        donjon.pousse(aoe, 15);
+        donjon.pousser(aoe, 15);
         REQUIRE(heros->getPosition() == pos.translater(Direction::Sud, 2));
         REQUIRE(heros->getSante() == heros->getSanteMax() - 1);
     }
@@ -140,7 +155,25 @@ TEST_CASE("Creation et manipulation de Donjon", "[Donjon]")
         function<ICase_S()> fournisseurTrou = []() { return make_shared<Trou>(); };
         carte2->remplir(fournisseurTrou);
         Donjon donjon2(carte2);
-        REQUIRE(donjon2.getCaseVide().size()==0);
-        REQUIRE(donjon.getCaseVide().size()==18);
+        REQUIRE(donjon2.getCaseVide().size() == 0);
+        REQUIRE(donjon.getCaseVide().size() == 18);
+    }
+
+    SECTION("Donjon::trouver")
+    {
+        APersonnage_S heros(new Heros(3));
+        Coordonnees c1;
+        REQUIRE_THROWS(donjon.trouver(c1));
+        REQUIRE_NOTHROW(donjon.invoquer(heros, c1));
+        REQUIRE(donjon.trouver(c1)==heros);
+    }
+
+    SECTION("Donjon::estOccupee")
+    {
+        APersonnage_S heros(new Heros(3));
+        Coordonnees c1;
+        REQUIRE_FALSE(donjon.estOccupee(c1));
+        REQUIRE_NOTHROW(donjon.invoquer(heros, c1));
+        REQUIRE(donjon.estOccupee(c1));
     }
 }
