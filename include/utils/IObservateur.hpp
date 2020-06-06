@@ -1,5 +1,5 @@
-#ifndef __IOBSERVATEUR_H__
-#define __IOBSERVATEUR_H__
+#ifndef __IOBSERVATEUR_HPP__
+#define __IOBSERVATEUR_HPP__
 
 namespace utils
 {
@@ -20,4 +20,4 @@ namespace utils
         virtual void actualiser(const T& info) = 0;
     };
 } // namespace utils
-#endif // __IOBSERVATEUR_H__
+#endif // __IOBSERVATEUR_HPP__

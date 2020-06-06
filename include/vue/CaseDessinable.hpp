@@ -1,5 +1,5 @@
-#ifndef __CASEDESSINABLE_H__
-#define __CASEDESSINABLE_H__
+#ifndef __CASEDESSINABLE_HPP__
+#define __CASEDESSINABLE_HPP__
 
 #include "vue/ADessinable.hpp"
 #include "donjon/cases/ICaseVisiteur.hpp"
@@ -40,4 +40,4 @@ namespace vue
         virtual void actualiser(const donjon::cases::ACase& iCase) override;
     };
 } // namespace vue
-#endif // __CASEDESSINABLE_H__
+#endif // __CASEDESSINABLE_HPP__

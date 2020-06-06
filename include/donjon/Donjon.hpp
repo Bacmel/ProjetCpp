@@ -1,5 +1,5 @@
-#ifndef __DONJON_H__
-#define __DONJON_H__
+#ifndef __DONJON_HPP__
+#define __DONJON_HPP__
 
 #include <vector>
 #include "donjon/IDonjon.hpp"
@@ -86,4 +86,4 @@ namespace donjon
         void pousse(const per::APersonnage_S& personnage, hex::Direction direction, size_t distance);
     };
 } // namespace donjon
-#endif // __DONJON_H__
+#endif // __DONJON_HPP__

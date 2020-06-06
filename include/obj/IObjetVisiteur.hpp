@@ -1,5 +1,5 @@
 #ifndef __IOBJETVISITEUR_HPP__
-    #define __IOBJETVISITEUR_H__
+    #define __IOBJETVISITEUR_HPP__
 
     #include "obj/GravityGun.hpp"
     #include "obj/Taser.hpp"

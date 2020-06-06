@@ -1,5 +1,5 @@
-#ifndef __PERSONNAGEDESSINABLE_H__
-#define __PERSONNAGEDESSINABLE_H__
+#ifndef __PERSONNAGEDESSINABLE_HPP__
+#define __PERSONNAGEDESSINABLE_HPP__
 
 #include <SFML/Graphics.hpp>
 #include "per/IPersonnageVisiteur.hpp"
@@ -76,4 +76,4 @@ namespace vue
         void preparerBarreSante(const per::APersonnage& personnage);
     };
 } // namespace vue
-#endif // __PERSONNAGEDESSINABLE_H__
+#endif // __PERSONNAGEDESSINABLE_HPP__

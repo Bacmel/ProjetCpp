@@ -1,5 +1,5 @@
-#ifndef __FENETRE_H__
-#define __FENETRE_H__
+#ifndef __FENETRE_HPP__
+#define __FENETRE_HPP__
 
 #include <SFML/Graphics.hpp>
 #include <list>
@@ -83,4 +83,4 @@ namespace vue
         void notifier(sf::Event& even);
     };
 } // namespace vue
-#endif // __FENETRE_H__
+#endif // __FENETRE_HPP__

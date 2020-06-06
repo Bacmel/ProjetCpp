@@ -1,5 +1,5 @@
-#ifndef __ROBLITE_H__
-#define __ROBLITE_H__
+#ifndef __ROBLITE_HPP__
+#define __ROBLITE_HPP__
 
 #include <SFML/Graphics.hpp>
 #include <memory>
@@ -24,4 +24,4 @@ public:
 private:
     void preparerPartie();
 };
-#endif // __ROBLITE_H__
+#endif // __ROBLITE_HPP__

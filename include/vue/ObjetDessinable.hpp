@@ -1,5 +1,5 @@
-#ifndef __OBJETDESSINABLE_H__
-#define __OBJETDESSINABLE_H__
+#ifndef __OBJETDESSINABLE_HPP__
+#define __OBJETDESSINABLE_HPP__
 
 #include <SFML/Graphics.hpp>
 #include "obj/IObjetVisiteur.hpp"
@@ -66,4 +66,4 @@ namespace vue
         virtual void draw(sf::RenderTarget& target, sf::RenderStates states) const override;
     };
 } // namespace vue
-#endif // __OBJETDESSINABLE_H__
+#endif // __OBJETDESSINABLE_HPP__

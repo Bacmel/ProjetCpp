@@ -1,5 +1,5 @@
-#ifndef __TEXTUREGEST_H__
-#define __TEXTUREGEST_H__
+#ifndef __TEXTUREGEST_HPP__
+#define __TEXTUREGEST_HPP__
 
 #include <SFML/Graphics.hpp>
 #include <map>
@@ -67,4 +67,4 @@ namespace vue
 
     };
 } // namespace vue
-#endif // __TEXTUREGEST_H__
+#endif // __TEXTUREGEST_HPP__

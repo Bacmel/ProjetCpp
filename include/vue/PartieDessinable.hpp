@@ -1,5 +1,5 @@
-#ifndef __PARTIEDESSINABLE_H__
-#define __PARTIEDESSINABLE_H__
+#ifndef __PARTIEDESSINABLE_HPP__
+#define __PARTIEDESSINABLE_HPP__
 
 #include "partie/Partie.hpp"
 #include "utils/HexPixelConvertisseur.hpp"
@@ -37,4 +37,4 @@ namespace vue
         sf::Color depuisHSV(int hue, float saturation, float value) const;
     };
 } // namespace vue
-#endif // __PARTIEDESSINABLE_H__
+#endif // __PARTIEDESSINABLE_HPP__

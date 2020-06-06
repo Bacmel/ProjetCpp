@@ -1,5 +1,5 @@
-#ifndef __PERSOACTIF_H__
-#define __PERSOACTIF_H__
+#ifndef __PERSOACTIF_HPP__
+#define __PERSOACTIF_HPP__
 
 #include "hex/Coordonnees.hpp"
 #include "obj/IObjet.hpp"
@@ -41,4 +41,4 @@ namespace partie::etat
     };
 } // namespace partie::etat
 
-#endif //__PERSOACTIF_H__
+#endif //__PERSOACTIF_HPP__

@@ -1,5 +1,5 @@
-#ifndef __ADESSINATEUR_H__
-#define __ADESSINATEUR_H__
+#ifndef __ADESSINATEUR_HPP__
+#define __ADESSINATEUR_HPP__
 
 #include <SFML/Graphics.hpp>
 #include <memory>
@@ -60,4 +60,4 @@ namespace vue
         virtual void setElement(T& element) = 0;
     };
 } // namespace vue
-#endif // __ADESSINATEUR_H__
+#endif // __ADESSINATEUR_HPP__

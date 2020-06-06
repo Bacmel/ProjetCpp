@@ -1,5 +1,5 @@
-#ifndef __OBJETACTIF_H__
-#define __OBJETACTIF_H__
+#ifndef __OBJETACTIF_HPP__
+#define __OBJETACTIF_HPP__
 
 #include "obj/IObjet.hpp"
 #include "partie/etat/IEtat.hpp"
@@ -40,4 +40,4 @@ namespace partie::etat
     };
 
 } // namespace partie::etat
-#endif // __OBJETACTIF_H__
+#endif // __OBJETACTIF_HPP__
