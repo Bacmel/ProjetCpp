@@ -10,8 +10,10 @@
 #include "hex/CarteHexagone.hpp"
 #include "obj/GravityGun.hpp"
 #include "per/Heros.hpp"
+#include "partie/strat/JoueurHumain.hpp"
 
 using namespace partie;
+using namespace partie::strat;
 using namespace donjon;
 using namespace donjon::cases;
 using namespace hex;
@@ -21,7 +23,9 @@ using namespace std;
 
 TEST_CASE("Creation de Partie", "[partie]")
 {
-    Partie partie(2);
+    IStrategie_S strat = IStrategie_S(new JoueurHumain());
+    Partie partie(strat);
+    partie.genererEquipe(strat);
     IDonjon_SC donjon = partie.getDonjon();
     APersonnage_S h1(new Heros(3));
     APersonnage_S h2(new Heros(1));
@@ -59,7 +63,8 @@ TEST_CASE("Creation de Partie", "[partie]")
 
 TEST_CASE("Gestion de Partie", "[partie]")
 {
-    Partie partie(2);
+    IStrategie_S strat = IStrategie_S(new JoueurHumain());
+    Partie partie(strat);
     IDonjon_SC donjon = partie.getDonjon();
     APersonnage_S h1(new Heros(3));
     APersonnage_S h2(new Heros(1));

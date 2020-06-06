@@ -18,7 +18,7 @@ all: build test
 test: $(OBJT)
 	$(CXX) $(CXXFLAGS) $(LDFLAGS) -o $(BINT) $^ $(LDLIBS)
 
-build: src/main.o $(OBJ)
+build: src/main.o src/Roblite.o $(OBJ)
 	$(CXX) $(LDFLAGS) -o $(BIN) $^ $(LDLIBS)
 
 %.o: $(HDR)

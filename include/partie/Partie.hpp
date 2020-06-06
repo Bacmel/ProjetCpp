@@ -7,7 +7,9 @@
 #include "donjon/PersonnageComparateur.hpp"
 #include "donjon/cases/ICase.hpp"
 #include "hex/ICarte.hpp"
+#include "partie/Equipe.hpp"
 #include "partie/etat/IEtat.hpp"
+#include "partie/strat/IStrategie.hpp"
 #include "per/APersonnage.hpp"
 
 namespace partie
@@ -16,23 +18,30 @@ namespace partie
     {
     protected:
         /* Liste des equipes. */
-        std::vector<std::set<size_t>> m_equipes;
+        std::vector<Equipe> m_equipes;
         /* Arbitre de la partie. */
         donjon::IDonjon_S m_donjon;
         /* Etat courant */
         etat::IEtat_S m_etat;
+        etat::IEtat_S m_etatP;
 
     public:
-        Partie(size_t joueurs);
+        /**
+         * @brief Construit une partie à partir de la stratégie pour la première équipe.
+         *
+         * @param strategie La stratégie pour la première équipe (indice 0).
+         */
+        Partie(strat::IStrategie_S& strategie);
 
-        /* Méthodes get. */
+        Equipe& getEquipe(size_t indice);
+        const Equipe& getEquipe(size_t indice)const;
 
         /**
          * @brief Obtient la liste des equipes.
          *
-         * @return std::vector<std::set<size_t> > La liste des equipes.
+         * @return std::vector<Equipe> La liste des equipes.
          */
-        inline std::vector<std::set<size_t>>& getEquipes() { return m_equipes; }
+        inline std::vector<Equipe>& getEquipes() { return m_equipes; }
 
         /**
          * @brief Obtient le donjon.
@@ -54,6 +63,13 @@ namespace partie
          * @return partie::etat::IEtat_SC; l'etat courant.
          */
         inline etat::IEtat_SC getEtat() const { return m_etat; }
+
+        /**
+         * @brief Obtient l'etat precedent.
+         *
+         * @return partie::etat::IEtat_SC; l'etat precedent.
+         */
+        inline etat::IEtat_SC getEtatPre() const { return m_etatP; }
 
         /**
          * @brief Obtient l'equipe courante.
@@ -83,16 +99,16 @@ namespace partie
          *
          * @param etat::IEtat_S le nouvel etat courant.
          */
-        inline void setEtat(etat::IEtat_S etat) { m_etat = etat; }
+        void setEtat(etat::IEtat_S etat);
 
-        /* Méthodes pour generer le jeu. */
 
         /**
-         * @brief Genere une carte.
+         * @brief Crée une équipe et donne son indice.
          *
-         * @throw err::CreationErreur
+         * @param strategie La stratégie pour l'équipe.
+         * @return L'indice de l'équipe crée.
          */
-        void genererCarte();
+        size_t genererEquipe(strat::IStrategie_S& strategie);
 
         /**
          * @brief Genere un personnage dans une equipe.
@@ -111,8 +127,6 @@ namespace partie
          */
         void genererObjet(obj::IObjet_S objet);
 
-        /* Methodes pour gerer le jeu. */
-
         /**
          * @brief Demande
          *
@@ -126,6 +140,11 @@ namespace partie
          * @param indiceObjet l'objet selectionne.
          */
         void demande(size_t indiceObjet);
+
+        /**
+         * @brief Demande
+         */
+        void demande();
 
         /* Méthodes autres. */
 
@@ -161,6 +180,14 @@ namespace partie
          * @throw err:CreationErreur Quand la carte n'a plus de place.
          */
         hex::Coordonnees coordonneesLibre();
+
+    private:
+        /**
+         * @brief Genere une carte.
+         *
+         * @throw err::CreationErreur
+         */
+        void genererCarte();
     };
 } // namespace partie
 

@@ -1,12 +1,12 @@
 #ifndef __ISTRATEGIE_H__
 #define __ISTRATEGIE_H__
 
-#include "partie/Partie.hpp"
 #include <memory>
 
 namespace partie
 {
     class Equipe;
+    class Partie;
 }
 
 namespace partie::strat
@@ -20,6 +20,5 @@ namespace partie::strat
     };
 
     using IStrategie_S = std::shared_ptr<IStrategie>;
-    using IStrategie_U = std::unique_ptr<IStrategie>;
 }
 #endif // __ISTRATEGIE_H__

@@ -2,21 +2,18 @@
 #define __FENETRE_H__
 
 #include <SFML/Graphics.hpp>
-#include <functional>
 #include <list>
 #include <map>
 #include "controlleur/IControlleur.hpp"
 
 namespace vue
 {
-    using Dessinateur = std::function<void(sf::RenderWindow&)>;
-
     class Fenetre
     {
     private:
         sf::RenderWindow m_fenetre;
-        std::map<sf::Event::EventType, std::list<controlleur::IControlleur*>> m_gestEven;
-        Dessinateur m_dessinateur;
+        std::map<sf::Event::EventType, std::list<controlleur::IControlleur_S>> m_gestEven;
+        std::shared_ptr<sf::Drawable> m_dessinable;
 
     public:
         Fenetre(sf::VideoMode& videoMode, std::string titre);
@@ -54,7 +51,7 @@ namespace vue
          * @param evenGest Le gestionnaire d'évènement.
          * @param type Le type suivit.
          */
-        void attacher(sf::Event::EventType type, controlleur::IControlleur* evenGest);
+        void attacher(sf::Event::EventType type, controlleur::IControlleur_S evenGest);
 
         /**
          * @brief Detache un gestionnaire d'évènement d'un type d'évènement.
@@ -62,9 +59,9 @@ namespace vue
          * @param evenGest Le gestionnaire d'évènement.
          * @param type Le type suivit.
          */
-        void detacher(sf::Event::EventType type, controlleur::IControlleur* evenGest);
+        void detacher(sf::Event::EventType type, controlleur::IControlleur_S evenGest);
 
-        void setDessinateur(Dessinateur dessinateur) { m_dessinateur = dessinateur; }
+        void setDessinateur(std::shared_ptr<sf::Drawable> dessinateur) { m_dessinable = dessinateur; }
 
     protected:
         /**

@@ -20,9 +20,12 @@ namespace partie::etat
 {
     FinTour::FinTour(size_t indice) : m_indiceEquipe(indice) {}
 
-    void FinTour::operation(Partie& partie, const Coordonnees&) { operation(partie); }
+    void FinTour::operation(Partie&, const Coordonnees&)
+    {
+        throw logic_error("FinTour::operation() : operation non supporte");
+    }
 
-    void FinTour::operation(Partie& partie, size_t) { operation(partie); }
+    void FinTour::operation(Partie&, size_t) { throw logic_error("FinTour::operation() : operation non supporte"); }
 
     void FinTour::operation(Partie& partie)
     {
@@ -36,33 +39,34 @@ namespace partie::etat
             (*carte)(c)->actualiser();
         }
         /*Mise à jour membre de l'equipe. */
-        set<size_t>& equipe = partie.getEquipes().at(m_indiceEquipe);
-        for (auto id : equipe)
+        vector<Equipe>& equipes = partie.getEquipes();
+        Equipe& equipe = equipes.at(m_indiceEquipe);
+        for (size_t indice = 0; indice < equipe.compterMembres(); indice++)
         {
             try
             {
-                APersonnage_S p = donjon->getPersonnageParId(id);
+                APersonnage_S p = equipe.getMembre(indice);
                 donjon->degat(p->getZoneEffet());
                 p->actualiser();
             }
-            catch(const runtime_error&)
+            catch (const out_of_range&)
             {
-                equipe.erase(id);
             }
         }
+        equipe.retirerMorts();
         donjon->actualiser();
         try
         {
             size_t i = partie.indiceGagnant();
             partie.setEtat(IEtat_S(new FinPartie(i)));
-            partie.demande(Coordonnees());
+            partie.demande();
             return;
         }
         catch (const err::InfoErreur&)
         {
             size_t nbEquipe = partie.getEquipes().size();
             partie.setEtat(IEtat_S(new Selection((m_indiceEquipe + 1) % nbEquipe)));
-            partie.demande(Coordonnees());
+            partie.demande();
             return;
         }
     }

@@ -15,7 +15,7 @@ namespace partie
         /** @brief La liste des membres de l'équipe. */
         std::vector<per::APersonnage_S> m_membres;
         /** @brief La stratégie adoptée par l'équipe. */
-        strat::IStrategie_U m_strategie;
+        strat::IStrategie_S m_strategie;
 
     public:
         /**
@@ -23,7 +23,7 @@ namespace partie
          *
          * @param strategie La stratégie adoptée par l'équipe.
          */
-        explicit Equipe(strat::IStrategie_U& strategie);
+        explicit Equipe(strat::IStrategie_S& strategie);
         ~Equipe() = default;
 
         /**
