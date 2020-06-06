@@ -24,14 +24,14 @@ fontsize=12
 
 
 // This text will be stored with each diagram;  use it for notes.</help_text>
-  <zoom_level>5</zoom_level>
+  <zoom_level>4</zoom_level>
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>1925</x>
-      <y>1315</y>
-      <w>65</w>
-      <h>70</h>
+      <x>2716</x>
+      <y>1000</y>
+      <w>52</w>
+      <h>56</h>
     </coordinates>
     <panel_attributes>&lt;&lt;enum class&gt;&gt;
 hex::Direction
@@ -41,17 +41,16 @@ Nord
 NordEst
 SudEst
 Sud
-SudOuest
-group=6</panel_attributes>
+SudOuest</panel_attributes>
     <additional_attributes/>
   </element>
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>1660</x>
-      <y>1315</y>
-      <w>260</w>
-      <h>270</h>
+      <x>2504</x>
+      <y>1000</y>
+      <w>208</w>
+      <h>212</h>
     </coordinates>
     <panel_attributes>hex::Coordonnees
 --
@@ -90,17 +89,16 @@ _+direction(direction: hex::Direction): hex::Coordonnees_
 +operator&gt;=(autre: const Coordonnees&amp;) const: bool
 +operator&lt;(autre: const Coordonnees&amp;) const: bool
 +operator&lt;=(autre: const Coordonnees&amp;) const: bool
-style=autoresize
-group=6</panel_attributes>
+style=autoresize</panel_attributes>
     <additional_attributes/>
   </element>
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>1660</x>
-      <y>1635</y>
-      <w>240</w>
-      <h>85</h>
+      <x>1896</x>
+      <y>528</y>
+      <w>192</w>
+      <h>68</h>
     </coordinates>
     <panel_attributes>&lt;&lt;Interface&gt;&gt;
 /hex::ICarte&lt;T&gt;/
@@ -113,16 +111,17 @@ group=6</panel_attributes>
 /+remplir(fournisseur: std::function&lt;T()&gt;): void/
 
 /+iterateur(): std::shared_ptr&lt;IIterator&lt;Coordonnees&gt; &gt; /
-style=autoresize</panel_attributes>
+style=autoresize
+group=8</panel_attributes>
     <additional_attributes/>
   </element>
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>1660</x>
-      <y>1750</y>
-      <w>280</w>
-      <h>180</h>
+      <x>1880</x>
+      <y>620</y>
+      <w>224</w>
+      <h>144</h>
     </coordinates>
     <panel_attributes>hex::CarteHexagone&lt;T&gt;
 --
@@ -146,76 +145,28 @@ style=autoresize</panel_attributes>
 
 +iterateur(): std::shared_ptr&lt;IIterator&lt;Coordonnees&gt; &gt;
 
-#deletePlateau(): void</panel_attributes>
-    <additional_attributes/>
-  </element>
-  <element>
-    <id>UMLClass</id>
-    <coordinates>
-      <x>1365</x>
-      <y>1395</y>
-      <w>205</w>
-      <h>80</h>
-    </coordinates>
-    <panel_attributes>hex::IterateurCarteHexagone&lt;T&gt;
---
--m_carte: const CarteHexagone&lt;T&gt;*
--m_colonne: int
--m_ligne: int
--m_colonneMax: int
--m_centre: Coordonnees
---
-+IterateurCarteHexagone(carte: const CarteHexagone&lt;T&gt;*)
-+aSuite(): bool
-+suite(): Coordonnees
-style=autoresize</panel_attributes>
-    <additional_attributes/>
-  </element>
-  <element>
-    <id>UMLClass</id>
-    <coordinates>
-      <x>1385</x>
-      <y>1325</y>
-      <w>85</w>
-      <h>40</h>
-    </coordinates>
-    <panel_attributes>&lt;&lt;Interface&gt;&gt;
-/hex::IIterateur&lt;T&gt;/
---
-/+aSuite(): bool/
-/+suite(): Coordonnees/
-style=autoresize</panel_attributes>
+#deletePlateau(): void
+group=8</panel_attributes>
     <additional_attributes/>
   </element>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>1415</x>
-      <y>1360</y>
-      <w>15</w>
-      <h>45</h>
+      <x>1988</x>
+      <y>592</y>
+      <w>12</w>
+      <h>36</h>
     </coordinates>
     <panel_attributes>lt=&lt;&lt;.</panel_attributes>
     <additional_attributes>10.0;10.0;10.0;70.0</additional_attributes>
   </element>
   <element>
-    <id>Relation</id>
-    <coordinates>
-      <x>1795</x>
-      <y>1720</y>
-      <w>15</w>
-      <h>40</h>
-    </coordinates>
-    <panel_attributes>lt=&lt;&lt;.</panel_attributes>
-    <additional_attributes>10.0;10.0;10.0;60.0</additional_attributes>
-  </element>
-  <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>1315</x>
-      <y>1550</y>
-      <w>215</w>
-      <h>190</h>
+      <x>2272</x>
+      <y>1020</y>
+      <w>172</w>
+      <h>152</h>
     </coordinates>
     <panel_attributes>hex::Masque
 --
@@ -247,25 +198,12 @@ style=autoresize</panel_attributes>
     <additional_attributes/>
   </element>
   <element>
-    <id>Relation</id>
-    <coordinates>
-      <x>1565</x>
-      <y>1425</y>
-      <w>105</w>
-      <h>20</h>
-    </coordinates>
-    <panel_attributes>lt=&lt;&lt;&lt;&lt;&lt;-
-m1=*
-m2=1</panel_attributes>
-    <additional_attributes>10.0;10.0;190.0;10.0</additional_attributes>
-  </element>
-  <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>1400</x>
-      <y>1495</y>
-      <w>115</w>
-      <h>15</h>
+      <x>2340</x>
+      <y>980</y>
+      <w>92</w>
+      <h>12</h>
     </coordinates>
     <panel_attributes>std::set&lt;T&gt;</panel_attributes>
     <additional_attributes/>
@@ -273,35 +211,35 @@ m2=1</panel_attributes>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>1425</x>
-      <y>1505</y>
-      <w>15</w>
-      <h>55</h>
+      <x>2360</x>
+      <y>988</y>
+      <w>68</w>
+      <h>40</h>
     </coordinates>
     <panel_attributes>lt=&lt;&lt;-
 m2=T = hex::Coordonnee</panel_attributes>
-    <additional_attributes>10.0;10.0;10.0;90.0</additional_attributes>
+    <additional_attributes>10.0;10.0;10.0;80.0</additional_attributes>
   </element>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>1525</x>
-      <y>1580</y>
-      <w>145</w>
-      <h>20</h>
+      <x>2440</x>
+      <y>1044</y>
+      <w>72</w>
+      <h>16</h>
     </coordinates>
     <panel_attributes>lt=&lt;&lt;&lt;&lt;&lt;-
 m1=*
 m2=1</panel_attributes>
-    <additional_attributes>10.0;10.0;270.0;10.0</additional_attributes>
+    <additional_attributes>10.0;10.0;160.0;10.0</additional_attributes>
   </element>
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>2325</x>
-      <y>1580</y>
-      <w>275</w>
-      <h>65</h>
+      <x>1920</x>
+      <y>776</y>
+      <w>220</w>
+      <h>52</h>
     </coordinates>
     <panel_attributes>&lt;&lt;Interface&gt;&gt;
 /obj::IObjet/
@@ -317,10 +255,10 @@ style=autoresize</panel_attributes>
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>3010</x>
-      <y>1105</y>
-      <w>80</w>
-      <h>30</h>
+      <x>2092</x>
+      <y>276</y>
+      <w>64</w>
+      <h>24</h>
     </coordinates>
     <panel_attributes>&lt;&lt;Interface&gt;&gt;
 /utils::IActualisable/
@@ -331,21 +269,21 @@ style=autoresize</panel_attributes>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>2425</x>
-      <y>1130</y>
-      <w>640</w>
-      <h>460</h>
+      <x>2116</x>
+      <y>296</y>
+      <w>12</w>
+      <h>488</h>
     </coordinates>
-    <panel_attributes>lt=&lt;&lt;-</panel_attributes>
-    <additional_attributes>1260.0;10.0;10.0;900.0</additional_attributes>
+    <panel_attributes>lt=&lt;&lt;.</panel_attributes>
+    <additional_attributes>10.0;10.0;10.0;1200.0</additional_attributes>
   </element>
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>2675</x>
-      <y>1200</y>
-      <w>240</w>
-      <h>40</h>
+      <x>2124</x>
+      <y>428</y>
+      <w>192</w>
+      <h>32</h>
     </coordinates>
     <panel_attributes>&lt;&lt;Interface&gt;&gt;
 /utils::IPorte/
@@ -358,21 +296,21 @@ style=autoresize</panel_attributes>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>2595</x>
-      <y>1235</y>
-      <w>90</w>
-      <h>355</h>
+      <x>2132</x>
+      <y>456</y>
+      <w>12</w>
+      <h>328</h>
     </coordinates>
-    <panel_attributes>lt=&lt;&lt;-</panel_attributes>
-    <additional_attributes>160.0;10.0;10.0;690.0</additional_attributes>
+    <panel_attributes>lt=&lt;&lt;.</panel_attributes>
+    <additional_attributes>10.0;10.0;10.0;800.0</additional_attributes>
   </element>
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>2250</x>
-      <y>1695</y>
-      <w>275</w>
-      <h>130</h>
+      <x>2028</x>
+      <y>864</y>
+      <w>220</w>
+      <h>104</h>
     </coordinates>
     <panel_attributes>obj::GravityGun
 --
@@ -398,21 +336,21 @@ style=autoresize</panel_attributes>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>2385</x>
-      <y>1635</y>
-      <w>15</w>
-      <h>70</h>
+      <x>2072</x>
+      <y>824</y>
+      <w>12</w>
+      <h>48</h>
     </coordinates>
     <panel_attributes>lt=&lt;&lt;.</panel_attributes>
-    <additional_attributes>10.0;10.0;10.0;120.0</additional_attributes>
+    <additional_attributes>10.0;10.0;10.0;100.0</additional_attributes>
   </element>
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>2530</x>
-      <y>1695</y>
-      <w>275</w>
-      <h>110</h>
+      <x>1800</x>
+      <y>864</y>
+      <w>220</w>
+      <h>88</h>
     </coordinates>
     <panel_attributes>obj::Taser
 --
@@ -435,21 +373,21 @@ style=autoresize</panel_attributes>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>2560</x>
-      <y>1635</y>
-      <w>15</w>
-      <h>70</h>
+      <x>2004</x>
+      <y>824</y>
+      <w>12</w>
+      <h>48</h>
     </coordinates>
     <panel_attributes>lt=&lt;&lt;.</panel_attributes>
-    <additional_attributes>10.0;10.0;10.0;120.0</additional_attributes>
+    <additional_attributes>10.0;10.0;10.0;100.0</additional_attributes>
   </element>
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>2005</x>
-      <y>1720</y>
-      <w>140</w>
-      <h>110</h>
+      <x>2504</x>
+      <y>864</y>
+      <w>112</w>
+      <h>88</h>
     </coordinates>
     <panel_attributes>utils::Jauge
 --
@@ -472,23 +410,23 @@ style=autoresize</panel_attributes>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>2140</x>
-      <y>1720</y>
-      <w>120</w>
-      <h>20</h>
+      <x>2244</x>
+      <y>868</y>
+      <w>268</w>
+      <h>16</h>
     </coordinates>
     <panel_attributes>lt=&lt;&lt;&lt;&lt;&lt;-
 m1=1
 m2=1</panel_attributes>
-    <additional_attributes>220.0;10.0;10.0;10.0</additional_attributes>
+    <additional_attributes>10.0;10.0;650.0;10.0</additional_attributes>
   </element>
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>3660</x>
-      <y>1095</y>
-      <w>200</w>
-      <h>65</h>
+      <x>2468</x>
+      <y>332</y>
+      <w>160</w>
+      <h>52</h>
     </coordinates>
     <panel_attributes>/utils::AObservable&lt;T&gt;/
 --
@@ -505,27 +443,10 @@ style=autoresize</panel_attributes>
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>1990</x>
-      <y>1250</y>
-      <w>280</w>
-      <h>50</h>
-    </coordinates>
-    <panel_attributes>utils::HexPixelConvertisseur
---
-+HexPixelConvertisseur()
-
-+operator()(cote: float, hex: const hex::Coordonnees&amp;) const: sf::Vector2f
-+operator()(cote: float, pixel: const sf::Vector2i&amp;) const: hex::Coordonnees
-style=autoresize</panel_attributes>
-    <additional_attributes/>
-  </element>
-  <element>
-    <id>UMLClass</id>
-    <coordinates>
-      <x>2840</x>
-      <y>1305</y>
-      <w>265</w>
-      <h>230</h>
+      <x>2272</x>
+      <y>500</y>
+      <w>212</w>
+      <h>184</h>
     </coordinates>
     <panel_attributes>/per::APersonnage/
 --
@@ -559,39 +480,27 @@ _#idSuivante: size_t_
 +getObjet(size_t indice): obj::IObjet_S
 
 /+accepter(visiteur: per::IPersonnageVisiteur&amp;) const: void/
-style=autoresize
-group=7</panel_attributes>
+style=autoresize</panel_attributes>
     <additional_attributes/>
   </element>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>2900</x>
-      <y>1235</y>
-      <w>15</w>
-      <h>80</h>
+      <x>2304</x>
+      <y>456</y>
+      <w>12</w>
+      <h>52</h>
     </coordinates>
     <panel_attributes>lt=&lt;&lt;.</panel_attributes>
-    <additional_attributes>10.0;10.0;10.0;140.0</additional_attributes>
-  </element>
-  <element>
-    <id>Relation</id>
-    <coordinates>
-      <x>2860</x>
-      <y>1130</y>
-      <w>220</w>
-      <h>185</h>
-    </coordinates>
-    <panel_attributes>lt=&lt;&lt;.</panel_attributes>
-    <additional_attributes>420.0;10.0;10.0;350.0</additional_attributes>
+    <additional_attributes>10.0;10.0;10.0;110.0</additional_attributes>
   </element>
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>2785</x>
-      <y>1570</y>
-      <w>240</w>
-      <h>110</h>
+      <x>2188</x>
+      <y>712</y>
+      <w>192</w>
+      <h>88</h>
     </coordinates>
     <panel_attributes>per::Fantassin
 --
@@ -614,10 +523,10 @@ style=autoresize</panel_attributes>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>2900</x>
-      <y>1530</y>
-      <w>15</w>
-      <h>50</h>
+      <x>2320</x>
+      <y>680</y>
+      <w>12</w>
+      <h>40</h>
     </coordinates>
     <panel_attributes>lt=&lt;&lt;-</panel_attributes>
     <additional_attributes>10.0;10.0;10.0;80.0</additional_attributes>
@@ -625,23 +534,23 @@ style=autoresize</panel_attributes>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>2595</x>
-      <y>1595</y>
-      <w>200</w>
-      <h>20</h>
+      <x>2136</x>
+      <y>776</y>
+      <w>60</w>
+      <h>16</h>
     </coordinates>
     <panel_attributes>lt=&lt;&lt;&lt;&lt;&lt;-
 m1=1
 m2=1</panel_attributes>
-    <additional_attributes>380.0;10.0;10.0;10.0</additional_attributes>
+    <additional_attributes>130.0;10.0;10.0;10.0</additional_attributes>
   </element>
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>3030</x>
-      <y>1570</y>
-      <w>240</w>
-      <h>120</h>
+      <x>2384</x>
+      <y>712</y>
+      <w>192</w>
+      <h>96</h>
     </coordinates>
     <panel_attributes>per::Heros
 --
@@ -666,34 +575,34 @@ style=autoresize</panel_attributes>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>3075</x>
-      <y>1530</y>
-      <w>85</w>
-      <h>50</h>
+      <x>2460</x>
+      <y>680</y>
+      <w>12</w>
+      <h>40</h>
     </coordinates>
     <panel_attributes>lt=&lt;&lt;-</panel_attributes>
-    <additional_attributes>10.0;10.0;150.0;80.0</additional_attributes>
+    <additional_attributes>10.0;10.0;10.0;80.0</additional_attributes>
   </element>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>2595</x>
-      <y>1620</y>
-      <w>445</w>
-      <h>70</h>
+      <x>2136</x>
+      <y>800</y>
+      <w>256</w>
+      <h>16</h>
     </coordinates>
     <panel_attributes>lt=&lt;&lt;&lt;&lt;&lt;-
-m1=1
+m1=*
 m2=1</panel_attributes>
-    <additional_attributes>870.0;120.0;10.0;10.0</additional_attributes>
+    <additional_attributes>620.0;10.0;10.0;10.0</additional_attributes>
   </element>
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>3110</x>
-      <y>1305</y>
-      <w>65</w>
-      <h>50</h>
+      <x>2488</x>
+      <y>500</y>
+      <w>52</w>
+      <h>40</h>
     </coordinates>
     <panel_attributes>&lt;&lt;enum class&gt;&gt;
 per::Deplacement
@@ -701,17 +610,16 @@ per::Deplacement
 Marcher
 Sauter
 Forcer
-style=autoresize
-group=7</panel_attributes>
+style=autoresize</panel_attributes>
     <additional_attributes/>
   </element>
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>3285</x>
-      <y>1235</y>
-      <w>265</w>
-      <h>170</h>
+      <x>1580</x>
+      <y>328</y>
+      <w>212</w>
+      <h>136</h>
     </coordinates>
     <panel_attributes>&lt;&lt;Interface&gt;&gt;
 /donjon::IDonjon/
@@ -736,29 +644,33 @@ group=7</panel_attributes>
 /+trouver(position: const hex::Coordonnees&amp;) const: per::APersonnage_SC/
 /+trouver(position: const hex::Coordonnees&amp;): per::APersonnage_S/
 /+estOccupee(position: const hex::Coordonnees&amp;) const: bool/
-style=autoresize</panel_attributes>
+style=autoresize
+group=11</panel_attributes>
     <additional_attributes/>
   </element>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>3070</x>
-      <y>1130</y>
-      <w>240</w>
-      <h>115</h>
+      <x>1780</x>
+      <y>296</y>
+      <w>332</w>
+      <h>40</h>
     </coordinates>
-    <panel_attributes>lt=&lt;&lt;-</panel_attributes>
-    <additional_attributes>10.0;10.0;460.0;210.0</additional_attributes>
+    <panel_attributes>lt=&lt;&lt;.</panel_attributes>
+    <additional_attributes>810.0;10.0;810.0;50.0;10.0;50.0;10.0;80.0</additional_attributes>
   </element>
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>3280</x>
-      <y>1435</y>
-      <w>270</w>
-      <h>205</h>
+      <x>1576</x>
+      <y>488</y>
+      <w>216</w>
+      <h>176</h>
     </coordinates>
     <panel_attributes>donjon::Donjon
+--
+m_personnages: std::vector&lt;per::APersonnage_S&gt;
+m_carte: hex::ICarte_S&lt;cases::ACase_S&gt;
 --
 +invoquer(personnage: per::APersonnage_S,
           position: const hex::Coordonnees&amp;): void
@@ -786,16 +698,17 @@ style=autoresize</panel_attributes>
 -pousse(personnage: const per::APersonnage_S&amp;, direction: hex::Direction,
         distance: size_t): void
 style=autoresize
-      </panel_attributes>
+      
+group=11</panel_attributes>
     <additional_attributes/>
   </element>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>3410</x>
-      <y>1400</y>
-      <w>15</w>
-      <h>45</h>
+      <x>1680</x>
+      <y>460</y>
+      <w>12</w>
+      <h>36</h>
     </coordinates>
     <panel_attributes>lt=&lt;&lt;.</panel_attributes>
     <additional_attributes>10.0;10.0;10.0;70.0</additional_attributes>
@@ -803,10 +716,10 @@ style=autoresize
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>3680</x>
-      <y>1255</y>
-      <w>190</w>
-      <h>120</h>
+      <x>2584</x>
+      <y>424</y>
+      <w>152</w>
+      <h>96</h>
     </coordinates>
     <panel_attributes>/donjon::cases::ACase/
 --
@@ -824,17 +737,16 @@ style=autoresize
 /+accepter(visiteur: ICaseVisiteur&amp;) const: void/
 
 +actualiser(): void
-style=autoresize
-group=5</panel_attributes>
+style=autoresize</panel_attributes>
     <additional_attributes/>
   </element>
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>3585</x>
-      <y>1405</y>
-      <w>190</w>
-      <h>145</h>
+      <x>2508</x>
+      <y>544</y>
+      <w>152</w>
+      <h>116</h>
     </coordinates>
     <panel_attributes>donjon::cases::Sol
 --
@@ -856,17 +768,16 @@ group=5</panel_attributes>
 +accepter(visiteur: ICaseVisiteur&amp;) const: void
 
 +actualiser(): void
-style=autoresize
-group=5</panel_attributes>
+style=autoresize</panel_attributes>
     <additional_attributes/>
   </element>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>3700</x>
-      <y>1370</y>
-      <w>15</w>
-      <h>45</h>
+      <x>2600</x>
+      <y>516</y>
+      <w>12</w>
+      <h>36</h>
     </coordinates>
     <panel_attributes>lt=&lt;&lt;-</panel_attributes>
     <additional_attributes>10.0;10.0;10.0;70.0</additional_attributes>
@@ -874,56 +785,56 @@ group=5</panel_attributes>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>3080</x>
-      <y>1130</y>
-      <w>645</w>
-      <h>135</h>
+      <x>2140</x>
+      <y>296</y>
+      <w>464</w>
+      <h>136</h>
     </coordinates>
     <panel_attributes>lt=&lt;&lt;.</panel_attributes>
-    <additional_attributes>10.0;10.0;1270.0;250.0</additional_attributes>
+    <additional_attributes>10.0;10.0;10.0;290.0;1140.0;290.0;1140.0;320.0</additional_attributes>
   </element>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>3765</x>
-      <y>1155</y>
-      <w>15</w>
-      <h>110</h>
+      <x>2612</x>
+      <y>380</y>
+      <w>12</w>
+      <h>52</h>
     </coordinates>
     <panel_attributes>lt=&lt;&lt;-</panel_attributes>
-    <additional_attributes>10.0;10.0;10.0;200.0</additional_attributes>
+    <additional_attributes>10.0;10.0;10.0;110.0</additional_attributes>
   </element>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>3065</x>
-      <y>1155</y>
-      <w>605</w>
-      <h>160</h>
+      <x>2472</x>
+      <y>380</y>
+      <w>12</w>
+      <h>128</h>
     </coordinates>
     <panel_attributes>lt=&lt;&lt;-</panel_attributes>
-    <additional_attributes>1190.0;10.0;10.0;300.0</additional_attributes>
+    <additional_attributes>10.0;10.0;10.0;300.0</additional_attributes>
   </element>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>3100</x>
-      <y>1385</y>
-      <w>190</w>
-      <h>90</h>
+      <x>1788</x>
+      <y>504</y>
+      <w>492</w>
+      <h>16</h>
     </coordinates>
     <panel_attributes>lt=&lt;&lt;&lt;&lt;&lt;-
 m1=1..*
 m2=1</panel_attributes>
-    <additional_attributes>360.0;160.0;10.0;10.0</additional_attributes>
+    <additional_attributes>10.0;10.0;1210.0;10.0</additional_attributes>
   </element>
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>3780</x>
-      <y>1405</y>
-      <w>190</w>
-      <h>120</h>
+      <x>2664</x>
+      <y>544</y>
+      <w>152</w>
+      <h>96</h>
     </coordinates>
     <panel_attributes>donjon::cases::Trou
 --
@@ -941,17 +852,16 @@ m2=1</panel_attributes>
 +enActivation(personnage: per::APersonnage&amp;): void
 
 +accepter(visiteur: ICaseVisiteur&amp;) const: void
-style=autoresize
-group=5</panel_attributes>
+style=autoresize</panel_attributes>
     <additional_attributes/>
   </element>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>3835</x>
-      <y>1370</y>
-      <w>15</w>
-      <h>45</h>
+      <x>2708</x>
+      <y>516</y>
+      <w>12</w>
+      <h>36</h>
     </coordinates>
     <panel_attributes>lt=&lt;&lt;-</panel_attributes>
     <additional_attributes>10.0;10.0;10.0;70.0</additional_attributes>
@@ -959,10 +869,10 @@ group=5</panel_attributes>
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>3415</x>
-      <y>835</y>
-      <w>220</w>
-      <h>130</h>
+      <x>1276</x>
+      <y>664</y>
+      <w>176</w>
+      <h>104</h>
     </coordinates>
     <panel_attributes>partie::Equipe
 --
@@ -988,10 +898,10 @@ style=autoresize</panel_attributes>
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>3100</x>
-      <y>835</y>
-      <w>270</w>
-      <h>215</h>
+      <x>1016</x>
+      <y>636</y>
+      <w>216</w>
+      <h>172</h>
     </coordinates>
     <panel_attributes>partie::Partie
 --
@@ -1029,10 +939,10 @@ style=autoresize</panel_attributes>
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>3685</x>
-      <y>835</y>
-      <w>265</w>
-      <h>35</h>
+      <x>1492</x>
+      <y>672</y>
+      <w>212</w>
+      <h>28</h>
     </coordinates>
     <panel_attributes>&lt;&lt;Interface&gt;&gt;
 /partie::strat::IStrategie/
@@ -1044,10 +954,10 @@ style=autoresize</panel_attributes>
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>3685</x>
-      <y>890</y>
-      <w>265</w>
-      <h>40</h>
+      <x>1492</x>
+      <y>716</y>
+      <w>212</w>
+      <h>32</h>
     </coordinates>
     <panel_attributes>partie::strat::JoueurHumain
 --
@@ -1060,21 +970,21 @@ style=autoresize</panel_attributes>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>3815</x>
-      <y>860</y>
-      <w>15</w>
-      <h>40</h>
+      <x>1596</x>
+      <y>696</y>
+      <w>12</w>
+      <h>28</h>
     </coordinates>
     <panel_attributes>lt=&lt;&lt;.</panel_attributes>
-    <additional_attributes>10.0;10.0;10.0;60.0</additional_attributes>
+    <additional_attributes>10.0;10.0;10.0;50.0</additional_attributes>
   </element>
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>3415</x>
-      <y>740</y>
-      <w>265</w>
-      <h>90</h>
+      <x>1276</x>
+      <y>776</y>
+      <w>212</w>
+      <h>72</h>
     </coordinates>
     <panel_attributes>&lt;&lt;Interface&gt;&gt;
 /partie::etat::IEtat/
@@ -1094,23 +1004,23 @@ style=autoresize</panel_attributes>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>3360</x>
-      <y>850</y>
-      <w>65</w>
-      <h>20</h>
+      <x>1228</x>
+      <y>664</y>
+      <w>56</w>
+      <h>16</h>
     </coordinates>
     <panel_attributes>lt=&lt;&lt;&lt;&lt;&lt;-
 m1=1..*
 m2=1</panel_attributes>
-    <additional_attributes>10.0;10.0;110.0;10.0</additional_attributes>
+    <additional_attributes>10.0;10.0;120.0;10.0</additional_attributes>
   </element>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>3630</x>
-      <y>840</y>
-      <w>65</w>
-      <h>20</h>
+      <x>1448</x>
+      <y>676</y>
+      <w>52</w>
+      <h>16</h>
     </coordinates>
     <panel_attributes>lt=&lt;&lt;&lt;&lt;&lt;-
 m1=1
@@ -1120,23 +1030,23 @@ m2=*</panel_attributes>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>3360</x>
-      <y>770</y>
-      <w>65</w>
-      <h>80</h>
+      <x>1228</x>
+      <y>780</y>
+      <w>56</w>
+      <h>16</h>
     </coordinates>
     <panel_attributes>lt=&lt;&lt;&lt;&lt;&lt;-
 m1=1..2
 m2=1</panel_attributes>
-    <additional_attributes>10.0;140.0;110.0;10.0</additional_attributes>
+    <additional_attributes>10.0;10.0;120.0;10.0</additional_attributes>
   </element>
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>3735</x>
-      <y>700</y>
-      <w>265</w>
-      <h>110</h>
+      <x>1080</x>
+      <y>864</y>
+      <w>212</w>
+      <h>88</h>
     </coordinates>
     <panel_attributes>partie::etat::Decision
 --
@@ -1159,21 +1069,21 @@ style=autoresize</panel_attributes>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>3675</x>
-      <y>700</y>
-      <w>70</w>
-      <h>70</h>
+      <x>1272</x>
+      <y>844</y>
+      <w>20</w>
+      <h>28</h>
     </coordinates>
     <panel_attributes>lt=&lt;&lt;.</panel_attributes>
-    <additional_attributes>10.0;120.0;120.0;10.0</additional_attributes>
+    <additional_attributes>30.0;10.0;10.0;50.0</additional_attributes>
   </element>
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>3735</x>
-      <y>580</y>
-      <w>265</w>
-      <h>110</h>
+      <x>1472</x>
+      <y>864</y>
+      <w>212</w>
+      <h>88</h>
     </coordinates>
     <panel_attributes>partie::etat::FinPartie
 --
@@ -1196,21 +1106,21 @@ style=autoresize</panel_attributes>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>3675</x>
-      <y>580</y>
-      <w>70</w>
-      <h>180</h>
+      <x>1460</x>
+      <y>844</y>
+      <w>36</w>
+      <h>28</h>
     </coordinates>
     <panel_attributes>lt=&lt;&lt;.</panel_attributes>
-    <additional_attributes>10.0;340.0;120.0;10.0</additional_attributes>
+    <additional_attributes>10.0;10.0;70.0;50.0</additional_attributes>
   </element>
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>3735</x>
-      <y>470</y>
-      <w>265</w>
-      <h>110</h>
+      <x>1456</x>
+      <y>956</y>
+      <w>212</w>
+      <h>88</h>
     </coordinates>
     <panel_attributes>partie::etat::FinTour
 --
@@ -1233,21 +1143,21 @@ style=autoresize</panel_attributes>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>3665</x>
-      <y>470</y>
-      <w>80</w>
-      <h>280</h>
+      <x>1436</x>
+      <y>844</y>
+      <w>36</w>
+      <h>120</h>
     </coordinates>
     <panel_attributes>lt=&lt;&lt;.</panel_attributes>
-    <additional_attributes>10.0;540.0;140.0;10.0</additional_attributes>
+    <additional_attributes>10.0;10.0;70.0;280.0</additional_attributes>
   </element>
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>3735</x>
-      <y>360</y>
-      <w>265</w>
-      <h>110</h>
+      <x>1124</x>
+      <y>1048</y>
+      <w>212</w>
+      <h>88</h>
     </coordinates>
     <panel_attributes>partie::etat::SelectionMan
 --
@@ -1270,10 +1180,10 @@ style=autoresize</panel_attributes>
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>3735</x>
-      <y>230</y>
-      <w>265</w>
-      <h>130</h>
+      <x>1280</x>
+      <y>1152</y>
+      <w>212</w>
+      <h>104</h>
     </coordinates>
     <panel_attributes>partie::etat::ObjetActif
 --
@@ -1299,10 +1209,10 @@ style=autoresize</panel_attributes>
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>3735</x>
-      <y>115</y>
-      <w>265</w>
-      <h>115</h>
+      <x>1436</x>
+      <y>1048</y>
+      <w>212</w>
+      <h>92</h>
     </coordinates>
     <panel_attributes>partie::etat::PersoActif
 --
@@ -1326,10 +1236,10 @@ style=autoresize</panel_attributes>
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>3735</x>
-      <y>0</y>
-      <w>265</w>
-      <h>110</h>
+      <x>1100</x>
+      <y>956</y>
+      <w>212</w>
+      <h>88</h>
     </coordinates>
     <panel_attributes>partie::etat::SelectionAuto
 --
@@ -1352,25 +1262,26 @@ style=autoresize</panel_attributes>
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>1325</x>
-      <y>825</y>
-      <w>240</w>
-      <h>35</h>
+      <x>320</x>
+      <y>0</y>
+      <w>192</w>
+      <h>28</h>
     </coordinates>
-    <panel_attributes>SimpleClass&lt;&lt;Interface&gt;&gt;
+    <panel_attributes>&lt;&lt;Interface&gt;&gt;
 controlleur::IControlleur
 --
 /+enEvenement(source: const vue::Fenetre&amp;, even: sf::Event&amp;): void/
-style=autoresize</panel_attributes>
+style=autoresize
+group=14</panel_attributes>
     <additional_attributes/>
   </element>
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>1320</x>
-      <y>890</y>
-      <w>305</w>
-      <h>80</h>
+      <x>316</x>
+      <y>52</y>
+      <w>244</w>
+      <h>64</h>
     </coordinates>
     <panel_attributes>controlleur::PartieCont
 --
@@ -1383,16 +1294,17 @@ style=autoresize</panel_attributes>
 +enEvenement(source: const vue::Fenetre&amp;, even: sf::Event&amp;): void
 #clicObjet(coordonneesClic: const sf::Vector2f&amp;): bool
 #clicCase(coordonneesClic: const sf::Vector2f&amp;, source: const vue::Fenetre&amp;): void
-style=autoresize</panel_attributes>
+style=autoresize
+group=14</panel_attributes>
     <additional_attributes/>
   </element>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>1470</x>
-      <y>855</y>
-      <w>15</w>
-      <h>45</h>
+      <x>436</x>
+      <y>24</y>
+      <w>12</w>
+      <h>36</h>
     </coordinates>
     <panel_attributes>lt=&lt;&lt;.</panel_attributes>
     <additional_attributes>10.0;10.0;10.0;70.0</additional_attributes>
@@ -1400,10 +1312,10 @@ style=autoresize</panel_attributes>
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>1130</x>
-      <y>955</y>
-      <w>145</w>
-      <h>100</h>
+      <x>1236</x>
+      <y>108</y>
+      <w>116</w>
+      <h>80</h>
     </coordinates>
     <panel_attributes>vue::ADessinable&lt;T&gt;
 --
@@ -1425,10 +1337,10 @@ style=autoresize</panel_attributes>
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>1130</x>
-      <y>915</y>
-      <w>50</w>
-      <h>15</h>
+      <x>1236</x>
+      <y>76</y>
+      <w>40</w>
+      <h>12</h>
     </coordinates>
     <panel_attributes>/sf::Drawable/
 style=autoresize</panel_attributes>
@@ -1437,10 +1349,10 @@ style=autoresize</panel_attributes>
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>1205</x>
-      <y>915</y>
-      <w>70</w>
-      <h>15</h>
+      <x>1296</x>
+      <y>76</y>
+      <w>56</w>
+      <h>12</h>
     </coordinates>
     <panel_attributes>/sf::Transformable/
 style=autoresize</panel_attributes>
@@ -1449,10 +1361,10 @@ style=autoresize</panel_attributes>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>1150</x>
-      <y>925</y>
-      <w>15</w>
-      <h>40</h>
+      <x>1252</x>
+      <y>84</y>
+      <w>12</w>
+      <h>32</h>
     </coordinates>
     <panel_attributes>lt=&lt;&lt;.</panel_attributes>
     <additional_attributes>10.0;10.0;10.0;60.0</additional_attributes>
@@ -1460,10 +1372,10 @@ style=autoresize</panel_attributes>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>1235</x>
-      <y>925</y>
-      <w>15</w>
-      <h>40</h>
+      <x>1320</x>
+      <y>84</y>
+      <w>12</w>
+      <h>32</h>
     </coordinates>
     <panel_attributes>lt=&lt;&lt;-</panel_attributes>
     <additional_attributes>10.0;10.0;10.0;60.0</additional_attributes>
@@ -1471,10 +1383,10 @@ style=autoresize</panel_attributes>
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>1005</x>
-      <y>1225</y>
-      <w>255</w>
-      <h>145</h>
+      <x>1136</x>
+      <y>324</y>
+      <w>204</w>
+      <h>116</h>
     </coordinates>
     <panel_attributes>vue::CaseDessinable
 --
@@ -1496,17 +1408,16 @@ style=autoresize</panel_attributes>
 
 +setCote(cote: float): void
 +setElement(element: donjon::cases::ACase&amp;): void
-style=autoresize
-group=4</panel_attributes>
+style=autoresize</panel_attributes>
     <additional_attributes/>
   </element>
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>1290</x>
-      <y>1085</y>
-      <w>190</w>
-      <h>40</h>
+      <x>1364</x>
+      <y>212</y>
+      <w>152</w>
+      <h>32</h>
     </coordinates>
     <panel_attributes>&lt;&lt;Interface&gt;&gt;
 /obj::IObjetVisiteur/
@@ -1520,10 +1431,10 @@ style=autoresize</panel_attributes>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>1010</x>
-      <y>1195</y>
-      <w>15</w>
-      <h>40</h>
+      <x>1204</x>
+      <y>300</y>
+      <w>12</w>
+      <h>32</h>
     </coordinates>
     <panel_attributes>lt=&lt;&lt;.</panel_attributes>
     <additional_attributes>10.0;10.0;10.0;60.0</additional_attributes>
@@ -1531,10 +1442,10 @@ style=autoresize</panel_attributes>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>1240</x>
-      <y>1050</y>
-      <w>15</w>
-      <h>185</h>
+      <x>1324</x>
+      <y>184</y>
+      <w>12</w>
+      <h>148</h>
     </coordinates>
     <panel_attributes>lt=&lt;&lt;-</panel_attributes>
     <additional_attributes>10.0;10.0;10.0;350.0</additional_attributes>
@@ -1542,27 +1453,26 @@ style=autoresize</panel_attributes>
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>1005</x>
-      <y>1160</y>
-      <w>125</w>
-      <h>40</h>
+      <x>1200</x>
+      <y>272</y>
+      <w>100</w>
+      <h>32</h>
     </coordinates>
     <panel_attributes>&lt;&lt;Interface&gt;&gt;
 /donjon::cases::ICaseVisiteur/
 --
 /+visite(sol: const Sol&amp;): void/
 /+visite(trou: const Trou&amp;): void/
-style=autoresize
-group=4</panel_attributes>
+style=autoresize</panel_attributes>
     <additional_attributes/>
   </element>
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>1290</x>
-      <y>1145</y>
-      <w>255</w>
-      <h>160</h>
+      <x>1364</x>
+      <y>260</y>
+      <w>204</w>
+      <h>128</h>
     </coordinates>
     <panel_attributes>vue::ObjetDessinable
 --
@@ -1593,10 +1503,10 @@ style=autoresize</panel_attributes>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>1245</x>
-      <y>925</y>
-      <w>300</w>
-      <h>230</h>
+      <x>1328</x>
+      <y>84</y>
+      <w>240</w>
+      <h>184</h>
     </coordinates>
     <panel_attributes>lt=&lt;&lt;-</panel_attributes>
     <additional_attributes>10.0;10.0;580.0;440.0</additional_attributes>
@@ -1604,10 +1514,10 @@ style=autoresize</panel_attributes>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>1165</x>
-      <y>925</y>
-      <w>365</w>
-      <h>230</h>
+      <x>1264</x>
+      <y>84</y>
+      <w>292</w>
+      <h>184</h>
     </coordinates>
     <panel_attributes>lt=&lt;&lt;.</panel_attributes>
     <additional_attributes>10.0;10.0;710.0;440.0</additional_attributes>
@@ -1615,10 +1525,10 @@ style=autoresize</panel_attributes>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>1310</x>
-      <y>1120</y>
-      <w>15</w>
-      <h>35</h>
+      <x>1380</x>
+      <y>240</y>
+      <w>12</w>
+      <h>28</h>
     </coordinates>
     <panel_attributes>lt=&lt;&lt;.</panel_attributes>
     <additional_attributes>10.0;10.0;10.0;50.0</additional_attributes>
@@ -1626,10 +1536,10 @@ style=autoresize</panel_attributes>
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>400</x>
-      <y>1155</y>
-      <w>300</w>
-      <h>210</h>
+      <x>588</x>
+      <y>264</y>
+      <w>240</w>
+      <h>168</h>
     </coordinates>
     <panel_attributes>vue::PartieDessinable
 --
@@ -1666,21 +1576,21 @@ style=autoresize</panel_attributes>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>630</x>
-      <y>1050</y>
-      <w>520</w>
-      <h>115</h>
+      <x>816</x>
+      <y>184</y>
+      <w>436</w>
+      <h>88</h>
     </coordinates>
     <panel_attributes>lt=&lt;&lt;-</panel_attributes>
-    <additional_attributes>1020.0;10.0;10.0;210.0</additional_attributes>
+    <additional_attributes>1070.0;10.0;1070.0;60.0;10.0;60.0;10.0;200.0</additional_attributes>
   </element>
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>745</x>
-      <y>975</y>
-      <w>220</w>
-      <h>85</h>
+      <x>928</x>
+      <y>124</y>
+      <w>176</w>
+      <h>68</h>
     </coordinates>
     <panel_attributes>vue::TextureGest
 --
@@ -1700,10 +1610,10 @@ style=autoresize</panel_attributes>
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>745</x>
-      <y>820</y>
-      <w>310</w>
-      <h>145</h>
+      <x>928</x>
+      <y>0</y>
+      <w>248</w>
+      <h>116</h>
     </coordinates>
     <panel_attributes>vue::Fenetre
 --
@@ -1731,10 +1641,10 @@ style=autoresize</panel_attributes>
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>735</x>
-      <y>1140</y>
-      <w>165</w>
-      <h>40</h>
+      <x>856</x>
+      <y>272</y>
+      <w>132</w>
+      <h>32</h>
     </coordinates>
     <panel_attributes>&lt;&lt;Interface&gt;&gt;
 /per::IPersonnageVisiteur/
@@ -1748,10 +1658,10 @@ group=3</panel_attributes>
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>735</x>
-      <y>1210</y>
-      <w>255</w>
-      <h>210</h>
+      <x>856</x>
+      <y>328</y>
+      <w>204</w>
+      <h>168</h>
     </coordinates>
     <panel_attributes>vue::PersonnageDessinable
 --
@@ -1789,21 +1699,21 @@ group=3</panel_attributes>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>925</x>
-      <y>1050</y>
-      <w>235</w>
-      <h>170</h>
+      <x>1008</x>
+      <y>184</y>
+      <w>252</w>
+      <h>152</h>
     </coordinates>
     <panel_attributes>lt=&lt;&lt;-</panel_attributes>
-    <additional_attributes>450.0;10.0;10.0;320.0</additional_attributes>
+    <additional_attributes>610.0;10.0;610.0;100.0;10.0;100.0;10.0;360.0</additional_attributes>
   </element>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>800</x>
-      <y>1175</y>
-      <w>15</w>
-      <h>45</h>
+      <x>908</x>
+      <y>300</y>
+      <w>12</w>
+      <h>36</h>
     </coordinates>
     <panel_attributes>lt=&lt;&lt;.</panel_attributes>
     <additional_attributes>10.0;10.0;10.0;70.0</additional_attributes>
@@ -1811,10 +1721,10 @@ group=3</panel_attributes>
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>0</x>
-      <y>1105</y>
-      <w>220</w>
-      <h>80</h>
+      <x>100</x>
+      <y>232</y>
+      <w>176</w>
+      <h>64</h>
     </coordinates>
     <panel_attributes>Roblite
 --
@@ -1833,10 +1743,10 @@ style=autoresize</panel_attributes>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>1050</x>
-      <y>920</y>
-      <w>90</w>
-      <h>20</h>
+      <x>1172</x>
+      <y>80</y>
+      <w>72</w>
+      <h>16</h>
     </coordinates>
     <panel_attributes>lt=&lt;&lt;&lt;&lt;&lt;-
 m1=1
@@ -1846,36 +1756,36 @@ m2=*</panel_attributes>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>1050</x>
-      <y>830</y>
-      <w>285</w>
-      <h>20</h>
+      <x>508</x>
+      <y>4</y>
+      <w>428</w>
+      <h>16</h>
     </coordinates>
     <panel_attributes>lt=&lt;&lt;&lt;&lt;&lt;-
 m1=*
 m2=*</panel_attributes>
-    <additional_attributes>10.0;10.0;550.0;10.0</additional_attributes>
+    <additional_attributes>1050.0;10.0;10.0;10.0</additional_attributes>
   </element>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>215</x>
-      <y>840</y>
-      <w>540</w>
-      <h>295</h>
+      <x>272</x>
+      <y>104</y>
+      <w>664</w>
+      <h>164</h>
     </coordinates>
     <panel_attributes>lt=&lt;&lt;&lt;&lt;&lt;-
 m1=1
 m2=1</panel_attributes>
-    <additional_attributes>10.0;570.0;1060.0;10.0</additional_attributes>
+    <additional_attributes>10.0;380.0;1270.0;380.0;1270.0;10.0;1640.0;10.0</additional_attributes>
   </element>
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>940</x>
-      <y>1465</y>
-      <w>125</w>
-      <h>35</h>
+      <x>1048</x>
+      <y>264</y>
+      <w>100</w>
+      <h>28</h>
     </coordinates>
     <panel_attributes>&lt;&lt;Interface&gt;&gt;
 /utils::IObservateur&lt;T&gt;/
@@ -1887,23 +1797,521 @@ style=autoresize</panel_attributes>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>950</x>
-      <y>1415</y>
-      <w>15</w>
-      <h>60</h>
+      <x>1048</x>
+      <y>288</y>
+      <w>12</w>
+      <h>48</h>
     </coordinates>
     <panel_attributes>lt=&lt;&lt;.</panel_attributes>
-    <additional_attributes>10.0;100.0;10.0;10.0</additional_attributes>
+    <additional_attributes>10.0;10.0;10.0;100.0</additional_attributes>
   </element>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>1045</x>
-      <y>1365</y>
-      <w>15</w>
-      <h>110</h>
+      <x>1136</x>
+      <y>288</y>
+      <w>12</w>
+      <h>44</h>
     </coordinates>
     <panel_attributes>lt=&lt;&lt;.</panel_attributes>
-    <additional_attributes>10.0;200.0;10.0;10.0</additional_attributes>
+    <additional_attributes>10.0;10.0;10.0;90.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>1788</x>
+      <y>532</y>
+      <w>116</w>
+      <h>16</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;&lt;&lt;&lt;-
+m1=1
+m2=1</panel_attributes>
+    <additional_attributes>10.0;10.0;270.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>2124</x>
+      <y>296</y>
+      <w>264</w>
+      <h>212</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;.</panel_attributes>
+    <additional_attributes>10.0;10.0;10.0;310.0;640.0;310.0;640.0;510.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>2480</x>
+      <y>672</y>
+      <w>132</w>
+      <h>200</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;&lt;&lt;&lt;-
+m1=1
+m2=1</panel_attributes>
+    <additional_attributes>10.0;10.0;300.0;10.0;300.0;480.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>2244</x>
+      <y>940</y>
+      <w>92</w>
+      <h>88</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;&lt;&lt;&lt;-
+m1=1
+m2=1</panel_attributes>
+    <additional_attributes>10.0;10.0;200.0;10.0;200.0;200.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>2480</x>
+      <y>664</y>
+      <w>160</w>
+      <h>344</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;&lt;&lt;&lt;-
+m1=*
+m2=1</panel_attributes>
+    <additional_attributes>10.0;10.0;370.0;10.0;370.0;840.0</additional_attributes>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>620</x>
+      <y>52</y>
+      <w>224</w>
+      <h>40</h>
+    </coordinates>
+    <panel_attributes>utils::HexPixelConvertisseur
+--
++HexPixelConvertisseur()
+
++operator()(cote: float, hex: const hex::Coordonnees&amp;) const: sf::Vector2f
++operator()(cote: float, pixel: const sf::Vector2i&amp;) const: hex::Coordonnees
+style=autoresize
+group=14</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>556</x>
+      <y>56</y>
+      <w>72</w>
+      <h>16</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;&lt;&lt;&lt;-
+m1=1
+m2=1</panel_attributes>
+    <additional_attributes>10.0;10.0;160.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>1672</x>
+      <y>752</y>
+      <w>164</w>
+      <h>56</h>
+    </coordinates>
+    <panel_attributes>hex::IterateurCarteHexagone&lt;T&gt;
+--
+-m_carte: const CarteHexagone&lt;T&gt;*
+-m_colonne: int
+-m_ligne: int
+-m_colonneMax: int
+--
++IterateurCarteHexagone(carte: const CarteHexagone&lt;T&gt;*)
++aSuite(): bool
++suite(): Coordonnees
+style=autoresize</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>1760</x>
+      <y>684</y>
+      <w>68</w>
+      <h>32</h>
+    </coordinates>
+    <panel_attributes>&lt;&lt;Interface&gt;&gt;
+/hex::IIterateur&lt;T&gt;/
+--
+/+aSuite(): bool/
+/+suite(): Coordonnees/
+style=autoresize</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>1792</x>
+      <y>712</y>
+      <w>12</w>
+      <h>48</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;.</panel_attributes>
+    <additional_attributes>10.0;10.0;10.0;100.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>1316</x>
+      <y>844</y>
+      <w>44</w>
+      <h>212</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;.</panel_attributes>
+    <additional_attributes>90.0;10.0;10.0;510.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>1408</x>
+      <y>844</y>
+      <w>44</w>
+      <h>212</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;.</panel_attributes>
+    <additional_attributes>10.0;10.0;90.0;510.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>1376</x>
+      <y>844</y>
+      <w>12</w>
+      <h>316</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;.</panel_attributes>
+    <additional_attributes>10.0;10.0;10.0;770.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>1296</x>
+      <y>844</y>
+      <w>36</w>
+      <h>120</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;.</panel_attributes>
+    <additional_attributes>70.0;10.0;10.0;280.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>1228</x>
+      <y>640</y>
+      <w>356</w>
+      <h>16</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;&lt;&lt;&lt;-
+m1=1..*
+m2=1</panel_attributes>
+    <additional_attributes>10.0;10.0;870.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>272</x>
+      <y>264</y>
+      <w>324</w>
+      <h>16</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;&lt;&lt;&lt;-
+m1=1
+m2=1</panel_attributes>
+    <additional_attributes>10.0;10.0;790.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>272</x>
+      <y>276</y>
+      <w>752</w>
+      <h>392</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;&lt;&lt;&lt;-
+m1=1
+m2=1</panel_attributes>
+    <additional_attributes>10.0;10.0;60.0;10.0;60.0;950.0;1860.0;950.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>272</x>
+      <y>52</y>
+      <w>52</w>
+      <h>204</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;&lt;&lt;&lt;-
+m1=1
+m2=1</panel_attributes>
+    <additional_attributes>10.0;480.0;60.0;480.0;70.0;10.0;110.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>1564</x>
+      <y>264</y>
+      <w>76</w>
+      <h>16</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;&lt;&lt;&lt;-
+m1=1
+m2=*</panel_attributes>
+    <additional_attributes>10.0;10.0;170.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>1632</x>
+      <y>260</y>
+      <w>220</w>
+      <h>52</h>
+    </coordinates>
+    <panel_attributes>&lt;&lt;Interface&gt;&gt;
+/obj::IObjet/
+--
+/+estUtilisable() const: bool/
+/+void utiliser(donjon: donjon::IDonjon&amp;, origine: const hex::Coordonnees&amp;, /
+/              cible: const hex::Coordonnees&amp;)/
+
+/+accepter(visiteur: IObjetVisiteur&amp;) const: void/
+style=autoresize</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>1388</x>
+      <y>420</y>
+      <w>152</w>
+      <h>96</h>
+    </coordinates>
+    <panel_attributes>/donjon::cases::ACase/
+--
+/+getObjet() const: const obj::IObjet&amp;/
+/+estPraticable() const: bool/
+/+estTransparent() const: bool/
+
+/+deposer(objet: obj::IObjet_S): void/
+/+ramasser(): obj::IObjet_S/
+/+aObjet() const: bool/
+
+/+enEntree(personnage: per::APersonnage&amp;): void/
+/+enActivation(personnage: per::APersonnage&amp;): void/
+
+/+accepter(visiteur: ICaseVisiteur&amp;) const: void/
+
++actualiser(): void
+style=autoresize</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>1336</x>
+      <y>420</y>
+      <w>60</w>
+      <h>16</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;&lt;&lt;&lt;-
+m1=1
+m2=*</panel_attributes>
+    <additional_attributes>10.0;10.0;130.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>1108</x>
+      <y>444</y>
+      <w>212</w>
+      <h>184</h>
+    </coordinates>
+    <panel_attributes>/per::APersonnage/
+--
+_#idSuivante: size_t_
+
+#m_pv: utils::Jauge
+#m_position: hex::Coordonnees
+#m_id: size_t const
+#m_zoneEffet: std::map&lt;hex::Coordonnees, size_t&gt;
+--
++APersonnage(pvMax: size_t, position: hex::Coordonnees)
+
++getSante() const: size_t
++getSanteMax() const: size_t
++getId() const: size_t
++getPosition() const: hex::Coordonnees
++getZoneEffet() const: std::map&lt;hex::Coordonnees, size_t&gt;
+
++estVivant() const: bool
++subirAttaque(degat: size_t): void
++ajouterSante(sante: int): void
++ajouterSanteMax(sante: int): void
++tuer(): void
+
++deplacer(deplacement: per::Deplacement, cible: hex::Coordonnees): void
+
++ajouterObjet(objet: obj::IObjet_S): void
++retirerObjet(objet: obj::IObjet_S): void
++tailleSac() const: size_t
++getObjet(size_t indice) const: obj::IObjet_SC
++getObjet(size_t indice): obj::IObjet_S
+
+/+accepter(visiteur: per::IPersonnageVisiteur&amp;) const: void/
+style=autoresize</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>1056</x>
+      <y>448</y>
+      <w>60</w>
+      <h>16</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;&lt;&lt;&lt;-
+m1=1
+m2=*</panel_attributes>
+    <additional_attributes>10.0;10.0;130.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>824</x>
+      <y>416</y>
+      <w>200</w>
+      <h>236</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;&lt;&lt;&lt;-
+m1=1
+m2=*</panel_attributes>
+    <additional_attributes>10.0;10.0;60.0;10.0;60.0;560.0;480.0;560.0</additional_attributes>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>2680</x>
+      <y>332</y>
+      <w>100</w>
+      <h>28</h>
+    </coordinates>
+    <panel_attributes>&lt;&lt;Interface&gt;&gt;
+/utils::IObservateur&lt;T&gt;/
+--
+/+actualiser(const T&amp; info): void/
+style=autoresize</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>2624</x>
+      <y>336</y>
+      <w>64</w>
+      <h>16</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;&lt;&lt;&lt;-
+m1=*
+m2=*</panel_attributes>
+    <additional_attributes>10.0;10.0;140.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>556</x>
+      <y>104</y>
+      <w>468</w>
+      <h>556</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;&lt;&lt;&lt;-
+m1=1
+m2=1</panel_attributes>
+    <additional_attributes>10.0;10.0;50.0;10.0;40.0;1350.0;1150.0;1360.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>2136</x>
+      <y>644</y>
+      <w>548</w>
+      <h>184</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;&lt;&lt;&lt;-
+m1=1
+m2=1</panel_attributes>
+    <additional_attributes>1310.0;10.0;1350.0;10.0;1350.0;430.0;10.0;430.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>1832</x>
+      <y>752</y>
+      <w>56</w>
+      <h>16</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;&lt;&lt;&lt;-
+m1=1
+m2=*</panel_attributes>
+    <additional_attributes>10.0;10.0;120.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>1448</x>
+      <y>512</y>
+      <w>832</w>
+      <h>168</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;&lt;&lt;&lt;-
+m1=*
+m2=1</panel_attributes>
+    <additional_attributes>10.0;390.0;980.0;390.0;980.0;10.0;2060.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>1644</x>
+      <y>520</y>
+      <w>636</w>
+      <h>544</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;&lt;&lt;&lt;-
+m1=1
+m2=1</panel_attributes>
+    <additional_attributes>10.0;1330.0;160.0;1330.0;160.0;730.0;500.0;730.0;500.0;620.0;1160.0;620.0;1160.0;10.0;1570.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>1488</x>
+      <y>528</y>
+      <w>792</w>
+      <h>644</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;&lt;&lt;&lt;-
+m1=1
+m2=1</panel_attributes>
+    <additional_attributes>10.0;1580.0;560.0;1580.0;560.0;720.0;900.0;720.0;900.0;610.0;1560.0;610.0;1560.0;10.0;1960.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>1488</x>
+      <y>776</y>
+      <w>440</w>
+      <h>404</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;&lt;&lt;&lt;-
+m1=1
+m2=1</panel_attributes>
+    <additional_attributes>10.0;980.0;580.0;980.0;580.0;120.0;920.0;120.0;920.0;10.0;1080.0;10.0</additional_attributes>
   </element>
 </diagram>
