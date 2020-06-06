@@ -1,5 +1,6 @@
 #include "partie/etat/ObjetActif.hpp"
 #include <iostream>
+#include <sstream>
 #include <stdexcept>
 #include "partie/Partie.hpp"
 #include "partie/etat/FinTour.hpp"
@@ -19,10 +20,12 @@ namespace partie::etat
     {
     }
 
-    void ObjetActif::afficher() const
+    string ObjetActif::enTexte() const
     {
-        std::cout << "ObjetActif : " << m_equipe << ", m_personnage : " << m_personnage << ", m_objet : " << m_objet
-                  << endl;
+        stringstream ss;
+        ss << "<Etat ObjetActif>" << endl;
+        ss << "equipe : " << m_equipe << endl;
+        return ss.str();
     }
 
     void ObjetActif::operation(Partie& partie, const hex::Coordonnees& coordonnees)

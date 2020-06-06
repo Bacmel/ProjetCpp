@@ -1,6 +1,7 @@
 #include "partie/etat/PersoActif.hpp"
 #include <exception>
 #include <iostream>
+#include <sstream>
 #include "donjon/IDonjon.hpp"
 #include "err/DeplacementErreur.hpp"
 #include "partie/Partie.hpp"
@@ -17,16 +18,14 @@ using namespace std;
 
 namespace partie::etat
 {
-    PersoActif::PersoActif(size_t indice, APersonnage_S PersoActif) : m_indiceEquipe(indice), m_personnage(PersoActif)
-    {
-    }
+    PersoActif::PersoActif(size_t indice, APersonnage_S PersoActif) : m_equipe(indice), m_personnage(PersoActif) {}
 
     void PersoActif::operation(Partie& partie, const hex::Coordonnees& coordonnees)
     {
         // Annulation second clic.
         if (m_personnage->getPosition() == coordonnees)
         {
-            partie.setEtat(IEtat_S(new SelectionMan(m_indiceEquipe)));
+            partie.setEtat(IEtat_S(new SelectionMan(m_equipe)));
             return;
         }
 
@@ -35,7 +34,7 @@ namespace partie::etat
         try
         {
             APersonnage_S personnage = donjon->trouver(coordonnees);
-            if (m_indiceEquipe == partie.indiceEquipe(personnage))
+            if (m_equipe == partie.indiceEquipe(personnage))
             {
                 m_personnage = personnage;
                 return;
@@ -48,7 +47,7 @@ namespace partie::etat
             {
                 // Deplacement Marche et fin du tour
                 donjon->deplacer(*m_personnage, Deplacement::Marcher, coordonnees);
-                partie.setEtat(IEtat_S(new FinTour(m_indiceEquipe)));
+                partie.setEtat(IEtat_S(new FinTour(m_equipe)));
                 partie.demander();
                 return;
             }
@@ -67,15 +66,23 @@ namespace partie::etat
         if (indiceObjet < m_personnage->tailleSac())
         {
             IObjet_S objet = m_personnage->getObjet(indiceObjet);
-            partie.setEtat(IEtat_S(new ObjetActif(m_indiceEquipe, m_personnage, objet)));
+            partie.setEtat(IEtat_S(new ObjetActif(m_equipe, m_personnage, objet)));
         }
     }
 
     void PersoActif::operation(Partie&) { throw logic_error("PersoActif::operation() : operation non supporte"); }
 
-    void PersoActif::afficher() const
+    string PersoActif::enTexte() const
     {
-        cout << "PersoActif : " << m_indiceEquipe << endl << "id : " << m_personnage->getId() << endl;
+        stringstream ss;
+        ss << "<Etat PersoActif>" << endl;
+        ss << "equipe : " << m_equipe << endl;
+        return ss.str();
+    }
+
+    IObjet_S PersoActif::getObjetSelect()
+    {
+        throw logic_error("SelectionMan::getObjetSelect() : Aucun objet selectionne.");
     }
 
     IObjet_SC PersoActif::getObjetSelect() const

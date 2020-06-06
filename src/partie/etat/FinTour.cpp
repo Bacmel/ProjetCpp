@@ -1,5 +1,6 @@
 #include "partie/etat/FinTour.hpp"
 #include <iostream>
+#include <sstream>
 #include "donjon/IDonjon.hpp"
 #include "donjon/cases/ACase.hpp"
 #include "err/InfoErreur.hpp"
@@ -18,7 +19,7 @@ using namespace std;
 
 namespace partie::etat
 {
-    FinTour::FinTour(size_t indice) : m_indiceEquipe(indice) {}
+    FinTour::FinTour(size_t indice) : m_equipe(indice) {}
 
     void FinTour::operation(Partie&, const Coordonnees&)
     {
@@ -40,7 +41,7 @@ namespace partie::etat
         }
         /* Mise à jour membre de l'equipe. */
         vector<Equipe>& equipes = partie.getEquipes();
-        Equipe& equipe = equipes.at(m_indiceEquipe);
+        Equipe& equipe = equipes.at(m_equipe);
         for (size_t indice = 0; indice < equipe.compterMembres(); indice++)
         {
             try
@@ -67,17 +68,33 @@ namespace partie::etat
         {
             // On en a pas, la partie continue.
             size_t nbEquipe = partie.getEquipes().size();
-            partie.setEtat(IEtat_S(new SelectionAuto((m_indiceEquipe + 1) % nbEquipe)));
+            partie.setEtat(IEtat_S(new SelectionAuto((m_equipe + 1) % nbEquipe)));
             partie.demander();
             return;
         }
     }
 
-    void FinTour::afficher() const { cout << "FinTour : " << m_indiceEquipe << endl; }
+    string FinTour::enTexte() const
+    {
+        stringstream ss;
+        ss << "<Etat FinTour>" << endl;
+        ss << "equipe : " << m_equipe << endl;
+        return ss.str();
+    }
+
+    APersonnage_S FinTour::getPersoSelect()
+    {
+        throw logic_error("FinTour::getPersoSelect : Aucun personnage selectionne.");
+    }
 
     APersonnage_SC FinTour::getPersoSelect() const
     {
         throw logic_error("FinTour::getPersoSelect : Aucun personnage selectionne.");
+    }
+
+    IObjet_S FinTour::getObjetSelect()
+    {
+        throw logic_error("FinTour::getObjetSelect : Aucun objet selectionne.");
     }
 
     IObjet_SC FinTour::getObjetSelect() const

@@ -74,7 +74,7 @@ namespace hex
     using ICarte_SC = std::shared_ptr<const ICarte<T>>;
 
     template <class T>
-    std::ostream& operator<<(std::ostream& os, const ICarte<T> carte)
+    std::ostream& operator<<(std::ostream& os, const ICarte<T>& carte)
     {
         auto itr = carte.iterateur();
         while (itr->aSuite())

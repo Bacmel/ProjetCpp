@@ -1,6 +1,7 @@
 #include "partie/etat/SelectionMan.hpp"
 #include <exception>
 #include <iostream>
+#include <sstream>
 #include "partie/Partie.hpp"
 #include "partie/etat/PersoActif.hpp"
 
@@ -11,17 +12,17 @@ using namespace std;
 
 namespace partie::etat
 {
-    SelectionMan::SelectionMan(size_t indice) { m_indiceEquipe = indice; }
+    SelectionMan::SelectionMan(size_t indice) { m_equipe = indice; }
 
     void SelectionMan::operation(Partie& partie, const hex::Coordonnees& coordonnees)
     {
         try
         {
             APersonnage_S personnage = partie.getDonjon()->trouver(coordonnees);
-            if (m_indiceEquipe == partie.indiceEquipe(personnage))
+            if (m_equipe == partie.indiceEquipe(personnage))
             {
                 // Si le personnage fait partie de l'équipe, on le rend actif.
-                partie.setEtat(IEtat_S(new PersoActif(m_indiceEquipe, personnage)));
+                partie.setEtat(IEtat_S(new PersoActif(m_equipe, personnage)));
                 return;
             }
         }
@@ -38,11 +39,27 @@ namespace partie::etat
 
     void SelectionMan::operation(Partie&) { throw logic_error("SelectionMan::operation : Operation non supportee."); }
 
-    void SelectionMan::afficher() const { cout << "SelectionMan : " << m_indiceEquipe << endl; }
+    string SelectionMan::enTexte() const
+    {
+        stringstream ss;
+        ss << "<Etat SelectionMan>" << endl;
+        ss << "equipe : " << m_equipe << endl;
+        return ss.str();
+    }
+
+    APersonnage_S SelectionMan::getPersoSelect()
+    {
+        throw logic_error("SelectionMan::getPersoSelect() : Aucun personnage selectionne.");
+    }
 
     APersonnage_SC SelectionMan::getPersoSelect() const
     {
         throw logic_error("SelectionMan::getPersoSelect() : Aucun personnage selectionne.");
+    }
+
+    IObjet_S SelectionMan::getObjetSelect()
+    {
+        throw logic_error("SelectionMan::getObjetSelect() : Aucun objet selectionne.");
     }
 
     IObjet_SC SelectionMan::getObjetSelect() const

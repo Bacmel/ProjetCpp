@@ -24,18 +24,22 @@ namespace partie::etat
          */
         ObjetActif(size_t equipe, per::APersonnage_S personnage, obj::IObjet_S objet);
 
-        void afficher() const override;
+        /* Constructeurs & operateurs de copie & destructeur */
+        ObjetActif(const ObjetActif& autre) = default;
+        ObjetActif(ObjetActif&& autre) = default;
+        ObjetActif& operator=(const ObjetActif& autre) = default;
+        ObjetActif& operator=(ObjetActif&& autre) = default;
+        ~ObjetActif() = default;
 
+        /* Méthodes IEtat. */
+        std::string enTexte() const override;
         inline size_t getEquipeCourante() const override { return m_equipe; }
-
-        inline per::APersonnage_SC getPersoSelect() const override { return m_personnage; };
-
+        inline per::APersonnage_S getPersoSelect() override { return m_personnage; }
+        inline per::APersonnage_SC getPersoSelect() const override { return m_personnage; }
+        inline obj::IObjet_S getObjetSelect() override { return m_objet; }
         inline obj::IObjet_SC getObjetSelect() const override { return m_objet; }
-
         void operation(Partie& partie, const hex::Coordonnees& coordonnees) override;
-
         void operation(Partie& partie, size_t indiceObjet) override;
-
         void operation(Partie& partie) override;
     };
 
