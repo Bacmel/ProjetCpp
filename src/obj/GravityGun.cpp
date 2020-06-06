@@ -10,7 +10,7 @@ using namespace std;
 
 namespace obj
 {
-    GravityGun::GravityGun() : m_distance(1), m_aire(), m_charge(1)
+    GravityGun::GravityGun() : m_distance(1), m_aire(), m_charge(3)
     {
         // Pousse le personnage sur la case immédiatement en face.
         m_aire.insert(Coordonnees::direction(Direction::Nord));

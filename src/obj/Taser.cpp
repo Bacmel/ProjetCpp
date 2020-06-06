@@ -34,10 +34,12 @@ namespace obj
     {
         hex::Masque degat;
         /* Au CàC. */
-        if(cible.longueur()==1)
+        if (cible.longueur() == 1) { degat = degat + cible; }
+        else
         {
-            degat = degat + cible;
+            throw std::invalid_argument("Taser::getZoneDegat : Cette cible n'est pas atteignable.");
         }
+
         return degat;
     }
 
