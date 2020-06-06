@@ -1,5 +1,5 @@
-#ifndef __ITERATEURCARTEHEXAGONE_H__
-#define __ITERATEURCARTEHEXAGONE_H__
+#ifndef __ITERATEURCARTEHEXAGONE_HPP__
+#define __ITERATEURCARTEHEXAGONE_HPP__
 
 #include <cmath>
 #include "hex/Coordonnees.hpp"
@@ -69,4 +69,4 @@ namespace hex
     };
 } // namespace hex
 
-#endif // __ITERATEURCARTEHEXAGONE_H__
+#endif // __ITERATEURCARTEHEXAGONE_HPP__

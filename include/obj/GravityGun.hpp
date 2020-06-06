@@ -35,6 +35,7 @@ namespace obj
          */
         GravityGun(size_t distance, hex::Masque aire, size_t timeMax);
 
+        /* Constructeurs & operateurs de copie & destructeur */
         GravityGun(const GravityGun& autre) = default;
         GravityGun(GravityGun&& autre) = default;
         GravityGun& operator=(const GravityGun& autre) = default;

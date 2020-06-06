@@ -22,6 +22,7 @@ namespace per
          */
         explicit Heros(size_t pvMax);
 
+        /* Constructeurs & operateurs de copie & destructeur */
         Heros(const Heros& autre) = default;
         Heros(Heros&& autre) = default;
         Heros& operator=(const Heros& autre) = default;

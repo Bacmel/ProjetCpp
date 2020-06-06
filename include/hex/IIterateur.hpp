@@ -1,11 +1,10 @@
-#ifndef __IITERATOR_H__
-#define __IITERATOR_H__
+#ifndef __IITERATOR_HPP__
+#define __IITERATOR_HPP__
 
 #include <memory>
 
 namespace hex
 {
-
     template <typename T>
     struct IIterateur
     {
@@ -27,11 +26,11 @@ namespace hex
         virtual T suite() = 0;
     };
 
-    template<typename T>
+    template <typename T>
     using IIterator_S = std::shared_ptr<IIterateur<T>>;
 
-    template<typename T>
+    template <typename T>
     using IIterator_SC = std::shared_ptr<const IIterateur<T>>;
 } // namespace hex
 
-#endif // __IITERATOR_H__
+#endif // __IITERATOR_HPP__

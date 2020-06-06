@@ -23,78 +23,78 @@ TEST_CASE("Creation, operation et manipulation des coordonnees", "[coordonnees]"
         REQUIRE(c3.getZ() == -3);
     }
 
-    SECTION("operator+")
+    SECTION("Coordonnees::operator+")
     {
         Coordonnees c4 = c1 + c2;
         REQUIRE(c4.getLigne() == c1.getLigne() + c2.getLigne());
         REQUIRE(c4.getColonne() == c1.getColonne() + c2.getColonne());
     }
 
-    SECTION("operator-")
+    SECTION("Coordonnees::operator-")
     {
         Coordonnees c4 = c1 - c2;
         REQUIRE(c4.getLigne() == c1.getLigne() - c2.getLigne());
         REQUIRE(c4.getColonne() == c1.getColonne() - c2.getColonne());
     }
 
-    SECTION("operator*")
+    SECTION("Coordonnees::operator*")
     {
         Coordonnees c4 = c3 * 2;
         REQUIRE(c4.getLigne() == 2 * c3.getLigne());
         REQUIRE(c4.getColonne() == 2 * c3.getColonne());
     }
 
-    SECTION("translater")
+    SECTION("Coordonnees::translater")
     {
         Coordonnees c4 = c3.translater(Direction::Nord, 2);
         REQUIRE(c4.getLigne() == c3.getLigne() - 2);
         REQUIRE(c4.getColonne() == c3.getColonne());
     }
 
-    SECTION("operator==")
+    SECTION("Coordonnees::operator==")
     {
         REQUIRE(c2 == c3);
         REQUIRE_FALSE(c1 == c2);
     }
 
-    SECTION("operator!=")
+    SECTION("Coordonnees::operator!=")
     {
         REQUIRE(c1 != c3);
         REQUIRE_FALSE(c3 != c2);
     }
 
-    SECTION("operator>")
+    SECTION("Coordonnees::operator>")
     {
         REQUIRE(c2 > c1);
         REQUIRE_FALSE(c3 > c2);
     }
 
-    SECTION("operator>=")
+    SECTION("Coordonnees::operator>=")
     {
         REQUIRE(c3 >= c2);
         REQUIRE_FALSE(c1 >= c2);
     }
 
-    SECTION("operator<")
+    SECTION("Coordonnees::operator<")
     {
         REQUIRE(c1 < c2);
         REQUIRE_FALSE(c3 < c2);
     }
 
-    SECTION("operator<=")
+    SECTION("Coordonnees::operator<=")
     {
         REQUIRE(c2 <= c3);
         REQUIRE_FALSE(c2 <= c1);
     }
 
-    SECTION("longueur")
+    SECTION("Coordonnees::longueur")
     {
         REQUIRE(c3.longueur() == 3);
         REQUIRE(c2.longueur() == 3);
         REQUIRE(c1.longueur() == 0);
     }
 
-    SECTION("distance")
+    SECTION("Coordonnees::distance")
     {
         REQUIRE(c2.distance(c3) == 0);
         REQUIRE(c1.distance(c2) == c2.longueur());
@@ -115,7 +115,7 @@ TEST_CASE("Creation, operation et manipulation des coordonnees", "[coordonnees]"
         REQUIRE_THROWS(c1.direction(c2));
     }
 
-    SECTION("Rotation")
+    SECTION("Coordonnees::rotation")
     {
         Coordonnees c = Coordonnees::direction(Direction::NordEst);
         Coordonnees cTG = c.tournerTrigonometrique(Coordonnees());
@@ -127,14 +127,14 @@ TEST_CASE("Creation, operation et manipulation des coordonnees", "[coordonnees]"
         REQUIRE(cTV == Coordonnees::direction(Direction::SudOuest));
     }
 
-    SECTION("Arrondis")
+    SECTION("Coordonnees::arrondir")
     {
-        REQUIRE_THROWS(Coordonnees(2.33f, -1.3f, 0.f));
+        REQUIRE_THROWS(Coordonnees::arrondir(2.33f, -1.3f, 0.f));
 
-        Coordonnees c1(-1.45f, 0.35f, 1.1f);
-        REQUIRE(c1 == Coordonnees(-1, 0, 1));
+        Coordonnees c1 = Coordonnees::arrondir(-1.45f, 0.35f, 1.1f);
+        REQUIRE(c1 == Coordonnees::arrondir(-1, 0, 1));
 
-        Coordonnees c2(14.7f, 9.2f);
-        REQUIRE(c2 == Coordonnees(15, 9));
+        Coordonnees c2 = Coordonnees::arrondir(14.7f, 9.2f);
+        REQUIRE(c2 == Coordonnees::arrondir(15, 9));
     }
 }

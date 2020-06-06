@@ -19,6 +19,7 @@ namespace per
          */
         Fantassin();
 
+        /* Constructeurs & operateurs de copie & destructeur */
         Fantassin(const Fantassin& autre) = default;
         Fantassin(Fantassin&& autre) = default;
         Fantassin& operator=(const Fantassin& autre) = default;

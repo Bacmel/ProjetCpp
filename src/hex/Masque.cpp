@@ -19,6 +19,7 @@ namespace hex
 
     Masque Masque::operator||(const Masque& autre) const
     {
+        // Equivalent à une union.
         Masque ou(autre);
         for (auto itr = this->begin(); itr != this->end(); itr++)
         {
@@ -29,6 +30,7 @@ namespace hex
 
     Masque Masque::operator&&(const Masque& autre) const
     {
+        // Equivalent à un inter.
         Masque et;
         for (auto itr = this->begin(); itr != this->end(); itr++)
         {
@@ -39,6 +41,7 @@ namespace hex
 
     Masque Masque::operator+(const Coordonnees& autre) const
     {
+        // Ajout nouvelle case.
         Masque plus(*this);
         plus.insert(autre);
         return plus;
@@ -46,6 +49,7 @@ namespace hex
 
     Masque Masque::operator-(const Coordonnees& autre) const
     {
+        // Ajout nouvelle case.
         Masque moins(*this);
         moins.erase(moins.find(autre));
         return moins;

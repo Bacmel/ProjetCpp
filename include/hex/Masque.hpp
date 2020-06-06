@@ -1,5 +1,5 @@
-#ifndef __MASQUE_H__
-#define __MASQUE_H__
+#ifndef __MASQUE_HPP__
+#define __MASQUE_HPP__
 
 #include <set>
 #include "hex/Coordonnees.hpp"
@@ -10,7 +10,7 @@ namespace hex
     {
     public:
         /**
-         * @brief Genere un anneau de rayon 1.
+         * @brief Génère un anneau de rayon 1.
          *
          * @return Le anneau de rayon 1.
          */
@@ -106,4 +106,4 @@ namespace hex
     };
 } // namespace hex
 
-#endif // __MASQUE_H__
+#endif // __MASQUE_HPP__

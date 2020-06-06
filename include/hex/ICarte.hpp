@@ -1,5 +1,5 @@
-#ifndef CARTE_HPP
-#define CARTE_HPP
+#ifndef __ICARTE_HPP__
+#define __ICARTE_HPP__
 
 #include <functional>
 #include <memory>
@@ -86,4 +86,4 @@ namespace hex
     }
 
 }; // namespace hex
-#endif
+#endif // __ICARTE_HPP__

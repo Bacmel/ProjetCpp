@@ -1,19 +1,18 @@
 #include "hex/CarteHexagone.hpp"
 #include "catch.hpp"
 #include "hex/Coordonnees.hpp"
+
 using namespace hex;
 
-TEST_CASE("Creation, operation et manipulation des carteHexagones", "[carteHexagone]")
+TEST_CASE("Creation, operation et manipulation de CarteHexagone", "[CarteHexagone]")
 {
-
     CarteHexagone<bool> ch1(0); // Disque de diametre 1 cases
     CarteHexagone<bool> ch2(2); // Disque de diametre 5 cases
 
     REQUIRE(ch1.getRayon() == 0);
-
     REQUIRE(ch2.getRayon() == 2);
 
-    SECTION("operator()")
+    SECTION("CarteHexagone::operator()")
     {
         Coordonnees c1;
         Coordonnees c2(1, 1);
@@ -24,15 +23,18 @@ TEST_CASE("Creation, operation et manipulation des carteHexagones", "[carteHexag
         REQUIRE_FALSE(ch2(c2));
     }
 
-    SECTION("remplir")
+    SECTION("CarteHexagone::remplir")
     {
         ch1.remplir(false);
         ch2.remplir((std::function<bool()>)[]() { return true; });
+        CarteHexagone<bool> ch3(5);
+        ch3.remplir(ch1, Coordonnees());
         REQUIRE_FALSE(ch1(Coordonnees()));
         REQUIRE(ch2(Coordonnees()));
+        REQUIRE_FALSE(ch3(Coordonnees()));
     }
 
-    SECTION("iterator")
+    SECTION("CarteHexagone::iterateur")
     {
         ch1.remplir(true);
         IIterator_S<Coordonnees> itr = ch1.iterateur();

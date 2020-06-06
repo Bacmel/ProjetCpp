@@ -6,6 +6,34 @@
 
 namespace hex
 {
+    Coordonnees Coordonnees::arrondir(float ligne, float colonne)
+    {
+        return arrondir( colonne, ligne, -colonne - ligne);
+    }
+
+    Coordonnees Coordonnees::arrondir(float x, float y, float z)
+    {
+        if (std::abs(x + y + z) > 1e-5)
+        { throw std::invalid_argument("Coordonnees::Coordonnees : La somme des composantes n'est pas nulle."); }
+        // Arrondie les coordonnées.
+        float xRond = std::round(x);
+        float yRond = std::round(y);
+        float zRond = std::round(z);
+        // S'assure que la somme des composantes soit nulle. On recalcule la
+        // composante arrondie qui maximise l'erreur en fonction des 2 autres.
+        float xDiff = std::abs(x - xRond);
+        float yDiff = std::abs(y - yRond);
+        float zDiff = std::abs(z - zRond);
+
+        if (xDiff > yDiff && xDiff > zDiff) { xRond = -yRond - zRond; }
+        else if (yDiff > zDiff)
+        {
+            yRond = -xRond - zRond;
+        }
+        // On initialise l'objet.
+        return Coordonnees((int)yRond, (int)xRond);
+    }
+
     Coordonnees Coordonnees::direction(Direction direction)
     {
         if (direction == Direction::Nord)
@@ -45,33 +73,7 @@ namespace hex
 
     Coordonnees::Coordonnees() : m_ligne(0), m_colonne(0) {}
 
-    Coordonnees::Coordonnees(float x, float y, float z) : Coordonnees()
-    {
-        if (std::abs(x + y + z) > 1e-5)
-        { throw std::invalid_argument("Coordonnees::Coordonnees : La somme des composantes n'est pas nulle."); }
-        // Arrondie les coordonnées.
-        float xRond = std::round(x);
-        float yRond = std::round(y);
-        float zRond = std::round(z);
-        // S'assure que la somme des composantes soit nulle. On recalcule la
-        // composante arrondie qui maximise l'erreur en fonction des 2 autres.
-        float xDiff = std::abs(x - xRond);
-        float yDiff = std::abs(y - yRond);
-        float zDiff = std::abs(z - zRond);
-
-        if (xDiff > yDiff && xDiff > zDiff) { xRond = -yRond - zRond; }
-        else if (yDiff > zDiff)
-        {
-            yRond = -xRond - zRond;
-        }
-        // On initialise l'objet.
-        m_colonne = (int)xRond;
-        m_ligne = (int)yRond;
-    }
-
     Coordonnees::Coordonnees(int ligne, int colonne) : m_ligne(ligne), m_colonne(colonne) {}
-
-    Coordonnees::Coordonnees(float ligne, float colonne) : Coordonnees(colonne, ligne, -colonne - ligne) {}
 
     Coordonnees::Coordonnees(int x, int y, int z) : m_ligne(y), m_colonne(x)
     {

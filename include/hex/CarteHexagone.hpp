@@ -1,5 +1,5 @@
-#ifndef CARTE_HEXAGONE_HPP
-#define CARTE_HEXAGONE_HPP
+#ifndef __CARTE_HEXAGONE_HPP__
+#define __CARTE_HEXAGONE_HPP__
 
 #include <cmath>
 #include <functional>
@@ -196,4 +196,4 @@ namespace hex
         }
     };
 }; // namespace hex
-#endif
+#endif // __CARTE_HEXAGONE_HPP__

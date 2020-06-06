@@ -1,5 +1,5 @@
-#ifndef COORDONNEES_HPP
-#define COORDONNEES_HPP
+#ifndef __COORDONNEES_HPP__
+#define __COORDONNEES_HPP__
 
 #include <ostream>
 namespace hex
@@ -34,6 +34,27 @@ namespace hex
 
     public:
         /**
+         * @brief Arrondit la coordonnée décimale à la coordonnée entière la
+         * plus proche.
+         *
+         * @param ligne La ligne (en cases).
+         * @param colonne La colonne (en cases).
+         * @return Coordonnees La coordonnee au valeur arrondi.
+         */
+        static Coordonnees arrondir(float ligne, float colonne);
+
+        /**
+         * @brief Arrondit la coordonnée décimale à la coordonnée entière la
+         * plus proche.
+         *
+         * @param x Distance selon l'axe X.
+         * @param y Distance selon l'axe Y.
+         * @param z Distance selon l'axe Z.
+         * @return Coordonnees La coordonnee au valeur arrondi.
+         */
+        static Coordonnees arrondir(float x, float y, float z);
+
+        /**
          * @brief Crée une coordonnées selon la direction donnée.
          *
          * La coordonnées est adjacente à l'origine (0, 0).
@@ -59,15 +80,6 @@ namespace hex
         Coordonnees(int ligne, int colonne);
 
         /**
-         * @brief Arrondit la coordonnée décimale à la coordonnée entière la
-         * plus proche.
-         *
-         * @param ligne La ligne (en cases).
-         * @param colonne La colonne (en cases).
-         */
-        Coordonnees(float ligne, float colonne);
-
-        /**
          * @brief Crée une coordonnées cubique.
          *
          * Le point doit appartenir au plan d'équation x + y + z = 0.
@@ -78,16 +90,6 @@ namespace hex
          * @throw std::invalid_argument Quand les coordonnées ne sont pas valides.
          */
         Coordonnees(int x, int y, int z);
-
-        /**
-         * @brief Arrondit la coordonnée décimale à la coordonnée entière la
-         * plus proche.
-         *
-         * @param x Distance selon l'axe X.
-         * @param y Distance selon l'axe Y.
-         * @param z Distance selon l'axe Z.
-         */
-        Coordonnees(float x, float y, float z);
 
         Coordonnees(const Coordonnees& autre) = default;
         Coordonnees(Coordonnees&& autre) = default;
@@ -308,4 +310,4 @@ namespace hex
         friend std::ostream& operator<<(std::ostream& os, const Coordonnees& c);
     };
 }; // namespace hex
-#endif
+#endif // __COORDONNEES_HPP__

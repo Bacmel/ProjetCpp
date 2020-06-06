@@ -17,6 +17,7 @@ namespace obj
          */
         Taser();
 
+        /* Constructeurs & operateurs de copie & destructeur */
         Taser(const Taser& autre) = default;
         Taser(Taser&& autre) = default;
         Taser& operator=(const Taser& autre) = default;
