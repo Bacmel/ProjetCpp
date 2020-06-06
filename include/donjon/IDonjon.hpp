@@ -4,7 +4,7 @@
 #include <map>
 #include <memory>
 #include <vector>
-#include "donjon/cases/ICase.hpp"
+#include "donjon/cases/ACase.hpp"
 #include "hex/ICarte.hpp"
 #include "per/APersonnage.hpp"
 
@@ -13,7 +13,7 @@ namespace donjon
     class IDonjon : public utils::IActualisable
     {
     public:
-        virtual ~IDonjon() {}
+        virtual ~IDonjon() = default;
 
         /**
          * @brief Invoque le personnage à la position spécifiée.
@@ -125,7 +125,7 @@ namespace donjon
          *
          * @return hex::ICarte_S<cases::ICase_S> La carte du donjon.
          */
-        virtual hex::ICarte_SC<cases::ICase_S> getCarte() const = 0;
+        virtual hex::ICarte_S<cases::ACase_S> getCarte() = 0;
 
         /**
          * @brief Donne le personnage présent aux coordonnées indiquées.
@@ -135,7 +135,17 @@ namespace donjon
          * @throw std::runtime_exception Quand il n'y a pas de personnage à
          * l'endroit indiqué.
          */
-        virtual per::APersonnage_S trouver(const hex::Coordonnees& position) const = 0;
+        virtual per::APersonnage_S trouver(const hex::Coordonnees& position) = 0;
+
+        /**
+         * @brief Donne le personnage présent aux coordonnées indiquées.
+         *
+         * @param position La position du personnage.
+         * @return Le personnage à cette position.
+         * @throw std::runtime_exception Quand il n'y a pas de personnage à
+         * l'endroit indiqué.
+         */
+        virtual per::APersonnage_SC trouver(const hex::Coordonnees& position) const = 0;
 
         /**
          * @brief Indique si un personnage se trouve sur la case.

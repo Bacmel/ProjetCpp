@@ -4,9 +4,9 @@
 #include "partie/Partie.hpp"
 #include "partie/etat/PersoActif.hpp"
 
+using namespace obj;
 using namespace partie;
 using namespace per;
-using namespace obj;
 using namespace std;
 
 namespace partie::etat
@@ -15,27 +15,28 @@ namespace partie::etat
 
     void Decision::operation(Partie&, const hex::Coordonnees&)
     {
-        throw std::logic_error("Decision::operation : Opération invalide.");
+        throw logic_error("Decision::operation : Operation non supportee.");
     }
 
-    void Decision::operation(Partie&, size_t) { throw std::logic_error("Decision::operation : Opération invalide."); }
+    void Decision::operation(Partie&, size_t) { throw logic_error("Decision::operation : Operation non supportee."); }
 
     void Decision::operation(Partie& partie)
     {
+        // Execute la stratégie de l'équipe active.
         Equipe& equipe = partie.getEquipe(m_indiceEquipe);
         equipe.jouer(partie);
     }
 
-    void Decision::afficher() const { cout << " Etat initial : " << m_indiceEquipe << endl; }
+    void Decision::afficher() const { cout << " Decision : " << m_indiceEquipe << endl; }
 
     APersonnage_SC Decision::getPersoSelect() const
     {
-        throw invalid_argument("Decision::getPersoSelect() : Aucun personnage selectionne.");
+        throw logic_error("Decision::getPersoSelect : Aucun personnage selectionne.");
     }
 
     IObjet_SC Decision::getObjetSelect() const
     {
-        throw invalid_argument("Decision::getObjetSelect() : Aucun objet selectionne.");
+        throw logic_error("Decision::getObjetSelect : Aucun objet selectionne.");
     }
 
 } // namespace partie::etat

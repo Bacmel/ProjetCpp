@@ -16,8 +16,13 @@ namespace vue
         std::shared_ptr<sf::Drawable> m_dessinable;
 
     public:
+        /**
+         * @brief Construit une Fenêtre.
+         *
+         * @param videoMode Le mode vidéo de la fenêtre.
+         * @param titre Le titre de la fenêtre.
+         */
         Fenetre(sf::VideoMode& videoMode, std::string titre);
-        ~Fenetre() {}
 
         /**
          * @brief Obtient le RenderWindow.
@@ -25,6 +30,7 @@ namespace vue
          * @return Le RenderWindow.
          */
         sf::RenderWindow& getRenderWindow() { return m_fenetre; }
+
         /**
          * @brief Obtient le RenderWindow.
          *
@@ -61,7 +67,12 @@ namespace vue
          */
         void detacher(sf::Event::EventType type, controlleur::IControlleur_S evenGest);
 
-        void setDessinateur(std::shared_ptr<sf::Drawable> dessinateur) { m_dessinable = dessinateur; }
+        /**
+         * @brief Définie l'objet dessiné
+         *
+         * @param dessinable L'objet dessiné.
+         */
+        void setDessinable(std::shared_ptr<sf::Drawable> dessinable) { m_dessinable = dessinable; }
 
     protected:
         /**

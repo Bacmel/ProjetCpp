@@ -1,5 +1,5 @@
-#ifndef __PARTIECONT_H__
-#define __PARTIECONT_H__
+#ifndef __PARTIECONT_HPP__
+#define __PARTIECONT_HPP__
 
 #include "controlleur/IControlleur.hpp"
 #include "utils/HexPixelConvertisseur.hpp"
@@ -17,7 +17,6 @@ namespace controlleur
 
     public:
         PartieCont(const vue::PartieDessinable& dessinable, partie::Partie& partie);
-        ~PartieCont();
 
         virtual void enEvenement(const vue::Fenetre& source, sf::Event& even) override;
 
@@ -26,4 +25,4 @@ namespace controlleur
         void clicCase(const sf::Vector2f& coordonneesClic, const vue::Fenetre& source);
     };
 } // namespace controlleur
-#endif // __PARTIECONT_H__
+#endif // __PARTIECONT_HPP__

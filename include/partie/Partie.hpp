@@ -1,12 +1,8 @@
 #ifndef __PARTIE_HPP__
 #define __PARTIE_HPP__
 
-#include <set>
 #include <vector>
 #include "donjon/IDonjon.hpp"
-#include "donjon/PersonnageComparateur.hpp"
-#include "donjon/cases/ICase.hpp"
-#include "hex/ICarte.hpp"
 #include "partie/Equipe.hpp"
 #include "partie/etat/IEtat.hpp"
 #include "partie/strat/IStrategie.hpp"
@@ -16,13 +12,14 @@ namespace partie
 {
     class Partie
     {
-    protected:
-        /* Liste des equipes. */
+    private:
+        /** @brief Liste des equipes. */
         std::vector<Equipe> m_equipes;
-        /* Arbitre de la partie. */
+        /** @brief Arbitre de la partie. */
         donjon::IDonjon_S m_donjon;
-        /* Etat courant */
+        /** @brief Etat courant. */
         etat::IEtat_S m_etat;
+        /** @brief Etat précédent. */
         etat::IEtat_S m_etatP;
 
     public:
@@ -33,8 +30,25 @@ namespace partie
          */
         Partie(strat::IStrategie_S& strategie);
 
+        /**
+         * @brief Obtient l'équipe par son indice.
+         *
+         * @param indice L'indice de l'équipe.
+         * @return La partie à l'indice donnée.
+         *
+         * @throw std::out_of_range Quand il n'y a pas d'équipe à cet indice.
+         */
         Equipe& getEquipe(size_t indice);
-        const Equipe& getEquipe(size_t indice)const;
+
+        /**
+         * @brief Obtient l'équipe par son indice.
+         *
+         * @param indice L'indice de l'équipe.
+         * @return La partie à l'indice donnée.
+         *
+         * @throw std::out_of_range Quand il n'y a pas d'équipe à cet indice.
+         */
+        const Equipe& getEquipe(size_t indice) const;
 
         /**
          * @brief Obtient la liste des equipes.
@@ -53,19 +67,19 @@ namespace partie
         /**
          * @brief Obtient le donjon.
          *
-         * @return donjon::IDonjon_SC m_donjon; Le donjon.
+         * @return donjon::IDonjon_SC m_donjon Le donjon.
          */
         inline donjon::IDonjon_SC getDonjon() const { return m_donjon; }
 
         /**
-         * @brief Obtient l'etat courant.
+         * @brief Obtient l'état courant.
          *
          * @return partie::etat::IEtat_SC; l'etat courant.
          */
         inline etat::IEtat_SC getEtat() const { return m_etat; }
 
         /**
-         * @brief Obtient l'etat precedent.
+         * @brief Obtient l'etat précédent.
          *
          * @return partie::etat::IEtat_SC; l'etat precedent.
          */
@@ -97,10 +111,12 @@ namespace partie
         /**
          * @brief Change l'etat courant.
          *
+         * NOTE: Cette méthode ne doit être appelée qu'une seule fois par un
+         * état. Autrement, il sera détruit.
+         *
          * @param etat::IEtat_S le nouvel etat courant.
          */
         void setEtat(etat::IEtat_S etat);
-
 
         /**
          * @brief Crée une équipe et donne son indice.
@@ -132,19 +148,19 @@ namespace partie
          *
          * @param coordonnees les coordonnees selectionnees.
          */
-        void demande(hex::Coordonnees coordonnees);
+        void demander(hex::Coordonnees coordonnees);
 
         /**
          * @brief Demande
          *
          * @param indiceObjet l'objet selectionne.
          */
-        void demande(size_t indiceObjet);
+        void demander(size_t indiceObjet);
 
         /**
          * @brief Demande
          */
-        void demande();
+        void demander();
 
         /* Méthodes autres. */
 

@@ -1,5 +1,5 @@
-#ifndef __EQUIPE_H__
-#define __EQUIPE_H__
+#ifndef __EQUIPE_HPP__
+#define __EQUIPE_HPP__
 
 #include <vector>
 #include "partie/strat/IStrategie.hpp"
@@ -105,4 +105,4 @@ namespace partie
         void retirerMorts();
     };
 } // namespace partie
-#endif // __EQUIPE_H__
+#endif // __EQUIPE_HPP__

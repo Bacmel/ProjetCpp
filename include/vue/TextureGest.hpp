@@ -21,6 +21,10 @@ namespace vue
         TextureGest();
 
     public:
+        TextureGest(const TextureGest& autre) = delete;
+        TextureGest& operator=(const TextureGest& autre) = delete;
+        ~TextureGest() = default;
+
         /**
          * @brief Obtient l'instance du gestionnaire de textures.
          *
@@ -61,9 +65,6 @@ namespace vue
          */
         void retirer(const std::string& chemin);
 
-        TextureGest(const TextureGest& autre) = delete;
-        TextureGest& operator=(const TextureGest& autre) = delete;
-        ~TextureGest() {}
     };
 } // namespace vue
 #endif // __TEXTUREGEST_H__

@@ -13,7 +13,7 @@
 
 namespace per
 {
-    /** @brief Permet la connaissance precise de l'instance. */
+    // Forward decleration. (Evite les includes cycliques)
     class IPersonnageVisiteur;
 
     /** @brief Enumeration des deplacements possibles. */
@@ -93,14 +93,14 @@ namespace per
          *
          * @return Coordonnees la position.
          */
-        virtual hex::Coordonnees getPosition() const { return m_position; }
+        virtual const hex::Coordonnees& getPosition() const { return m_position; }
 
         /**
          * @brief Obtient la zone d'effet.
          *
          * @return std::map<hex::Coordonnees, size_t> la zone d'effet.
          */
-        virtual std::map<hex::Coordonnees, size_t> getZoneEffet() const { return m_zoneEffet; }
+        virtual const std::map<hex::Coordonnees, size_t>& getZoneEffet() const { return m_zoneEffet; }
 
         /**
          * @brief Modifie la santé.
@@ -143,9 +143,9 @@ namespace per
         virtual void accepter(IPersonnageVisiteur& visiteur) const = 0;
 
         /**
-         * @brief Recupère un objet.
+         * @brief Confie un objet.
          *
-         * @param objet l'objet.
+         * @param objet L'objet à confier.
          *
          * @throw std::logic_error Quand la classe concrète ne le permet pas.
          */
@@ -154,7 +154,7 @@ namespace per
         /**
          * @brief Perd un objet de son inventaire.
          *
-         * @param objet l'objet perdu.
+         * @param objet L'objet perdu.
          *
          * @throw std::logic_error Quand la classe concrète ne le permet pas.
          */
@@ -190,9 +190,6 @@ namespace per
 
     using APersonnage_S = std::shared_ptr<APersonnage>;
     using APersonnage_SC = std::shared_ptr<const APersonnage>;
-    using APersonnage_W = std::weak_ptr<APersonnage>;
-    using APersonnage_WC = std::weak_ptr<const APersonnage>;
-
 }; // namespace per
 
 #endif // __APERSONNAGE_HPP__

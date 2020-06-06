@@ -1,15 +1,24 @@
-#ifndef __CASENEUTRE_HPP__
-#define __CASENEUTRE_HPP__
+#ifndef __SOL_HPP__
+#define __SOL_HPP__
 
-#include "donjon/cases/ICase.hpp"
+#include "donjon/cases/ACase.hpp"
 
 namespace donjon::cases
 {
-    class Sol : public ICase
+    class Sol : public ACase
     {
+    private:
+        /**
+         * @brief Un objet présent sur la case.
+         */
         obj::IObjet_S m_objet;
 
     public:
+        /**
+         * @brief Construit un sol.
+         *
+         * Le sol ne possêde pas d'objet.
+         */
         Sol();
 
         /* Constructeurs & operateurs de copie & destructeur */
@@ -33,7 +42,5 @@ namespace donjon::cases
         /* Méthode IActualisable. */
         virtual void actualiser() override;
     };
-
 } // namespace donjon::cases
-
-#endif // __CASENEUTRE_HPP__
+#endif // __SOL_HPP__

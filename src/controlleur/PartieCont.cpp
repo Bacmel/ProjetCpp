@@ -18,8 +18,6 @@ namespace controlleur
         { throw std::invalid_argument("PartieCont::PartieCont : Le dessinable ne dessine pas la partie"); }
     }
 
-    PartieCont::~PartieCont() {}
-
     void PartieCont::enEvenement(const vue::Fenetre& source, sf::Event& even)
     {
         if (even.type != Event::EventType::MouseButtonPressed) { return; }
@@ -40,17 +38,19 @@ namespace controlleur
         {
             per::APersonnage_SC personnage = m_partie->getPersoSelect();
             size_t nbObjet = personnage->tailleSac();
+            // Identifie la case de l'inventaire cliquée.
             for (size_t indice = 0; indice < nbObjet; indice++)
             {
                 sf::FloatRect contours = m_dessinable->getCaseInventaire(indice);
                 if (contours.contains(coordonneesClic))
                 {
-                    m_partie->demande(indice);
+                    // Transmet l'information à la MAE.
+                    m_partie->demander(indice);
                     return true;
                 }
             }
         }
-        catch (...)
+        catch (const std::logic_error&)
         {
         }
         return false;
@@ -58,15 +58,18 @@ namespace controlleur
 
     void PartieCont::clicCase(const Vector2f& coordonneesClic, const vue::Fenetre& source)
     {
+        // Convertie les coordonnées du clic sur la fenêtre en position sur la
+        // grille.
         const RenderWindow& rw = source.getRenderWindow();
         Vector2u dimension = rw.getSize();
         Vector2i coordCentree(coordonneesClic);
         coordCentree.x -= dimension.x / 2;
         coordCentree.y -= dimension.y / 2;
         hex::Coordonnees pos = m_convertisseur(m_dessinable->getCote(), coordCentree);
+        // Transmet l'information à la MAE.
         try
         {
-            m_partie->demande(pos);
+            m_partie->demander(pos);
         }
         catch (const std::logic_error&)
         {

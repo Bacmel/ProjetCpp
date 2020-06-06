@@ -1,20 +1,19 @@
 #include "partie/Partie.hpp"
 #include "donjon/Donjon.hpp"
-#include "donjon/cases/ICase.hpp"
+#include "donjon/cases/ACase.hpp"
 #include "donjon/cases/Sol.hpp"
 #include "donjon/cases/Trou.hpp"
 #include "err/CreationErreur.hpp"
 #include "err/InfoErreur.hpp"
 #include "hex/CarteHexagone.hpp"
 #include "partie/etat/Decision.hpp"
-#include "per/Heros.hpp"
 
+using namespace hex;
 using namespace donjon;
 using namespace donjon::cases;
-using namespace partie::etat;
-using namespace hex;
-using namespace per;
 using namespace obj;
+using namespace partie::etat;
+using namespace per;
 using namespace std;
 
 namespace partie
@@ -23,6 +22,7 @@ namespace partie
     {
         // Crée la carte.
         genererCarte();
+        // Crée un 1ere équipe pour initialiser la machine à état.
         size_t indice = genererEquipe(strategie);
         m_etat = IEtat_S(new Decision(indice));
     }
@@ -33,12 +33,15 @@ namespace partie
 
     void Partie::setEtat(etat::IEtat_S etat)
     {
+        // Conserve l'état précédent pour qu'il puisse terminer ses actions
+        // avant d'être libéré.
         m_etatP = m_etat;
         m_etat = etat;
     }
 
     size_t Partie::genererEquipe(strat::IStrategie_S& strategie)
     {
+        // Crée une nouvelle équipe vide, la conserve et donne son indice.
         Equipe equipe(strategie);
         m_equipes.push_back(equipe);
         return m_equipes.size() - 1;
@@ -56,60 +59,67 @@ namespace partie
 
     void Partie::genererCarte()
     {
-        // A changer
-        ICarte_S<ICase_S> carte(new CarteHexagone<ICase_S>(5));
-        function<ICase_S()> fournisseurSol = []() { return make_shared<Sol>(); };
+        // Crée une carte et la remplie de Sol.
+        ICarte_S<ACase_S> carte(new CarteHexagone<ACase_S>(5));
+        function<ACase_S()> fournisseurSol = []() { return make_shared<Sol>(); };
         carte->remplir(fournisseurSol);
+        // Place un trou.
         Coordonnees positionTrou = Coordonnees().translater(Direction::Nord);
-        (*carte)(positionTrou) = ICase_S(new Trou());
+        (*carte)(positionTrou) = ACase_S(new Trou());
+        // Crée le donjon.
         m_donjon = IDonjon_S(new Donjon(carte));
     }
 
     void Partie::genererObjet(IObjet_S objet)
     {
+        // Trouve une coordonnées sans objet et y dépose l'objet.
         Coordonnees c = coordonneesLibre();
         m_donjon->deposer(objet, c);
     }
 
-    void Partie::demande(Coordonnees coordonnees) { m_etat->operation(*this, coordonnees); }
+    void Partie::demander() { m_etat->operation(*this); }
 
-    void Partie::demande(size_t indiceObjet) { m_etat->operation(*this, indiceObjet); }
+    void Partie::demander(size_t indiceObjet) { m_etat->operation(*this, indiceObjet); }
 
-    void Partie::demande() { m_etat->operation(*this); }
+    void Partie::demander(Coordonnees coordonnees) { m_etat->operation(*this, coordonnees); }
 
     int Partie::indiceGagnant() const
     {
-        int precedent = -1;
-        int gagnant = -1;
-        for (size_t i = 0; i < m_donjon->getNbPersonnages(); i++)
+        int gagnant(-1);
+        // Pour chaque équipe, on regarde s'il y a au moins 1 survivant.
+        for (int indice = 0; indice < (int)m_equipes.size(); indice++)
         {
-            APersonnage_SC personnage = m_donjon->getPersonnage(i);
-            if (personnage->estVivant())
+            const Equipe& equipe = m_equipes.at(indice);
+            if (equipe.compterSurvivant() > 0)
             {
-                precedent = gagnant;
-                gagnant = indiceEquipe(personnage);
+                // Si on a déjà un gagnant, la partie n'est pas terminée.
+                if (gagnant != -1) { throw err::InfoErreur("Partie::indiceGagnant : Information non disponible."); }
+                // On stock le gagnant.
+                gagnant = indice;
             }
-            if (precedent != -1 && precedent != gagnant)
-            { throw err::InfoErreur("Partie::indiceGagnant : Information non disponible."); }
         }
         return gagnant;
     }
 
     size_t Partie::indiceEquipe(APersonnage_SC personnage) const
     {
+        // On interroge chaque équipe.
         for (size_t i = 0; i < m_equipes.size(); i++)
         {
             const Equipe& equipe = m_equipes.at(i);
             if (equipe.estMembre(*personnage)) { return i; }
         }
-        throw err::InfoErreur("Partie::indiceEquipe : Information non disponible.");
+        // Aucune équipe ne connais ce personnage.
+        throw err::InfoErreur("Partie::indiceEquipe : Le personnage ne fait pas partie d'une équipe.");
     }
 
     hex::Coordonnees Partie::coordonneesLibre()
     {
+        // Vérifie qu'il existe une case vide.
         vector<Coordonnees> coordonnees = m_donjon->getCaseVide();
         size_t size = coordonnees.size();
         if (size == 0) { throw err::CreationErreur("Partie::coordonneesLibre : Plus de case disponible."); }
+        // Tire au sort une case parmis celles libres.
         auto c = coordonnees.begin();
         c += rand() % coordonnees.size();
         return *c;

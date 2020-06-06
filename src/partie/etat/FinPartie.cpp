@@ -1,12 +1,12 @@
 #include "partie/etat/FinPartie.hpp"
-#include <iostream>
 #include <exception>
+#include <iostream>
 #include "donjon/IDonjon.hpp"
-#include "donjon/cases/ICase.hpp"
+#include "donjon/cases/ACase.hpp"
 #include "err/InfoErreur.hpp"
 #include "hex/Coordonnees.hpp"
 #include "partie/Partie.hpp"
-#include "partie/etat/Selection.hpp"
+#include "partie/etat/SelectionAuto.hpp"
 
 using namespace partie;
 using namespace per;
@@ -20,9 +20,12 @@ namespace partie::etat
 {
     FinPartie::FinPartie(size_t indice) : m_indiceGagnant(indice) {}
 
-    void FinPartie::operation(Partie&, const Coordonnees&) { throw logic_error("FinPartie::operation() : operation non supporte"); }
+    void FinPartie::operation(Partie&, const Coordonnees&)
+    {
+        throw logic_error("FinPartie::operation : operation non supporte");
+    }
 
-    void FinPartie::operation(Partie&, size_t) { throw invalid_argument("FinPartie::operation() : operation non supporte"); }
+    void FinPartie::operation(Partie&, size_t) { throw logic_error("FinPartie::operation : operation non supporte"); }
 
     void FinPartie::operation(Partie&) {}
 
@@ -30,12 +33,12 @@ namespace partie::etat
 
     APersonnage_SC FinPartie::getPersoSelect() const
     {
-        throw invalid_argument("FinPartie::getPersoSelect() : Aucun personnage selectionne.");
+        throw logic_error("FinPartie::getPersoSelect : Aucun personnage selectionne.");
     }
 
     IObjet_SC FinPartie::getObjetSelect() const
     {
-        throw invalid_argument("FinPartie::getObjetSelect() : Aucun objet selectionne.");
+        throw logic_error("FinPartie::getObjetSelect : Aucun objet selectionne.");
     }
 
 } // namespace partie::etat

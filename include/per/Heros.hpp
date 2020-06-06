@@ -10,8 +10,8 @@ namespace per
 
     class Heros : public APersonnage
     {
-    protected:
-        /** Liste des objets detenue par le Hero */
+    private:
+        /** @brief Liste des objets detenue par le Hero */
         std::vector<obj::IObjet_S> m_sac;
 
     public:

@@ -1,13 +1,16 @@
-#ifndef __CASEINTERDITE_HPP__
-#define __CASEINTERDITE_HPP__
+#ifndef __TROU_HPP__
+#define __TROU_HPP__
 
-#include "donjon/cases/ICase.hpp"
+#include "donjon/cases/ACase.hpp"
 
 namespace donjon::cases
 {
-    class Trou : public ICase
+    class Trou : public ACase
     {
     public:
+        /**
+         * @brief Construit un Trou.
+         */
         Trou();
 
         /* Constructeurs & operateurs de copie & destructeur */
@@ -32,4 +35,4 @@ namespace donjon::cases
         virtual void actualiser() override;
     };
 } // namespace donjon::cases
-#endif // __CASEINTERDITE_HPP__
+#endif // __TROU_HPP__

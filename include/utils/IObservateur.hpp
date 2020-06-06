@@ -1,14 +1,14 @@
 #ifndef __IOBSERVATEUR_H__
 #define __IOBSERVATEUR_H__
 
-#include <memory>
-
 namespace utils
 {
     template<typename T>
     class IObservateur
     {
     public:
+        virtual ~IObservateur() = default;
+
         /**
          * @brief Actualise l'observateur.
          *
@@ -18,8 +18,6 @@ namespace utils
          * @param info Une information transmise par l'observable.
          */
         virtual void actualiser(const T& info) = 0;
-
-        virtual ~IObservateur() = default;
     };
 } // namespace utils
 #endif // __IOBSERVATEUR_H__

@@ -2,7 +2,7 @@
 #include <memory>
 #include "catch.hpp"
 #include "donjon/Donjon.hpp"
-#include "donjon/cases/ICase.hpp"
+#include "donjon/cases/ACase.hpp"
 #include "donjon/cases/Sol.hpp"
 #include "hex/CarteHexagone.hpp"
 #include "per/Heros.hpp"
@@ -12,7 +12,7 @@ using namespace obj;
 TEST_CASE("Creation et manipulation de Taser", "[Taser]")
 {
     IObjet_S taser1 = std::make_shared<Taser>();
-    hex::ICarte_S<donjon::cases::ICase_S> carte = std::make_shared<hex::CarteHexagone<donjon::cases::ICase_S>>(5);
+    hex::ICarte_S<donjon::cases::ACase_S> carte = std::make_shared<hex::CarteHexagone<donjon::cases::ACase_S>>(5);
     carte->remplir(std::make_shared<donjon::cases::Sol>());
     donjon::IDonjon_S donjon = std::make_shared<donjon::Donjon>(carte);
     hex::Coordonnees c1;

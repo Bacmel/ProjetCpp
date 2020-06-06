@@ -1,5 +1,5 @@
-#ifndef __Initial_H__
-#define __Initial_H__
+#ifndef __SELECTIONMAN_HPP__
+#define __SELECTIONMAN_HPP__
 
 #include "hex/Coordonnees.hpp"
 #include "obj/IObjet.hpp"
@@ -7,14 +7,14 @@
 
 namespace partie::etat
 {
-    class Initial : public IEtat
+    class SelectionMan : public IEtat
     {
     protected:
         /** indice de L'Equipe en jeu. */
         size_t m_indiceEquipe;
 
     public:
-        Initial(size_t indice);
+        SelectionMan(size_t indice);
 
         inline void afficher() const override;
 
@@ -33,4 +33,4 @@ namespace partie::etat
     };
 } // namespace partie::etat
 
-#endif //__Initial_H__
+#endif //__SELECTIONMAN_HPP__

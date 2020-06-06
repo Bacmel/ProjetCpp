@@ -1,5 +1,5 @@
-#ifndef __ICASE_HPP__
-#define __ICASE_HPP__
+#ifndef __CASE_HPP__
+#define __CASE_HPP__
 
 #include <memory>
 #include "obj/IObjet.hpp"
@@ -11,10 +11,10 @@ namespace donjon::cases
 {
     class ICaseVisiteur;
 
-    class ICase: public utils::AObservable<ICase>, public utils::IActualisable
+    class ACase: public utils::AObservable<ACase>, public utils::IActualisable
     {
     public:
-        virtual ~ICase() {}
+        virtual ~ACase() = default;
 
         /**
          * @brief Dépose un objet sur une case.
@@ -81,11 +81,16 @@ namespace donjon::cases
          */
         virtual bool estTransparent() const = 0;
 
+        /**
+         * @brief Accepte d'être visité.
+         *
+         * @param visiteur Le visiteur.
+         */
         virtual void accepter(ICaseVisiteur& visiteur) const = 0;
     };
 
-    using ICase_S = std::shared_ptr<ICase>;
-    using ICase_SC = std::shared_ptr<const ICase>;
+    using ACase_S = std::shared_ptr<ACase>;
+    using ACase_SC = std::shared_ptr<const ACase>;
 } // namespace donjon::cases
 
-#endif // __ICASE_HPP__
+#endif // __CASE_HPP__

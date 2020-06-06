@@ -1,5 +1,5 @@
-#ifndef __FINTOUR_H__
-#define __FINTOUR_H__
+#ifndef __FINTOUR_HPP__
+#define __FINTOUR_HPP__
 
 #include "hex/Coordonnees.hpp"
 #include "obj/IObjet.hpp"
@@ -10,17 +10,17 @@ namespace partie::etat
     class FinTour : public IEtat
     {
     protected:
-        /* indice de l'equipe en jeu. */
+        /** @brief Indice de l'equipe en jeu. */
         size_t m_indiceEquipe;
 
     public:
+        /**
+         * @brief Construit un état FinTour.
+         *
+         * @param indice Indice que l'équipe dont le tour se termine.
+         */
         FinTour(size_t indice);
 
-        /**
-         * @brief Operation de l'etat courant sur la partie.
-         *
-         * @param partie la Partie.
-         */
         void afficher() const override;
 
         inline size_t getEquipeCourante() const override { return m_indiceEquipe; }
@@ -37,4 +37,4 @@ namespace partie::etat
     };
 } // namespace partie::etat
 
-#endif //__FINTOUR_H__
+#endif //__FINTOUR_HPP__

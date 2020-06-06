@@ -1,5 +1,5 @@
-#ifndef __FINPARTIE_H__
-#define __FINPARTIE_H__
+#ifndef __FINPARTIE_HPP__
+#define __FINPARTIE_HPP__
 
 #include "hex/Coordonnees.hpp"
 #include "obj/IObjet.hpp"
@@ -9,18 +9,18 @@ namespace partie::etat
 {
     class FinPartie : public IEtat
     {
-    protected:
-        /* indice de l'equipe en jeu. */
+    private:
+        /** @brief L'indice de l'équipe qui a gagnée. */
         size_t m_indiceGagnant;
 
     public:
+        /**
+         * @brief Construit un état FinPartie
+         *
+         * @param indice L'indice de l'équipe gagnante.
+         */
         FinPartie(size_t indice);
 
-        /**
-         * @brief Operation de l'etat courant sur la partie.
-         *
-         * @param partie la Partie.
-         */
         void afficher() const override;
 
         inline size_t getEquipeCourante() const override { return m_indiceGagnant; }
@@ -37,4 +37,4 @@ namespace partie::etat
     };
 } // namespace partie::etat
 
-#endif //__FINPARTIE_H__
+#endif //__FINPARTIE_HPP__

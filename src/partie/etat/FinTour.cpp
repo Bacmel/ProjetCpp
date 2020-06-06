@@ -1,12 +1,12 @@
 #include "partie/etat/FinTour.hpp"
 #include <iostream>
 #include "donjon/IDonjon.hpp"
-#include "donjon/cases/ICase.hpp"
+#include "donjon/cases/ACase.hpp"
 #include "err/InfoErreur.hpp"
 #include "hex/Coordonnees.hpp"
 #include "partie/Partie.hpp"
 #include "partie/etat/FinPartie.hpp"
-#include "partie/etat/Selection.hpp"
+#include "partie/etat/SelectionAuto.hpp"
 
 using namespace partie;
 using namespace per;
@@ -22,15 +22,15 @@ namespace partie::etat
 
     void FinTour::operation(Partie&, const Coordonnees&)
     {
-        throw logic_error("FinTour::operation() : operation non supporte");
+        throw logic_error("FinTour::operation : operation non supporte");
     }
 
-    void FinTour::operation(Partie&, size_t) { throw logic_error("FinTour::operation() : operation non supporte"); }
+    void FinTour::operation(Partie&, size_t) { throw logic_error("FinTour::operation : operation non supporte"); }
 
     void FinTour::operation(Partie& partie)
     {
         IDonjon_S donjon = partie.getDonjon();
-        ICarte_SC<ICase_S> carte = partie.getDonjon()->getCarte();
+        ICarte_S<ACase_S> carte = partie.getDonjon()->getCarte();
         /*Mise à jour objet. */
         auto itro = carte->iterateur();
         while (itro->aSuite())
@@ -38,7 +38,7 @@ namespace partie::etat
             Coordonnees c = itro->suite();
             (*carte)(c)->actualiser();
         }
-        /*Mise à jour membre de l'equipe. */
+        /* Mise à jour membre de l'equipe. */
         vector<Equipe>& equipes = partie.getEquipes();
         Equipe& equipe = equipes.at(m_indiceEquipe);
         for (size_t indice = 0; indice < equipe.compterMembres(); indice++)
@@ -55,32 +55,34 @@ namespace partie::etat
         }
         equipe.retirerMorts();
         donjon->actualiser();
+        // On regarde si on a un gagnant.
         try
         {
             size_t i = partie.indiceGagnant();
             partie.setEtat(IEtat_S(new FinPartie(i)));
-            partie.demande();
+            partie.demander();
             return;
         }
         catch (const err::InfoErreur&)
         {
+            // On en a pas, la partie continue.
             size_t nbEquipe = partie.getEquipes().size();
-            partie.setEtat(IEtat_S(new Selection((m_indiceEquipe + 1) % nbEquipe)));
-            partie.demande();
+            partie.setEtat(IEtat_S(new SelectionAuto((m_indiceEquipe + 1) % nbEquipe)));
+            partie.demander();
             return;
         }
     }
 
-    void FinTour::afficher() const { cout << " Etat Fin de Tour : " << m_indiceEquipe << endl; }
+    void FinTour::afficher() const { cout << "FinTour : " << m_indiceEquipe << endl; }
 
     APersonnage_SC FinTour::getPersoSelect() const
     {
-        throw invalid_argument("FinTour::getPersoSelect() : Aucun personnage selectionne.");
+        throw logic_error("FinTour::getPersoSelect : Aucun personnage selectionne.");
     }
 
     IObjet_SC FinTour::getObjetSelect() const
     {
-        throw invalid_argument("FinTour::getObjetSelect() : Aucun objet selectionne.");
+        throw logic_error("FinTour::getObjetSelect : Aucun objet selectionne.");
     }
 
 } // namespace partie::etat

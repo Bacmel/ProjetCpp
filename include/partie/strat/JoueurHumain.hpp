@@ -1,17 +1,22 @@
-#ifndef __JOUEURHUMAIN_H__
-#define __JOUEURHUMAIN_H__
+#ifndef __JOUEURHUMAIN_HPP__
+#define __JOUEURHUMAIN_HPP__
 
 #include "partie/strat/IStrategie.hpp"
 
 namespace partie::strat
 {
-    class JoueurHumain: public IStrategie
+    class JoueurHumain : public IStrategie
     {
     public:
+        /**
+         * @brief Crée un JoueurHumain.
+         *
+         * L'instance peut être partagée par plusieurs équipes.
+         */
         JoueurHumain();
         ~JoueurHumain() = default;
 
         void mettreEnOeuvre(partie::Partie& partie, partie::Equipe& equipe) override;
     };
-}
-#endif // __JOUEURHUMAIN_H__
+} // namespace partie::strat
+#endif // __JOUEURHUMAIN_HPP__

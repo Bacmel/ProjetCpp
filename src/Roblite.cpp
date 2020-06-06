@@ -16,7 +16,7 @@ Roblite::Roblite() : m_partie(), m_fenetre(), m_partieDessinable(), m_controlleu
     window.setFramerateLimit(60);
     m_partieDessinable = std::make_shared<vue::PartieDessinable>(25);
     m_partieDessinable->setElement(*m_partie);
-    m_fenetre->setDessinateur(m_partieDessinable);
+    m_fenetre->setDessinable(m_partieDessinable);
     // Prépare le controlleur.
     m_controlleur = std::make_shared<controlleur::PartieCont>(*m_partieDessinable, *m_partie);
     m_fenetre->attacher(sf::Event::MouseButtonPressed, m_controlleur);
@@ -26,7 +26,7 @@ void Roblite::jouer()
 {
     // Execute la machine à état pour démarrer la partie et entre dans la boucle
     // principale du programme.
-    m_partie->demande();
+    m_partie->demander();
     m_fenetre->actualiser();
 }
 

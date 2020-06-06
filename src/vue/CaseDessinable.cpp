@@ -29,9 +29,9 @@ namespace vue
         m_hexagone.setOutlineColor(Color::Black);
     }
 
-    CaseDessinable::CaseDessinable(float cote, ICase& iCase) : CaseDessinable(cote) { setElement(iCase); }
+    CaseDessinable::CaseDessinable(float cote, ACase& iCase) : CaseDessinable(cote) { setElement(iCase); }
 
-    void CaseDessinable::setElement(ICase& iCase)
+    void CaseDessinable::setElement(ACase& iCase)
     {
         // On se détache de la précédente case et on s'attache à la nouvelle.
         if (m_case != nullptr) { m_case->detacher(this); }
@@ -76,7 +76,7 @@ namespace vue
         if (m_case->aObjet()) { target.draw(m_objDessinable, states); }
     }
 
-    void CaseDessinable::actualiser(const donjon::cases::ICase& iCase)
+    void CaseDessinable::actualiser(const donjon::cases::ACase& iCase)
     {
         iCase.accepter(*this);
         if (iCase.aObjet())

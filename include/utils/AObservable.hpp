@@ -17,6 +17,7 @@ namespace utils
          * @brief Construit un nouvel observable.
          */
         AObservable() : m_observateurs() {}
+        virtual ~AObservable() = default;
 
         /**
          * @brief Attache un observateur.
