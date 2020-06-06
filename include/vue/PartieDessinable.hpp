@@ -4,7 +4,6 @@
 #include <memory>
 #include "partie/Partie.hpp"
 #include "utils/HexPixelConvertisseur.hpp"
-#include "utils/IObservateur.hpp"
 #include "vue/ADessinable.hpp"
 
 namespace vue

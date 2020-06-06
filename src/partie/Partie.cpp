@@ -7,6 +7,7 @@
 #include "err/InfoErreur.hpp"
 #include "hex/CarteHexagone.hpp"
 #include "partie/etat/Decision.hpp"
+#include <iostream>
 
 using namespace hex;
 using namespace donjon;
@@ -74,6 +75,7 @@ namespace partie
     {
         // Trouve une coordonnées sans objet et y dépose l'objet.
         Coordonnees c = coordonneesLibre();
+        std::cout << "OBjet en :" << c << std::endl;
         m_donjon->deposer(objet, c);
     }
 

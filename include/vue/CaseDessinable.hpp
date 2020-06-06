@@ -2,15 +2,12 @@
 #define __CASEDESSINABLE_HPP__
 
 #include "donjon/cases/ICaseVisiteur.hpp"
-#include "utils/IObservateur.hpp"
 #include "vue/ADessinable.hpp"
 #include "vue/ObjetDessinable.hpp"
 
 namespace vue
 {
-    class CaseDessinable : public vue::ADessinable<donjon::cases::ACase>,
-                           public donjon::cases::ICaseVisiteur,
-                           public utils::IObservateur<donjon::cases::ACase>
+    class CaseDessinable : public vue::ADessinable<donjon::cases::ACase>, public donjon::cases::ICaseVisiteur
     {
     private:
         sf::CircleShape m_hexagone;
@@ -36,10 +33,6 @@ namespace vue
          */
         CaseDessinable(float cote, donjon::cases::ACase_S aCase);
 
-        CaseDessinable(const CaseDessinable& autre);
-        CaseDessinable& operator=(const CaseDessinable& autre);
-        ~CaseDessinable();
-
         /**
          * @brief Surligne la case.
          *
@@ -55,8 +48,12 @@ namespace vue
         void visite(const donjon::cases::Trou& trou) override;
         /* Implémentation de Drawable */
         void draw(sf::RenderTarget& target, sf::RenderStates states) const override;
-        /* Implémentation de IObservateur */
-        void actualiser(const donjon::cases::ACase& aCase) override;
+
+    private:
+        /**
+         * @brief Préparer le dessinable pour représenter la case.
+         */
+        void preparer();
     };
 } // namespace vue
 #endif // __CASEDESSINABLE_HPP__

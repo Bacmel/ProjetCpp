@@ -16,14 +16,12 @@ namespace per
         if (objet != nullptr)
         {
             m_sac.push_back(objet);
-            notifier(*this);
         }
     }
 
     void Heros::retirerObjet(obj::IObjet_S objet)
     {
         m_sac.erase(std::remove(m_sac.begin(), m_sac.end(), objet), m_sac.end());
-        notifier(*this);
     }
 
     obj::IObjet_SC Heros::getObjet(size_t indice) const

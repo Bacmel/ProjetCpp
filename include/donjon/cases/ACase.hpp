@@ -4,14 +4,13 @@
 #include <memory>
 #include "obj/IObjet.hpp"
 #include "per/APersonnage.hpp"
-#include "utils/AObservable.hpp"
 #include "utils/IActualisable.hpp"
 
 namespace donjon::cases
 {
     class ICaseVisiteur;
 
-    class ACase : public utils::AObservable<ACase>, public utils::IActualisable
+    class ACase : public utils::IActualisable
     {
     public:
         virtual ~ACase() = default;

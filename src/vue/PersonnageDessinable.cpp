@@ -39,53 +39,24 @@ namespace vue
         setElement(aPersonnage);
     }
 
-    PersonnageDessinable::PersonnageDessinable(const PersonnageDessinable& autre) : ADessinable(0) { *this = autre; }
-
-    PersonnageDessinable::~PersonnageDessinable()
-    {
-        // Se détache du personnage observé.
-        if (m_element != nullptr) { m_element->detacher(this); }
-    }
-
-    PersonnageDessinable& PersonnageDessinable::operator=(const PersonnageDessinable& autre)
-    {
-        // Copie les valeurs.
-        m_cote = autre.m_cote;
-        m_margin = autre.m_margin;
-        m_couleur = autre.m_couleur;
-        m_sprite = autre.m_sprite;
-        m_barFond = autre.m_barFond;
-        m_barValeur = autre.m_barValeur;
-        m_herosTex = autre.m_herosTex;
-        m_fantassinTex = autre.m_fantassinTex;
-        // Se détache du précédent personnage et s'adapte au nouveau.
-        if (m_element != nullptr) { m_element->detacher(this); }
-        if (autre.m_element != nullptr) { setElement(autre.m_element); }
-        return *this;
-    }
-
     void PersonnageDessinable::setCote(float cote)
     {
         m_cote = cote;
-        if (m_element != nullptr) { actualiser(*m_element); }
+        if (m_element != nullptr) { preparer(); }
     }
 
     void PersonnageDessinable::setCouleur(const sf::Color& couleur)
     {
         m_couleur = couleur;
-        if (m_element != nullptr) { actualiser(*m_element); }
+        if (m_element != nullptr) { preparer(); }
     }
 
     void PersonnageDessinable::setElement(APersonnage_S personnage)
     {
         if (personnage == nullptr)
         { throw std::invalid_argument("PersonnageDessinable::setElement : personnage est null!"); }
-        // Se détache de l'objet précédent.
-        if (m_element != nullptr) { m_element->detacher(this); }
-        // S'attache au nouvel objet et s'y adapte.
         m_element = personnage;
-        m_element->attacher(this);
-        actualiser(*personnage);
+        preparer();
     }
 
     void PersonnageDessinable::draw(sf::RenderTarget& target, sf::RenderStates states) const
@@ -97,9 +68,18 @@ namespace vue
         target.draw(m_barValeur, states);
     }
 
+    void PersonnageDessinable::preparer()
+    {
+        if (m_element == nullptr) { return; }
+        // Adapte la barre de vie, la couleur du sprite la texture, etc.
+        preparerBarreSante(*m_element);
+        m_sprite.setColor(m_couleur);
+        m_element->accepter(*this);
+    }
+
     void PersonnageDessinable::visiter(const per::Heros&)
     {
-        m_sprite.setTexture(*m_herosTex);
+        m_sprite.setTexture(*m_herosTex, true);
         // Met l'origine du sprite en son centre.
         Vector2u dim = m_herosTex->getSize();
         m_sprite.setOrigin(dim.x / 2., dim.y / 2.);
@@ -107,17 +87,9 @@ namespace vue
         m_sprite.setScale(m_cote / dim.x, m_cote / dim.y);
     }
 
-    void PersonnageDessinable::actualiser(const per::APersonnage& personnage)
-    {
-        // Adapte la barre de vie, la couleur du sprite la texture, etc.
-        preparerBarreSante(personnage);
-        m_sprite.setColor(m_couleur);
-        personnage.accepter(*this);
-    }
-
     void PersonnageDessinable::visiter(const per::Fantassin&)
     {
-        m_sprite.setTexture(*m_fantassinTex);
+        m_sprite.setTexture(*m_fantassinTex, true);
         // Met l'origine du sprite en son centre.
         Vector2u dim = m_fantassinTex->getSize();
         m_sprite.setOrigin(dim.x / 2., dim.y / 2.);
@@ -143,5 +115,4 @@ namespace vue
         Vector2f posRelative(-m_margin / 2, -m_margin / 2);
         m_barValeur.setOrigin(pos + posRelative);
     }
-
 } // namespace vue

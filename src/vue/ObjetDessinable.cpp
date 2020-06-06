@@ -36,7 +36,7 @@ namespace vue
 
     void ObjetDessinable::visiter(const obj::GravityGun&)
     {
-        m_sprite.setTexture(*m_textureGravityGun);
+        m_sprite.setTexture(*m_textureGravityGun, true);
         Vector2u dim = m_textureGravityGun->getSize();
         // Met l'origine du sprite en son centre.
         m_sprite.setOrigin(dim.x / 2., dim.y / 2.);
@@ -46,7 +46,7 @@ namespace vue
 
     void ObjetDessinable::visiter(const obj::Taser&)
     {
-        m_sprite.setTexture(*m_textureTaser);
+        m_sprite.setTexture(*m_textureTaser, true);
         Vector2u dim = m_textureTaser->getSize();
         // Met l'origine du sprite en son centre.
         m_sprite.setOrigin(dim.x / 2., dim.y / 2.);

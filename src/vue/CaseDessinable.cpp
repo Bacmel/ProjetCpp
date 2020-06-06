@@ -29,32 +29,6 @@ namespace vue
         m_hexagone.setOutlineColor(Color::Black);
     }
 
-    CaseDessinable::CaseDessinable(const CaseDessinable& autre) :
-        ADessinable(autre.m_cote),
-        m_objDessinable(autre.m_cote)
-    {
-        *this = autre;
-    }
-
-    CaseDessinable& CaseDessinable::operator=(const CaseDessinable& autre)
-    {
-        // Copie les valeurs
-        m_hexagone = autre.m_hexagone;
-        m_textureSol = autre.m_textureSol;
-        m_textureTrou = autre.m_textureTrou;
-        m_objDessinable = autre.m_objDessinable;
-        // Se détache du précédent personnage et s'adapte au nouveau.
-        if (m_element != nullptr) { m_element->detacher(this); }
-        if (autre.m_element != nullptr) { setElement(autre.m_element); }
-        return *this;
-    }
-
-    CaseDessinable::~CaseDessinable()
-    {
-        // Se détache du personnage observé.
-        if (m_element != nullptr) { m_element->detacher(this); }
-    }
-
     CaseDessinable::CaseDessinable(float cote, ACase_S aCase) : CaseDessinable(cote)
     {
         if (aCase == nullptr) { throw std::invalid_argument("CaseDessinable::CaseDessinable : La case est nulle!"); }
@@ -64,13 +38,10 @@ namespace vue
     void CaseDessinable::setElement(ACase_S aCase)
     {
         if (aCase == nullptr) { throw std::invalid_argument("CaseDessinable::setElement : La case est nulle!"); }
-        // On se détache de la précédente case et on s'attache à la nouvelle.
-        if (m_element != nullptr) { m_element->detacher(this); }
-        aCase->attacher(this);
         // On met à jour les champs.
         m_hexagone.setFillColor(Color::White);
         m_element = aCase;
-        actualiser(*aCase);
+        preparer();
     }
 
     void CaseDessinable::surligner()
@@ -91,13 +62,13 @@ namespace vue
     {
         m_hexagone.setOutlineThickness(-0.5);
         m_hexagone.setOutlineColor(sf::Color::Black);
-        m_hexagone.setTexture(m_textureSol.get());
+        m_hexagone.setTexture(m_textureSol.get(), true);
     }
 
     void CaseDessinable::visite(const Trou&)
     {
         m_hexagone.setOutlineThickness(0);
-        m_hexagone.setTexture(m_textureTrou.get());
+        m_hexagone.setTexture(m_textureTrou.get(), true);
     }
 
     void CaseDessinable::draw(RenderTarget& target, RenderStates states) const
@@ -109,7 +80,7 @@ namespace vue
         if (m_element->aObjet()) { target.draw(m_objDessinable, states); }
     }
 
-    void CaseDessinable::actualiser(const donjon::cases::ACase&)
+    void CaseDessinable::preparer()
     {
         // S'adapte au type exacte.
         m_element->accepter(*this);
