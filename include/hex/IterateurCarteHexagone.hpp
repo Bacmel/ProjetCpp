@@ -27,7 +27,7 @@ namespace hex
         IterateurCarteHexagone(const CarteHexagone<T>* carte) :
             m_carte(carte),
             m_colonne(0),
-            m_ligne(-1),
+            m_ligne(-1)
         {
             m_colonneMax = carte->getRayon() * 2;
         }
