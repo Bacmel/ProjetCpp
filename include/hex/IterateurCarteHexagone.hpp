@@ -17,7 +17,6 @@ namespace hex
         int m_colonne;
         int m_ligne;
         int m_colonneMax;
-        Coordonnees m_centre;
 
     public:
         /**
@@ -29,7 +28,6 @@ namespace hex
             m_carte(carte),
             m_colonne(0),
             m_ligne(-1),
-            m_centre(carte->getRayon(), carte->getRayon())
         {
             m_colonneMax = carte->getRayon() * 2;
         }
