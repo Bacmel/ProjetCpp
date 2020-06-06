@@ -1,5 +1,6 @@
 #include "partie/etat/SelectionAuto.hpp"
 #include <iostream>
+#include <sstream>
 #include <stdexcept>
 #include "partie/Partie.hpp"
 #include "partie/etat/FinTour.hpp"
@@ -12,11 +13,27 @@ namespace partie::etat
 {
     SelectionAuto::SelectionAuto(size_t equipe) : m_equipe(equipe) {}
 
-    void SelectionAuto::afficher() const { std::cout << "SelectionAuto : " << m_equipe << "}\n"; }
+    string SelectionAuto::enTexte() const
+    {
+        stringstream ss;
+        ss << "<Etat SelectionAuto>" << endl;
+        ss << "equipe : " << m_equipe << endl;
+        return ss.str();
+    }
+
+    per::APersonnage_S SelectionAuto::getPersoSelect()
+    {
+        throw std::logic_error("SelectionAuto::getPersoSelect : Pas de personnage sélectionné.");
+    }
 
     per::APersonnage_SC SelectionAuto::getPersoSelect() const
     {
         throw std::logic_error("SelectionAuto::getPersoSelect : Pas de personnage sélectionné.");
+    }
+
+    obj::IObjet_S SelectionAuto::getObjetSelect()
+    {
+        throw std::logic_error("SelectionAuto::getPersoSelect : Pas d'objet sélectionné.");
     }
 
     obj::IObjet_SC SelectionAuto::getObjetSelect() const

@@ -33,6 +33,14 @@ namespace partie
             virtual per::APersonnage_SC getPersoSelect() const = 0;
 
             /**
+             * @brief Obtient le personnage selectionne.
+             *
+             * @throw std::logic_error ne possede pas d'information.
+             * @return per::APersonnage_S le personnage selestionne.
+             */
+            virtual per::APersonnage_S getPersoSelect() = 0;
+
+            /**
              * @brief Obtient l'objet selectionne.
 
             * @throw std::logic_error ne possede pas d'information.
@@ -41,9 +49,12 @@ namespace partie
             virtual obj::IObjet_SC getObjetSelect() const = 0;
 
             /**
-             * @brief Affiche l'état courant.
-             */
-            virtual void afficher() const = 0;
+             * @brief Obtient l'objet selectionne.
+
+            * @throw std::logic_error ne possede pas d'information.
+            * @return obj::IObjet_S l'objet selectionne.
+            */
+            virtual obj::IObjet_S getObjetSelect() = 0;
 
             /**
              * @brief Operation de l'état courant sur la partie.
@@ -74,7 +85,20 @@ namespace partie
              * @param indiceObjet L'indice de l'objet selectionné.
              */
             virtual void operation(Partie& partie) = 0;
+
+        protected:
+            /**
+             * @brief Affiche l'état courant.
+             *
+             * @return la chaine de caractere decrivant l'état courant.
+             */
+            virtual std::string enTexte() const = 0;
+
+            /* Fonction Friend. */
+            friend std::ostream& operator<<(std::ostream& os, const IEtat& etat) { return os << etat.enTexte(); }
         };
+
+        //std::ostream& operator<<(std::ostream& os, const IEtat& etat) 
 
         using IEtat_S = std::shared_ptr<IEtat>;
         using IEtat_SC = std::shared_ptr<const IEtat>;
