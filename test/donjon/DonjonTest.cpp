@@ -3,6 +3,7 @@
 #include <map>
 #include <vector>
 #include "catch.hpp"
+#include "donjon/cases/ACase.hpp"
 #include "donjon/cases/Sol.hpp"
 #include "donjon/cases/Trou.hpp"
 #include "hex/CarteHexagone.hpp"
@@ -18,11 +19,11 @@ using namespace std;
 
 TEST_CASE("Creation et manipulation de Donjon", "[Donjon]")
 {
-    ICarte_S<ICase_S> carte(new CarteHexagone<ICase_S>(2));
-    function<ICase_S()> fournisseurSol = []() { return make_shared<Sol>(); };
+    ICarte_S<ACase_S> carte(new CarteHexagone<ACase_S>(2));
+    function<ACase_S()> fournisseurSol = []() { return make_shared<Sol>(); };
     carte->remplir(fournisseurSol);
     Coordonnees positionTrou = Coordonnees().translater(Direction::Nord);
-    (*carte)(positionTrou) = ICase_S(new Trou());
+    (*carte)(positionTrou) = ACase_S(new Trou());
     Donjon donjon(carte);
     REQUIRE(donjon.getCarte() == carte);
 
@@ -151,8 +152,8 @@ TEST_CASE("Creation et manipulation de Donjon", "[Donjon]")
     SECTION("Donjon::getCaseVide")
     {
         // Obtenir aucune case vide
-        ICarte_S<ICase_S> carte2(new CarteHexagone<ICase_S>(2));
-        function<ICase_S()> fournisseurTrou = []() { return make_shared<Trou>(); };
+        ICarte_S<ACase_S> carte2(new CarteHexagone<ACase_S>(2));
+        function<ACase_S()> fournisseurTrou = []() { return make_shared<Trou>(); };
         carte2->remplir(fournisseurTrou);
         Donjon donjon2(carte2);
         REQUIRE(donjon2.getCaseVide().size() == 0);

@@ -39,7 +39,7 @@ namespace partie
         m_etat = etat;
     }
 
-    size_t Partie::genererEquipe(strat::IStrategie_S& strategie)
+    size_t Partie::genererEquipe(strat::IStrategie_S strategie)
     {
         // Crée une nouvelle équipe vide, la conserve et donne son indice.
         Equipe equipe(strategie);

@@ -66,7 +66,10 @@ namespace partie::etat
         if (indiceObjet < m_personnage->tailleSac())
         {
             IObjet_S objet = m_personnage->getObjet(indiceObjet);
-            partie.setEtat(IEtat_S(new ObjetActif(m_equipe, m_personnage, objet)));
+            if(objet->estUtilisable())
+            {
+                partie.setEtat(IEtat_S(new ObjetActif(m_equipe, m_personnage, objet)));
+            }
         }
     }
 
