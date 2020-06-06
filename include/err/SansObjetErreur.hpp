@@ -1,5 +1,5 @@
-#ifndef __SANSOBJETERROR_H__
-#define __SANSOBJETERROR_H__
+#ifndef __SANSOBJETERROR_HPP__
+#define __SANSOBJETERROR_HPP__
 
 #include <stdexcept>
 #include <string>
@@ -15,4 +15,4 @@ namespace err
     };
 } // namespace err
 
-#endif // __SANSOBJETERROR_H__
+#endif // __SANSOBJETERROR_HPP__

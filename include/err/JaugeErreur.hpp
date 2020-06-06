@@ -1,5 +1,5 @@
-#ifndef __JAUGEERREUR_H__
-#define __JAUGEERREUR_H__
+#ifndef __JAUGEERREUR_HPP__
+#define __JAUGEERREUR_HPP__
 
 #include <stdexcept>
 #include <string>
@@ -20,4 +20,4 @@ namespace err
     };
 } // namespace err
 
-#endif // __JAUGEERREUR_H__
+#endif // __JAUGEERREUR_HPP__

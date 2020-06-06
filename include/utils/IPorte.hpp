@@ -23,7 +23,7 @@ namespace utils
          * @param cible la coordonnees cible.
          * @return le masque de degat.
          */
-        virtual hex::Masque getZoneDegat(hex::Coordonnees cible) const = 0;
+        virtual hex::Masque getZoneDegat(const hex::Coordonnees& cible) const = 0;
     };
 } // namespace utils
 

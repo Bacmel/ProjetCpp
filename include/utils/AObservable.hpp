@@ -1,5 +1,5 @@
-#ifndef __AOBSERVABLE_H__
-#define __AOBSERVABLE_H__
+#ifndef __AOBSERVABLE_HPP__
+#define __AOBSERVABLE_HPP__
 
 #include <list>
 #include "utils/IObservateur.hpp"
@@ -52,4 +52,4 @@ namespace utils
         }
     };
 } // namespace utils
-#endif // __AOBSERVABLE_H__
+#endif // __AOBSERVABLE_HPP__

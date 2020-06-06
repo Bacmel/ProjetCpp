@@ -1,90 +1,130 @@
 #include "per/Heros.hpp"
-#include "hex/Coordonnees.hpp"
+#include <memory>
 #include "catch.hpp"
+#include "hex/Coordonnees.hpp"
+#include "obj/GravityGun.hpp"
 
 using namespace per;
 
-TEST_CASE("Creation et manipulation de heros", "[heros]")
+TEST_CASE("Creation et manipulation de APersonnage", "[APersonnage]")
 {
-    Heros h1(3);
-    REQUIRE(h1.getSante() == 3);
-    REQUIRE(h1.getSanteMax() == 3);
-    REQUIRE(h1.getPosition() == hex::Coordonnees());
-
-    Heros h2(1);
-    REQUIRE(h2.getSante() == 1);
-    REQUIRE(h2.getSanteMax() == 1);
-    REQUIRE(h2.getPosition() == hex::Coordonnees());
+    APersonnage_S heros1 = std::make_shared<Heros>(3);
+    APersonnage_S heros2 = std::make_shared<Heros>(0);
 
     SECTION("APersonnage::estVivant")
     {
-        REQUIRE(h1.estVivant());
-        REQUIRE(h2.estVivant());
+        REQUIRE(heros1->estVivant());
+        REQUIRE_FALSE(heros2->estVivant());
     }
 
-    SECTION("APersonnage::subitAttaque")
+    SECTION("APersonnage::subirAttaque")
     {
-        h1.subitAttaque(1);
-        REQUIRE(h1.estVivant());
-        h1.subitAttaque(2);
-        REQUIRE_FALSE(h1.estVivant());
-        h2.subitAttaque(999);
-        REQUIRE_FALSE(h2.estVivant());
+        REQUIRE(heros1->getSante() == 3);
+        REQUIRE(heros2->getSante() == 0);
+        heros1->subirAttaque(2);
+        heros2->subirAttaque(2);
+        REQUIRE(heros1->getSante() == 1);
+        REQUIRE(heros2->getSante() == 0);
     }
 
     SECTION("APersonnage::ajouterSante")
     {
-        // Tue le héros par sa santé.
-        REQUIRE(h1.estVivant());
-        h1.ajouterSante(-3);
-        REQUIRE_FALSE(h1.estVivant());
-        REQUIRE(h2.estVivant());
-        h2.ajouterSante(-3);
-        REQUIRE_FALSE(h2.estVivant());
- 
-        h1.ajouterSante(3);
-        h2.ajouterSante(999);
-        REQUIRE(h1.estVivant());
-        REQUIRE(h2.getSante() == 1);
+        heros1->ajouterSante(-2);
+        heros2->ajouterSante(3);
+        REQUIRE(heros1->getSante() == 1);
+        REQUIRE(heros2->getSante() == 0);
     }
 
     SECTION("APersonnage::ajouterSanteMax")
     {
-        REQUIRE(h1.estVivant());
-        h1.ajouterSanteMax(-3);
-        REQUIRE_FALSE(h1.estVivant());
-        REQUIRE(h2.estVivant());
-        h2.ajouterSanteMax(-3);
-        REQUIRE_FALSE(h2.estVivant());
- 
-        h1.ajouterSanteMax(10);
-        REQUIRE(h1.estVivant());
-        h1.ajouterSante(999);
-        REQUIRE(h1.getSante() == 10);
+        heros1->ajouterSanteMax(-4);
+        heros2->ajouterSanteMax(3);
+        REQUIRE(heros1->getSante() == 0);
+        REQUIRE(heros2->getSante() == 3);
+        REQUIRE(heros1->getSanteMax() == 0);
+        REQUIRE(heros2->getSanteMax() == 3);
     }
 
     SECTION("APersonnage::tuer")
     {
-        h1.tuer();
-        REQUIRE_FALSE(h1.estVivant());
-        h2.tuer();
-        REQUIRE_FALSE(h2.estVivant());
+        heros1->tuer();
+        REQUIRE(heros1->getSante() == 0);
+        REQUIRE_FALSE(heros1->estVivant());
     }
 
-    SECTION("deplacer")
+    SECTION("APersonnage::deplacer")
     {
-        hex::Coordonnees c1(12,46);
-        hex::Coordonnees c2(1,0);
-        hex::Coordonnees c3(0,2);
-        h1.deplacer(per::Deplacement::Forcer, c1);
-        REQUIRE(h1.getPosition()==c1);
-        h1.deplacer(per::Deplacement::Forcer, hex::Coordonnees());
-        REQUIRE_THROWS(h1.deplacer(per::Deplacement::Marcher, c1));
-        h1.deplacer(per::Deplacement::Marcher, c2);
-        REQUIRE(h1.getPosition()==c2);
-        REQUIRE_THROWS(h2.deplacer(per::Deplacement::Sauter, c1));
-        h2.deplacer(per::Deplacement::Sauter, c3);
-        REQUIRE(h2.getPosition()==c3);
+        hex::Coordonnees marche(1, 0);
+        hex::Coordonnees saut(2, 0);
+        hex::Coordonnees force(5, -15);
+        /* Test saut. */
+        REQUIRE_THROWS(heros1->deplacer(Deplacement::Sauter, marche));
+        REQUIRE_THROWS(heros1->deplacer(Deplacement::Sauter, force));
+        REQUIRE_NOTHROW(heros1->deplacer(Deplacement::Sauter, saut));
+        REQUIRE(heros1->getPosition() == saut);
+        /* Test saut. */
+        REQUIRE_THROWS(heros1->deplacer(Deplacement::Marcher, saut));
+        REQUIRE_THROWS(heros1->deplacer(Deplacement::Marcher, force));
+        REQUIRE_NOTHROW(heros1->deplacer(Deplacement::Marcher, marche));
+        REQUIRE(heros1->getPosition() == marche);
+        /* Test force. */
+        REQUIRE_NOTHROW(heros1->deplacer(Deplacement::Forcer, marche));
+        REQUIRE_NOTHROW(heros1->deplacer(Deplacement::Forcer, saut));
+        REQUIRE_NOTHROW(heros1->deplacer(Deplacement::Forcer, force));
     }
-    // TODO ajouter des tests pour les objets
+}
+
+TEST_CASE("Test surcharge de Heros", "[Heros]")
+{
+    APersonnage_S heros1 = std::make_shared<Heros>(3);
+    obj::IObjet_S objet1 = std::make_shared<obj::GravityGun>();
+    obj::IObjet_S objet2 = std::make_shared<obj::GravityGun>();
+
+    SECTION("Heros::accepter")
+    {
+        // A tester.
+    }
+
+    SECTION("Heros::ajouterObjet")
+    {
+        REQUIRE(heros1->tailleSac() == 0);
+        REQUIRE_NOTHROW(heros1->ajouterObjet(objet1));
+        REQUIRE(heros1->tailleSac() == 1);
+        REQUIRE(heros1->getObjet(0) == objet1);
+    }
+
+    SECTION("Heros::retirerObjet")
+    {
+        REQUIRE(heros1->tailleSac() == 0);
+        REQUIRE_NOTHROW(heros1->ajouterObjet(objet1));
+        REQUIRE(heros1->tailleSac() == 1);
+        REQUIRE_NOTHROW(heros1->retirerObjet(objet1));
+        REQUIRE(heros1->tailleSac() == 0);
+    }
+
+    SECTION("Heros::tailleSac")
+    {
+        REQUIRE(heros1->tailleSac() == 0);
+        REQUIRE_NOTHROW(heros1->ajouterObjet(objet1));
+        REQUIRE(heros1->tailleSac() == 1);
+        REQUIRE_NOTHROW(heros1->retirerObjet(objet1));
+        REQUIRE(heros1->tailleSac() == 0);
+    }
+
+    SECTION("Heros::actualiser")
+    {
+        // A tester.
+    }
+
+    SECTION("Heros::getPorte") { REQUIRE(heros1->getPorte() == hex::Masque::contour()); }
+
+    SECTION("Heros::getZoneDegat")
+    {
+        hex::Coordonnees c1 = hex::Coordonnees::direction(hex::Direction::Nord);
+        hex::Coordonnees c2 = hex::Coordonnees::direction(hex::Direction::NordOuest);
+        hex::Coordonnees c3 = hex::Coordonnees::direction(hex::Direction::NordEst);
+        hex::Masque m1 = (hex::Masque() + c2) + c3;
+
+        REQUIRE(heros1->getZoneDegat(c1) == m1);
+    }
 }

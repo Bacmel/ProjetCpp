@@ -1,5 +1,5 @@
-#ifndef TASER_HPP
-#define TASER_HPP
+#ifndef __TASER_HPP__
+#define __TASER_HPP__
 
 #include "obj/IObjet.hpp"
 
@@ -12,19 +12,29 @@ namespace obj
         size_t m_degat;
 
     public:
+        /**
+         * @brief Constructeur par defaut
+         */
         Taser();
 
+        Taser(const Taser& autre) = default;
+        Taser(Taser&& autre) = default;
+        Taser& operator=(const Taser& autre) = default;
+        Taser& operator=(Taser&& autre) = default;
+        ~Taser() = default;
+
+        /* Méthodes IObjet. */
         bool estUtilisable() const override;
-
         void utiliser(donjon::IDonjon& donjon, const hex::Coordonnees& origine, const hex::Coordonnees& cible) override;
-
         virtual void accepter(IObjetVisiteur& visiteur) const override;
 
+        /* Méthode IAtualisable. */
         virtual void actualiser() override;
 
+        /* Méthodes IPorte. */
         hex::Masque getPorte() const override;
-        hex::Masque getZoneDegat(hex::Coordonnees cible) const override;
+        hex::Masque getZoneDegat(const hex::Coordonnees& cible) const override;
     };
 } // namespace obj
 
-#endif // TASER_HPP
+#endif // __TASER_HPP__

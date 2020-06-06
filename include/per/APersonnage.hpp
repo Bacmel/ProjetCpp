@@ -1,5 +1,5 @@
-#ifndef PERSONNAGE_HPP
-#define PERSONNAGE_HPP
+#ifndef __APERSONNAGE_HPP__
+#define __APERSONNAGE_HPP__
 
 #include <map>
 #include <memory>
@@ -13,8 +13,10 @@
 
 namespace per
 {
+    /** @brief Permet la connaissance precise de l'instance. */
     class IPersonnageVisiteur;
 
+    /** @brief Enumeration des deplacements possibles. */
     enum class Deplacement
     {
         Marcher,
@@ -25,27 +27,30 @@ namespace per
     class APersonnage : public utils::AObservable<APersonnage>, public utils::IActualisable, public utils::IPorte
     {
     protected:
-        /** Nombre de Personnages. */
+        /** @brief Identifiant pour le personnage suivant. */
         static size_t idSuivante;
 
-        /** Santé du Personnage et points de vie actuel */
+        /** @brief Sante du personnage et points de vie actuel. */
         utils::Jauge m_pv;
-        /** Coordonnée du Personnage */
+
+        /** @brief Position du personnage. */
         hex::Coordonnees m_position;
-        /** Identifiant Personnage */
+
+        /** Identifiant du personnage. */
         size_t const m_id;
+
         /** Carte des degats infliges. */
         std::map<hex::Coordonnees, size_t> m_zoneEffet;
 
     public:
         APersonnage(size_t pvMax, hex::Coordonnees position);
 
-        virtual ~APersonnage() = 0;
+        virtual ~APersonnage() = default;
 
         /**
          * @brief Prédicat sur la vie du personnage.
          *
-         * @return true Si le joueur est vivant.
+         * @return true Si le personnage est vivant.
          * @return false sinon.
          */
         virtual bool estVivant() const;
@@ -53,14 +58,14 @@ namespace per
         /**
          * @brief Fait subir une attaque.
          *
-         * La source n'est pas forcément un joueur jouable par un humain ou
-         * l'ordinateur. Les dégats d'environnement sont associés à un joueur
+         * NOTE: La source n'est pas forcément un joueur jouable par un humain
+         * ou l'ordinateur. Les dégats d'environnement sont associés à un joueur
          * qui représente l'environnement.
          *
          * @param degat La quantité de dégats (peut être différents de la santé
          *              retirée).
          */
-        virtual void subitAttaque(size_t degat);
+        virtual void subirAttaque(size_t degat);
 
         /**
          * @brief Obtient le nombre de points de vie.
@@ -93,38 +98,42 @@ namespace per
         /**
          * @brief Obtient la zone d'effet.
          *
-         * @return std::map<hex::Coordonnees, size_t> m_zoneEffet
+         * @return std::map<hex::Coordonnees, size_t> la zone d'effet.
          */
         virtual std::map<hex::Coordonnees, size_t> getZoneEffet() const { return m_zoneEffet; }
 
         /**
          * @brief Modifie la santé.
          *
-         * @param sante La santé à ajouter. Elle peut être négative.
+         * NOTE: Elle peut être négative.
+         *
+         * @param sante La santé à ajouter.
          */
         void ajouterSante(int sante);
 
         /**
          * @brief Modifie la santé maximale
          *
+         * NOTE: Elle peut être négative.
+         *
          * @param sante La santé à ajouter. Elle peut être négative.
          */
         void ajouterSanteMax(int sante);
+
+        /**
+         * @brief Tue le personnage.
+         */
+        virtual void tuer();
 
         /**
          * @brief Redefinit la position.
          *
          * @param deplacement le type de deplacement.
          * @param cible la nouvelle position.
-         * @throw DeplacementError Quand le deplacement
-         * demande n'est pas disponible
+         * @throw err::DeplacementErreur
+         * Quand le deplacement demande n'est pas disponible
          */
-        virtual void deplacer(Deplacement deplacement, hex::Coordonnees cible) = 0;
-
-        /**
-         * @brief Tue le personnage.
-         */
-        virtual void tuer();
+        virtual void deplacer(Deplacement deplacement, hex::Coordonnees cible);
 
         /**
          * @brief Accepte un visiteur.
@@ -167,6 +176,7 @@ namespace per
          * @throw std::out_of_range Quand il n'y a pas d'objet à l'indice donné.
          */
         virtual obj::IObjet_SC getObjet(size_t indice) const;
+
         /**
          * @brief Obtient l'objet à l'indice indiqué.
          *
@@ -176,10 +186,6 @@ namespace per
          * @throw std::out_of_range Quand il n'y a pas d'objet à l'indice donné.
          */
         virtual obj::IObjet_S getObjet(size_t indice);
-
-        virtual hex::Masque getPorte() const override = 0;
-
-        virtual hex::Masque getZoneDegat(hex::Coordonnees cible) const override = 0;
     };
 
     using APersonnage_S = std::shared_ptr<APersonnage>;
@@ -189,4 +195,4 @@ namespace per
 
 }; // namespace per
 
-#endif // APERSONNAGE_HPP
+#endif // __APERSONNAGE_HPP__

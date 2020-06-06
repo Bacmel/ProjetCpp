@@ -1,5 +1,5 @@
-#ifndef GRAVITYGUN_HPP
-#define GRAVITYGUN_HPP
+#ifndef __GRAVITYGUN_HPP__
+#define __GRAVITYGUN_HPP__
 
 #include "hex/Masque.hpp"
 #include "obj/IObjet.hpp"
@@ -34,19 +34,24 @@ namespace obj
          * @param timeMax le Temps de rechargement
          */
         GravityGun(size_t distance, hex::Masque aire, size_t timeMax);
-        virtual ~GravityGun() {}
 
+        GravityGun(const GravityGun& autre) = default;
+        GravityGun(GravityGun&& autre) = default;
+        GravityGun& operator=(const GravityGun& autre) = default;
+        GravityGun& operator=(GravityGun&& autre) = default;
+        ~GravityGun() = default;
+
+        /* Méthodes IObjet. */
         bool estUtilisable() const override;
-
         void utiliser(donjon::IDonjon& donjon, const hex::Coordonnees& origine, const hex::Coordonnees& cible) override;
-
         virtual void accepter(IObjetVisiteur& visiteur) const override;
 
+        /* Méthode IAtualisable. */
         virtual void actualiser() override;
 
+        /* Méthodes IPorte. */
         hex::Masque getPorte() const override;
-        hex::Masque getZoneDegat(hex::Coordonnees cible) const override;
-
+        hex::Masque getZoneDegat(const hex::Coordonnees& cible) const override;
     };
 } // namespace obj
-#endif // GRAVITYGUN_HPP
+#endif // __GRAVITYGUN_HPP__
