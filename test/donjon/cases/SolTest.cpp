@@ -63,7 +63,7 @@ TEST_CASE("Creation et manipulation de Sol", "[Sol]")
         // Dépot d'un objet sur une case vide.
         REQUIRE_NOTHROW(sol.deposer(objet));
         REQUIRE(sol.aObjet());
-        REQUIRE(&sol.getObjet() == objet.get());
+        REQUIRE(sol.getObjet() == objet);
         // Dépot d'un objet sur une case pleine.
         REQUIRE_THROWS(sol.deposer(std::make_shared<GravityGun>()));
     }
@@ -82,15 +82,5 @@ TEST_CASE("Creation et manipulation de Sol", "[Sol]")
         REQUIRE(objObtenu == objet);
         // S'assure que la case est à nouveau vide.
         REQUIRE_THROWS(sol.ramasser());
-    }
-
-    SECTION("Sol::accepter")
-    {
-        // A Tester.
-    }
-
-    SECTION("Sol::actualiser")
-    {
-        // A Tester.
     }
 }

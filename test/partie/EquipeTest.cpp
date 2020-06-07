@@ -41,8 +41,7 @@ TEST_CASE("Creation et manipulation de Equipe", "[Equipe]")
     {
         equipe.ajouterMembre(perso1);
         Partie partie(strat);
-        equipe.jouer(partie);
-        REQUIRE(partie.getEquipes().at(0).compterMembres()==equipe.compterMembres());
+        REQUIRE_NOTHROW(equipe.jouer(partie));
     }
 
     SECTION("Equipe::retirerMort")

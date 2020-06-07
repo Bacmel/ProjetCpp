@@ -14,8 +14,8 @@ namespace vue
     {
         // Récupère les textures.
         TextureGest& gest = TextureGest::getInstance();
-        m_textureGravityGun = gest.obtenir("resources/textures/obj/gravity_gun.png");
-        m_textureTaser = gest.obtenir("resources/textures/obj/taser.png");
+        m_textureGravityGun = gest.obtenir("ressources/textures/obj/gravity_gun.png");
+        m_textureTaser = gest.obtenir("ressources/textures/obj/taser.png");
     }
 
     ObjetDessinable::ObjetDessinable(float cote, obj::IObjet_S aObjet) : ObjetDessinable(cote)

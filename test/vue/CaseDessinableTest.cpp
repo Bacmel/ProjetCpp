@@ -7,8 +7,8 @@ using namespace vue;
 TEST_CASE("Construction et Manipulation de CaseDessinable", "[CaseDessinable]")
 {
     CaseDessinable cd(5);
-    donjon::cases::Sol sol;
-    donjon::cases::Trou trou;
+    donjon::cases::ACase_S sol = std::make_shared<donjon::cases::Sol>();
+    donjon::cases::ACase_S trou = std::make_shared<donjon::cases::Trou>();
 
     SECTION("CaseDessinable::setcote") { REQUIRE_NOTHROW(cd.setCote(3)); }
 
@@ -22,20 +22,16 @@ TEST_CASE("Construction et Manipulation de CaseDessinable", "[CaseDessinable]")
 
     SECTION("CaseDessinable::visite")
     {
-        REQUIRE_NOTHROW(cd.visite(sol));
-        REQUIRE_NOTHROW(cd.visite(trou));
+        donjon::cases::Sol sol2;
+        donjon::cases::Trou trou2;
+        REQUIRE_NOTHROW(cd.visiter(sol2));
+        REQUIRE_NOTHROW(cd.visiter(trou2));
     }
 
     SECTION("CaseDessinable::draw")
     {
-        std::shared_ptr<vue::PartieDessinable> target = std::make_shared<vue::PartieDessinable>(25);
-        sf::RenderStates states;
-        REQUIRE_NOTHROW(cd.draw(target, states));
-    }
-
-    SECTION("CaseDessinable::actualiser")
-    {
-        REQUIRE_NOTHROW(cd.actualiser(sol));
-        REQUIRE_NOTHROW(cd.actualiser(trou));
+        sf::RenderTexture target;
+        REQUIRE(target.create(500, 500));
+        REQUIRE_NOTHROW(target.draw(cd));
     }
 }

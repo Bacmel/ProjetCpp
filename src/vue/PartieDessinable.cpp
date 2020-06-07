@@ -17,7 +17,7 @@ namespace vue
 {
     PartieDessinable::PartieDessinable(float cote) : ADessinable(cote), m_font(), m_equipeText(), m_equipeIndicateur()
     {
-        if (!m_font.loadFromFile("resources/font/joystix monospace.ttf"))
+        if (!m_font.loadFromFile("ressources/font/joystix monospace.ttf"))
         { throw std::invalid_argument("Font n'a pas pu être chargée."); }
         m_equipeText.setFont(m_font);
         m_equipeText.setString("Equipe");

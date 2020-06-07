@@ -20,8 +20,8 @@ namespace vue
     {
         // Récupère les textures.
         TextureGest& gest = TextureGest::getInstance();
-        m_textureSol = gest.obtenir("resources/textures/cases/sol.png");
-        m_textureTrou = gest.obtenir("resources/textures/cases/trou.png");
+        m_textureSol = gest.obtenir("ressources/textures/cases/sol.png");
+        m_textureTrou = gest.obtenir("ressources/textures/cases/trou.png");
         // Prépare un hexagone.
         m_hexagone.setOrigin(cote, cote);
         m_hexagone.setRotation(90);
@@ -58,14 +58,14 @@ namespace vue
         m_hexagone.setOrigin(cote, cote);
     }
 
-    void CaseDessinable::visite(const Sol&)
+    void CaseDessinable::visiter(const Sol&)
     {
         m_hexagone.setOutlineThickness(-0.5);
         m_hexagone.setOutlineColor(sf::Color::Black);
         m_hexagone.setTexture(m_textureSol.get(), true);
     }
 
-    void CaseDessinable::visite(const Trou&)
+    void CaseDessinable::visiter(const Trou&)
     {
         m_hexagone.setOutlineThickness(0);
         m_hexagone.setTexture(m_textureTrou.get(), true);
@@ -77,7 +77,7 @@ namespace vue
         states.transform *= getTransform();
         // Dessine la case puis son objet.
         target.draw(m_hexagone, states);
-        if (m_element->aObjet()) { target.draw(m_objDessinable, states); }
+        if (m_element!=nullptr && m_element->aObjet()) { target.draw(m_objDessinable, states); }
     }
 
     void CaseDessinable::preparer()

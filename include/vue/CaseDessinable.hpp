@@ -44,8 +44,8 @@ namespace vue
         /* Implémentation de ADessinable */
         void setCote(float cote) override;
         void setElement(donjon::cases::ACase_S aCase) override;
-        void visite(const donjon::cases::Sol& sol) override;
-        void visite(const donjon::cases::Trou& trou) override;
+        void visiter(const donjon::cases::Sol& sol) override;
+        void visiter(const donjon::cases::Trou& trou) override;
         /* Implémentation de Drawable */
         void draw(sf::RenderTarget& target, sf::RenderStates states) const override;
 

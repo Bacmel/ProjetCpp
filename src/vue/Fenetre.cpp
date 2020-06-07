@@ -43,7 +43,7 @@ namespace vue
             }
             // Dessin de la fenêtre actualisée.
             m_fenetre.clear();
-            m_fenetre.draw(*m_dessinable);
+            if (m_dessinable != nullptr) { m_fenetre.draw(*m_dessinable); }
             m_fenetre.display();
         }
     }

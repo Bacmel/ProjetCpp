@@ -17,8 +17,8 @@ namespace vue
     {
         // Récupération des textures.
         TextureGest& gest = TextureGest::getInstance();
-        m_herosTex = gest.obtenir("resources/textures/per/heros.png");
-        m_fantassinTex = gest.obtenir("resources/textures/per/fantassin.png");
+        m_herosTex = gest.obtenir("ressources/textures/per/heros.png");
+        m_fantassinTex = gest.obtenir("ressources/textures/per/fantassin.png");
     }
 
     PersonnageDessinable::PersonnageDessinable(float cote, per::APersonnage_S aPersonnage) :
@@ -33,8 +33,8 @@ namespace vue
     {
         // Récupération des textures.
         TextureGest& gest = TextureGest::getInstance();
-        m_herosTex = gest.obtenir("resources/textures/per/heros.png");
-        m_fantassinTex = gest.obtenir("resources/textures/per/fantassin.png");
+        m_herosTex = gest.obtenir("ressources/textures/per/heros.png");
+        m_fantassinTex = gest.obtenir("ressources/textures/per/fantassin.png");
         // S'adapte au personnage.
         setElement(aPersonnage);
     }

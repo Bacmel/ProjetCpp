@@ -62,14 +62,4 @@ TEST_CASE("Creation et manipulation de Trou", "[Trou]")
         // Ramasser sur un trou.
         REQUIRE_THROWS(trou.ramasser());
     }
-
-    SECTION("Trou::accepter")
-    {
-        // A Tester.
-    }
-
-    SECTION("Trou::actualiser")
-    {
-        // A Tester.
-    }
 }

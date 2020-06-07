@@ -48,7 +48,6 @@ TEST_CASE("Creation de Partie", "[partie]")
 
     SECTION("Partie::genererObjet")
     {
-        cout << donjon->getCaseVide().size() << endl;
         // Generation d'un objet plusieur fois.
         partie.genererObjet(o1);
         REQUIRE_NOTHROW(partie.genererObjet(o1));
