@@ -9,7 +9,7 @@ SRC = $(wildcard src/*/*.cpp) $(wildcard src/*/*/*.cpp) # Liste des fichiers sou
 OBJ = $(SRC:.cpp=.o) # Liste des fichiers objets
 BIN = Jeu # Nom de l'exécutable
 
-SRCT = $(wildcard test/*.cpp) $(wildcard test/*/*.cpp) $(wildcard test/*/*/*.cpp) 
+SRCT = $(wildcard test/*.cpp) $(wildcard test/*/*.cpp) $(wildcard test/*/*/*.cpp)
 OBJT = $(SRCT:.cpp=.o) $(OBJ)
 BINT = Test # Nom de l'exécutable
 
@@ -25,7 +25,7 @@ build: src/main.o src/Roblite.o $(OBJ)
 
 .PHONY: clear
 clear:
-	rm -f src/main.o test/Test.o $(OBJ) $(OBJT)
+	rm -f src/main.o test/Test.o src/Roblite.o $(OBJ) $(OBJT)
 
 .PHONY: vclear
 vclear: clear
