@@ -18,7 +18,7 @@ TEST_CASE("Creation et utilisation de ObjetDessinable", "[ObjetDessinable]")
         REQUIRE_NOTHROW(od.setElement(taser));
     }
 
-    SECTION("ObjetDessinable::surligner") { REQUIRE_NOTHROW(od.surligner()); }
+    SECTION("ObjetDessinable::setColor") { REQUIRE_NOTHROW(od.setColor(sf::Color::Black)); }
 
     SECTION("ObjetDessinable::visite")
     {

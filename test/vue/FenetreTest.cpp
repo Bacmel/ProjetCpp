@@ -24,7 +24,7 @@ TEST_CASE("Construction et manipulation de Fenetre", "[Fenetre]")
         std::shared_ptr<PartieDessinable> dessinable = std::make_shared<PartieDessinable>(25);
         dessinable->setElement(partie);
         fenetre->setDessinable(dessinable);
-        controleur::IControleur_S partieCont = std::make_shared<controleur::PartieCont>(*dessinable, *partie);
+        controleur::IControleur_S partieCont = std::make_shared<controleur::PartieCont>(dessinable, partie);
         sf::Event::EventType event;
         REQUIRE_NOTHROW(fenetre->attacher(event, partieCont));
     }
@@ -36,7 +36,7 @@ TEST_CASE("Construction et manipulation de Fenetre", "[Fenetre]")
         std::shared_ptr<PartieDessinable> dessinable = std::make_shared<PartieDessinable>(25);
         dessinable->setElement(partie);
         fenetre->setDessinable(dessinable);
-        controleur::IControleur_S partieCont = std::make_shared<controleur::PartieCont>(*dessinable, *partie);
+        controleur::IControleur_S partieCont = std::make_shared<controleur::PartieCont>(dessinable, partie);
         sf::Event::EventType event;
         REQUIRE_NOTHROW(fenetre->detacher(event, partieCont));
     }

@@ -16,7 +16,7 @@ TEST_CASE("Creation et utilisation de PartieCont", "[PartieCont]")
     std::shared_ptr<vue::PartieDessinable> dessinable = std::make_shared<vue::PartieDessinable>(25);
     dessinable->setElement(partie);
     fenetre->setDessinable(dessinable);
-    PartieCont partieCont(*dessinable, *partie);
+    PartieCont partieCont(dessinable, partie);
     sf::Event event;
     REQUIRE_NOTHROW(partieCont.enEvenement(*fenetre, event));
 }
