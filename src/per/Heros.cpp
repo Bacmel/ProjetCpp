@@ -51,6 +51,7 @@ namespace per
 
     hex::Masque Heros::getZoneDegat(const hex::Coordonnees& cible) const
     {
+        // Fait un ET entre les voisins avant et après déplacement.
         hex::Masque voisin1 = hex::Masque::contour();
         hex::Masque voisin2 = hex::Masque::contour().deplacer(cible);
         return voisin1 && voisin2;

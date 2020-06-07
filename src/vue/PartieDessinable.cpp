@@ -15,15 +15,17 @@ using namespace sf;
 
 namespace vue
 {
-    PartieDessinable::PartieDessinable(float cote) : ADessinable(cote), m_font(), m_equipeText(), m_equipeIndicateur()
+    PartieDessinable::PartieDessinable(float cote) : ADessinable(cote), m_font(), m_equipeTexte(), m_equipeIndicateur()
     {
         if (!m_font.loadFromFile("ressources/font/joystix monospace.ttf"))
         { throw std::invalid_argument("Font n'a pas pu être chargée."); }
-        m_equipeText.setFont(m_font);
-        m_equipeText.setString("Equipe");
-        m_equipeText.setCharacterSize(12);
-        m_equipeText.setFillColor(Color::White);
-        FloatRect bordures = m_equipeText.getLocalBounds();
+        // Prépare le texte de l'indicateur d'équipe active.
+        m_equipeTexte.setFont(m_font);
+        m_equipeTexte.setString("Equipe");
+        m_equipeTexte.setCharacterSize(12);
+        m_equipeTexte.setFillColor(Color::White);
+        // Place le rectangle de l'indicateur d'équipe active.
+        FloatRect bordures = m_equipeTexte.getLocalBounds();
         m_equipeIndicateur.setSize(Vector2f(bordures.height, bordures.height));
         m_equipeIndicateur.setPosition(bordures.left + bordures.width + 5, bordures.top);
     }
@@ -116,7 +118,7 @@ namespace vue
         // Place un rectangle colorée à côté du texte et le dessine.
         RectangleShape indicateur(m_equipeIndicateur);
         indicateur.setFillColor(couleurEquipe(m_element->getEquipeCourante()));
-        target.draw(m_equipeText, states);
+        target.draw(m_equipeTexte, states);
         target.draw(indicateur, states);
     }
 
@@ -180,6 +182,8 @@ namespace vue
 
     sf::Color PartieDessinable::couleurEquipe(size_t equipe) const
     {
+        // Divise la teinte en autant d'équipes en jeu et récupère la couleur en
+        // RGB.
         size_t nbEquipe = m_element->getEquipes().size();
         int hue = (int)(((float)equipe / nbEquipe) * 360);
         Color couleur = depuisHSV(hue, 1, 1);

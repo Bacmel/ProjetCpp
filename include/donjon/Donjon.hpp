@@ -11,6 +11,7 @@ namespace donjon
 {
     class Donjon : public IDonjon
     {
+    private:
         std::vector<per::APersonnage_S> m_personnages;
         hex::ICarte_S<cases::ACase_S> m_carte;
 
@@ -21,6 +22,12 @@ namespace donjon
          * @param carte Le terrain.
          */
         explicit Donjon(const hex::ICarte_S<cases::ACase_S>& carte);
+
+        Donjon(Donjon&&) = default;
+        Donjon(const Donjon&) = default;
+        Donjon& operator=(Donjon&&) = default;
+        Donjon& operator=(const Donjon&) = default;
+        ~Donjon() = default;
 
         /**
          * @brief Obtient la liste des personnages.
@@ -36,41 +43,28 @@ namespace donjon
          */
         inline hex::ICarte_S<cases::ACase_S> getCarte() { return m_carte; }
 
+        /* Implémentation de IDonjon */
         virtual void invoquer(per::APersonnage_S personnage, const hex::Coordonnees& position) override;
-
         virtual void deplacer(per::APersonnage& personnage,
-                             per::Deplacement type,
-                             const hex::Coordonnees& position) override;
-
+                              per::Deplacement type,
+                              const hex::Coordonnees& position) override;
         virtual void pousser(const std::map<hex::Coordonnees, hex::Direction>& aoe, size_t distance) override;
-
         virtual void degat(const std::map<hex::Coordonnees, size_t>& aoe) override;
-
         virtual void deposer(obj::IObjet_S objet, const hex::Coordonnees& position) override;
-
         virtual obj::IObjet_S ramasser(const hex::Coordonnees& position) override;
-
-        Donjon(Donjon&&) = default;
-        Donjon(const Donjon&) = default;
-        Donjon& operator=(Donjon&&) = default;
-        Donjon& operator=(const Donjon&) = default;
-        ~Donjon() = default;
-
         std::vector<hex::Coordonnees> getCaseVide() const override;
-
         size_t getNbPersonnages() const override;
         per::APersonnage_SC getPersonnage(size_t indice) const override;
         per::APersonnage_S getPersonnage(size_t indice) override;
         per::APersonnage_SC getPersonnageParId(size_t id) const override;
         per::APersonnage_S getPersonnageParId(size_t id) override;
-
         per::APersonnage_SC trouver(const hex::Coordonnees& position) const override;
-
         per::APersonnage_S trouver(const hex::Coordonnees& position) override;
-
         bool estOccupee(const hex::Coordonnees& position) const override;
 
+        /* Implémentation de IActualisable */
         void actualiser() override;
+
     private:
         /**
          * @brief Pousse un personnage.

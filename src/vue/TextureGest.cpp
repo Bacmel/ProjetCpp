@@ -8,11 +8,11 @@ using namespace sf;
 
 namespace vue
 {
-    TextureGest::TextureGest() : m_textures() { cout << "Const TextureGest" << endl; }
+    TextureGest::TextureGest() : m_textures() {}
 
     TextureGest& TextureGest::getInstance()
     {
-        static TextureGest instance;
+        static TextureGest instance; // Crée une unique instance.
         return instance;
     }
 

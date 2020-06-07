@@ -42,6 +42,12 @@ namespace per
         std::map<hex::Coordonnees, size_t> m_zoneEffet;
 
     public:
+        /**
+         * @brief Construit un Personnage avec sa position et sa santé maximale.
+         *
+         * @param pvMax La santé maximale du personnage.
+         * @param position La position initiale du personnage.
+         */
         APersonnage(size_t pvMax, hex::Coordonnees position);
 
         virtual ~APersonnage() = default;

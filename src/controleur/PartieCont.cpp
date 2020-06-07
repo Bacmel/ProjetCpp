@@ -9,18 +9,24 @@ using namespace utils;
 
 namespace controleur
 {
-    PartieCont::PartieCont(const vue::PartieDessinable& dessinable, Partie& partie) :
-        m_dessinable(&dessinable),
-        m_partie(&partie),
+    PartieCont::PartieCont(std::shared_ptr<const vue::PartieDessinable> dessinable,
+                           std::shared_ptr<partie::Partie> partie) :
+        m_dessinable(dessinable),
+        m_partie(partie),
         m_convertisseur()
     {
-        if (dessinable.getElement().get() != &partie)
+        // Vérifie la validité des arguments.
+        if (m_dessinable == nullptr) { throw std::invalid_argument("PartieCont::PartieCont : le dessinable est nul!"); }
+        if (m_partie == nullptr) { throw std::invalid_argument("PartieCont::PartieCont : la partie est nulle !"); }
+        if (m_dessinable->getElement().get() != m_partie.get())
         { throw std::invalid_argument("PartieCont::PartieCont : Le dessinable ne dessine pas la partie"); }
     }
 
     void PartieCont::enEvenement(const vue::Fenetre& source, sf::Event& even)
     {
+        // S'assure que l'évênemt est un clique.
         if (even.type != Event::EventType::MouseButtonPressed) { return; }
+        // Récupère la position du clique dans le repère "monde".
         Vector2i clicPos(even.mouseButton.x, even.mouseButton.y);
         const sf::RenderWindow& rw = source.getRenderWindow();
         Vector2f coordonneesClic = rw.mapPixelToCoords(clicPos);

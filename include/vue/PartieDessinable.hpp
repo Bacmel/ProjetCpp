@@ -13,7 +13,7 @@ namespace vue
     private:
         utils::HexPixelConvertisseur m_convertisseur;
         sf::Font m_font;
-        sf::Text m_equipeText;
+        sf::Text m_equipeTexte;
         sf::RectangleShape m_equipeIndicateur;
 
     public:

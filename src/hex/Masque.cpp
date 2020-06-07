@@ -5,13 +5,18 @@ namespace hex
 {
     Masque Masque::contour()
     {
+        // Ajoute les coordonnées adjacentes au centre du repère.
         Masque contour;
-        contour = contour + Coordonnees::direction(Direction::Nord);
-        contour = contour + Coordonnees::direction(Direction::NordEst);
-        contour = contour + Coordonnees::direction(Direction::SudEst);
-        contour = contour + Coordonnees::direction(Direction::Sud);
-        contour = contour + Coordonnees::direction(Direction::SudOuest);
-        contour = contour + Coordonnees::direction(Direction::NordOuest);
+        Direction directions[] = {Direction::Nord,
+                                  Direction::NordEst,
+                                  Direction::SudEst,
+                                  Direction::Sud,
+                                  Direction::SudOuest,
+                                  Direction::NordOuest};
+        for (Direction dir : directions)
+        {
+            contour.insert(Coordonnees::direction(dir));
+        }
         return contour;
     }
 
@@ -57,6 +62,7 @@ namespace hex
 
     Masque Masque::deplacer(const Coordonnees& vecteur) const
     {
+        // Déplace une à une les cases et les ajoute à un nouveau masque.
         Masque deplace;
         for (auto itr = this->begin(); itr != this->end(); itr++)
         {
@@ -67,12 +73,14 @@ namespace hex
 
     bool Masque::operator()(const Coordonnees& c) const
     {
+        // Vérifie que la coordonnée est présente dans le set.
         if (this->find(c) != this->end()) { return true; }
         return false;
     }
 
     Masque Masque::tournerTrigonometrique(const Coordonnees& centre) const
     {
+        // Tourne une à une les cases et les ajoute à un nouveau masque.
         Masque masqueTournee;
         for (auto itr = begin(); itr != end(); itr++)
         {
@@ -84,6 +92,7 @@ namespace hex
 
     Masque Masque::tournerHoraire(const Coordonnees& centre) const
     {
+        // Tourne une à une les cases et les ajoute à un nouveau masque.
         Masque masqueTournee;
         for (auto itr = begin(); itr != end(); itr++)
         {
@@ -95,6 +104,7 @@ namespace hex
 
     Masque Masque::tournerVers(const Coordonnees& centre, Direction cible, Direction initiale) const
     {
+        // Tourne une à une les cases et les ajoute à un nouveau masque.
         Masque masqueTournee;
         for (auto itr = begin(); itr != end(); itr++)
         {

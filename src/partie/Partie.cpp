@@ -121,9 +121,8 @@ namespace partie
         size_t size = coordonnees.size();
         if (size == 0) { throw err::CreationErreur("Partie::coordonneesLibre : Plus de case disponible."); }
         // Tire au sort une case parmis celles libres.
-        auto c = coordonnees.begin();
-        c += rand() % coordonnees.size();
-        return *c;
+        Coordonnees libre = coordonnees.at(rand() % coordonnees.size());
+        return libre;
     }
 
 } // namespace partie
