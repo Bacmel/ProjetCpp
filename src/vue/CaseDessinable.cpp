@@ -46,13 +46,16 @@ namespace vue
 
     void CaseDessinable::surligner()
     {
+        // Met les contours en surbrillance.
         m_hexagone.setOutlineThickness(-2);
         m_hexagone.setFillColor(Color(255, 255, 50));
+        // Teinte le fond.
         m_hexagone.setOutlineColor(sf::Color::Yellow);
     }
 
     void CaseDessinable::setCote(float cote)
     {
+        // Adapte la taille de l'hexagone.
         ADessinable::setCote(cote);
         m_hexagone.setRadius(cote);
         m_hexagone.setOrigin(cote, cote);
@@ -60,14 +63,18 @@ namespace vue
 
     void CaseDessinable::visite(const Sol&)
     {
+        // Met des contours fin et noir.
         m_hexagone.setOutlineThickness(-0.5);
         m_hexagone.setOutlineColor(sf::Color::Black);
+        // Adapte la texture.
         m_hexagone.setTexture(m_textureSol.get(), true);
     }
 
     void CaseDessinable::visite(const Trou&)
     {
+        // Retire les contours.
         m_hexagone.setOutlineThickness(0);
+        // Adapte la texture.
         m_hexagone.setTexture(m_textureTrou.get(), true);
     }
 

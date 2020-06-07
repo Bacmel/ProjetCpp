@@ -14,6 +14,13 @@ namespace utils
         size_t m_val;
 
     public:
+        /**
+         * @brief Construit un jauge.
+         *
+         * La jauge est pleine.
+         *
+         * @param valMax La valeur maximale de la jauge.
+         */
         Jauge(size_t valMax) : m_valMax(valMax), m_val(valMax){};
 
         /**

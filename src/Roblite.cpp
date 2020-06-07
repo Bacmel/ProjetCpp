@@ -18,7 +18,7 @@ Roblite::Roblite() : m_partie(), m_fenetre(), m_partieDessinable(), m_controleur
     m_partieDessinable->setElement(m_partie);
     m_fenetre->setDessinable(m_partieDessinable);
     // Prépare le controleur.
-    m_controleur = std::make_shared<controleur::PartieCont>(*m_partieDessinable, *m_partie);
+    m_controleur = std::make_shared<controleur::PartieCont>(m_partieDessinable, m_partie);
     m_fenetre->attacher(sf::Event::MouseButtonPressed, m_controleur);
 }
 
@@ -43,6 +43,8 @@ void Roblite::preparerPartie()
     size_t eqp2 = m_partie->genererEquipe(stratHumain);
     per::APersonnage_S herosAdverse = std::make_shared<per::Heros>(3);
     m_partie->genererPersonnage(herosAdverse, eqp2);
+    per::APersonnage_S fantassinAdverse = std::make_shared<per::Fantassin>();
+    m_partie->genererPersonnage(fantassinAdverse, eqp2);
     // Dépose des objets.
     obj::IObjet_S gravityGun = std::make_shared<obj::GravityGun>();
     m_partie->genererObjet(gravityGun);

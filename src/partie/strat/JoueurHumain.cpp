@@ -9,6 +9,7 @@ namespace partie::strat
 
     void JoueurHumain::mettreEnOeuvre(partie::Partie& partie, partie::Equipe&)
     {
+        // Passe la MAE en sélection.
         size_t id = partie.getEquipeCourante();
         partie.setEtat(std::make_shared<etat::SelectionAuto>(id));
         partie.demander();

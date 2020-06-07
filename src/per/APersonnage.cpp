@@ -20,6 +20,7 @@ namespace per
 
     void APersonnage::subirAttaque(size_t degat)
     {
+        // Essaie de retirer la santé, en échec, on met la santé à 0.
         try
         {
             m_pv.ajouterValeur(-degat);
@@ -32,6 +33,7 @@ namespace per
 
     void APersonnage::ajouterSante(int sante)
     {
+        // Essaie d'ajouter la santé, en échec, on met la santé à 0.
         try
         {
             m_pv.ajouterValeur(sante);
@@ -44,6 +46,8 @@ namespace per
 
     void APersonnage::ajouterSanteMax(int sante)
     {
+        // Essaie d'ajouter la santé max, en échec, on met la santé et la santé
+        // max à 0.
         try
         {
             m_pv.ajouterValeurMax(sante);

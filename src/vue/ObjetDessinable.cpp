@@ -56,6 +56,7 @@ namespace vue
 
     void ObjetDessinable::draw(sf::RenderTarget& target, sf::RenderStates states) const
     {
+        // Applique la transformation
         states.transform *= getTransform();
         target.draw(m_sprite, states);
     }

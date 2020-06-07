@@ -89,7 +89,7 @@ namespace hex
             return *this;
         }
 
-        virtual ~CarteHexagone() { deletePlateau(); }
+        ~CarteHexagone() { deletePlateau(); }
 
         /**
          * @brief Obtient le rayon.
@@ -100,7 +100,9 @@ namespace hex
          */
         size_t getRayon() const { return m_rayon; }
 
-        virtual T& operator()(const Coordonnees& c) override
+        /* Implémentation ICarte */
+
+        T& operator()(const Coordonnees& c) override
         {
             // Vérifie que les coordonnees sont dans l'hexagone.
             if (c.longueur() > (int)m_rayon)
@@ -114,7 +116,7 @@ namespace hex
             return m_plateau[colonne][ligne];
         }
 
-        virtual const T& operator()(const Coordonnees& c) const override
+        const T& operator()(const Coordonnees& c) const override
         {
             // Vérifie que les coordonnees sont dans l'hexagone.
             if (c.longueur() > (int)m_rayon)
@@ -128,7 +130,7 @@ namespace hex
             return m_plateau[colonne][ligne];
         }
 
-        virtual void remplir(const T& valeur) override
+        void remplir(const T& valeur) override
         {
             // On itère sur chaque case et on lui alloue sa nouvelle valeur.
             auto itr = iterateur();
@@ -139,7 +141,7 @@ namespace hex
             }
         }
 
-        virtual void remplir(const ICarte<T>& source, const Coordonnees& centre) override
+        void remplir(const ICarte<T>& source, const Coordonnees& centre) override
         {
             // On itère sur chaque case de la source.
             auto iterateur = source.iterateur();
@@ -160,7 +162,7 @@ namespace hex
             }
         }
 
-        virtual void remplir(std::function<T()> fournisseur) override
+        void remplir(std::function<T()> fournisseur) override
         {
             // On itère sur chaque case et on lui alloue sa nouvelle valeur.
             auto itr = iterateur();
@@ -171,7 +173,7 @@ namespace hex
             }
         }
 
-        virtual IIterator_S<Coordonnees> iterateur() const override
+        IIterator_S<Coordonnees> iterateur() const override
         {
             // Crée un itérateur pour l'instance et le retourne.
             IIterator_S<Coordonnees> itr(new IterateurCarteHexagone<T>(this));

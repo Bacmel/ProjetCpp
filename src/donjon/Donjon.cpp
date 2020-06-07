@@ -255,6 +255,7 @@ namespace donjon
 
     void Donjon::actualiser()
     {
+        // Retire les personnages morts du donjon.
         for (auto itr = m_personnages.begin(); itr != m_personnages.end(); itr++)
         {
             if (!(*itr)->estVivant())
