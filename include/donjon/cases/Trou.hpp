@@ -21,18 +21,18 @@ namespace donjon::cases
         ~Trou() = default;
 
         /* Méthodes ICase. */
-        virtual void deposer(obj::IObjet_S objet) override;
-        virtual obj::IObjet_S ramasser() override;
-        virtual bool aObjet() const override;
-        virtual const obj::IObjet& getObjet() const override;
-        virtual void enEntree(per::APersonnage& personnage) override;
-        virtual bool estPraticable() const override;
-        virtual void enActivation(per::APersonnage& personnage) override;
-        virtual bool estTransparent() const override;
-        virtual void accepter(ICaseVisiteur& visiteur) const override;
-
+        void deposer(obj::IObjet_S objet) override;
+        obj::IObjet_S ramasser() override;
+        bool aObjet() const override;
+        const obj::IObjet_SC getObjet() const override;
+        const obj::IObjet_S getObjet() override;
+        void enEntree(per::APersonnage& personnage) override;
+        bool estPraticable() const override;
+        void enActivation(per::APersonnage& personnage) override;
+        bool estTransparent() const override;
+        void accepter(ICaseVisiteur& visiteur) const override;
         /* Méthode IActualisable. */
-        virtual void actualiser() override;
+        void actualiser() override;
     };
 } // namespace donjon::cases
 #endif // __TROU_HPP__

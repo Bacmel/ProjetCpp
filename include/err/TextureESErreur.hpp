@@ -12,7 +12,19 @@ namespace err
         std::string m_chemin;
 
     public:
+        /**
+         * @brief Construit une exception TextureESErreur.
+         *
+         * @param message Un message décrivant l'erreur.
+         * @param chemin Le chemin de l'image qui n'a pas pu être chargée.
+         */
         TextureESErreur(const std::string& message, const std::string& chemin);
+
+        /**
+         * @brief Obtient le chemin de l'image qui n'a pas pu être chargée.
+         *
+         * @return Le chemin de l'image qui n'a pas pu être chargée.
+         */
         inline const std::string& getChemin() { return m_chemin; }
     };
 } // namespace err

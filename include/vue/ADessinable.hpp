@@ -3,7 +3,9 @@
 
 #include <SFML/Graphics.hpp>
 #include <memory>
+#include <stdexcept>
 #include "hex/Coordonnees.hpp"
+#include "vue/TextureGest.hpp"
 
 namespace vue
 {
@@ -12,16 +14,29 @@ namespace vue
     {
     protected:
         float m_cote;
-        T* m_element;
+        std::shared_ptr<T> m_element;
 
     public:
         /**
          * @brief Construit un nouveau dessinateur.
          *
-         * @param cote Le cote du cercle circonscrit à l'hexagone (en pixels).
+         * @param cote Le cote de l'hexagone (en pixels).
          */
         ADessinable(float cote) : m_cote(cote), m_element(nullptr) {}
-        ADessinable(float cote, T& element) : m_cote(cote), m_element(&element) {}
+
+        /**
+         * @brief Construit un nouveau dessinateur.
+         *
+         * @param cote Le cote de l'hexagone (en pixels).
+         * @param element L'élément a dessiner.
+         *
+         * @throw std::invalid_argument Quand element est null.
+         */
+        ADessinable(float cote, std::shared_ptr<T> element) : m_cote(cote), m_element(element)
+        {
+            if (element == nullptr) { throw std::invalid_argument("ADessinable::ADessinable : element est nul!"); }
+        }
+
         virtual ~ADessinable() = default;
 
         /**
@@ -36,13 +51,13 @@ namespace vue
          *
          * @return L'élément dessiné (nullptr si aucun élément n'est dessiné).
          */
-        virtual T* getElement() { return m_element; }
+        virtual std::shared_ptr<T> getElement() { return m_element; }
         /**
          * @brief Obtient l'élément dessiné.
          *
          * @return L'élément dessiné (nullptr si aucun élément n'est dessiné).
          */
-        virtual const T* getElement() const { return m_element; }
+        virtual std::shared_ptr<const T> getElement() const { return m_element; }
 
         /**
          * @brief Définit le côté des hexagones de la carte.
@@ -57,7 +72,7 @@ namespace vue
          * @param personnage L'élément dessiné (nullptr si aucun élément.
          * n'est dessiné).
          */
-        virtual void setElement(T& element) = 0;
+        virtual void setElement(std::shared_ptr<T> element) = 0;
     };
 } // namespace vue
 #endif // __ADESSINATEUR_HPP__

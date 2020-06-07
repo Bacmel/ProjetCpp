@@ -9,9 +9,12 @@ namespace err
     class SansObjetErreur : public std::runtime_error
     {
     public:
+        /**
+         * @brief Construit une exception SansObjetErreur.
+         *
+         * @param message Un message décrivant l'erreur.
+         */
         SansObjetErreur(const std::string& message);
-
-        virtual ~SansObjetErreur();
     };
 } // namespace err
 

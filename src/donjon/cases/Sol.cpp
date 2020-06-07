@@ -17,7 +17,6 @@ namespace donjon::cases
         {
             // On stock ce nouvel objet.
             m_objet = objet;
-            notifier(*this);
         }
     }
 
@@ -27,19 +26,28 @@ namespace donjon::cases
         getObjet();
         obj::IObjet_S objet = m_objet;
         m_objet = obj::IObjet_S();
-        notifier(*this);
         return objet;
     }
 
     bool Sol::aObjet() const { return m_objet != nullptr; }
 
-    const obj::IObjet& Sol::getObjet() const
+    const obj::IObjet_SC Sol::getObjet() const
     {
         // On s'assure qu'il y ait un objet à récupérer.
         if (m_objet == nullptr) { throw err::SansObjetErreur("Il n'y a rien à ramasser"); }
         else
         {
-            return *m_objet;
+            return m_objet;
+        }
+    }
+
+    const obj::IObjet_S Sol::getObjet()
+    {
+        // On s'assure qu'il y ait un objet à récupérer.
+        if (m_objet == nullptr) { throw err::SansObjetErreur("Il n'y a rien à ramasser"); }
+        else
+        {
+            return m_objet;
         }
     }
 
@@ -52,7 +60,6 @@ namespace donjon::cases
                 // Ajoute l'objet au personnage et le retire de la case.
                 personnage.ajouterObjet(m_objet);
                 m_objet = obj::IObjet_S();
-                notifier(*this);
             }
             catch (const std::logic_error& ex)
             {
@@ -73,5 +80,8 @@ namespace donjon::cases
 
     void Sol::accepter(ICaseVisiteur& visiteur) const { visiteur.visite(*this); }
 
-    void Sol::actualiser() {if(aObjet()) m_objet->actualiser();}
+    void Sol::actualiser()
+    {
+        if (aObjet()) m_objet->actualiser();
+    }
 } // namespace donjon::cases

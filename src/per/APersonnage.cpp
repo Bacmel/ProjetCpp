@@ -28,7 +28,6 @@ namespace per
         {
             m_pv.vider();
         }
-        notifier(*this);
     }
 
     void APersonnage::ajouterSante(int sante)
@@ -41,7 +40,6 @@ namespace per
         {
             m_pv.vider();
         }
-        notifier(*this);
     }
 
     void APersonnage::ajouterSanteMax(int sante)
@@ -55,13 +53,11 @@ namespace per
             m_pv.ajouterValeurMax(-m_pv.getValMax());
             m_pv.vider();
         }
-        notifier(*this);
     }
 
     void APersonnage::tuer()
     {
         m_pv.vider();
-        notifier(*this);
     }
 
     void APersonnage::deplacer(Deplacement deplacement, hex::Coordonnees cible)
@@ -88,7 +84,6 @@ namespace per
             else
             {
                 m_position = cible;
-                notifier(*this);
             }
             break;
         case Deplacement::Sauter:
@@ -100,7 +95,6 @@ namespace per
             else
             {
                 m_position = cible;
-                notifier(*this);
             }
             break;
         default:

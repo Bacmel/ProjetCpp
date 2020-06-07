@@ -6,7 +6,6 @@
 #include <vector>
 #include "hex/Coordonnees.hpp"
 #include "obj/IObjet.hpp"
-#include "utils/AObservable.hpp"
 #include "utils/IActualisable.hpp"
 #include "utils/IPorte.hpp"
 #include "utils/Jauge.hpp"
@@ -24,7 +23,7 @@ namespace per
         Forcer
     };
 
-    class APersonnage : public utils::AObservable<APersonnage>, public utils::IActualisable, public utils::IPorte
+    class APersonnage : public utils::IActualisable, public utils::IPorte
     {
     protected:
         /** @brief Identifiant pour le personnage suivant. */

@@ -14,7 +14,7 @@ namespace controleur
         m_partie(&partie),
         m_convertisseur()
     {
-        if (dessinable.getElement() != &partie)
+        if (dessinable.getElement().get() != &partie)
         { throw std::invalid_argument("PartieCont::PartieCont : Le dessinable ne dessine pas la partie"); }
     }
 

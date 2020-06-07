@@ -101,6 +101,14 @@ namespace partie
         inline per::APersonnage_SC getPersoSelect() const { return m_etat->getPersoSelect(); }
 
         /**
+         * @brief Obtient le personnage selectionne.
+         *
+         * @throw std::invalide_argument ne possede pas d'information.
+         * @return per::APersonnage_SC le personnage selestionne.
+         */
+        inline per::APersonnage_S getPersoSelect() { return m_etat->getPersoSelect(); }
+
+        /**
          * @brief Obtient l'objet selectionne.
 
          * @throw std::invalide_argument ne possede pas d'information.

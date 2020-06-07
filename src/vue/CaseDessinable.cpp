@@ -1,18 +1,18 @@
 #include "vue/CaseDessinable.hpp"
 #include <SFML/Graphics.hpp>
+#include <stdexcept>
 #include "err/SansObjetErreur.hpp"
 #include "utils/HexPixelConvertisseur.hpp"
 #include "vue/TextureGest.hpp"
 
-using namespace sf;
 using namespace donjon::cases;
 using namespace obj;
+using namespace sf;
 
 namespace vue
 {
     CaseDessinable::CaseDessinable(float cote) :
         ADessinable(cote),
-        m_case(nullptr),
         m_hexagone(cote, 6),
         m_textureSol(),
         m_textureTrou(),
@@ -29,17 +29,19 @@ namespace vue
         m_hexagone.setOutlineColor(Color::Black);
     }
 
-    CaseDessinable::CaseDessinable(float cote, ACase& iCase) : CaseDessinable(cote) { setElement(iCase); }
-
-    void CaseDessinable::setElement(ACase& iCase)
+    CaseDessinable::CaseDessinable(float cote, ACase_S aCase) : CaseDessinable(cote)
     {
-        // On se détache de la précédente case et on s'attache à la nouvelle.
-        if (m_case != nullptr) { m_case->detacher(this); }
-        m_hexagone.setFillColor(Color::White);
-        iCase.attacher(this);
+        if (aCase == nullptr) { throw std::invalid_argument("CaseDessinable::CaseDessinable : La case est nulle!"); }
+        setElement(aCase);
+    }
+
+    void CaseDessinable::setElement(ACase_S aCase)
+    {
+        if (aCase == nullptr) { throw std::invalid_argument("CaseDessinable::setElement : La case est nulle!"); }
         // On met à jour les champs.
-        actualiser(iCase);
-        m_case = &iCase;
+        m_hexagone.setFillColor(Color::White);
+        m_element = aCase;
+        preparer();
     }
 
     void CaseDessinable::surligner()
@@ -60,29 +62,33 @@ namespace vue
     {
         m_hexagone.setOutlineThickness(-0.5);
         m_hexagone.setOutlineColor(sf::Color::Black);
-        m_hexagone.setTexture(m_textureSol.get());
+        m_hexagone.setTexture(m_textureSol.get(), true);
     }
 
     void CaseDessinable::visite(const Trou&)
     {
         m_hexagone.setOutlineThickness(0);
-        m_hexagone.setTexture(m_textureTrou.get());
+        m_hexagone.setTexture(m_textureTrou.get(), true);
     }
 
     void CaseDessinable::draw(RenderTarget& target, RenderStates states) const
     {
+        // Applique la transformation.
         states.transform *= getTransform();
+        // Dessine la case puis son objet.
         target.draw(m_hexagone, states);
-        if (m_case->aObjet()) { target.draw(m_objDessinable, states); }
+        if (m_element->aObjet()) { target.draw(m_objDessinable, states); }
     }
 
-    void CaseDessinable::actualiser(const donjon::cases::ACase& iCase)
+    void CaseDessinable::preparer()
     {
-        iCase.accepter(*this);
-        if (iCase.aObjet())
+        // S'adapte au type exacte.
+        m_element->accepter(*this);
+        if (m_element->aObjet())
         {
-            const IObjet& iObjet = iCase.getObjet();
-            m_objDessinable.setObjet(iObjet);
+            // Adapte l'objet dessinable.
+            IObjet_S iObjet = m_element->getObjet();
+            m_objDessinable.setElement(iObjet);
         }
     }
 } // namespace vue

@@ -1,43 +1,59 @@
 #ifndef __CASEDESSINABLE_HPP__
 #define __CASEDESSINABLE_HPP__
 
-#include "vue/ADessinable.hpp"
 #include "donjon/cases/ICaseVisiteur.hpp"
-#include "utils/IObservateur.hpp"
+#include "vue/ADessinable.hpp"
 #include "vue/ObjetDessinable.hpp"
-#include "vue/TextureGest.hpp"
 
 namespace vue
 {
-    class CaseDessinable : public vue::ADessinable<donjon::cases::ACase>,
-                           public donjon::cases::ICaseVisiteur,
-                           public utils::IObservateur<donjon::cases::ACase>
+    class CaseDessinable : public vue::ADessinable<donjon::cases::ACase>, public donjon::cases::ICaseVisiteur
     {
     private:
-        donjon::cases::ACase* m_case;
         sf::CircleShape m_hexagone;
         Texture_S m_textureSol;
         Texture_S m_textureTrou;
         ObjetDessinable m_objDessinable;
 
     public:
+        /**
+         * @brief Construit une CaseDessinable.
+         *
+         * @param cote La longueur du côté de l'hexagone (en px).
+         */
         CaseDessinable(float cote);
-        CaseDessinable(float cote, donjon::cases::ACase& iCase);
-        virtual ~CaseDessinable() {}
 
-        void setCote(float cote) override;
+        /**
+         * @brief Construit une CaseDessinable.
+         *
+         * @param cote La longueur du côté de l'hexagone (en px).
+         * @param aCase La case à dessiner.
+         *
+         * @throw std::invalid_argument Quand aCase est null.
+         */
+        CaseDessinable(float cote, donjon::cases::ACase_S aCase);
 
-        void setElement(donjon::cases::ACase& iCase) override;
-
+        /**
+         * @brief Surligne la case.
+         *
+         * Quand elle est surlignée, ses bordures sont plus épaisses et jaune.
+         * Le fond est jaunie.
+         */
         void surligner();
 
-        virtual void visite(const donjon::cases::Sol& sol) override;
+        /* Implémentation de ADessinable */
+        void setCote(float cote) override;
+        void setElement(donjon::cases::ACase_S aCase) override;
+        void visite(const donjon::cases::Sol& sol) override;
+        void visite(const donjon::cases::Trou& trou) override;
+        /* Implémentation de Drawable */
+        void draw(sf::RenderTarget& target, sf::RenderStates states) const override;
 
-        virtual void visite(const donjon::cases::Trou& trou) override;
-
-        virtual void draw(sf::RenderTarget& target, sf::RenderStates states) const override;
-
-        virtual void actualiser(const donjon::cases::ACase& iCase) override;
+    private:
+        /**
+         * @brief Préparer le dessinable pour représenter la case.
+         */
+        void preparer();
     };
 } // namespace vue
 #endif // __CASEDESSINABLE_HPP__

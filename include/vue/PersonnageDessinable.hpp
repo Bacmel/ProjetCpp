@@ -3,15 +3,13 @@
 
 #include <SFML/Graphics.hpp>
 #include "per/IPersonnageVisiteur.hpp"
-#include "utils/IObservateur.hpp"
 #include "vue/ADessinable.hpp"
 #include "vue/TextureGest.hpp"
 
 namespace vue
 {
     class PersonnageDessinable : public vue::ADessinable<per::APersonnage>,
-                                 public per::IPersonnageVisiteur,
-                                 public utils::IObservateur<per::APersonnage>
+                                 public per::IPersonnageVisiteur
     {
     private:
         float m_margin;
@@ -27,14 +25,15 @@ namespace vue
          * @brief Crée un dessinateur de Personnage.
          *
          * @param cote La longueur du côté des hexagones.
-         * @param aPersonnage Un personnage à dessiner.
          */
         PersonnageDessinable(float cote = 50);
-        PersonnageDessinable(float cote, per::APersonnage& aPersonnage);
-        PersonnageDessinable(const PersonnageDessinable& autre);
-        PersonnageDessinable& operator=(const PersonnageDessinable& autre);
-        ~PersonnageDessinable();
-
+        /**
+         * @brief Crée un dessinateur de Personnage.
+         *
+         * @param cote La longueur du côté des hexagones.
+         * @param aPersonnage Un personnage à dessiner.
+         */
+        PersonnageDessinable(float cote, per::APersonnage_S aPersonnage);
 
         /**
          * @brief Obtient la couleur du personnage.
@@ -57,17 +56,20 @@ namespace vue
          */
         void setCouleur(const sf::Color& couleur);
 
-        void setElement(per::APersonnage& aPersonnage) override;
-
-        virtual void draw(sf::RenderTarget& target, sf::RenderStates states) const override;
-
-        virtual void visiter(const per::Heros& heros) override;
-
-        virtual void visiter(const per::Fantassin& fantassin) override;
-
-        virtual void actualiser(const per::APersonnage& info) override;
+        /* Implémentation de ADessinable */
+        void setElement(per::APersonnage_S aPersonnage) override;
+        /* Implémentation de Drawable */
+        void draw(sf::RenderTarget& target, sf::RenderStates states) const override;
+        /* Implémentation de IPersonnageVisiteur */
+        void visiter(const per::Heros& heros) override;
+        void visiter(const per::Fantassin& fantassin) override;
 
     private:
+        /**
+         * @brief Prépare le dessinable à représenter le personnage.
+         */
+        void preparer();
+
         /**
          * @brief Actualise la barre de santé au personnage.
          *

@@ -4,14 +4,13 @@
 #include <memory>
 #include "obj/IObjet.hpp"
 #include "per/APersonnage.hpp"
-#include "utils/AObservable.hpp"
 #include "utils/IActualisable.hpp"
 
 namespace donjon::cases
 {
     class ICaseVisiteur;
 
-    class ACase: public utils::AObservable<ACase>, public utils::IActualisable
+    class ACase : public utils::IActualisable
     {
     public:
         virtual ~ACase() = default;
@@ -50,7 +49,16 @@ namespace donjon::cases
          *
          * @throw err::SansObjetErreur Quand la case n'a pas d'objet.
          */
-        virtual const obj::IObjet& getObjet() const = 0;
+        virtual const obj::IObjet_SC getObjet() const = 0;
+
+        /**
+         * @brief Obtient l'objet déposé.
+         *
+         * @return const obj::IObjet& L'objet déposé.
+         *
+         * @throw err::SansObjetErreur Quand la case n'a pas d'objet.
+         */
+        virtual const obj::IObjet_S getObjet() = 0;
 
         /**
          * @brief Notifie qu'un personnage est arrivé.

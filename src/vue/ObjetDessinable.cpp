@@ -6,9 +6,8 @@ using namespace obj;
 
 namespace vue
 {
-    ObjetDessinable::ObjetDessinable(float cote, const obj::IObjet* iObjet) :
-        m_cote(cote),
-        m_objet(nullptr),
+    ObjetDessinable::ObjetDessinable(float cote) :
+        ADessinable(cote),
         m_sprite(),
         m_textureGravityGun(),
         m_textureTaser()
@@ -17,21 +16,27 @@ namespace vue
         TextureGest& gest = TextureGest::getInstance();
         m_textureGravityGun = gest.obtenir("resources/textures/obj/gravity_gun.png");
         m_textureTaser = gest.obtenir("resources/textures/obj/taser.png");
-        if (iObjet != nullptr) { setObjet(*iObjet); }
+    }
+
+    ObjetDessinable::ObjetDessinable(float cote, obj::IObjet_S aObjet) : ObjetDessinable(cote)
+    {
+        if (aObjet == nullptr) { throw std::invalid_argument("ObjetDessinable::ObjetDessinable : aObjet est null!"); }
+        setElement(aObjet);
     }
 
     void ObjetDessinable::surligner() { m_sprite.setColor(Color(255, 255, 50)); }
 
-    void ObjetDessinable::setObjet(const obj::IObjet& iObjet)
+    void ObjetDessinable::setElement(IObjet_S iObjet)
     {
-        m_objet = &iObjet;
+        if (iObjet == nullptr) { throw std::invalid_argument("ObjetDessinable::setElement : iObjet est null!"); }
+        m_element = iObjet;
         m_sprite.setColor(Color::White);
-        iObjet.accepter(*this);
+        m_element->accepter(*this);
     }
 
     void ObjetDessinable::visiter(const obj::GravityGun&)
     {
-        m_sprite.setTexture(*m_textureGravityGun);
+        m_sprite.setTexture(*m_textureGravityGun, true);
         Vector2u dim = m_textureGravityGun->getSize();
         // Met l'origine du sprite en son centre.
         m_sprite.setOrigin(dim.x / 2., dim.y / 2.);
@@ -41,7 +46,7 @@ namespace vue
 
     void ObjetDessinable::visiter(const obj::Taser&)
     {
-        m_sprite.setTexture(*m_textureTaser);
+        m_sprite.setTexture(*m_textureTaser, true);
         Vector2u dim = m_textureTaser->getSize();
         // Met l'origine du sprite en son centre.
         m_sprite.setOrigin(dim.x / 2., dim.y / 2.);
