@@ -1,14 +1,14 @@
 #ifndef __PARTIECONT_HPP__
 #define __PARTIECONT_HPP__
 
-#include "controlleur/IControlleur.hpp"
+#include "controleur/IControleur.hpp"
 #include "utils/HexPixelConvertisseur.hpp"
 #include "vue/PartieDessinable.hpp"
 #include "partie/Partie.hpp"
 
-namespace controlleur
+namespace controleur
 {
-    class PartieCont : public IControlleur
+    class PartieCont : public IControleur
     {
     private:
         const vue::PartieDessinable* m_dessinable;
@@ -24,5 +24,5 @@ namespace controlleur
         bool clicObjet(const sf::Vector2f& coordonneesClic);
         void clicCase(const sf::Vector2f& coordonneesClic, const vue::Fenetre& source);
     };
-} // namespace controlleur
+} // namespace controleur
 #endif // __PARTIECONT_HPP__

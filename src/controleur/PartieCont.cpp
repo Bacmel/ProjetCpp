@@ -1,4 +1,4 @@
-#include "controlleur/PartieCont.hpp"
+#include "controleur/PartieCont.hpp"
 #include <iostream>
 #include <stdexcept>
 #include "vue/Fenetre.hpp"
@@ -7,7 +7,7 @@ using namespace sf;
 using namespace partie;
 using namespace utils;
 
-namespace controlleur
+namespace controleur
 {
     PartieCont::PartieCont(const vue::PartieDessinable& dessinable, Partie& partie) :
         m_dessinable(&dessinable),
@@ -75,4 +75,4 @@ namespace controlleur
         {
         }
     }
-} // namespace controlleur
+} // namespace controleur

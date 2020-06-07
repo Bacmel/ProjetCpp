@@ -124,7 +124,7 @@ namespace partie
          * @param strategie La stratégie pour l'équipe.
          * @return L'indice de l'équipe crée.
          */
-        size_t genererEquipe(strat::IStrategie_S& strategie);
+        size_t genererEquipe(strat::IStrategie_S strategie);
 
         /**
          * @brief Genere un personnage dans une equipe.

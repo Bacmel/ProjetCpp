@@ -1,5 +1,5 @@
-#ifndef __ICONTROLLEUR_HPP__
-#define __ICONTROLLEUR_HPP__
+#ifndef __ICONTROLEUR_HPP__
+#define __ICONTROLEUR_HPP__
 
 #include <SFML/Graphics.hpp>
 #include <memory>
@@ -8,15 +8,15 @@ namespace vue
     class Fenetre;
 }
 
-namespace controlleur
+namespace controleur
 {
     /**
      * @brief Gestionnaire d'évènements.
      */
-    class IControlleur
+    class IControleur
     {
     public:
-        virtual ~IControlleur() = default;
+        virtual ~IControleur() = default;
 
         /**
          * @brief Gère l'évènement provenant de la fenêtre.
@@ -27,7 +27,7 @@ namespace controlleur
         virtual void enEvenement(const vue::Fenetre& source, sf::Event& even) = 0;
     };
 
-    using IControlleur_S = std::shared_ptr<IControlleur>;
-    using IControlleur_SC = std::shared_ptr<const IControlleur>;
-} // namespace controlleur
-#endif // __ICONTROLLEUR_HPP__
+    using IControleur_S = std::shared_ptr<IControleur>;
+    using IControleur_SC = std::shared_ptr<const IControleur>;
+} // namespace controleur
+#endif // __ICONTROLEUR_HPP__
