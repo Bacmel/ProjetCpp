@@ -24,7 +24,7 @@ namespace vue
         setElement(aObjet);
     }
 
-    void ObjetDessinable::surligner() { m_sprite.setColor(Color(255, 255, 50)); }
+    void ObjetDessinable::setColor(const sf::Color& couleur) { m_sprite.setColor(couleur); }
 
     void ObjetDessinable::setElement(IObjet_S iObjet)
     {

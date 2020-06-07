@@ -35,8 +35,10 @@ namespace vue
 
         /**
          * @brief Mets en surbriance l'objet dessiné.
+         *
+         * @param La couleur de surbriance.
          */
-        void surligner();
+        void setColor(const sf::Color& couleur);
 
         /**
          * @brief Obtient la longueur du côté de l'hexagone utilisé.

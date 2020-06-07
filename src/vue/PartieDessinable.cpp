@@ -153,7 +153,10 @@ namespace vue
             objDessinable.setCote(contours.width);
             objDessinable.setPosition(contours.left + contours.width / 2, contours.top + contours.height / 2);
             objDessinable.setElement(objet);
-            if (objSel == objet) { objDessinable.surligner(); }
+            // L'objet est jaune s'il est sélectionné.
+            if (objSel == objet) { objDessinable.setColor(Color(255, 255, 50)); }
+            // L'objet est rouge s'il n'est pas utilisable (même s'il est sélectionné).
+            if (objet != nullptr && !objet->estUtilisable()) { objDessinable.setColor(Color(255, 25, 25)); }
             target.draw(objDessinable, states);
         }
     }
