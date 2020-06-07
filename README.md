@@ -42,6 +42,8 @@ Cette commande génère un exécutable nommé `Test`.
 
 Le fichier permet aussi de supprimer les fichiers objets avec la commande `make clear`. Pour en plus supprimer les exécutables, entrez la commande `make vclear`. On peut intégralement recompiler le jeu ou les tests avec les commandes respectives `make rebuild` et `make retest`.
 
+Remarque importante : Les tests comprennent un test de la partie graphique. Il ouvre une **fenêtre noir qu'il faut fermer pour terminer les tests**.
+
 ## Manuel d'utilisation
 
 Roblite oppose deux équipes de robots. La première équipe est de couleur rouge et la seconde est de couleur cyan. Les personnages apparaissent à une position aléatoire. Il en va de même pour les objets ramassables.
