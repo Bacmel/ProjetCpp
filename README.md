@@ -4,6 +4,8 @@
 
 Roblite s'inspire grandement du jeu mobile Hoplite. Cependant, l'univers est différent. Des micro-robots s'affronte pour la souveraineté sur une carte électronique ! Seulement un duo pourra y rester.
 
+Remerciement à [Bvok](https://facepunchss13.proboards.com/thread/1456/bvoks-sprite-bin) et [AK](https://images-wixmp-ed30a86b8c4ca887773594c2.wixmp.com/f/ef2c82eb-ab3b-4bdb-88ad-5bae9c705695/d95cy6j-83c3a500-8ded-4bab-bbdb-0f382fb7290e.png/v1/fill/w_353,h_118,q_80,strp/half_life_2_custom_gravity_gun_sprite_sheet_by_dantewreckmen_999_d95cy6j-fullview.jpg?token=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ1cm46YXBwOiIsImlzcyI6InVybjphcHA6Iiwib2JqIjpbW3siaGVpZ2h0IjoiPD0xMTgiLCJwYXRoIjoiXC9mXC9lZjJjODJlYi1hYjNiLTRiZGItODhhZC01YmFlOWM3MDU2OTVcL2Q5NWN5NmotODNjM2E1MDAtOGRlZC00YmFiLWJiZGItMGYzODJmYjcyOTBlLnBuZyIsIndpZHRoIjoiPD0zNTMifV1dLCJhdWQiOlsidXJuOnNlcnZpY2U6aW1hZ2Uub3BlcmF0aW9ucyJdfQ.3rRfddHg5iG5DBsjdDR1DXeMTMV_QCNo3FhOpG8-5d0) pour leur sprites.
+
 ## Instructions de compilation
 
 ### Prérequis
