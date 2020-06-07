@@ -3,7 +3,7 @@
 
 #include <SFML/Graphics.hpp>
 #include <memory>
-#include "controlleur/IControlleur.hpp"
+#include "controleur/IControleur.hpp"
 #include "partie/Partie.hpp"
 #include "vue/Fenetre.hpp"
 #include "vue/PartieDessinable.hpp"
@@ -14,7 +14,7 @@ private:
     std::shared_ptr<partie::Partie> m_partie;
     std::shared_ptr<vue::Fenetre> m_fenetre;
     std::shared_ptr<vue::PartieDessinable> m_partieDessinable;
-    controlleur::IControlleur_S m_controlleur;
+    controleur::IControleur_S m_controleur;
 
 public:
     Roblite();

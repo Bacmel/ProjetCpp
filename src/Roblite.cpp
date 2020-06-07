@@ -1,12 +1,12 @@
 #include "Roblite.hpp"
-#include "controlleur/PartieCont.hpp"
+#include "controleur/PartieCont.hpp"
 #include "obj/GravityGun.hpp"
 #include "obj/Taser.hpp"
 #include "partie/strat/JoueurHumain.hpp"
 #include "per/Fantassin.hpp"
 #include "per/Heros.hpp"
 
-Roblite::Roblite() : m_partie(), m_fenetre(), m_partieDessinable(), m_controlleur()
+Roblite::Roblite() : m_partie(), m_fenetre(), m_partieDessinable(), m_controleur()
 {
     preparerPartie();
     // Prépare la vue.
@@ -17,9 +17,9 @@ Roblite::Roblite() : m_partie(), m_fenetre(), m_partieDessinable(), m_controlleu
     m_partieDessinable = std::make_shared<vue::PartieDessinable>(25);
     m_partieDessinable->setElement(*m_partie);
     m_fenetre->setDessinable(m_partieDessinable);
-    // Prépare le controlleur.
-    m_controlleur = std::make_shared<controlleur::PartieCont>(*m_partieDessinable, *m_partie);
-    m_fenetre->attacher(sf::Event::MouseButtonPressed, m_controlleur);
+    // Prépare le controleur.
+    m_controleur = std::make_shared<controleur::PartieCont>(*m_partieDessinable, *m_partie);
+    m_fenetre->attacher(sf::Event::MouseButtonPressed, m_controleur);
 }
 
 void Roblite::jouer()

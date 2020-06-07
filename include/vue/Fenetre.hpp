@@ -4,7 +4,7 @@
 #include <SFML/Graphics.hpp>
 #include <list>
 #include <map>
-#include "controlleur/IControlleur.hpp"
+#include "controleur/IControleur.hpp"
 
 namespace vue
 {
@@ -12,7 +12,7 @@ namespace vue
     {
     private:
         sf::RenderWindow m_fenetre;
-        std::map<sf::Event::EventType, std::list<controlleur::IControlleur_S>> m_gestEven;
+        std::map<sf::Event::EventType, std::list<controleur::IControleur_S>> m_gestEven;
         std::shared_ptr<sf::Drawable> m_dessinable;
 
     public:
@@ -57,7 +57,7 @@ namespace vue
          * @param evenGest Le gestionnaire d'évènement.
          * @param type Le type suivit.
          */
-        void attacher(sf::Event::EventType type, controlleur::IControlleur_S evenGest);
+        void attacher(sf::Event::EventType type, controleur::IControleur_S evenGest);
 
         /**
          * @brief Detache un gestionnaire d'évènement d'un type d'évènement.
@@ -65,7 +65,7 @@ namespace vue
          * @param evenGest Le gestionnaire d'évènement.
          * @param type Le type suivit.
          */
-        void detacher(sf::Event::EventType type, controlleur::IControlleur_S evenGest);
+        void detacher(sf::Event::EventType type, controleur::IControleur_S evenGest);
 
         /**
          * @brief Définie l'objet dessiné
