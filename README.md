@@ -6,6 +6,8 @@ Roblite s'inspire grandement du jeu mobile Hoplite. Cependant, l'univers est dif
 
 Remerciement à [Bvok](https://facepunchss13.proboards.com/thread/1456/bvoks-sprite-bin) et [AK](https://images-wixmp-ed30a86b8c4ca887773594c2.wixmp.com/f/ef2c82eb-ab3b-4bdb-88ad-5bae9c705695/d95cy6j-83c3a500-8ded-4bab-bbdb-0f382fb7290e.png/v1/fill/w_353,h_118,q_80,strp/half_life_2_custom_gravity_gun_sprite_sheet_by_dantewreckmen_999_d95cy6j-fullview.jpg?token=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ1cm46YXBwOiIsImlzcyI6InVybjphcHA6Iiwib2JqIjpbW3siaGVpZ2h0IjoiPD0xMTgiLCJwYXRoIjoiXC9mXC9lZjJjODJlYi1hYjNiLTRiZGItODhhZC01YmFlOWM3MDU2OTVcL2Q5NWN5NmotODNjM2E1MDAtOGRlZC00YmFiLWJiZGItMGYzODJmYjcyOTBlLnBuZyIsIndpZHRoIjoiPD0zNTMifV1dLCJhdWQiOlsidXJuOnNlcnZpY2U6aW1hZ2Uub3BlcmF0aW9ucyJdfQ.3rRfddHg5iG5DBsjdDR1DXeMTMV_QCNo3FhOpG8-5d0) pour leur sprites.
 
+*Lisez le dans une autre langue:[English](README.en-gb.md)*
+
 ## Instructions de compilation
 
 ### Prérequis
@@ -83,7 +85,7 @@ Le terrain est composé de deux type de case:
 
 Le programme est pensé pour être facilement étendu. Pour cela, il existe de nombreuses interfaces ce qui réduit le couplage entre les classes concrètes. Dans cette même idée, nous avons implémenté un *design pattern* **MVC**. La vue s'appuie sur un pattern **visiteur**. Le contrôleur est notifié des évènements graphiques par un pattern **observer** modifié pour transmettre les informations sur l'évènement. Cela permet, par exemple d'ajouter des contrôles au clavier ou à la manette sans rien modifier. Enfin le jeu utilise une machine à état implémenté avec le **state pattern**. Nous avons créé un structure de donnée permettant de manipuler "naturellement" les grilles hexagonales. Nous avons alors développé un itérateur selon le [pattern iterator](https://upload.wikimedia.org/wikipedia/commons/thumb/1/13/Iterator_UML_class_diagram.svg/500px-Iterator_UML_class_diagram.svg.png). Nons avons aussi écrit un gestionnaire de textures basique qui utilise le design pattern **singleton** pour s'assurer de centraliser le chargement des textures et leur stockage.
 
-La bibliothèque implémentée pour l'utilisation des hexagones (namespace `hex`) et plus particulièrement l'objet `Coordonnees` et la machine à état (namespace `partie::etat`) sont essentielles au fonctionnement du jeu. Il peut aussi être intéressant de regarder un objet (par exemple `obj::GravityGun`, `vue::ObjetDessinable` et `Roblite`) pour constater la simplicité dans l'ajout de nouveaux objet. On peut faire le même constat en regardant `per::Heros`, `vue::PersonnageDessinalbe` et `Roblite` pour l'ajout de personnage. Ou encore, `donjon::cases::Sol`, `vue::CaseDessinable` et `partie::Partie` pour l'ajout de case.
+La bibliothèque implémentée pour l'utilisation des hexagones (namespace `hex`) et plus particulièrement l'objet `Coordonnees` et la machine à état (namespace `partie::etat`) sont essentielles au fonctionnement du jeu. Il peut aussi être intéressant de regarder un objet (par exemple `obj::GravityGun`, `vue::ObjetDessinable` et `Roblite`) pour constater la simplicité dans l'ajout de nouveaux objet. On peut faire le même constat en regardant `per::Heros`, `vue::PersonnageDessinable` et `Roblite` pour l'ajout de personnage. Ou encore, `donjon::cases::Sol`, `vue::CaseDessinable` et `partie::Partie` pour l'ajout de case.
 
 ## Organisation
 
